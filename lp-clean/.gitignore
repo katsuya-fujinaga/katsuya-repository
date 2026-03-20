@@ -1,0 +1,6 @@
+.DS_Store
+.cursor/
+pip_libs/
+.env
+__pycache__/
+*.pyc
