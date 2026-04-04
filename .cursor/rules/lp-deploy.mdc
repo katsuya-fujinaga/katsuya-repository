@@ -1,0 +1,33 @@
+---
+description: LP公開ルール・デプロイ先
+alwaysApply: true
+---
+# LP公開ルール・デプロイ先
+
+## 公開URL
+
+https://katsuya-fujinaga.github.io/lp-clean-sight/
+
+## 開発と公開の役割（hitobiji リポジトリ内）
+
+- **`lp-clean-sight/katsuya-taskboard/`** … **オリジナル（正）**。GitHub Pages の公開ソース。ここを編集して push する。
+- **`tools/katsuya-taskboard/`** … `lp-clean-sight` 側と**同一内容のコピー**（Cursor で触る用・バックアップ的なミラー）。**いまは `lp-clean-sight` をマスターに**し、差分を出したくないときは `lp-clean-sight` から `tools` へ上書きコピーする。
+
+## ディレクトリ構成（`lp-clean-sight` フォルダ内の「ルート」）
+
+- **ルート**: `index.html`（ツール・ページへのリンク一覧。ミニマルなハブ）
+- **ツール・サブサイト**: ルート直下にフォルダを並べる（例: `./katsuya-taskboard/index.html`）
+- **画像**: 各フォルダ内の `./images/` など（使用時）
+- **共通CSS/JS**: 必要になったときだけルートに `css/` `js/` を置く（現状は未使用）
+
+## デプロイ手順
+
+1. 修正後、GitHub Desktopでcommit
+2. Push origin
+3. GitHub Pagesで自動反映（約30秒〜1分）
+
+## 注意点
+
+- ルートに `index.html` があること（GitHub Pages の既定ドキュメント）
+- 相対パスで記述すること（`/` ではなく `./`）
+- サブページはルート直下のフォルダに置き、トップからは `./フォルダ名/index.html` でリンクする

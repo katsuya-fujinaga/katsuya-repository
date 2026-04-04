@@ -1,0 +1,70 @@
+# =============================================================================
+# GitHub に上げたくない「ゴミ・キャッシュ・秘密」を除外する
+# （ソースや .cursor/rules はコミット対象のまま）
+# =============================================================================
+
+# macOS
+.DS_Store
+**/.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# 環境変数・秘密（誤コミット防止）
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Node（使ったとき用）
+node_modules/
+.npm
+.yarn/
+
+# ログ・一時・バックアップ
+*.log
+*.tmp
+*.temp
+*.bak
+*.orig
+*.rej
+*~
+
+# キャッシュ・ツール生成物
+.cache/
+.parcel-cache/
+.turbo/
+*.tsbuildinfo
+
+# エディタ・IDE（プロジェクト設定は必要なら # を外して調整）
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+
+# Cursor：ルールは追跡する。キャッシュ系だけ除外したい場合
+.cursor/**/cache/
+.cursor/**/*.log
+
+# OS・ゴミ
+.Spotlight-V100
+.Trashes
+nul

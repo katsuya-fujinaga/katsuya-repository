@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>育脳カウンセラータイプ診断｜25問</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f7f4ef;
+      --card: #fff;
+      --ink: #2a2622;
+      --muted: #6b645c;
+      --accent: #c45c3e;
+      --accent-soft: #e8d5ce;
+      --line: #e0d8cf;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Zen Kaku Gothic New", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+    .wrap {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+    h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+      letter-spacing: 0.02em;
+    }
+    .lead {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin: 0 0 1.75rem;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 1.5rem 1.35rem;
+      box-shadow: 0 4px 24px rgba(42, 38, 34, 0.06);
+      border: 1px solid var(--line);
+    }
+    .progress {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .q-text {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+    .scale {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+    .scale label {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.65rem 0.75rem;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      font-size: 0.92rem;
+    }
+    .scale label:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent-soft);
+    }
+    .scale input { accent-color: var(--accent); }
+    .btn-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    button {
+      font-family: inherit;
+      font-size: 0.95rem;
+      padding: 0.75rem 1.4rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--line);
+    }
+    .intro-actions { margin-top: 1.5rem; }
+    .result-type {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 0 0 0.5rem;
+    }
+    .catch {
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin: 0 0 1.25rem;
+    }
+    .section-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin: 1.25rem 0 0.35rem;
+    }
+    .scores {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 1rem;
+      font-size: 0.88rem;
+      margin-top: 0.5rem;
+    }
+    .scores span { color: var(--muted); }
+    footer.note {
+      margin-top: 2rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header id="screen-intro">
+      <h1>育脳カウンセラータイプ診断</h1>
+      <p class="lead">
+        カウンセラーとしての「関わり方の強み」を、育脳の5つの軸（安心感→好奇心→創造→思考→自立）で可視化します。25問・約5分です。
+      </p>
+      <div class="card intro-actions">
+        <p style="margin:0;font-size:0.92rem;">
+          各文に、いまのあなたの感覚で答えてください。正解はありません。
+        </p>
+        <div class="btn-row">
+          <button type="button" class="btn-primary" id="btn-start">はじめる</button>
+        </div>
+      </div>
+    </header>
+
+    <section id="screen-quiz" class="hidden">
+      <p class="progress" id="progress-text"></p>
+      <div class="card">
+        <p class="q-text" id="question-text"></p>
+        <div class="scale" id="scale"></div>
+        <div class="btn-row">
+          <button type="button" class="btn-ghost" id="btn-back">戻る</button>
+          <button type="button" class="btn-primary" id="btn-next" disabled>次へ</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-result" class="hidden">
+      <div class="card">
+        <p class="section-title">あなたのタイプ</p>
+        <p class="result-type" id="result-type"></p>
+        <p class="catch" id="result-catch"></p>
+        <p class="section-title">強み</p>
+        <p id="result-strength" style="margin:0;font-size:0.95rem;"></p>
+        <p class="section-title">伸ばすヒント</p>
+        <p id="result-hint" style="margin:0;font-size:0.95rem;"></p>
+        <p class="section-title">5軸スコア（参考）</p>
+        <div class="scores" id="scores"></div>
+        <div class="btn-row">
+          <button type="button" class="btn-ghost" id="btn-retry">もう一度</button>
+        </div>
+      </div>
+      <footer class="note">
+        本診断は自己理解・学習用です。資格や適性を保証するものではありません。
+      </footer>
+    </section>
+  </div>
+
+  <script>
+    const LABELS = ["A", "B", "C", "D", "E"];
+    const TYPE_KEYS = ["A", "B", "C", "D", "E"];
+
+    const QUESTIONS = [
+      { text: "初回の面談では、子どもの話より先に、ママの気持ちや状況を十分に聞きたいと思う。", type: "A" },
+      { text: "「うまくいっていない」と言うママに対して、まずは安心できる関係づくりを優先したい。", type: "A" },
+      { text: "ママが自分を責めているとき、事実の正しさより「そう感じたのは自然」という受容から入りたい。", type: "A" },
+      { text: "スキンシップや抱っこのような身体的なつながりの話にも、違和感なく関われる。", type: "A" },
+      { text: "相談のゴールは、「正しい育児」より「ママが自分を信じられる状態」に近いと感じる。", type: "A" },
+      { text: "子どもの「イタズラ」に近い行動を、好奇心や挑戦の表れとして捉え直すのが得意だ。", type: "B" },
+      { text: "ママに「すごいね」「試してみたんだね」と伝える言い換えを、具体的に提案したくなる。", type: "B" },
+      { text: "安全な範囲なら、止めるより試させる方向で話を組み立てることが多い。", type: "B" },
+      { text: "「まだ早いのでは」と不安なママに、子どものペースで試す小さな一歩を一緒に考えたい。", type: "B" },
+      { text: "新しいことへの挑戦や失敗を、成長の材料として前向きに言語化しやすい。", type: "B" },
+      { text: "積み木やごっこ遊びなど、遊びの場面を題材に話を広げやすい。", type: "C" },
+      { text: "子どもの行動を見て、「今、どんな力が育っているか」を一緒に探すのが好きだ。", type: "C" },
+      { text: "絵本や手遊びなど、親子で楽しめるツールを提案するのが得意だ。", type: "C" },
+      { text: "「問題行動」より「その行動から育ちうる力」にフォーカスして話をしたくなる。", type: "C" },
+      { text: "ママにも小さな「遊びの宿題」のような実践をイメージしてもらうのがうまい。", type: "C" },
+      { text: "アドバイスより、ママ自身の言葉で気づいてもらうための質問を大切にしている。", type: "D" },
+      { text: "「どう感じた？」「どうしたい？」と、ママの内側の声を引き出す場面が多い。", type: "D" },
+      { text: "正解をすぐに言わず、選択肢を並べてママに選んでもらう流れを作りやすい。", type: "D" },
+      { text: "夫婦や保育園との関係など、言葉にしにくいテーマも、対話のテンポで進められる。", type: "D" },
+      { text: "ママの話を要約し、「つまりこういうこと？」と確認するのが自然にできる。", type: "D" },
+      { text: "朝の準備や寝る前の流れなど、一日のリズムから整える提案をしたくなる。", type: "E" },
+      { text: "お手伝いや片付けなど、「小さな責任」から自立を育てる話がしやすい。", type: "E" },
+      { text: "家庭のルールは厳しさより、子どもが予測できる一貫性を重視して話を組む。", type: "E" },
+      { text: "ママの負担を減らすために、誰が何をするかなど役割分担の視点を入れやすい。", type: "E" },
+      { text: "「続けられるか」を重視し、理想より小さな習慣から提案することが多い。", type: "E" },
+    ];
+
+    const RESULTS = {
+      A: {
+        name: "アタッチメント・ナビ",
+        catch: "まず「関係の土台」から、育脳のスピードを上げる支援者。",
+        strength: "ママの安心感・自己肯定感を先に整えることで、親子の信頼ループに入りやすい。教材でいう「STEP1（安心感・愛着）」の視点が自然に出る。",
+        hint: "好奇心や遊びの視点（キュリオシティ・ブースター／プレイ・インタープリター）を一言足すと、「関係だけで終わらない」具体策に繋がる。",
+      },
+      B: {
+        name: "キュリオシティ・ブースター",
+        catch: "「ダメ」を減らし、試行と発見を味方にする支援者。",
+        strength: "子どもの探索や失敗を、挑戦として言い換えるのが得意。「STEP2（好奇心・探索）」の軸が強い。",
+        hint: "会話で考えさせる（ダイアログ・ファシリテーター）や、日常のルーティン（ルーティン・デザイナー）を一緒に設計すると、変化が定着しやすい。",
+      },
+      C: {
+        name: "プレイ・インタープリター",
+        catch: "遊びと「困った行動」に、非認知の意味を翻訳する支援者。",
+        strength: "場面を題材に、何の力が育っているかを共有しやすい。「STEP3（創造・挑戦）」に親和性が高い。",
+        hint: "ママの感情の土台（アタッチメント・ナビ）を先に確認すると、提案の受け取り方が変わる。",
+      },
+      D: {
+        name: "ダイアログ・ファシリテーター",
+        catch: "答えを渡さず、ママの気づきと言葉を引き出す支援者。",
+        strength: "傾聴と質問で、ママ自身の解決力を引き出す。「STEP4（思考力・表現）」の関わりに近い。",
+        hint: "具体的なルーティン案（ルーティン・デザイナー）や、遊びの一例（プレイ・インタープリター）を最後に添えると行動に繋がりやすい。",
+      },
+      E: {
+        name: "ルーティン・デザイナー",
+        catch: "日常の流れと習慣から、自立と社会性を育てる支援者。",
+        strength: "続けられる形に落とし込み、家庭の現実に合わせやすい。「STEP5（自立・習慣）」の視点が強い。",
+        hint: "ママの不安や罪悪感（アタッチメント・ナビ）に一度触れてからルールを話すと、抵抗が減る。",
+      },
+    };
+
+    const SCALE_OPTIONS = [
+      { v: 1, label: "あてはまらない" },
+      { v: 2, label: "あまりあてはまらない" },
+      { v: 3, label: "どちらとも言えない" },
+      { v: 4, label: "ややあてはまる" },
+      { v: 5, label: "とてもあてはまる" },
+    ];
+
+    let idx = 0;
+    const answers = [];
+
+    function show(el) { el.classList.remove("hidden"); }
+    function hide(el) { el.classList.add("hidden"); }
+
+    function renderQuestion() {
+      const q = QUESTIONS[idx];
+      document.getElementById("progress-text").textContent = `質問 ${idx + 1} / ${QUESTIONS.length}`;
+      document.getElementById("question-text").textContent = q.text;
+      const scale = document.getElementById("scale");
+      scale.innerHTML = "";
+      const saved = answers[idx];
+      SCALE_OPTIONS.forEach((opt) => {
+        const id = `opt-${idx}-${opt.v}`;
+        const lab = document.createElement("label");
+        lab.innerHTML = `<input type="radio" name="ans" value="${opt.v}" id="${id}" /> ${opt.label}`;
+        if (saved === opt.v) lab.querySelector("input").checked = true;
+        scale.appendChild(lab);
+      });
+      scale.querySelectorAll('input[name="ans"]').forEach((inp) => {
+        inp.addEventListener("change", () => {
+          answers[idx] = Number(inp.value);
+          document.getElementById("btn-next").disabled = false;
+        });
+      });
+      document.getElementById("btn-next").disabled = saved == null;
+      document.getElementById("btn-back").style.visibility = idx === 0 ? "hidden" : "visible";
+    }
+
+    function score() {
+      const sums = { A: 0, B: 0, C: 0, D: 0, E: 0 };
+      QUESTIONS.forEach((q, i) => {
+        sums[q.type] += answers[i] || 0;
+      });
+      let max = -1;
+      let winner = "A";
+      TYPE_KEYS.forEach((k) => {
+        if (sums[k] > max) {
+          max = sums[k];
+          winner = k;
+        }
+      });
+      return { sums, winner };
+    }
+
+    function showResult() {
+      const { sums, winner } = score();
+      const r = RESULTS[winner];
+      document.getElementById("result-type").textContent = r.name;
+      document.getElementById("result-catch").textContent = r.catch;
+      document.getElementById("result-strength").textContent = r.strength;
+      document.getElementById("result-hint").textContent = r.hint;
+      const names = {
+        A: "アタッチメント・ナビ",
+        B: "キュリオシティ・ブースター",
+        C: "プレイ・インタープリター",
+        D: "ダイアログ・ファシリテーター",
+        E: "ルーティン・デザイナー",
+      };
+      const box = document.getElementById("scores");
+      box.innerHTML = "";
+      TYPE_KEYS.forEach((k) => {
+        const row = document.createElement("div");
+        row.innerHTML = `<span>${names[k]}</span> ${sums[k]} / 25`;
+        box.appendChild(row);
+      });
+    }
+
+    document.getElementById("btn-start").addEventListener("click", () => {
+      hide(document.getElementById("screen-intro"));
+      show(document.getElementById("screen-quiz"));
+      idx = 0;
+      answers.length = 0;
+      renderQuestion();
+    });
+
+    document.getElementById("btn-next").addEventListener("click", () => {
+      if (answers[idx] == null) return;
+      if (idx < QUESTIONS.length - 1) {
+        idx++;
+        renderQuestion();
+      } else {
+        hide(document.getElementById("screen-quiz"));
+        show(document.getElementById("screen-result"));
+        showResult();
+      }
+    });
+
+    document.getElementById("btn-back").addEventListener("click", () => {
+      if (idx > 0) {
+        idx--;
+        renderQuestion();
+      }
+    });
+
+    document.getElementById("btn-retry").addEventListener("click", () => {
+      hide(document.getElementById("screen-result"));
+      show(document.getElementById("screen-intro"));
+    });
+  </script>
+</body>
+</html>
