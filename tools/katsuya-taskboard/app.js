@@ -13,6 +13,18 @@ const COL_DEFS = [
 
 const WD = ["日", "月", "火", "水", "木", "金", "土"];
 
+/** プロモの日付は年を入力させず、内部ではこの年で保存 */
+const PROMO_DATE_YEAR = 2026;
+
+const PROMO_CASE_OPTIONS = [
+  "育脳子育てカウンセラー",
+  "やさしく売れる占い師",
+  "星使いカウンセラー",
+  "未来覚醒カウンセラー",
+  "愛され手相カウンセラー",
+  "じぶんコンテンツ",
+];
+
 function isBusinessTask(t) {
   return t && (!t.kind || t.kind === "business");
 }
@@ -38,6 +50,60 @@ function formatLocalDate(d) {
 
 function toYMD(y, m0, d) {
   return `${y}-${String(m0 + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+}
+
+/** 月日のみ（4/18, 04-18, 4／18 等）→ YYYY-MM-DD（PROMO_DATE_YEAR）。無効なら "" */
+function parseMonthDayToYmd(raw) {
+  if (!raw || typeof raw !== "string") return "";
+  const s = raw
+    .trim()
+    .replace(/[．･]/g, ".")
+    .replace(/[／]/g, "/")
+    .replace(/[－ー−]/g, "-");
+  const m = /^(\d{1,2})\s*[./-]\s*(\d{1,2})$/.exec(s);
+  if (!m) return "";
+  const mo = parseInt(m[1], 10);
+  const day = parseInt(m[2], 10);
+  if (mo < 1 || mo > 12 || day < 1 || day > 31) return "";
+  const dt = new Date(PROMO_DATE_YEAR, mo - 1, day);
+  if (dt.getFullYear() !== PROMO_DATE_YEAR || dt.getMonth() !== mo - 1 || dt.getDate() !== day) return "";
+  return formatLocalDate(dt);
+}
+
+/** ISO日付 → 表示用 月/日（年なし） */
+function ymdToMonthDayDisplay(iso) {
+  if (!iso) return "";
+  const d = new Date(iso + "T12:00:00");
+  if (Number.isNaN(d.getTime())) return "";
+  return `${d.getMonth() + 1}/${d.getDate()}`;
+}
+
+function normalizeDueRangePair(startIso, endIso) {
+  let due = startIso || "";
+  let dueEnd = endIso || "";
+  if (!due && dueEnd) due = dueEnd;
+  if (due && dueEnd && dueEnd < due) dueEnd = "";
+  if (due && dueEnd && dueEnd <= due) dueEnd = "";
+  return { due, dueEnd };
+}
+
+function clearExtraPromoCaseOptions(selectEl) {
+  if (!selectEl) return;
+  selectEl.querySelectorAll("option[data-promo-extra]").forEach((n) => n.remove());
+}
+
+function setPromoCaseSelectValue(selectEl, value) {
+  if (!selectEl) return;
+  clearExtraPromoCaseOptions(selectEl);
+  const v = (value || "").trim();
+  if (v && !PROMO_CASE_OPTIONS.includes(v)) {
+    const o = document.createElement("option");
+    o.value = v;
+    o.textContent = `${v}（一覧外）`;
+    o.dataset.promoExtra = "1";
+    selectEl.appendChild(o);
+  }
+  selectEl.value = v || "";
 }
 
 function emptyState() {
@@ -124,6 +190,16 @@ const editFocusWrap = document.getElementById("edit-focus-wrap");
 const editKindBusiness = document.getElementById("edit-kind-business");
 const editKindSchedule = document.getElementById("edit-kind-schedule");
 const editKindPromotion = document.getElementById("edit-kind-promotion");
+const quickPromoExtra = document.getElementById("quick-promo-extra");
+const quickPromoCase = document.getElementById("quick-promo-case");
+const quickPromoStartMd = document.getElementById("quick-promo-start-md");
+const quickPromoEndMd = document.getElementById("quick-promo-end-md");
+const editPromoOnly = document.getElementById("edit-promo-only");
+const editPromoCase = document.getElementById("edit-promo-case");
+const editPromoStartMd = document.getElementById("edit-promo-start-md");
+const editPromoEndMd = document.getElementById("edit-promo-end-md");
+const editStandardProjectDates = document.getElementById("edit-standard-project-dates");
+const editDateHint = document.getElementById("edit-date-hint");
 const promoListEl = document.getElementById("promo-list");
 const promoEmptyEl = document.getElementById("promo-empty");
 const btnSave = document.getElementById("btn-save");
@@ -707,10 +783,49 @@ function renderAll() {
 }
 
 function addTask(title) {
-  const t = title.trim();
-  if (!t) return;
   const v = document.querySelector('input[name="quick-kind"]:checked')?.value || "business";
   const kind = v === "schedule" ? "schedule" : v === "promotion" ? "promotion" : "business";
+  const t = title.trim();
+
+  if (kind === "promotion") {
+    const caseName = quickPromoCase?.value?.trim() || "";
+    if (!caseName) {
+      alert("プロモでは案件名を選んでください。");
+      return;
+    }
+    const startRaw = quickPromoStartMd?.value || "";
+    const endRaw = quickPromoEndMd?.value || "";
+    let due = parseMonthDayToYmd(startRaw);
+    let dueEnd = parseMonthDayToYmd(endRaw);
+    const norm = normalizeDueRangePair(due, dueEnd);
+    due = norm.due;
+    dueEnd = norm.dueEnd;
+    if ((startRaw.trim() && !due) || (endRaw.trim() && !dueEnd)) {
+      alert(`日付は月/日で入力してください（例: 4/18）。年は不要で、${PROMO_DATE_YEAR}年として保存されます。`);
+      return;
+    }
+    const id = uid();
+    state.tasks[id] = {
+      id,
+      kind,
+      title: t || caseName,
+      note: "",
+      project: caseName,
+      due,
+      dueEnd,
+      startTime: "",
+      endTime: "",
+      focus: false,
+    };
+    saveState(state);
+    renderAll();
+    quickInput.value = "";
+    if (quickPromoStartMd) quickPromoStartMd.value = "";
+    if (quickPromoEndMd) quickPromoEndMd.value = "";
+    return;
+  }
+
+  if (!t) return;
   const id = uid();
   state.tasks[id] = {
     id,
@@ -733,13 +848,22 @@ function addTask(title) {
 }
 
 function syncModalKindUI() {
-  const nonBiz = editKindSchedule?.checked || editKindPromotion?.checked;
-  if (!editFocusWrap) return;
-  if (nonBiz) {
-    editFocusWrap.classList.add("is-disabled");
-    editFocus.checked = false;
-  } else {
-    editFocusWrap.classList.remove("is-disabled");
+  const promo = !!editKindPromotion?.checked;
+  const nonBiz = editKindSchedule?.checked || promo;
+  if (editFocusWrap) {
+    if (nonBiz) {
+      editFocusWrap.classList.add("is-disabled");
+      editFocus.checked = false;
+    } else {
+      editFocusWrap.classList.remove("is-disabled");
+    }
+  }
+  if (editPromoOnly) editPromoOnly.hidden = !promo;
+  if (editStandardProjectDates) editStandardProjectDates.hidden = promo;
+  if (editDateHint) {
+    editDateHint.textContent = promo
+      ? `💡 プロモの日付は${PROMO_DATE_YEAR}年固定。月/日だけ入力（4/18 や 4-18）。カレンダー・並び順はこの日付を使います。`
+      : "💡 開始日だけならその1日だけ。終了日も入れると、その期間中ずっとカレンダー・タイムラインに出ます。時刻は「開始日」にだけ効きます。";
   }
 }
 
@@ -759,12 +883,22 @@ function openEdit(taskId) {
     editKindBusiness.checked = false;
     editKindSchedule.checked = false;
     editFocus.checked = false;
-  } else if (isScheduleTask(task)) {
+    setPromoCaseSelectValue(editPromoCase, task.project || "");
+    if (editPromoStartMd) editPromoStartMd.value = ymdToMonthDayDisplay(task.due || "");
+    if (editPromoEndMd) editPromoEndMd.value = ymdToMonthDayDisplay(task.dueEnd || "");
+  } else {
+    clearExtraPromoCaseOptions(editPromoCase);
+    if (editPromoCase) editPromoCase.value = "";
+    if (editPromoStartMd) editPromoStartMd.value = "";
+    if (editPromoEndMd) editPromoEndMd.value = "";
+  }
+
+  if (isScheduleTask(task)) {
     editKindSchedule.checked = true;
     editKindBusiness.checked = false;
     editKindPromotion.checked = false;
     editFocus.checked = false;
-  } else {
+  } else if (isBusinessTask(task)) {
     editKindBusiness.checked = true;
     editKindSchedule.checked = false;
     editKindPromotion.checked = false;
@@ -790,11 +924,31 @@ function saveEdit() {
 
   t.title = editTitle.value.trim() || "（無題）";
   t.note = editNote.value.trim();
-  t.project = editProject.value.trim();
-  t.due = editDue.value || "";
-  let dueEnd = editDueEnd?.value?.trim() || "";
-  if (t.due && dueEnd && dueEnd < t.due) dueEnd = "";
-  t.dueEnd = t.due && dueEnd && dueEnd > t.due ? dueEnd : "";
+
+  if (nextKind === "promotion") {
+    t.project = editPromoCase?.value?.trim() || "";
+    if (!t.project) {
+      alert("プロモでは案件名を選んでください。");
+      return;
+    }
+    const sRaw = editPromoStartMd?.value || "";
+    const eRaw = editPromoEndMd?.value || "";
+    let due = parseMonthDayToYmd(sRaw);
+    let dueEnd = parseMonthDayToYmd(eRaw);
+    if ((sRaw.trim() && !due) || (eRaw.trim() && !dueEnd)) {
+      alert(`日付は月/日で入力してください（例: 4/18）。年は不要で、${PROMO_DATE_YEAR}年として保存されます。`);
+      return;
+    }
+    const norm = normalizeDueRangePair(due, dueEnd);
+    t.due = norm.due;
+    t.dueEnd = norm.dueEnd;
+  } else {
+    t.project = editProject.value.trim();
+    t.due = editDue.value || "";
+    let dueEnd = editDueEnd?.value?.trim() || "";
+    if (t.due && dueEnd && dueEnd < t.due) dueEnd = "";
+    t.dueEnd = t.due && dueEnd && dueEnd > t.due ? dueEnd : "";
+  }
   t.startTime = editStart.value || "";
   t.endTime = editEnd.value || "";
   t.kind = nextKind;
@@ -875,6 +1029,21 @@ editKindBusiness?.addEventListener("change", syncModalKindUI);
 editKindSchedule?.addEventListener("change", syncModalKindUI);
 editKindPromotion?.addEventListener("change", syncModalKindUI);
 
+function syncQuickKindUI() {
+  const v = document.querySelector('input[name="quick-kind"]:checked')?.value || "business";
+  const promo = v === "promotion";
+  if (quickPromoExtra) quickPromoExtra.hidden = !promo;
+  if (quickInput) {
+    quickInput.placeholder = promo
+      ? "プロモのタイトル（空なら案件名をタイトルにします）"
+      : "追加…（ビジネスはカンバン「待機」へ／予定はカレンダーで日付を設定）";
+  }
+}
+
+document.querySelectorAll('input[name="quick-kind"]').forEach((el) => {
+  el.addEventListener("change", syncQuickKindUI);
+});
+
 modal.querySelectorAll("[data-close]").forEach((el) => {
   el.addEventListener("click", closeModal);
 });
@@ -912,4 +1081,5 @@ importFile.addEventListener("change", () => {
   reader.readAsText(file);
 });
 
+syncQuickKindUI();
 renderAll();

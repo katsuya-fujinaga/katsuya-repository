@@ -98,6 +98,31 @@
           <span>予定（仕事・外出）</span>
         </label>
       </div>
+      <div class="quick-promo-extra" id="quick-promo-extra" hidden>
+        <div class="quick-promo-grid">
+          <label class="field quick-promo-field">
+            <span class="field-label-row">案件名（プロモ）</span>
+            <select id="quick-promo-case" class="quick-select">
+              <option value="">案件を選ぶ</option>
+              <option value="育脳子育てカウンセラー">育脳子育てカウンセラー</option>
+              <option value="やさしく売れる占い師">やさしく売れる占い師</option>
+              <option value="星使いカウンセラー">星使いカウンセラー</option>
+              <option value="未来覚醒カウンセラー">未来覚醒カウンセラー</option>
+              <option value="愛され手相カウンセラー">愛され手相カウンセラー</option>
+              <option value="じぶんコンテンツ">じぶんコンテンツ</option>
+            </select>
+          </label>
+          <label class="field quick-promo-field">
+            <span class="field-label-row">開始（2026年 · 月/日）</span>
+            <input type="text" id="quick-promo-start-md" class="quick-md-input" inputmode="numeric" placeholder="例: 4/18" autocomplete="off" />
+          </label>
+          <label class="field quick-promo-field">
+            <span class="field-label-row">終了（任意 · 同じく2026年）</span>
+            <input type="text" id="quick-promo-end-md" class="quick-md-input" inputmode="numeric" placeholder="例: 4/22" autocomplete="off" />
+          </label>
+        </div>
+        <p class="quick-promo-hint">プロモ追加時は案件名を選んでください。日付は年なしで月/日（ハイフン可）。内部では2026年として保存されます。</p>
+      </div>
       <label class="sr-only" for="quick-input">新規タスク</label>
       <div class="quick-input-row">
         <div class="quick-input-wrap">
@@ -154,7 +179,7 @@
       <p class="promo-hub-lead">タスク（カンバン）とは別の置き場です。複数プロモが重なってもそのまま並べられます。開始日で並び替え。</p>
     </header>
     <div id="promo-list" class="promo-list"></div>
-    <p id="promo-empty" class="promo-empty" hidden>プロモを追加するとここに一覧されます。上の「プロモ」で追加 → 編集で開始日・終了日を入れてください。</p>
+    <p id="promo-empty" class="promo-empty" hidden>プロモを追加するとここに一覧されます。上で「プロモ」を選び、案件名と（任意で）月/日を入れて追加。編集でも同じです。</p>
   </section>
 
   <div class="board-wrap">
@@ -186,6 +211,30 @@
           </label>
         </div>
       </fieldset>
+      <div class="edit-promo-only" id="edit-promo-only" hidden>
+        <label class="field">
+          <span class="field-label-row"><svg class="ico ico-field" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7V5a1 1 0 011-1h14a1 1 0 011 1v2M4 7h16M4 7v12a2 2 0 002 2h12a2 2 0 002-2V7M9 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> 案件名（プロモ）</span>
+          <select id="edit-promo-case" class="modal-select">
+            <option value="">案件を選ぶ</option>
+            <option value="育脳子育てカウンセラー">育脳子育てカウンセラー</option>
+            <option value="やさしく売れる占い師">やさしく売れる占い師</option>
+            <option value="星使いカウンセラー">星使いカウンセラー</option>
+            <option value="未来覚醒カウンセラー">未来覚醒カウンセラー</option>
+            <option value="愛され手相カウンセラー">愛され手相カウンセラー</option>
+            <option value="じぶんコンテンツ">じぶんコンテンツ</option>
+          </select>
+        </label>
+        <div class="field-row">
+          <label class="field">
+            <span class="field-label-row"><svg class="ico ico-field" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> 開始（2026年 · 月/日）</span>
+            <input type="text" id="edit-promo-start-md" inputmode="numeric" placeholder="例: 4/18" autocomplete="off" />
+          </label>
+          <label class="field">
+            <span class="field-label-row"><svg class="ico ico-field" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> 終了（任意）</span>
+            <input type="text" id="edit-promo-end-md" inputmode="numeric" placeholder="例: 4/22" autocomplete="off" />
+          </label>
+        </div>
+      </div>
       <label class="field">
         <span class="field-label-row"><svg class="ico ico-field" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7V5a1 1 0 011-1h14a1 1 0 011 1v2M4 7h16M4 7v12a2 2 0 002 2h12a2 2 0 002-2V7M9 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> タイトル</span>
         <input type="text" id="edit-title" />
@@ -194,21 +243,23 @@
         <span class="field-label-row"><svg class="ico ico-field" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16v12H4V6zm2 3h12M8 14h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> メモ</span>
         <textarea id="edit-note" rows="3"></textarea>
       </label>
-      <div class="field-row">
+      <div class="edit-standard-project-dates" id="edit-standard-project-dates">
+        <div class="field-row">
+          <label class="field">
+            <span class="field-label-row"><svg class="ico ico-field" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 7h18M5 7V5a2 2 0 012-2h10a2 2 0 012 2v2M5 7v10a2 2 0 002 2h10a2 2 0 002-2V7" stroke="currentColor" stroke-width="2"/><path d="M9 12h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> プロジェクト</span>
+            <input type="text" id="edit-project" placeholder="例: LP / メルマガ" />
+          </label>
+          <label class="field">
+            <span class="field-label-row"><svg class="ico ico-field" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> 開始日（カレンダー）</span>
+            <input type="date" id="edit-due" />
+          </label>
+        </div>
         <label class="field">
-          <span class="field-label-row"><svg class="ico ico-field" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 7h18M5 7V5a2 2 0 012-2h10a2 2 0 012 2v2M5 7v10a2 2 0 002 2h10a2 2 0 002-2V7" stroke="currentColor" stroke-width="2"/><path d="M9 12h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> プロジェクト</span>
-          <input type="text" id="edit-project" placeholder="例: LP / メルマガ" />
-        </label>
-        <label class="field">
-          <span class="field-label-row"><svg class="ico ico-field" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> 開始日（カレンダー）</span>
-          <input type="date" id="edit-due" />
+          <span class="field-label-row"><svg class="ico ico-field" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> 終了日（長期予定・任意）</span>
+          <input type="date" id="edit-due-end" />
         </label>
       </div>
-      <label class="field">
-        <span class="field-label-row"><svg class="ico ico-field" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> 終了日（長期予定・任意）</span>
-        <input type="date" id="edit-due-end" />
-      </label>
-      <p class="field-hint">💡 開始日だけならその1日だけ。終了日も入れると、その期間中ずっとカレンダー・タイムラインに出ます。時刻は「開始日」にだけ効きます。</p>
+      <p class="field-hint" id="edit-date-hint">💡 開始日だけならその1日だけ。終了日も入れると、その期間中ずっとカレンダー・タイムラインに出ます。時刻は「開始日」にだけ効きます。</p>
       <div class="field-row">
         <label class="field">
           <span class="field-label-row"><svg class="ico ico-field" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> 開始時刻</span>

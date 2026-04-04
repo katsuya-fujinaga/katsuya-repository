@@ -385,6 +385,80 @@ body {
   accent-color: var(--accent);
 }
 
+.quick-promo-extra {
+  margin-bottom: 0.25rem;
+}
+
+.quick-promo-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 0.65rem 0.75rem;
+  align-items: end;
+}
+
+@media (max-width: 720px) {
+  .quick-promo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.quick-promo-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.quick-promo-field .field-label-row {
+  font-weight: 500;
+}
+
+.quick-select,
+.modal-select {
+  font-family: inherit;
+  font-size: 0.9rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  width: 100%;
+  cursor: pointer;
+}
+
+.quick-select:focus,
+.modal-select:focus {
+  outline: none;
+  border-color: rgba(192, 132, 252, 0.55);
+  box-shadow: 0 0 0 3px rgba(88, 28, 135, 0.25);
+}
+
+.quick-md-input {
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(24, 27, 38, 0.85);
+  color: var(--text);
+  width: 100%;
+}
+
+.quick-md-input:focus {
+  outline: none;
+  border-color: rgba(192, 132, 252, 0.45);
+  box-shadow: 0 0 0 3px rgba(88, 28, 135, 0.2);
+}
+
+.quick-promo-hint {
+  margin: 0.5rem 0 0;
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.45;
+  max-width: 48rem;
+}
+
 .quick-input-row {
   display: flex;
   gap: 0.75rem;
