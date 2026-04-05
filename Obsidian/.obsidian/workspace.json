@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "a73523910f1f511d",
+        "id": "a9f059633affe58c",
         "type": "tabs",
         "children": [
           {
-            "id": "2c06db5c4c9e7a58",
+            "id": "5390d0075622a435",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -94,7 +94,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "パーソナル/藤永勝也_体質改善と1日のスケジュール.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +103,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "藤永勝也_体質改善と1日のスケジュールへのバックリンク"
+              "title": "バックリンク"
             }
           },
           {
@@ -113,12 +112,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "パーソナル/藤永勝也_体質改善と1日のスケジュール.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "藤永勝也_体質改善と1日のスケジュールからのアウトゴーイングリンク"
+              "title": "アウトゴーイングリンク"
             }
           },
           {
@@ -156,20 +154,30 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "パーソナル/藤永勝也_体質改善と1日のスケジュール.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "藤永勝也_体質改善と1日のスケジュールのアウトライン"
+              "title": "アウトライン"
+            }
+          },
+          {
+            "id": "2c06db5c4c9e7a58",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "グラフビュー"
             }
           }
-        ]
+        ],
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 578.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -177,14 +185,16 @@
       "graph:グラフビューを開く": false,
       "canvas:新規キャンバスを作成": false,
       "command-palette:コマンドパレットを開く": false,
-      "bases:新規ベースを作成": false
+      "bases:新規ベースを作成": false,
+      "templater-obsidian:Templater": false
     }
   },
-  "active": "9f735ae43a0bc799",
+  "active": "2c06db5c4c9e7a58",
   "lastOpenFiles": [
+    "パーソナル/藤永勝也_体質改善と1日のスケジュール.md",
+    "プロパティ.md",
     "パーソナル",
     "無題のファイル.canvas",
-    "パーソナル/藤永勝也_体質改善と1日のスケジュール.md",
     "1日のスケジュール.md",
     "育脳子育てカウンセラーメール",
     "タスクリスト.md",

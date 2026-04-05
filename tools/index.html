@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="藤永さん用ツールの入口。Katsuya Board、FFSセミナー台本など。" />
+  <title>ツール一覧 · lp-clean-sight</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --card: #1a2332;
+      --text: #e8eef4;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --border: rgba(148, 163, 184, 0.2);
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", Meiryo, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      margin: 0;
+      padding: 2rem 1.25rem 3rem;
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+      letter-spacing: 0.02em;
+    }
+    .lead {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin: 0 0 2rem;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    li {
+      margin: 0 0 0.75rem;
+    }
+    a.card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.15rem;
+      transition: border-color 0.15s, transform 0.1s;
+    }
+    a.card:hover {
+      border-color: rgba(56, 189, 248, 0.45);
+      transform: translateY(-1px);
+    }
+    a.card strong {
+      color: var(--accent);
+      display: block;
+      font-size: 1.05rem;
+      margin-bottom: 0.35rem;
+    }
+    a.card span.desc {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+    footer {
+      margin-top: 2.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <h1>ツール一覧</h1>
+  <p class="lead">このフォルダ（<code>tools/</code>）は、GitHub Pages リポジトリ <strong>lp-clean-sight</strong> のルートと同じ並びにしてあります。公開後は下記URLから開けます。</p>
+
+  <ul>
+    <li>
+      <a class="card" href="./katsuya-taskboard/index.html">
+        <strong>Katsuya Board</strong>
+        <span class="desc">ビジネスタスクのカンバン、カレンダー、同時進行プロモの一覧</span>
+      </a>
+    </li>
+    <li>
+      <a class="card" href="./ffs-seminar/index.html">
+        <strong>FFSセミナー台本</strong>
+        <span class="desc">迷いを戦略に変えるマネジメント構造セミナー（閲覧・印刷PDF）</span>
+      </a>
+    </li>
+  </ul>
+
+  <footer>
+    ローカル確認：この <code>index.html</code> をブラウザで開くか、静的サーバーで <code>tools/</code> をルートに指定してください。
+  </footer>
+</body>
+</html>
