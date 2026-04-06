@@ -1,0 +1,3781 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>迷いを戦略に変えるマネジメント構造セミナー（3時間版）</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700;900&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap');
+
+:root {
+  --tiffany: #81D8D0;
+  --tiffany-dark: #5BBFB6;
+  --tiffany-light: #B8EDE8;
+  --tiffany-pale: #E6F8F6;
+  --tiffany-bg: #F2FBFA;
+  --white: #FFFFFF;
+  --offwhite: #FAFCFC;
+  --pink: #F2A7B3;
+  --pink-light: #FCDDE2;
+  --pink-pale: #FFF0F3;
+  --coral: #F08C8C;
+  --lavender: #C5B8E8;
+  --lavender-light: #EDE8F8;
+  --yellow: #FFD97D;
+  --yellow-light: #FFF4D6;
+  --mint: #A8E6CF;
+  --text: #3D4F5F;
+  --text-light: #7A8F9E;
+  --text-dark: #2C3E4A;
+  --shadow: rgba(129,216,208,0.15);
+  --shadow-deep: rgba(0,0,0,0.06);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--white);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  color: var(--text);
+}
+body { touch-action: manipulation; }
+
+.slide-container { width: 100%; height: 100%; position: relative; }
+
+.slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(12px, 2.5vmin, 36px) clamp(16px, 3.5vw, 56px) clamp(88px, 15vmin, 120px) clamp(16px, 3.5vw, 56px);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+  background: var(--white);
+  overflow-y: auto;
+}
+
+.slide.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.slide-inner {
+  max-width: min(96vw, 1920px);
+  width: 100%;
+  text-align: center;
+  /* 投影＋スマホ視聴：本文を一括拡大（スマホは従来より大きめ） */
+  zoom: 1.32;
+}
+@media (max-width: 1024px) {
+  .slide-inner { zoom: 1.24; }
+}
+@media (max-width: 900px) {
+  .slide-inner { zoom: 1.18; }
+}
+@media (max-width: 480px) {
+  .slide-inner { zoom: 1.12; }
+}
+
+.section-tag {
+  display: inline-block;
+  font-size: clamp(16px, 1.9vmin, 20px);
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--tiffany-dark);
+  background: var(--tiffany-pale);
+  padding: 10px 24px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+
+h1 {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: clamp(36px, 4.8vmin, 62px);
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: clamp(30px, 3.9vmin, 50px);
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+}
+
+h3 {
+  font-size: clamp(22px, 2.7vmin, 34px);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--tiffany-dark);
+  margin-bottom: 12px;
+}
+
+p {
+  font-size: clamp(19px, 2.25vmin, 29px);
+  font-weight: 400;
+  line-height: 1.85;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+
+.lead {
+  font-size: clamp(22px, 2.7vmin, 34px);
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.highlight { color: var(--tiffany-dark); font-weight: 700; }
+.highlight-pink { color: var(--coral); font-weight: 700; }
+
+.emoji-big { font-size: clamp(48px, 6.5vmin, 80px); margin-bottom: 16px; display: block; }
+.emoji-mid { font-size: clamp(32px, 3.9vmin, 48px); }
+
+.divider {
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--tiffany), var(--pink));
+  margin: 20px auto;
+  border-radius: 2px;
+}
+
+/* ── カバースライド ── */
+.slide-cover {
+  background: linear-gradient(160deg, var(--tiffany-pale) 0%, var(--white) 40%, var(--pink-pale) 100%);
+}
+
+.slide-cover::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(129,216,208,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.slide-cover::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -80px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(242,167,179,0.1) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+/* ── グラデーション背景 ── */
+.bg-tiffany { background: linear-gradient(160deg, var(--tiffany-bg) 0%, var(--white) 100%); }
+.bg-pink { background: linear-gradient(160deg, var(--pink-pale) 0%, var(--white) 100%); }
+.bg-lavender { background: linear-gradient(160deg, var(--lavender-light) 0%, var(--white) 100%); }
+.bg-yellow { background: linear-gradient(160deg, var(--yellow-light) 0%, var(--white) 100%); }
+
+/* ── ペインリスト ── */
+ul.pain-list {
+  list-style: none;
+  text-align: left;
+  max-width: min(92vw, 1100px);
+  margin: 0 auto;
+}
+
+ul.pain-list li {
+  font-size: clamp(19px, 2.25vmin, 29px);
+  line-height: 1.55;
+  padding: 20px 0 20px 48px;
+  border-bottom: 1px solid var(--tiffany-pale);
+  position: relative;
+}
+
+ul.pain-list li::before {
+  content: attr(data-icon);
+  position: absolute;
+  left: 0; top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(24px, 3vmin, 36px);
+}
+
+/* ── カード ── */
+.card-grid {
+  display: grid;
+  gap: 20px;
+  margin-top: 28px;
+}
+
+.card-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+.card-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+.card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow: 0 4px 24px var(--shadow), 0 1px 4px var(--shadow-deep);
+  text-align: center;
+  border: 1px solid rgba(129,216,208,0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px var(--shadow), 0 2px 8px var(--shadow-deep);
+}
+
+.card-icon { font-size: clamp(40px, 4.9vmin, 60px); margin-bottom: 12px; display: block; }
+.card h3 { font-size: clamp(19px, 2.25vmin, 27px); color: var(--text-dark); margin-bottom: 10px; }
+.card p { font-size: clamp(17px, 2vmin, 24px); line-height: 1.7; margin: 0; }
+
+.card-accent {
+  border-top: 4px solid var(--tiffany);
+}
+
+.card-pink { border-top: 4px solid var(--pink); }
+.card-lavender { border-top: 4px solid var(--lavender); }
+
+/* ── ストーリーボックス ── */
+.story-box {
+  background: var(--tiffany-pale);
+  border-radius: 20px;
+  padding: 40px 44px;
+  margin: 28px auto;
+  max-width: min(92vw, 1200px);
+  text-align: left;
+  position: relative;
+}
+
+.story-box::before {
+  content: '"';
+  font-size: 64px;
+  color: var(--tiffany);
+  position: absolute;
+  top: 8px; left: 20px;
+  font-family: Georgia, serif;
+  line-height: 1;
+  opacity: 0.5;
+}
+
+.story-box p {
+  font-size: clamp(19px, 2.25vmin, 29px);
+  line-height: 1.95;
+  padding-left: 8px;
+  color: var(--text-dark);
+}
+
+.story-box .story-from {
+  text-align: right;
+  font-size: clamp(15px, 1.7vmin, 20px);
+  color: var(--text-light);
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+
+/* ── 吹き出し ── */
+.bubble-row {
+  display: flex;
+  gap: 20px;
+  max-width: min(92vw, 1200px);
+  margin: 16px auto;
+  align-items: flex-start;
+}
+
+.bubble-row.right { flex-direction: row-reverse; }
+
+.bubble-avatar {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.bubble-avatar.boss { background: var(--tiffany-pale); }
+.bubble-avatar.member { background: var(--pink-pale); }
+
+.bubble {
+  background: var(--tiffany-pale);
+  border-radius: 18px 18px 18px 4px;
+  padding: 20px 26px;
+  font-size: clamp(18px, 2.1vmin, 27px);
+  line-height: 1.65;
+  color: var(--text-dark);
+  max-width: min(85vw, 720px);
+  text-align: left;
+}
+
+.bubble-row.right .bubble {
+  background: var(--pink-pale);
+  border-radius: 18px 18px 4px 18px;
+  text-align: left;
+}
+
+/* ── VS比較 ── */
+.vs-container {
+  display: grid;
+  grid-template-columns: 1fr 50px 1fr;
+  gap: 16px;
+  align-items: center;
+  margin-top: 28px;
+  max-width: min(92vw, 1100px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.vs-card {
+  border-radius: 20px;
+  padding: 28px 24px;
+  text-align: center;
+}
+
+.vs-bad {
+  background: var(--pink-pale);
+  border: 2px solid var(--pink-light);
+}
+
+.vs-good {
+  background: var(--tiffany-pale);
+  border: 2px solid var(--tiffany-light);
+}
+
+.vs-mark {
+  font-size: 28px;
+  color: var(--text-light);
+  font-weight: 700;
+}
+
+.vs-card h3 { font-size: clamp(17px, 2vmin, 22px); margin-bottom: 8px; }
+.vs-bad h3 { color: var(--coral); }
+.vs-good h3 { color: var(--tiffany-dark); }
+
+/* ── フロー図 ── */
+.flow-vertical {
+  max-width: min(88vw, 900px);
+  margin: 24px auto 0;
+  text-align: center;
+}
+
+.flow-step {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 18px 26px;
+  font-size: clamp(18px, 2.1vmin, 22px);
+  line-height: 1.6;
+  box-shadow: 0 2px 12px var(--shadow-deep);
+  border-left: 4px solid var(--coral);
+  text-align: left;
+  margin-bottom: 4px;
+}
+
+.flow-arrow {
+  font-size: 20px;
+  color: var(--text-light);
+  margin: 4px 0;
+}
+
+.flow-step.good {
+  border-left-color: var(--tiffany);
+  background: var(--tiffany-pale);
+}
+
+/* ── セルフチェック ── */
+.check-area {
+  max-width: min(92vw, 1100px);
+  margin: 0 auto;
+  text-align: left;
+}
+
+.check-q {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 24px 28px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 16px var(--shadow-deep);
+  border: 1px solid var(--tiffany-pale);
+}
+
+.check-q-label {
+  font-size: clamp(14px, 1.6vmin, 17px);
+  font-weight: 700;
+  color: var(--tiffany-dark);
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.check-q-text {
+  font-size: clamp(19px, 2.2vmin, 22px);
+  font-weight: 500;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.check-options { display: flex; gap: 10px; }
+
+.check-btn {
+  flex: 1;
+  padding: 16px 18px;
+  border: 2px solid var(--tiffany-light);
+  background: var(--white);
+  color: var(--text);
+  font-size: clamp(16px, 1.9vmin, 19px);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  line-height: 1.5;
+  min-height: 48px;
+}
+
+.check-btn:hover {
+  border-color: var(--tiffany);
+  background: var(--tiffany-pale);
+}
+
+.check-btn.selected {
+  border-color: var(--tiffany-dark);
+  background: var(--tiffany-pale);
+  color: var(--tiffany-dark);
+  font-weight: 700;
+  box-shadow: 0 2px 12px var(--shadow);
+}
+
+/* ── 結果 ── */
+.result-types {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 24px;
+  text-align: left;
+}
+
+.result-type {
+  padding: 22px;
+  border-radius: 16px;
+  background: var(--offwhite);
+  border: 2px solid transparent;
+  opacity: 0.4;
+  transition: all 0.4s ease;
+}
+
+.result-type.active {
+  opacity: 1;
+  border-color: var(--tiffany);
+  background: var(--tiffany-pale);
+  box-shadow: 0 4px 20px var(--shadow);
+}
+
+.result-type h3 { font-size: clamp(17px, 2vmin, 20px); margin-bottom: 6px; }
+.result-type p { font-size: clamp(15px, 1.8vmin, 18px); line-height: 1.6; margin: 0; }
+
+.result-note {
+  margin-top: 28px;
+  padding: 20px 28px;
+  background: var(--pink-pale);
+  border-radius: 16px;
+  border: 2px dashed var(--pink);
+}
+
+.result-note p {
+  font-size: clamp(17px, 2vmin, 20px);
+  color: var(--text-dark);
+  font-weight: 500;
+  margin: 0;
+}
+
+/* ── タイムライン ── */
+.timeline {
+  max-width: min(90vw, 1000px);
+  margin: 24px auto 0;
+  text-align: left;
+}
+
+.tl-item {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.tl-dot {
+  width: 40px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tl-circle {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.tl-circle.before { background: var(--pink-pale); }
+.tl-circle.action { background: var(--yellow-light); }
+.tl-circle.after { background: var(--tiffany-pale); }
+
+.tl-line {
+  width: 2px;
+  flex: 1;
+  background: linear-gradient(to bottom, var(--tiffany-light), var(--pink-light));
+  margin-top: 6px;
+}
+
+.tl-content h3 { font-size: clamp(18px, 2.1vmin, 22px); margin-bottom: 4px; }
+.tl-content p { font-size: clamp(16px, 1.9vmin, 19px); line-height: 1.7; margin: 0; }
+
+/* ── 5因子 ── */
+.factor-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.factor-chip {
+  width: min(22vw, 180px);
+  min-width: 120px;
+  padding: 22px 14px;
+  border-radius: 20px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.factor-chip:hover { transform: translateY(-4px); }
+
+.factor-chip .f-icon { font-size: clamp(34px, 3.5vmin, 40px); margin-bottom: 8px; display: block; }
+.factor-chip .f-label { font-size: clamp(12px, 1.35vmin, 16px); color: var(--text-light); letter-spacing: 1px; font-weight: 700; }
+.factor-chip .f-name { font-size: clamp(16px, 2vmin, 22px); font-weight: 700; color: var(--text-dark); margin: 4px 0; }
+.factor-chip .f-desc { font-size: clamp(13px, 1.45vmin, 18px); color: var(--text); line-height: 1.5; }
+
+.factor-chip:nth-child(1) { background: linear-gradient(160deg, #FFE0E0, #FFF5F5); }
+.factor-chip:nth-child(2) { background: linear-gradient(160deg, var(--tiffany-pale), #F0FAF9); }
+.factor-chip:nth-child(3) { background: linear-gradient(160deg, var(--lavender-light), #F8F5FF); }
+.factor-chip:nth-child(4) { background: linear-gradient(160deg, var(--yellow-light), #FFFCF0); }
+.factor-chip:nth-child(5) { background: linear-gradient(160deg, #D4F0E0, #F0FFF5); }
+
+/* ── オファーボックス ── */
+.offer-box {
+  background: linear-gradient(160deg, var(--tiffany-pale) 0%, var(--white) 50%, var(--pink-pale) 100%);
+  border: 2px solid var(--tiffany);
+  border-radius: 24px;
+  padding: 44px 48px;
+  margin-top: 24px;
+  box-shadow: 0 8px 40px var(--shadow);
+}
+
+.offer-box h2 { font-size: clamp(24px, 3.1vmin, 40px); color: var(--tiffany-dark); margin-bottom: 20px; }
+
+.offer-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  text-align: left;
+  margin-top: 20px;
+}
+
+.offer-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.offer-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.offer-item p { font-size: clamp(16px, 1.9vmin, 19px); margin: 0; line-height: 1.7; }
+
+.offer-price {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 2px dashed var(--tiffany-light);
+  text-align: center;
+}
+
+.price-label { font-size: clamp(15px, 1.75vmin, 18px); color: var(--text-light); margin-bottom: 8px; }
+.price-original { font-size: clamp(19px, 2.2vmin, 22px); color: var(--text-light); text-decoration: line-through; margin-bottom: 4px; }
+
+.price-value {
+  font-size: clamp(44px, 6.5vmin, 78px);
+  font-weight: 900;
+  color: var(--tiffany-dark);
+  letter-spacing: -1px;
+}
+
+.price-value span { font-size: clamp(22px, 2.75vmin, 33px); font-weight: 700; }
+.price-note { font-size: clamp(14px, 1.6vmin, 16px); color: var(--text-light); margin-top: 6px; }
+
+/* ── 3ステップ ── */
+.steps-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  margin-top: 28px;
+}
+
+.step-item {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 28px 20px;
+  text-align: center;
+  box-shadow: 0 4px 24px var(--shadow-deep);
+  position: relative;
+}
+
+.step-num {
+  position: absolute;
+  top: -12px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--tiffany);
+  color: var(--white);
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  font-size: clamp(15px, 1.7vmin, 17px);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-item .step-icon { font-size: clamp(38px, 4.5vmin, 44px); margin: 8px 0 12px; display: block; }
+.step-item h3 { font-size: clamp(19px, 2.2vmin, 22px); color: var(--text-dark); margin-bottom: 8px; }
+.step-item p { font-size: clamp(15px, 1.8vmin, 18px); line-height: 1.7; margin: 0; }
+
+/* ── big message ── */
+.big-msg {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: clamp(36px, 5vmin, 70px);
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--tiffany-dark);
+}
+
+.big-msg-sub {
+  font-size: clamp(22px, 2.75vmin, 36px);
+  color: var(--text);
+  margin-top: 16px;
+  font-weight: 400;
+}
+
+/* ── インフォグラフィック：循環図 ── */
+.cycle-info {
+  position: relative;
+  width: min(72vmin, 520px);
+  height: min(72vmin, 520px);
+  margin: 20px auto;
+}
+
+.cycle-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px; height: 120px;
+  background: var(--pink-pale);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(15px, 1.7vmin, 18px);
+  font-weight: 700;
+  color: var(--coral);
+  text-align: center;
+  line-height: 1.4;
+  box-shadow: 0 4px 20px rgba(240,140,140,0.15);
+  z-index: 2;
+}
+
+.cycle-item {
+  position: absolute;
+  width: 110px;
+  text-align: center;
+  font-size: clamp(14px, 1.55vmin, 17px);
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.cycle-icon {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin: 0 auto 6px;
+  background: var(--white);
+  box-shadow: 0 2px 12px var(--shadow-deep);
+}
+
+.cycle-arrow {
+  position: absolute;
+  font-size: 18px;
+  color: var(--text-light);
+  opacity: 0.6;
+}
+
+/* ── ナビゲーション ── */
+.nav-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  min-height: clamp(56px, 9vmin, 76px);
+  height: auto;
+  padding-top: env(safe-area-inset-bottom, 0);
+  background: rgba(255,255,255,0.95);
+  border-top: 1px solid var(--tiffany-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px clamp(16px, 3vw, 40px) calc(8px + env(safe-area-inset-bottom, 0));
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+
+.nav-section-label {
+  font-size: clamp(13px, 1.55vmin, 18px);
+  color: var(--tiffany-dark);
+  font-weight: 700;
+  letter-spacing: 1px;
+  max-width: 42vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-counter { font-size: clamp(14px, 1.65vmin, 19px); color: var(--text-light); font-variant-numeric: tabular-nums; }
+
+.nav-btn {
+  background: none;
+  border: 1.5px solid var(--tiffany-light);
+  color: var(--tiffany-dark);
+  min-width: 48px;
+  min-height: 48px;
+  width: clamp(48px, 6vmin, 56px);
+  height: clamp(48px, 6vmin, 56px);
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: clamp(18px, 2.2vmin, 24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.nav-btn:hover {
+  background: var(--tiffany-pale);
+  border-color: var(--tiffany);
+}
+
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--tiffany), var(--pink));
+  transition: width 0.4s ease;
+  z-index: 100;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ── スピーカーノート ── */
+.speaker-note {
+  position: fixed;
+  bottom: clamp(72px, 14vmin, 96px);
+  right: 12px;
+  left: 12px;
+  max-width: min(100%, 380px);
+  margin-left: auto;
+  background: rgba(255,255,255,0.97);
+  border: 1.5px solid var(--tiffany-light);
+  border-radius: 16px;
+  padding: 18px 20px;
+  font-size: clamp(14px, 1.65vmin, 17px);
+  color: var(--text);
+  line-height: 1.65;
+  display: none;
+  z-index: 100;
+  box-shadow: 0 4px 24px var(--shadow);
+}
+
+.speaker-note.show { display: block; }
+
+.speaker-note-label {
+  font-size: clamp(11px, 1.2vmin, 13px);
+  color: var(--tiffany-dark);
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* ── フェードアニメーション ── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.active .fade-up { opacity: 1; transform: translateY(0); }
+.active .fade-up:nth-child(2) { transition-delay: 0.12s; }
+.active .fade-up:nth-child(3) { transition-delay: 0.24s; }
+.active .fade-up:nth-child(4) { transition-delay: 0.36s; }
+.active .fade-up:nth-child(5) { transition-delay: 0.48s; }
+.active .fade-up:nth-child(6) { transition-delay: 0.6s; }
+
+/* ── デコ円 ── */
+.deco-circle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* スマホ：カラムを縦にして読みやすく */
+@media (max-width: 900px) {
+  .steps-3 { grid-template-columns: 1fr; gap: 24px; }
+  .offer-details { grid-template-columns: 1fr; }
+  .card-grid.cols-2,
+  .card-grid.cols-3 { grid-template-columns: 1fr; }
+  .result-types { grid-template-columns: 1fr; }
+  .vs-container { grid-template-columns: 1fr; gap: 12px; }
+  .vs-mark { text-align: center; font-size: clamp(22px, 4vmin, 30px); margin: 4px auto; }
+  .factor-row { gap: 16px; }
+  .factor-chip { width: min(44vw, 200px); min-width: 140px; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<div class="slide-container" id="slideContainer">
+
+<!-- ═══ SLIDE 001 ═══ -->
+<div class="slide slide-cover active" data-section="表紙" data-note="3時間版オープニング。笑顔で挨拶。今日は休憩2回入ることを伝える。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="emoji-big">🌿</span>
+    </div>
+    <div class="fade-up">
+<p style="font-size:16px; color:var(--tiffany-dark); letter-spacing:3px; font-weight:700;">無料オンラインセミナー（3時間版）</p>
+    </div>
+    <div class="fade-up">
+<h1 style="font-size:42px; margin-top:20px;">
+        迷いを戦略に変える<br>
+        <span class="highlight">マネジメント構造</span>セミナー
+      </h1>
+    </div>
+    <div class="fade-up">
+<div class="divider"></div>
+    </div>
+    <div class="fade-up">
+<p style="font-size:20px; color:var(--text-light);">静かなリーダーのための設計</p>
+    </div>
+    <div class="fade-up">
+<p style="font-size:17px; color:var(--text-light); margin-top:28px;">講師：岩田 望美</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 002 ═══ -->
+<div class="slide" data-section="オープニング" data-note="正解・責めない・気づきの場、と約束する。">
+  <div class="slide-inner">
+    <div class="fade-up">
+      <h2>今日の約束</h2>
+      <p class="lead">正解を押しつけない／人を責めない／気づきの場</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 003 ═══ -->
+<div class="slide" data-section="オープニング" data-note="チャット・うなずき・匿名でOK。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">参加のお願い</span>
+    </div>
+    <div class="fade-up">
+<h2>一緒に進めてください</h2>
+      <p class="lead">うなずきやチャットで反応をください。<br>個人名・会社名がわかる書き込みは不要です。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 004 ═══ -->
+<div class="slide" data-section="オープニング" data-note="知る→気づく→次の一歩、の3段階。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">今日のゴール</span>
+    </div>
+    <div class="fade-up">
+<h2>3つのゴール</h2>
+      <p class="lead"><strong>①</strong> 伝わらない正体を「構造」で説明できる<br>
+      <strong>②</strong> 自分ごととしてズレに気づく<br>
+      <strong>③</strong> 次に何をするかが見える</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 005 ═══ -->
+<div class="slide" data-section="オープニング" data-note="アジェンダは成果で語る①。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">アジェンダ</span>
+    </div>
+    <div class="fade-up">
+<h2>成果で見る①</h2>
+      <p class="lead">「もっと説明すれば伝わるはず」が<br>うまくいかない理由がわかる</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 006 ═══ -->
+<div class="slide" data-section="オープニング" data-note="②。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">アジェンダ</span>
+    </div>
+    <div class="fade-up">
+<h2>成果で見る②</h2>
+      <p class="lead">「当たり前の違い」を<br>言葉にしやすくなる</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 007 ═══ -->
+<div class="slide" data-section="オープニング" data-note="③FFS。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">アジェンダ</span>
+    </div>
+    <div class="fade-up">
+<h2>成果で見る③</h2>
+      <p class="lead">FFSで「整え方」の視点に触れる<br>（診断の宣伝ではなく、設計の話）</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 008 ═══ -->
+<div class="slide" data-section="オープニング" data-note="一本道の地図。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">今日の地図</span>
+    </div>
+    <div class="fade-up">
+<h2>流れはシンプル</h2>
+      <p class="lead">共感 → ズレの構造 → FFS → 場面別 → 希望 → 次の一歩</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 009 ═══ -->
+<div class="slide bg-tiffany" data-section="導入" data-note="肩書きと経歴。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="emoji-big">👩‍💼</span>
+    </div>
+    <div class="fade-up">
+<h2>岩田 望美（いわた のぞみ）</h2>
+      <p>元エンジニア → 管理職。現場とマネジメントの両方を経験。<br>FFSをマネジメントと対話に活用しています。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 010 ═══ -->
+<div class="slide bg-tiffany" data-section="導入" data-note="スタンス：診断を渡すだけではない。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>私のスタンス</h2>
+      <p class="lead">診断結果を渡して終わり、ではなく、<br><span class="highlight">悩みと結果を紐づける対話</span>を大切にしています。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 011 ═══ -->
+<div class="slide" data-section="導入" data-note="おすすめの方。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">こんな方へ</span>
+    </div>
+    <div class="fade-up">
+<h2>今日の話が刺さりやすい方</h2>
+      <ul class="pain-list">
+        <li data-icon="💬">伝えているのに伝わらない</li>
+        <li data-icon="🪜">リーダーになってから迷いが増えた</li>
+        <li data-icon="🌫️">空気を読むだけで疲れる</li>
+        <li data-icon="🤫">静かにチームを整えたい</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 012 ═══ -->
+<div class="slide bg-pink" data-section="導入" data-note="チャットワーク①。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">ミニ参加</span>
+    </div>
+    <div class="fade-up">
+<h2>チャットで1つだけ</h2>
+      <p class="lead">いまいちばん引っかかっている場面を、一言で書いてください。<br>（例：指示が伝わらない、1on1が空転…）</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 013 ═══ -->
+<div class="slide" data-section="導入" data-note="反応へのお礼。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>ありがとうございます</h2>
+      <p class="lead">後半の「場面」のパートで、自分の言葉に置き換えて聞いてください。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 014 ═══ -->
+<div class="slide" data-section="導入" data-note="テーマ一言。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<div class="big-msg" style="font-size:clamp(28px,4vmin,44px);">静かなリーダーのための<br>マネジメント設計</div>
+      <p style="margin-top:24px;">迷いを戦略に変えて、関係の構造を整える。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 015 ═══ -->
+<div class="slide" data-section="導入" data-note="キーワード。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>今日のキーワード</h2>
+      <p class="lead">解読／取扱説明書／見えない設計図</p>
+      <p style="color:var(--text-light);">ラベルで切らず、構造で見るための比喩です。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 016 ═══ -->
+<div class="slide" data-section="問題提起" data-note="全体像①問題。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">90秒で全体像</span>
+    </div>
+    <div class="fade-up">
+<h2>① 問題</h2>
+      <p class="lead">「伝えてるのに伝わらない」「なんで噛み合わない」</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 017 ═══ -->
+<div class="slide" data-section="問題提起" data-note="全体像②誤解。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>② よくある誤解</h2>
+      <p class="lead">相手が悪い／自分が足りない／もっと説明・努力</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 018 ═══ -->
+<div class="slide" data-section="問題提起" data-note="全体像③転換〜次の一歩。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>③ 転換 → ④ 本当の原因 → ⑤ 嬉しさ → ⑥ 次の一歩</h2>
+      <p class="lead">当たり前が違う → 思考の型（FFS）→ 整える → 個別面談で紐づけ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 019 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="ここから問題の多層化。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">PART 1</span>
+    </div>
+    <div class="fade-up">
+<h2>まず共感から</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">ここから問題の多層化。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 020 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="😣">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">悩み①</span>
+    </div>
+    <div class="fade-up">
+<h2>プレイヤー時代はうまくいったのに…</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">😣</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 021 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="🤔">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">悩み②</span>
+    </div>
+    <div class="fade-up">
+<h2>何度言っても伝わらない気がする</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">🤔</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 022 ═══ -->
+<div class="slide bg-pink" data-section="問題の多層化" data-note="😓">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">悩み③</span>
+    </div>
+    <div class="fade-up">
+<h2>空気を読むだけで疲れる</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">😓</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 023 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="💦">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">悩み④</span>
+    </div>
+    <div class="fade-up">
+<h2>判断がいつも不安</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">💦</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 024 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="🥺">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">悩み⑤</span>
+    </div>
+    <div class="fade-up">
+<h2>自分でやった方が早い</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">🥺</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 025 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="ありがとうございます。多くの方が同じです。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">反応</span>
+    </div>
+    <div class="fade-up">
+<h2>チャットで「はい」</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">ありがとうございます。多くの方が同じです。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 026 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="列挙してからひっくり返す。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">世間の常識</span>
+    </div>
+    <div class="fade-up">
+<h2>部下の問題／もっと説明／もっと頑張る</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">列挙してからひっくり返す。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 027 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="なぜ、だろう？">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">問い</span>
+    </div>
+    <div class="fade-up">
+<h2>同じ壁にぶつかっていませんか？</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">なぜ、だろう？</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 028 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="逆説の提示。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">アハ①</span>
+    </div>
+    <div class="fade-up">
+<h2>伝えているつもりほど届いていない</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">逆説の提示。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 029 ═══ -->
+<div class="slide bg-pink" data-section="問題の多層化" data-note="意図のスライド。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">アハ①</span>
+    </div>
+    <div class="fade-up">
+<h2>上司の頭には意図がある</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">意図のスライド。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 030 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="出てくる言葉は一部。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">アハ①</span>
+    </div>
+    <div class="fade-up">
+<h2>言語化は一部だけ</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">出てくる言葉は一部。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 031 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="過去・文脈・忙しさ。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">アハ①</span>
+    </div>
+    <div class="fade-up">
+<h2>相手は補完して受け取る</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">過去・文脈・忙しさ。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 032 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="意図→言語化→受け取り→解釈">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">アハ①</span>
+    </div>
+    <div class="fade-up">
+<h2>ズレの構造</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">意図→言語化→受け取り→解釈</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 033 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="思考の型のズレが見えていないこと">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">アハ①</span>
+    </div>
+    <div class="fade-up">
+<h2>共通の敵</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">思考の型のズレが見えていないこと</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 034 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="無理に変えなくていい">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">アハ①</span>
+    </div>
+    <div class="fade-up">
+<h2>整える</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">無理に変えなくていい</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 035 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="セリフ提示。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">急ぎで</span>
+    </div>
+    <div class="fade-up">
+<h2>「急ぎでお願いね！」</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">セリフ提示。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 036 ═══ -->
+<div class="slide bg-pink" data-section="問題の多層化" data-note="イメージ。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">急ぎで</span>
+    </div>
+    <div class="fade-up">
+<h2>上司の頭：今日中・最優先</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">イメージ。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 037 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="イメージ。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">急ぎで</span>
+    </div>
+    <div class="fade-up">
+<h2>部下の頭：今週中・できれば早め</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">イメージ。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 038 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="能力だけの問題ではない。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">急ぎで</span>
+    </div>
+    <div class="fade-up">
+<h2>翌日「なんでまだ？」</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">能力だけの問題ではない。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 039 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="業種別の一例。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">別パターン</span>
+    </div>
+    <div class="fade-up">
+<h2>現場：在庫確認してから／すぐ動く</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">業種別の一例。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 040 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="締め前／定時前／翌朝まで">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">別パターン</span>
+    </div>
+    <div class="fade-up">
+<h2>オフィス：「今日中」の定義</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">締め前／定時前／翌朝まで</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 041 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="人によって中身が違う">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">言葉の解釈</span>
+    </div>
+    <div class="fade-up">
+<h2>急ぎ・ちゃんと・わかった・後で</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">人によって中身が違う</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 042 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="レイヤーを一段深く">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">前提のズレ</span>
+    </div>
+    <div class="fade-up">
+<h2>品質／スピード／リスクの優先</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">レイヤーを一段深く</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 043 ═══ -->
+<div class="slide bg-pink" data-section="問題の多層化" data-note="良い悪いではなく優先が違う">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">役割期待</span>
+    </div>
+    <div class="fade-up">
+<h2>リーダーは前に／メンバーは守る</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">良い悪いではなく優先が違う</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 044 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="評価や指示がすれ違う">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">良い仕事の定義</span>
+    </div>
+    <div class="fade-up">
+<h2>正解は一つではない</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">評価や指示がすれ違う</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 045 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="逆説。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">アハ③</span>
+    </div>
+    <div class="fade-up">
+<h2>仲良いのに仕事が噛み合わない</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">逆説。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 046 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="比喩。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">アハ③</span>
+    </div>
+    <div class="fade-up">
+<h2>見えない設計図</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">比喩。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 047 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="Five Factors &amp; Stress">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FFS</span>
+    </div>
+    <div class="fade-up">
+<h2>FFS理論の名前</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">Five Factors &amp; Stress</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 048 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="名前だけ。詳細はこれから。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">5因子</span>
+    </div>
+    <div class="fade-up">
+<h2>凝縮・受容・弁別・拡散・保全</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">名前だけ。詳細はこれから。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 049 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="メモ推奨。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">ブリッジ</span>
+    </div>
+    <div class="fade-up">
+<h2>後半は因子ごとに深掘り</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">メモ推奨。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 050 ═══ -->
+<div class="slide bg-pink" data-section="問題の多層化" data-note="30秒。共有不要。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">ワーク</span>
+    </div>
+    <div class="fade-up">
+<h2>直近1週間のすれ違いを1つメモ</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">30秒。共有不要。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 051 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="安心。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">ワーク</span>
+    </div>
+    <div class="fade-up">
+<h2>自分用のメモでOK</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">安心。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 052 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="休憩前に一言。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">希望の前置き</span>
+    </div>
+    <div class="fade-up">
+<h2>型が見えると整える</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">休憩前に一言。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 053 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="強いリーダーじゃなくていい。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">希望の前置き</span>
+    </div>
+    <div class="fade-up">
+<h2>整えるリーダーでいい</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">強いリーダーじゃなくていい。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 054 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="ワクワクに寄せる。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">希望の前置き</span>
+    </div>
+    <div class="fade-up">
+<h2>取扱説明書が見える感覚</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">ワクワクに寄せる。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 055 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="後半はFFSの深掘り。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">区切り</span>
+    </div>
+    <div class="fade-up">
+<h2>ここまで一旦区切り</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">後半はFFSの深掘り。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 056 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="飲み物を用意してください。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">区切り</span>
+    </div>
+    <div class="fade-up">
+<h2>休憩に入る前に</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">飲み物を用意してください。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 057 ═══ -->
+<div class="slide bg-pink" data-section="問題の多層化" data-note="5因子×マネジ視点。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">区切り</span>
+    </div>
+    <div class="fade-up">
+<h2>後半の予告</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">5因子×マネジ視点。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 058 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="講師が伸ばす用スライド。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">バッファ</span>
+    </div>
+    <div class="fade-up">
+<h2>（質問・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師が伸ばす用スライド。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 059 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="講師が伸ばす用スライド。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">バッファ</span>
+    </div>
+    <div class="fade-up">
+<h2>（質問・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師が伸ばす用スライド。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 060 ═══ -->
+<div class="slide" data-section="問題の多層化" data-note="講師が伸ばす用スライド。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">バッファ</span>
+    </div>
+    <div class="fade-up">
+<h2>（質問・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師が伸ばす用スライド。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 061 ═══ -->
+<div class="slide bg-yellow" data-section="休憩" data-note="10分休憩。再開時刻を表示。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="emoji-big">☕</span>
+    </div>
+    <div class="fade-up">
+<h2>休憩（10分）</h2>
+      <p class="lead">戻ったら、FFSの深掘りに入ります。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 062 ═══ -->
+<div class="slide" data-section="休憩" data-note="再開予告。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>後半の予告</h2>
+      <p class="lead">5因子を、マネジメントの現場に落とし込みます。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 063 ═══ -->
+<div class="slide bg-tiffany" data-section="FFSコア" data-note="凝縮性：タイトル。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR A</span>
+    </div>
+    <div class="fade-up">
+<h2>🔥 凝縮性</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">この因子のレンズ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 064 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="凝縮性：ひとこと定義。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR A</span>
+    </div>
+    <div class="fade-up">
+<h2>ひとことで</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">信念を軸に集める力</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 065 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="凝縮性：強みが出る場面。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR A</span>
+    </div>
+    <div class="fade-up">
+<h2>強みが出る場面</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">仕事の具体例でイメージ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 066 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="凝縮性：ストレス。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR A</span>
+    </div>
+    <div class="fade-up">
+<h2>ストレスが出やすい場面</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">あなたの疲れのパターン</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 067 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="凝縮性：誤解。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR A</span>
+    </div>
+    <div class="fade-up">
+<h2>誤解されやすいラベル</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">中身は設計図の違い</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 068 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="凝縮性：ミス①。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR A</span>
+    </div>
+    <div class="fade-up">
+<h2>マネジで起きやすいミス①</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">自分のクセに気づく</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 069 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="凝縮性：ミス②。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR A</span>
+    </div>
+    <div class="fade-up">
+<h2>マネジで起きやすいミス②</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">相手との関係に出やすい</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 070 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="凝縮性：すれ違い。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR A</span>
+    </div>
+    <div class="fade-up">
+<h2>相手因子が違うとき</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">ペース感・守りたいものが違う</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 071 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="凝縮性：ミニ事例。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR A</span>
+    </div>
+    <div class="fade-up">
+<h2>ミニ事例（会話）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">正しさではなく、守っているものを聞く</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 072 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="凝縮性：整え方。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR A</span>
+    </div>
+    <div class="fade-up">
+<h2>整え方のヒント</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">行動を1つだけ決める</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 073 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="凝縮性：フレーズ。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR A</span>
+    </div>
+    <div class="fade-up">
+<h2>言い換えフレーズ例</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">その場で使える一文</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 074 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="凝縮性：まとめ。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR A</span>
+    </div>
+    <div class="fade-up">
+<h2>凝縮性のまとめ</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">次の因子へ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 075 ═══ -->
+<div class="slide bg-tiffany" data-section="FFSコア" data-note="受容性：タイトル。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR B</span>
+    </div>
+    <div class="fade-up">
+<h2>🤗 受容性</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">この因子のレンズ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 076 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="受容性：ひとこと定義。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR B</span>
+    </div>
+    <div class="fade-up">
+<h2>ひとことで</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">受け止め、寄り添う力</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 077 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="受容性：強みが出る場面。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR B</span>
+    </div>
+    <div class="fade-up">
+<h2>強みが出る場面</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">仕事の具体例でイメージ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 078 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="受容性：ストレス。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR B</span>
+    </div>
+    <div class="fade-up">
+<h2>ストレスが出やすい場面</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">あなたの疲れのパターン</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 079 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="受容性：誤解。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR B</span>
+    </div>
+    <div class="fade-up">
+<h2>誤解されやすいラベル</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">中身は設計図の違い</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 080 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="受容性：ミス①。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR B</span>
+    </div>
+    <div class="fade-up">
+<h2>マネジで起きやすいミス①</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">自分のクセに気づく</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 081 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="受容性：ミス②。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR B</span>
+    </div>
+    <div class="fade-up">
+<h2>マネジで起きやすいミス②</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">相手との関係に出やすい</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 082 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="受容性：すれ違い。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR B</span>
+    </div>
+    <div class="fade-up">
+<h2>相手因子が違うとき</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">ペース感・守りたいものが違う</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 083 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="受容性：ミニ事例。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR B</span>
+    </div>
+    <div class="fade-up">
+<h2>ミニ事例（会話）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">正しさではなく、守っているものを聞く</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 084 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="受容性：整え方。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR B</span>
+    </div>
+    <div class="fade-up">
+<h2>整え方のヒント</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">行動を1つだけ決める</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 085 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="受容性：フレーズ。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR B</span>
+    </div>
+    <div class="fade-up">
+<h2>言い換えフレーズ例</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">その場で使える一文</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 086 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="受容性：まとめ。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR B</span>
+    </div>
+    <div class="fade-up">
+<h2>受容性のまとめ</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">次の因子へ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 087 ═══ -->
+<div class="slide bg-tiffany" data-section="FFSコア" data-note="弁別性：タイトル。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR C</span>
+    </div>
+    <div class="fade-up">
+<h2>⚖️ 弁別性</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">この因子のレンズ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 088 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="弁別性：ひとこと定義。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR C</span>
+    </div>
+    <div class="fade-up">
+<h2>ひとことで</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">比較・判断して選ぶ力</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 089 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="弁別性：強みが出る場面。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR C</span>
+    </div>
+    <div class="fade-up">
+<h2>強みが出る場面</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">仕事の具体例でイメージ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 090 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="弁別性：ストレス。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR C</span>
+    </div>
+    <div class="fade-up">
+<h2>ストレスが出やすい場面</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">あなたの疲れのパターン</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 091 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="弁別性：誤解。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR C</span>
+    </div>
+    <div class="fade-up">
+<h2>誤解されやすいラベル</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">中身は設計図の違い</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 092 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="弁別性：ミス①。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR C</span>
+    </div>
+    <div class="fade-up">
+<h2>マネジで起きやすいミス①</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">自分のクセに気づく</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 093 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="弁別性：ミス②。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR C</span>
+    </div>
+    <div class="fade-up">
+<h2>マネジで起きやすいミス②</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">相手との関係に出やすい</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 094 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="弁別性：すれ違い。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR C</span>
+    </div>
+    <div class="fade-up">
+<h2>相手因子が違うとき</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">ペース感・守りたいものが違う</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 095 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="弁別性：ミニ事例。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR C</span>
+    </div>
+    <div class="fade-up">
+<h2>ミニ事例（会話）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">正しさではなく、守っているものを聞く</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 096 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="弁別性：整え方。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR C</span>
+    </div>
+    <div class="fade-up">
+<h2>整え方のヒント</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">行動を1つだけ決める</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 097 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="弁別性：フレーズ。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR C</span>
+    </div>
+    <div class="fade-up">
+<h2>言い換えフレーズ例</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">その場で使える一文</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 098 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="弁別性：まとめ。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR C</span>
+    </div>
+    <div class="fade-up">
+<h2>弁別性のまとめ</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">次の因子へ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 099 ═══ -->
+<div class="slide bg-tiffany" data-section="FFSコア" data-note="拡散性：タイトル。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR D</span>
+    </div>
+    <div class="fade-up">
+<h2>🚀 拡散性</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">この因子のレンズ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 100 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="拡散性：ひとこと定義。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR D</span>
+    </div>
+    <div class="fade-up">
+<h2>ひとことで</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">広がり、動き出す力</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 101 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="拡散性：強みが出る場面。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR D</span>
+    </div>
+    <div class="fade-up">
+<h2>強みが出る場面</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">仕事の具体例でイメージ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 102 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="拡散性：ストレス。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR D</span>
+    </div>
+    <div class="fade-up">
+<h2>ストレスが出やすい場面</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">あなたの疲れのパターン</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 103 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="拡散性：誤解。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR D</span>
+    </div>
+    <div class="fade-up">
+<h2>誤解されやすいラベル</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">中身は設計図の違い</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 104 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="拡散性：ミス①。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR D</span>
+    </div>
+    <div class="fade-up">
+<h2>マネジで起きやすいミス①</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">自分のクセに気づく</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 105 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="拡散性：ミス②。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR D</span>
+    </div>
+    <div class="fade-up">
+<h2>マネジで起きやすいミス②</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">相手との関係に出やすい</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 106 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="拡散性：すれ違い。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR D</span>
+    </div>
+    <div class="fade-up">
+<h2>相手因子が違うとき</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">ペース感・守りたいものが違う</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 107 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="拡散性：ミニ事例。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR D</span>
+    </div>
+    <div class="fade-up">
+<h2>ミニ事例（会話）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">正しさではなく、守っているものを聞く</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 108 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="拡散性：整え方。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR D</span>
+    </div>
+    <div class="fade-up">
+<h2>整え方のヒント</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">行動を1つだけ決める</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 109 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="拡散性：フレーズ。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR D</span>
+    </div>
+    <div class="fade-up">
+<h2>言い換えフレーズ例</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">その場で使える一文</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 110 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="拡散性：まとめ。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR D</span>
+    </div>
+    <div class="fade-up">
+<h2>拡散性のまとめ</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">次の因子へ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 111 ═══ -->
+<div class="slide bg-tiffany" data-section="FFSコア" data-note="保全性：タイトル。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR E</span>
+    </div>
+    <div class="fade-up">
+<h2>🛡️ 保全性</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">この因子のレンズ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 112 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="保全性：ひとこと定義。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR E</span>
+    </div>
+    <div class="fade-up">
+<h2>ひとことで</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">守り、改善する力</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 113 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="保全性：強みが出る場面。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR E</span>
+    </div>
+    <div class="fade-up">
+<h2>強みが出る場面</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">仕事の具体例でイメージ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 114 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="保全性：ストレス。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR E</span>
+    </div>
+    <div class="fade-up">
+<h2>ストレスが出やすい場面</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">あなたの疲れのパターン</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 115 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="保全性：誤解。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR E</span>
+    </div>
+    <div class="fade-up">
+<h2>誤解されやすいラベル</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">中身は設計図の違い</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 116 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="保全性：ミス①。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR E</span>
+    </div>
+    <div class="fade-up">
+<h2>マネジで起きやすいミス①</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">自分のクセに気づく</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 117 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="保全性：ミス②。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR E</span>
+    </div>
+    <div class="fade-up">
+<h2>マネジで起きやすいミス②</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">相手との関係に出やすい</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 118 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="保全性：すれ違い。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR E</span>
+    </div>
+    <div class="fade-up">
+<h2>相手因子が違うとき</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">ペース感・守りたいものが違う</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 119 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="保全性：ミニ事例。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR E</span>
+    </div>
+    <div class="fade-up">
+<h2>ミニ事例（会話）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">正しさではなく、守っているものを聞く</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 120 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="保全性：整え方。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR E</span>
+    </div>
+    <div class="fade-up">
+<h2>整え方のヒント</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">行動を1つだけ決める</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 121 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="保全性：フレーズ。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR E</span>
+    </div>
+    <div class="fade-up">
+<h2>言い換えフレーズ例</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">その場で使える一文</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 122 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="保全性：まとめ。台本はセミナーシナリオ_3時間版.md を参照。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">FACTOR E</span>
+    </div>
+    <div class="fade-up">
+<h2>保全性のまとめ</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">次の因子へ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 123 ═══ -->
+<div class="slide bg-lavender" data-section="FFSコア" data-note="診断で思考特性を把握">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>自分を知る</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">診断で思考特性を把握</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 124 ═══ -->
+<div class="slide bg-lavender" data-section="FFSコア" data-note="メンバーのパターンを理解">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>相手を知る</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">メンバーのパターンを理解</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 125 ═══ -->
+<div class="slide bg-lavender" data-section="FFSコア" data-note="場当たりから設計へ">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>関係を設計する</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">場当たりから設計へ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 126 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="因子に良い悪いはない、と説明">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>よくある質問①</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">因子に良い悪いはない、と説明</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 127 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="ストレスの出方は個人差">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>よくある質問②</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">ストレスの出方は個人差</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 128 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="診断は入口、対話が本番">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>よくある質問③</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">診断は入口、対話が本番</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 129 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="ここから場面別パートへ">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>迷いを卒業する流れ</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">ここから場面別パートへ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 130 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>（深掘り・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 131 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>（深掘り・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 132 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>（深掘り・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 133 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>（深掘り・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 134 ═══ -->
+<div class="slide" data-section="FFSコア" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>（深掘り・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 135 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="因子の知識を現場に落とす。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">PART 4</span>
+    </div>
+    <div class="fade-up">
+<h2>組み合わせと場面</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">因子の知識を現場に落とす。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 136 ═══ -->
+<div class="slide bg-pink" data-section="組み合わせ・場面" data-note="スピードとリスク感のズレ">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">典型①</span>
+    </div>
+    <div class="fade-up">
+<h2>拡散×保全</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">スピードとリスク感のズレ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 137 ═══ -->
+<div class="slide bg-pink" data-section="組み合わせ・場面" data-note="前に進みたいのに足がすくむ">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">典型①</span>
+    </div>
+    <div class="fade-up">
+<h2>起きること</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">前に進みたいのに足がすくむ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 138 ═══ -->
+<div class="slide bg-pink" data-section="組み合わせ・場面" data-note="試す範囲と止める条件、守るラインの合意">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">典型①</span>
+    </div>
+    <div class="fade-up">
+<h2>整え方</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">試す範囲と止める条件、守るラインの合意</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 139 ═══ -->
+<div class="slide bg-pink" data-section="組み合わせ・場面" data-note="軸と空気のズレ">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">典型②</span>
+    </div>
+    <div class="fade-up">
+<h2>凝縮×受容</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">軸と空気のズレ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 140 ═══ -->
+<div class="slide bg-pink" data-section="組み合わせ・場面" data-note="方針は早いのに現場が追いつかない">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">典型②</span>
+    </div>
+    <div class="fade-up">
+<h2>起きること</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">方針は早いのに現場が追いつかない</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 141 ═══ -->
+<div class="slide bg-pink" data-section="組み合わせ・場面" data-note="前提確認と犠牲にするものの明示">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">典型②</span>
+    </div>
+    <div class="fade-up">
+<h2>整え方</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">前提確認と犠牲にするものの明示</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 142 ═══ -->
+<div class="slide bg-pink" data-section="組み合わせ・場面" data-note="正論と感情のズレ">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">典型③</span>
+    </div>
+    <div class="fade-up">
+<h2>弁別×受容</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">正論と感情のズレ</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 143 ═══ -->
+<div class="slide bg-pink" data-section="組み合わせ・場面" data-note="会話がすれ違う">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">典型③</span>
+    </div>
+    <div class="fade-up">
+<h2>起きること</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">会話がすれ違う</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 144 ═══ -->
+<div class="slide bg-pink" data-section="組み合わせ・場面" data-note="共感一行→論点→結論">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">典型③</span>
+    </div>
+    <div class="fade-up">
+<h2>整え方</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">共感一行→論点→結論</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 145 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="NG：期限だけ／整え：期限・優先・完了定義">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">場面</span>
+    </div>
+    <div class="fade-up">
+<h2>指示</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">NG：期限だけ／整え：期限・優先・完了定義</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 146 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="言い換え例を複数用意">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">場面</span>
+    </div>
+    <div class="fade-up">
+<h2>指示</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">言い換え例を複数用意</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 147 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="NG：質問が早すぎる／整え：目的・沈黙・次の一歩">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">場面</span>
+    </div>
+    <div class="fade-up">
+<h2>1on1</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">NG：質問が早すぎる／整え：目的・沈黙・次の一歩</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 148 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="答え面談か、吐く面談か">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">場面</span>
+    </div>
+    <div class="fade-up">
+<h2>1on1</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">答え面談か、吐く面談か</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 149 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="NG：結果だけ／整え：事実・影響・次の行動">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">場面</span>
+    </div>
+    <div class="fade-up">
+<h2>フィードバック</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">NG：結果だけ／整え：事実・影響・次の行動</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 150 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="評価か改善か、目的を先に">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">場面</span>
+    </div>
+    <div class="fade-up">
+<h2>フィードバック</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">評価か改善か、目的を先に</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 151 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="NG：全部最優先">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">場面</span>
+    </div>
+    <div class="fade-up">
+<h2>優先順位</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">NG：全部最優先</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 152 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="整え：上位目的の一枚化・トレードオフの明示">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">場面</span>
+    </div>
+    <div class="fade-up">
+<h2>優先順位</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">整え：上位目的の一枚化・トレードオフの明示</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 153 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="どの場面に近いか心の中で結びつける">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">ワーク</span>
+    </div>
+    <div class="fade-up">
+<h2>冒頭のメモを見返す</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">どの場面に近いか心の中で結びつける</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 154 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="場面で詰まったら三点を疑う">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">まとめ</span>
+    </div>
+    <div class="fade-up">
+<h2>型＋前提＋順番</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">場面で詰まったら三点を疑う</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 155 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="橋をかける">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">まとめ</span>
+    </div>
+    <div class="fade-up">
+<h2>講義から実務へ</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">橋をかける</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 156 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">バッファ</span>
+    </div>
+    <div class="fade-up">
+<h2>（事例・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 157 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">バッファ</span>
+    </div>
+    <div class="fade-up">
+<h2>（事例・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 158 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">バッファ</span>
+    </div>
+    <div class="fade-up">
+<h2>（事例・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 159 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">バッファ</span>
+    </div>
+    <div class="fade-up">
+<h2>（事例・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 160 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">バッファ</span>
+    </div>
+    <div class="fade-up">
+<h2>（事例・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 161 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">バッファ</span>
+    </div>
+    <div class="fade-up">
+<h2>（事例・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 162 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">バッファ</span>
+    </div>
+    <div class="fade-up">
+<h2>（事例・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 163 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">バッファ</span>
+    </div>
+    <div class="fade-up">
+<h2>（事例・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 164 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">バッファ</span>
+    </div>
+    <div class="fade-up">
+<h2>（事例・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 165 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">バッファ</span>
+    </div>
+    <div class="fade-up">
+<h2>（事例・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 166 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">バッファ</span>
+    </div>
+    <div class="fade-up">
+<h2>（事例・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 167 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">バッファ</span>
+    </div>
+    <div class="fade-up">
+<h2>（事例・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 168 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">バッファ</span>
+    </div>
+    <div class="fade-up">
+<h2>（事例・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 169 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">バッファ</span>
+    </div>
+    <div class="fade-up">
+<h2>（事例・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 170 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">バッファ</span>
+    </div>
+    <div class="fade-up">
+<h2>（事例・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 171 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">バッファ</span>
+    </div>
+    <div class="fade-up">
+<h2>（事例・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 172 ═══ -->
+<div class="slide" data-section="組み合わせ・場面" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="section-tag">バッファ</span>
+    </div>
+    <div class="fade-up">
+<h2>（事例・補足）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 173 ═══ -->
+<div class="slide bg-yellow" data-section="休憩" data-note="10分休憩。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<span class="emoji-big">☕</span>
+    </div>
+    <div class="fade-up">
+<h2>休憩（10分）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">最後に希望・ご案内・質疑です。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 174 ═══ -->
+<div class="slide" data-section="休憩" data-note="再開。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>再開します</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">希望・事例・次の一歩に進みます。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 175 ═══ -->
+<div class="slide" data-section="希望・証拠" data-note="努力で性格を変えなくていい、に近づく">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>型が見えると</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">努力で性格を変えなくていい、に近づく</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 176 ═══ -->
+<div class="slide bg-tiffany" data-section="希望・証拠" data-note="強いリーダーじゃなくていい">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>整えるリーダー</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">強いリーダーじゃなくていい</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 177 ═══ -->
+<div class="slide" data-section="希望・証拠" data-note="本音が出た・関係が動いた">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>事例①エンジニア</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">本音が出た・関係が動いた</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 178 ═══ -->
+<div class="slide bg-tiffany" data-section="希望・証拠" data-note="任せられるようになった">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>事例②別職種</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">任せられるようになった</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 179 ═══ -->
+<div class="slide" data-section="希望・証拠" data-note="判断の軸ができた">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>事例③1年目</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">判断の軸ができた</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 180 ═══ -->
+<div class="slide bg-tiffany" data-section="希望・証拠" data-note="自分が楽になる→関わり方→周りが動く">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>見え方の変化</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">自分が楽になる→関わり方→周りが動く</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 181 ═══ -->
+<div class="slide" data-section="希望・証拠" data-note="本音が出なくなりすれ違いが積む">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>知らないままだと</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">本音が出なくなりすれ違いが積む</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 182 ═══ -->
+<div class="slide bg-tiffany" data-section="希望・証拠" data-note="すれ違い・抱え込み・迷いの蓄積">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>一年後：このまま</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">すれ違い・抱え込み・迷いの蓄積</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 183 ═══ -->
+<div class="slide" data-section="希望・証拠" data-note="型が見える・整え方が見える">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>いま動く</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">型が見える・整え方が見える</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 184 ═══ -->
+<div class="slide bg-tiffany" data-section="希望・証拠" data-note="動き・伝わる・まとまる">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>仕事の場面</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">動き・伝わる・まとまる</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 185 ═══ -->
+<div class="slide" data-section="希望・証拠" data-note="楽になる・持ち込みにくい">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>心・生活・長期</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">楽になる・持ち込みにくい</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 186 ═══ -->
+<div class="slide bg-tiffany" data-section="希望・証拠" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>（引用・図）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 187 ═══ -->
+<div class="slide" data-section="希望・証拠" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>（引用・図）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 188 ═══ -->
+<div class="slide bg-tiffany" data-section="希望・証拠" data-note="講師用">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>（引用・図）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">講師用</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 189 ═══ -->
+<div class="slide" data-section="メッセージ" data-note="そこから">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>まず自分の型を知る</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">そこから</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 190 ═══ -->
+<div class="slide bg-pink" data-section="ご案内" data-note="個別">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>迷いを戦略に変える面談</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">個別</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 191 ═══ -->
+<div class="slide bg-pink" data-section="ご案内" data-note="診断→ヒアリング→紐づけ→必要ならプログラム">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>流れ（4ステップ）</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">診断→ヒアリング→紐づけ→必要ならプログラム</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 192 ═══ -->
+<div class="slide bg-pink" data-section="ご案内" data-note="形式">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>60〜90分・マンツーマン</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">形式</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 193 ═══ -->
+<div class="slide bg-pink" data-section="ご案内" data-note="セミナー参加者限定 1万円（例：通常3万）">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>特典価格</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">セミナー参加者限定 1万円（例：通常3万）</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 194 ═══ -->
+<div class="slide bg-pink" data-section="ご案内" data-note="月2回×2ヶ月・チャット等">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>2ヶ月プログラム概要</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">月2回×2ヶ月・チャット等</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 195 ═══ -->
+<div class="slide bg-pink" data-section="ご案内" data-note="紐づけは第三者がいると進む">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>一人では難しい理由</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">紐づけは第三者がいると進む</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 196 ═══ -->
+<div class="slide" data-section="メッセージ" data-note="岩田から">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>マネジは才能より構造</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">岩田から</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 197 ═══ -->
+<div class="slide bg-pink" data-section="ご案内" data-note="URL・QRを差し替え">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>お申し込み</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">URL・QRを差し替え</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 198 ═══ -->
+<div class="slide" data-section="メッセージ" data-note="締め">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>ありがとうございました</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">締め</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 199 ═══ -->
+<div class="slide" data-section="Q&amp;A" data-note="FAQ（診断・守秘・合わない場合など）。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>よくある質問</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">運用に合わせて文言を差し替えてください。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 200 ═══ -->
+<div class="slide slide-cover" data-section="Q&amp;A" data-note="自由質疑。">
+  <div class="slide-inner">
+    <div class="fade-up">
+<h2>質疑応答</h2>
+    </div>
+    <div class="fade-up">
+<p class="lead">チャットから拾って回答します。</p>
+    </div>
+  </div>
+</div>
+
+
+</div><!-- /slide-container -->
+
+<nav class="nav-bar">
+  <div class="nav-section-label" id="navSectionLabel">表紙</div>
+  <div class="nav-controls">
+    <span class="nav-counter"><span id="navCurrent">1</span> / <span id="navTotal">200</span></span>
+    <button class="nav-btn" type="button" id="btnPrev" onclick="prevSlide()">←</button>
+    <button class="nav-btn" type="button" id="btnNext" onclick="nextSlide()">→</button>
+    <button class="nav-btn" type="button" id="btnNote" onclick="toggleNote()" title="スピーカーノート">📝</button>
+  </div>
+</nav>
+
+<div class="speaker-note" id="speakerNote">
+  <div class="speaker-note-label">SPEAKER NOTE</div>
+  <div id="speakerNoteText"></div>
+</div>
+
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+const total = slides.length;
+let noteVisible = false;
+
+document.getElementById('navTotal').textContent = total;
+
+function showSlide(i) {
+  slides.forEach((s, idx) => {
+    s.classList.remove('active');
+    s.style.opacity = '0';
+    s.style.transform = idx < i ? 'translateY(-16px)' : 'translateY(16px)';
+    s.style.pointerEvents = 'none';
+  });
+  slides[i].classList.add('active');
+  slides[i].style.opacity = '1';
+  slides[i].style.transform = 'translateY(0)';
+  slides[i].style.pointerEvents = 'auto';
+  current = i;
+  document.getElementById('navCurrent').textContent = i + 1;
+  document.getElementById('navSectionLabel').textContent = slides[i].dataset.section || '';
+  document.getElementById('progressBar').style.width = ((i + 1) / total * 100) + '%';
+  document.getElementById('speakerNoteText').textContent = slides[i].dataset.note || '';
+}
+
+function nextSlide() { if (current < total - 1) showSlide(current + 1); }
+function prevSlide() { if (current > 0) showSlide(current - 1); }
+
+function toggleNote() {
+  noteVisible = !noteVisible;
+  document.getElementById('speakerNote').classList.toggle('show', noteVisible);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+  if (e.key === 'n' || e.key === 'N') toggleNote();
+});
+
+showSlide(0);
+</script>
+
+</body>
+</html>
