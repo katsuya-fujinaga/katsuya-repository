@@ -1,5 +1,8 @@
 /** LP用コピー：hitobiji 本体と localStorage を分離 */
-const STORAGE_KEY = "katsuya-board-lp-clean-sight-v1";
+const APP_MODE = document.body?.dataset.appMode === "daily" ? "daily" : "board";
+const STORAGE_KEY =
+  APP_MODE === "daily" ? "katsuya-daily-lp-clean-sight-v1" : "katsuya-board-lp-clean-sight-v1";
+const EXPORT_BASENAME = APP_MODE === "daily" ? "katsuya-daily" : "katsuya-board";
 
 const COL_ICON_WAIT = `<svg class="col-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 2v4M16 2v4M4 8h16M4 8v12a2 2 0 002 2h12a2 2 0 002-2V8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="14" r="1.5" fill="currentColor"/></svg>`;
 const COL_ICON_DOING = `<svg class="col-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
@@ -217,8 +220,25 @@ const daySub = document.getElementById("day-sub");
 const dayHint = document.getElementById("day-hint");
 const timelineEl = document.getElementById("timeline");
 const btnToday = document.getElementById("btn-today");
+const ffsLink = document.getElementById("btn-ffs-link");
 
 const RING_LEN = 326.72;
+
+function applyAppModeUI() {
+  if (APP_MODE !== "daily") return;
+  document.title = "Katsuya Daily";
+  const brandTitle = document.querySelector(".brand-title");
+  if (brandTitle) {
+    brandTitle.innerHTML = '<span class="brand-title-ico" aria-hidden="true">📅</span> Katsuya Daily';
+  }
+  const brandSub = document.querySelector(".brand-sub");
+  if (brandSub) {
+    brandSub.textContent = "日次の焦点管理 · カンバンと予定を1画面で確認 · このPCに保存";
+  }
+  if (ffsLink) {
+    ffsLink.hidden = true;
+  }
+}
 
 function businessTaskList() {
   return Object.values(state.tasks).filter(isBusinessTask);
@@ -1056,7 +1076,7 @@ btnExport.addEventListener("click", () => {
   const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = `katsuya-board-${new Date().toISOString().slice(0, 10)}.json`;
+  a.download = `${EXPORT_BASENAME}-${new Date().toISOString().slice(0, 10)}.json`;
   a.click();
   URL.revokeObjectURL(a.href);
 });
@@ -1082,4 +1102,5 @@ importFile.addEventListener("change", () => {
 });
 
 syncQuickKindUI();
+applyAppModeUI();
 renderAll();
