@@ -3,5 +3,6 @@
   "cssTheme": "Minimal",
   "interfaceFontFamily": "",
   "textFontFamily": "",
-  "monospaceFontFamily": ""
+  "monospaceFontFamily": "",
+  "showRibbon": true
 }
