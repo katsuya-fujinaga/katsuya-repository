@@ -16,35 +16,39 @@
   <main class="app">
     <header class="hero">
       <div class="hero-main">
-        <div class="hero-upper">
-          <div class="hero-copy">
-            <p class="hero-kicker">Katsuya Daily</p>
-            <h1>今日を積み上げる、<br />明日が楽しみになる。</h1>
-            <p class="hero-lead">振り返りと、明日の一歩を毎日残すためのデイリーツール。</p>
-            <p id="streak-line" class="streak-line">連続達成 0日</p>
-            <div class="hero-actions">
-              <button type="button" id="btn-export" class="btn ghost">書き出し</button>
-              <button type="button" id="btn-import" class="btn ghost">読み込み</button>
-              <input type="file" id="import-file" accept="application/json" hidden />
+        <div class="hero-col hero-col-copy">
+          <p class="hero-kicker">Katsuya Daily</p>
+          <h1>今日を積み上げる、<br />明日が楽しみになる。</h1>
+          <p class="hero-lead">振り返りと、明日の一歩を毎日残すためのデイリーツール。</p>
+          <p id="streak-line" class="streak-line">連続達成 0日</p>
+        </div>
+        <div class="hero-col hero-col-chart">
+          <div class="hero-progress" aria-label="達成グラフ">
+            <div class="hero-progress-head">
+              <h2>達成グラフ（過去14日）</h2>
+              <p id="progress-text">今日の達成率 0%</p>
             </div>
+            <p class="hero-progress-scale">棒の高さ＝その日のスコア（最大100）。今日は右端です。</p>
+            <div id="progress-chart" class="progress-chart progress-chart--hero"></div>
+            <p class="hero-progress-note">チェック完了・振り返り・日記・写真の有無でスコアが加算されます。</p>
           </div>
-          <div class="hero-mascot" aria-hidden="true">
+        </div>
+        <div class="hero-col hero-col-rail">
+          <aside class="hero-rail" aria-label="表示モードとデータ">
             <div class="theme-tabs" role="tablist" aria-label="表示モード">
               <button type="button" class="theme-tab" id="theme-tab-auto" role="tab" aria-selected="true">自動</button>
               <button type="button" class="theme-tab" id="theme-tab-day" role="tab" aria-selected="false">昼</button>
               <button type="button" class="theme-tab" id="theme-tab-night" role="tab" aria-selected="false">夜</button>
             </div>
-            <img src="./images/header-mascot.png" alt="" width="200" height="200" decoding="async" />
-          </div>
-        </div>
-        <div class="hero-progress" aria-label="達成グラフ">
-          <div class="hero-progress-head">
-            <h2>達成グラフ（過去14日）</h2>
-            <p id="progress-text">今日の達成率 0%</p>
-          </div>
-          <p class="hero-progress-scale">棒の高さ＝その日のスコア（最大100）。今日は右端です。</p>
-          <div id="progress-chart" class="progress-chart progress-chart--hero"></div>
-          <p class="hero-progress-note">チェック完了・振り返り・日記・写真の有無でスコアが加算されます。</p>
+            <div class="hero-actions">
+              <button type="button" id="btn-export" class="btn ghost">書き出し</button>
+              <button type="button" id="btn-import" class="btn ghost">読み込み</button>
+              <input type="file" id="import-file" accept="application/json" hidden />
+            </div>
+            <div class="hero-mascot" aria-hidden="true">
+              <img src="./images/header-mascot.png" alt="" width="200" height="200" decoding="async" />
+            </div>
+          </aside>
         </div>
       </div>
     </header>

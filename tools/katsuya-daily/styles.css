@@ -155,26 +155,72 @@ body.theme-night .panel {
 }
 
 .hero-main {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(200px, 1.05fr) minmax(0, 3fr) minmax(148px, auto);
   align-items: stretch;
-  gap: 14px;
+  gap: 14px 18px;
 }
 
-.hero-upper {
+.hero-col {
+  min-width: 0;
+}
+
+.hero-col-copy {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem 1.25rem;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-col-copy h1 {
+  font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+}
+
+.hero-col-chart {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.hero-col-rail {
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
+}
+
+.hero-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 172px;
+  flex: 1;
+  min-height: 100%;
+  justify-content: flex-start;
+}
+
+.hero-rail .hero-actions {
+  margin-top: 0;
+  flex-direction: column;
+  width: 100%;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.hero-rail .hero-actions .btn {
+  width: 100%;
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .hero-progress {
+  flex: 1;
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 12px 14px;
+  min-height: 0;
+  padding: 10px 12px;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.55);
   border: 1px solid rgba(236, 216, 232, 0.85);
@@ -221,11 +267,13 @@ body.theme-night .hero-progress {
 }
 
 .progress-chart.progress-chart--hero {
-  margin-top: 10px;
-  grid-template-columns: repeat(14, minmax(10px, 1fr));
-  gap: clamp(6px, 1.4vw, 14px);
-  height: 152px;
-  padding: 10px 10px 8px;
+  flex: 1 1 auto;
+  margin-top: 8px;
+  min-height: 122px;
+  height: clamp(122px, 12vw, 136px);
+  grid-template-columns: repeat(14, minmax(0, 1fr));
+  gap: clamp(8px, 1.8vw, 20px);
+  padding: 8px 12px 6px;
   border-radius: 12px;
   background-color: rgba(255, 255, 255, 0.5);
   background-image: repeating-linear-gradient(
@@ -253,12 +301,12 @@ body.theme-night .progress-chart.progress-chart--hero {
 }
 
 .progress-chart--hero .bar-wrap {
-  gap: 6px;
+  gap: 4px;
 }
 
 .progress-chart--hero .bar {
-  min-height: 10px;
-  border-radius: 12px 12px 8px 8px;
+  min-height: 8px;
+  border-radius: 10px 10px 6px 6px;
   box-shadow: 0 2px 8px rgba(120, 89, 140, 0.12);
 }
 
@@ -267,20 +315,16 @@ body.theme-night .progress-chart--hero .bar {
 }
 
 .progress-chart--hero .bar-label {
-  font-size: 0.74rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.02em;
 }
 
 .hero-mascot {
   flex-shrink: 0;
-  margin-left: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px 10px;
-  border-radius: 20px;
+  margin-top: auto;
+  padding: 6px 8px;
+  border-radius: 18px;
   background: rgba(255, 255, 255, 0.75);
   border: 1px solid rgba(236, 216, 232, 0.9);
   box-shadow: 0 6px 18px rgba(120, 89, 140, 0.08);
@@ -292,27 +336,59 @@ body.theme-night .hero-mascot {
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
 }
 
-.hero-mascot .theme-tabs {
-  flex-shrink: 0;
-}
-
 .hero-mascot img {
   display: block;
-  width: min(112px, 28vw);
+  width: min(104px, 22vw);
   height: auto;
   border-radius: 14px;
   object-fit: contain;
 }
 
-.hero-copy {
-  flex: 1 1 220px;
-  min-width: 0;
+@media (max-width: 900px) {
+  .hero-main {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .hero-col-rail {
+    justify-content: center;
+  }
+
+  .hero-rail {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: none;
+    gap: 14px 20px;
+  }
+
+  .hero-rail .hero-actions {
+    flex-direction: row;
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-rail .hero-actions .btn {
+    width: auto;
+  }
+
+  .hero-mascot {
+    order: 3;
+    flex: 0 0 auto;
+    margin-top: 0;
+  }
 }
 
 @media (max-width: 520px) {
-  .hero-mascot {
-    margin-left: 0;
-    align-self: flex-end;
+  .progress-chart.progress-chart--hero {
+    gap: 5px;
+    padding-inline: 6px;
+  }
+
+  .progress-chart--hero .bar-label {
+    font-size: 0.62rem;
   }
 }
 
