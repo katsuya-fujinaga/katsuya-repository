@@ -1,20 +1,18 @@
-/* 愛され手相カウンセラー｜3色（紙・墨・アクセント）＋品のあるボタン */
+/* 愛され手相カウンセラー｜Letter style academic */
 
 :root {
-  /* 3色のみ：①紙 ②墨 ③アクセント（落ち着いた茶褐色） */
-  --paper: #f6f4f1;
-  --ink: #2e2c2a;
-  --accent: #5c4a3d;
-  --ink-muted: rgba(46, 44, 42, 0.58);
-  --line: rgba(92, 74, 61, 0.14);
+  --paper: #fffaf2;
+  --ink: #332924;
+  --accent: #e97a34;
+  --accent-soft: #c45a1f;
+  --ink-muted: rgba(61, 47, 42, 0.72);
+  --line: rgba(233, 122, 52, 0.2);
   --radius: 10px;
   --radius-btn: 6px;
-  --shadow-soft: 0 2px 12px rgba(46, 44, 42, 0.06);
-  --shadow-lift: 0 4px 20px rgba(46, 44, 42, 0.1);
+  --shadow-soft: 0 4px 14px rgba(233, 122, 52, 0.1);
+  --shadow-lift: 0 8px 24px rgba(233, 122, 52, 0.18);
   --font-serif: "Shippori Mincho", "Hiragino Mincho ProN", serif;
   --font-sans: "Zen Kaku Gothic New", "Hiragino Sans", sans-serif;
-  /* 花柄：アクセント1色・低コントラスト */
-  --pattern-floral: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%235c4a3d' stroke-width='0.7' opacity='0.2'%3E%3Cpath d='M30 40c2 4 4 6 7 6s5-2 7-6c-2 4-4 6-7 6s-5-2-7-6z'/%3E%3Cpath d='M30 40c4-2 6-4 6-7s-2-5-6-7c4 2 6 4 6 7s-2 5-6 7z'/%3E%3Cpath d='M30 40c4 2 6 4 6 7s2 5 6 7c-4-2-6-4-6-7s2-5-6-7z'/%3E%3Cpath d='M30 40c-2-4-4-6-7-6s-5 2-7 6c2-4 4-6 7-6s5-2 7-6z'/%3E%3Ccircle cx='30' cy='40' r='2.2' fill='%235c4a3d' fill-opacity='0.25'/%3E%3Cpath d='M88 78c1.8 3.8 3.5 5.5 6 5.5s4.2-1.7 6-5.5c-1.8 3.8-3.5 5.5-6 5.5s-4.2-1.7-6-5.5z'/%3E%3Cpath d='M88 78c3.8-1.8 5.5-3.5 5.5-6s-1.7-4.2-5.5-6c3.8 1.8 5.5 3.5 5.5 6s-1.7 4.2-5.5 6z'/%3E%3Cpath d='M88 78c3.8 1.8 5.5 3.5 5.5 6s1.7 4.2 5.5 6c-3.8-1.8-5.5-3.5-5.5-6s1.7-4.2-5.5-6z'/%3E%3Cpath d='M88 78c-1.8-3.8-3.5-5.5-6-5.5s-4.2 1.7-6 5.5c1.8-3.8 3.5-5.5 6-5.5s4.2 1.7 6 5.5z'/%3E%3Ccircle cx='88' cy='78' r='1.8' fill='%235c4a3d' fill-opacity='0.22'/%3E%3Ccircle cx='98' cy='28' r='3' fill='%235c4a3d' fill-opacity='0.12'/%3E%3Ccircle cx='18' cy='95' r='2.5' fill='%235c4a3d' fill-opacity='0.1'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 *,
@@ -31,14 +29,14 @@ body {
   margin: 0;
   color: var(--ink);
   font-family: var(--font-sans);
-  font-size: clamp(17px, 2.4vw, 19px);
+  font-size: clamp(16px, 2.2vw, 18px);
   font-weight: 500;
   line-height: 1.82;
   letter-spacing: 0.02em;
   -webkit-font-smoothing: antialiased;
   background-color: var(--paper);
-  background-image: var(--pattern-floral), linear-gradient(180deg, rgba(246, 244, 241, 0.97) 0%, var(--paper) 32%);
-  background-size: 120px 120px, 100% 100%;
+  background-image: linear-gradient(180deg, #fff4d8 0%, #fffaf0 35%, #fffaf0 100%);
+  background-size: 100% 100%;
 }
 
 img {
@@ -59,16 +57,19 @@ img {
 }
 
 .container {
-  width: min(100% - 2rem, 680px);
+  width: min(100% - 2rem, 760px);
   margin-inline: auto;
 }
 
-/* Hero */
 .hero {
   position: relative;
   padding: 2.5rem 0 2rem;
   border-bottom: 1px solid var(--line);
-  background: rgba(246, 244, 241, 0.72);
+  background:
+    radial-gradient(circle at 12% 12%, rgba(255, 126, 54, 0.16) 0 14%, transparent 15%),
+    radial-gradient(circle at 88% 18%, rgba(61, 47, 42, 0.1) 0 12%, transparent 13%),
+    radial-gradient(circle at 82% 86%, rgba(255, 126, 54, 0.18) 0 14%, transparent 15%),
+    rgba(255, 250, 240, 0.94);
   backdrop-filter: blur(6px);
 }
 
@@ -80,10 +81,10 @@ img {
   display: inline-block;
   font-size: clamp(0.78rem, 1.8vw, 0.88rem);
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.12em;
   color: var(--accent);
-  background: rgba(92, 74, 61, 0.06);
-  border: 1px solid var(--line);
+  background: rgba(255, 126, 54, 0.12);
+  border: 1px solid rgba(255, 126, 54, 0.28);
   padding: 0.4rem 1rem;
   border-radius: 999px;
   margin-bottom: 1rem;
@@ -93,10 +94,10 @@ img {
   font-family: var(--font-serif);
   font-size: clamp(1.65rem, 5vw, 2.25rem);
   font-weight: 600;
-  line-height: 1.45;
+  line-height: 1.4;
   margin: 0 0 1rem;
-  letter-spacing: 0.04em;
-  color: var(--ink);
+  letter-spacing: 0.03em;
+  color: #2e241f;
 }
 
 .hero-lead {
@@ -104,12 +105,11 @@ img {
   font-size: clamp(1rem, 2.5vw, 1.1rem);
   font-weight: 500;
   margin: 0 0 1.75rem;
-  line-height: 1.72;
+  line-height: 1.7;
 }
 
-/* CTA：幅約80％・上品な塗り＋サブはライン */
 .cta-cluster {
-  width: min(80%, 520px);
+  width: min(88%, 560px);
   margin-inline: auto;
   text-align: center;
 }
@@ -125,22 +125,42 @@ img {
   justify-content: center;
   gap: 0.25rem;
   padding: 1.05rem 1.5rem;
-  background: var(--accent);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #e97a34 0%, #d86822 100%);
   color: var(--paper) !important;
   text-decoration: none;
   font-family: var(--font-sans);
   font-weight: 600;
-  font-size: clamp(0.98rem, 2.6vw, 1.1rem);
+  font-size: clamp(0.96rem, 2.5vw, 1.06rem);
   line-height: 1.4;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.06em;
   border-radius: var(--radius-btn);
-  border: 1px solid rgba(46, 44, 42, 0.12);
+  border: 1px solid rgba(255, 126, 54, 0.5);
   box-shadow: var(--shadow-soft);
   transition:
     transform 0.22s ease,
     box-shadow 0.22s ease,
     filter 0.22s ease,
     background-color 0.22s ease;
+  animation: ctaFloat 2.6s ease-in-out infinite;
+}
+
+.hero-cta::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: -40%;
+  width: 36%;
+  height: 140%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 250, 240, 0) 0%,
+    rgba(255, 250, 240, 0.38) 50%,
+    rgba(255, 250, 240, 0) 100%
+  );
+  transform: rotate(18deg);
+  animation: ctaShine 3.1s ease-in-out infinite;
 }
 
 .hero-cta:hover {
@@ -163,7 +183,7 @@ img {
   display: block;
   font-size: 0.76em;
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   opacity: 0.92;
 }
 
@@ -191,9 +211,9 @@ img {
 }
 
 .cta-cluster:not(.cta-cluster--on-dark) .hero-cta-secondary {
-  color: var(--accent) !important;
-  background: transparent;
-  border: 1px solid var(--accent);
+  color: var(--ink) !important;
+  background: rgba(255, 126, 54, 0.08);
+  border: 1px solid rgba(255, 126, 54, 0.4);
   box-shadow: none;
 }
 
@@ -215,7 +235,7 @@ img {
 
 .cta-cluster:hover .hero-cta-secondary:hover,
 .cta-cluster:focus-within .hero-cta-secondary:hover {
-  background: rgba(92, 74, 61, 0.06);
+  background: rgba(255, 126, 54, 0.16);
 }
 
 .cta-cluster--on-dark:hover .hero-cta-secondary:hover,
@@ -265,20 +285,10 @@ img {
   background: var(--paper);
   padding: clamp(1.5rem, 4vw, 2.25rem);
   border-radius: var(--radius);
-  box-shadow: 0 8px 36px rgba(46, 44, 42, 0.07);
-  border: 1px solid var(--line);
+  box-shadow: 0 8px 26px rgba(255, 126, 54, 0.1);
+  border: 1px solid rgba(255, 126, 54, 0.22);
   position: relative;
   overflow: hidden;
-}
-
-.letter .container::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: var(--pattern-floral);
-  background-size: 120px 120px;
-  opacity: 0.35;
-  pointer-events: none;
 }
 
 .letter .container > * {
@@ -288,7 +298,7 @@ img {
 
 .letter-greeting {
   font-family: var(--font-serif);
-  font-size: clamp(1.1rem, 2.6vw, 1.25rem);
+  font-size: clamp(1.06rem, 2.5vw, 1.2rem);
   font-weight: 600;
   margin-bottom: 1.5rem;
 }
@@ -329,9 +339,79 @@ img {
   text-align: center;
   margin: 2.25rem 0 1.25rem;
   padding-bottom: 0.6rem;
-  border-bottom: 1px solid var(--accent);
+  border-bottom: 1px solid rgba(255, 126, 54, 0.28);
   color: var(--ink);
   letter-spacing: 0.04em;
+}
+
+/* LP sections（Obsidian原稿の ## / ### に対応） */
+.lp-section {
+  margin-bottom: 0.25rem;
+}
+
+.lp-section--first .section-title {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.08rem, 2.6vw, 1.28rem);
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 2.1rem 0 0.35rem;
+  padding-top: 1.65rem;
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  letter-spacing: 0.03em;
+}
+
+.section-title--cta {
+  text-align: center;
+  border-top: 0;
+  padding-top: 0;
+  margin-top: 0.5rem;
+}
+
+.section-kicker {
+  font-family: var(--font-sans);
+  font-size: clamp(0.82rem, 1.9vw, 0.92rem);
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0 0 1.1rem;
+  letter-spacing: 0.06em;
+}
+
+.lp-section--closing {
+  margin-bottom: 0;
+}
+
+.lp-section--cta-bottom {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+.pull-quote {
+  margin: 1.25rem 0 1.25rem;
+  padding: 0.85rem 1rem 0.85rem 1.1rem;
+  border-left: 3px solid var(--accent);
+  background: rgba(255, 126, 54, 0.06);
+  font-family: var(--font-serif);
+  font-size: clamp(1.02rem, 2.4vw, 1.12rem);
+  font-weight: 600;
+  font-style: normal;
+  line-height: 1.55;
+  color: #2e241f;
+}
+
+.letter-signoff {
+  font-family: var(--font-serif);
+  font-size: clamp(1.06rem, 2.5vw, 1.15rem);
+  font-weight: 600;
+  margin: 2rem 0 0;
+  text-align: right;
+  color: var(--ink);
 }
 
 .checklist {
@@ -353,7 +433,7 @@ img {
   content: "✓";
   position: absolute;
   left: 0;
-  color: var(--accent);
+  color: var(--accent-soft);
   font-weight: 600;
 }
 
@@ -361,13 +441,14 @@ img {
   display: grid;
   gap: 1rem;
   margin: 1.5rem 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .benefit-card {
   padding: 1.1rem 1.2rem;
-  background: rgba(92, 74, 61, 0.04);
+  background: linear-gradient(180deg, rgba(255, 225, 168, 0.4) 0%, rgba(255, 255, 255, 0.88) 100%);
   border-radius: 8px;
-  border-left: 2px solid var(--accent);
+  border-left: 3px solid var(--accent);
   box-shadow: none;
 }
 
@@ -390,10 +471,10 @@ img {
 /* Curriculum */
 .curriculum {
   margin: 2rem 0;
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 1rem;
   border-radius: 8px;
-  background: rgba(92, 74, 61, 0.03);
-  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 225, 168, 0.3) 0%, rgba(255, 255, 255, 0.96) 100%);
+  border: 1px solid rgba(255, 126, 54, 0.2);
 }
 
 .lesson {
@@ -405,12 +486,13 @@ img {
   border-bottom: 0;
 }
 
-.lesson h3 {
+.lesson h3,
+.lesson h4 {
   font-family: var(--font-serif);
   font-size: clamp(1.02rem, 2.4vw, 1.14rem);
   font-weight: 600;
   margin: 0 0 0.5rem;
-  color: var(--accent);
+  color: #e85f1f;
 }
 
 .lesson p {
@@ -424,9 +506,9 @@ img {
 .instructor {
   margin: 2rem 0;
   padding: 1.5rem;
-  background: rgba(92, 74, 61, 0.05);
+  background: linear-gradient(130deg, rgba(255, 126, 54, 0.1) 0%, rgba(255, 250, 240, 0.9) 100%);
   border-radius: var(--radius);
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 126, 54, 0.24);
 }
 
 .instructor h3 {
@@ -434,7 +516,7 @@ img {
   font-size: clamp(1.08rem, 2.6vw, 1.22rem);
   font-weight: 600;
   margin: 0 0 0.75rem;
-  color: var(--ink);
+  color: #2f2520;
 }
 
 .instructor ul {
@@ -457,25 +539,43 @@ img {
   margin-bottom: 0.35rem;
 }
 
-/* CTA block：墨一色（アクセントと同系でまとめる＝墨＝②の濃い面） */
 .cta-block {
   margin: 2.5rem 0 1.5rem;
   padding: 1.75rem;
-  background: var(--ink);
+  background: linear-gradient(135deg, #ff7e36 0%, #f26d2a 56%, #e45f1f 100%);
   color: var(--paper);
   border-radius: var(--radius);
   text-align: center;
   box-shadow: var(--shadow-lift);
-  border: 1px solid rgba(46, 44, 42, 0.35);
+  border: 1px solid rgba(255, 126, 54, 0.45);
 }
 
 .cta-block h2 {
   font-family: var(--font-serif);
-  font-size: clamp(1.2rem, 3vw, 1.42rem);
+  font-size: clamp(1.05rem, 2.6vw, 1.28rem);
   font-weight: 600;
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.5rem;
   color: var(--paper);
   letter-spacing: 0.04em;
+  line-height: 1.45;
+}
+
+.cta-kicker {
+  font-size: clamp(0.82rem, 1.9vw, 0.92rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.85rem;
+  opacity: 0.95;
+  color: var(--paper);
+}
+
+.cta-note {
+  margin: 1rem 0 0;
+  font-size: clamp(0.82rem, 1.9vw, 0.9rem);
+  font-weight: 500;
+  opacity: 0.88;
+  line-height: 1.55;
+  color: rgba(255, 250, 240, 0.92);
 }
 
 .cta-block p {
@@ -487,9 +587,9 @@ img {
 }
 
 .cta-block .hero-cta {
-  background: var(--paper);
-  color: var(--ink) !important;
-  border: 1px solid rgba(246, 244, 241, 0.35);
+  background: #fff6dc;
+  color: #4a342b !important;
+  border: 1px solid rgba(255, 246, 220, 0.6);
 }
 
 .cta-block .hero-cta:hover {
@@ -497,7 +597,7 @@ img {
 }
 
 .cta-block .cta-cluster {
-  width: min(80%, 100%);
+  width: min(88%, 100%);
 }
 
 .cta-list {
@@ -521,6 +621,147 @@ img {
   background: transparent;
 }
 
+.site-footer-links {
+  margin: 0.5rem 0 0;
+}
+
 .consult-config {
   display: none;
+}
+
+.illustration-strip {
+  margin: 1.6rem 0 1.2rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.illustration-card {
+  background: #ffffff;
+  border: 1px solid rgba(255, 126, 54, 0.22);
+  border-radius: 12px;
+  padding: 0.95rem 0.8rem 0.8rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(255, 126, 54, 0.1);
+}
+
+.icon-badge {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 0.55rem;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: #fff;
+}
+
+.icon-badge--hand {
+  background: linear-gradient(135deg, #ff7e36 0%, #ff9b3e 100%);
+}
+
+.icon-badge--heart {
+  background: linear-gradient(135deg, #ff7e36 0%, #f26d2a 100%);
+}
+
+.icon-badge--star {
+  background: linear-gradient(135deg, #3d2f2a 0%, #54433b 100%);
+}
+
+.illustration-card p {
+  margin: 0;
+  font-size: clamp(0.82rem, 2.1vw, 0.92rem);
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+@keyframes ctaFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes ctaShine {
+  0% {
+    left: -45%;
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  45%,
+  100% {
+    left: 120%;
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 2rem 0 1.6rem;
+  }
+
+  .hero h1 br {
+    display: none;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.55rem, 6.2vw, 2rem);
+  }
+
+  .hero-lead br {
+    display: none;
+  }
+
+  .cta-cluster,
+  .cta-block .cta-cluster {
+    width: 100%;
+  }
+
+  .hero-cta,
+  .hero-cta-secondary {
+    width: 100%;
+  }
+
+  .letter {
+    padding: 1.5rem 0 2rem;
+  }
+
+  .letter .container {
+    padding: 1.25rem 1rem;
+  }
+
+  .subhead {
+    margin-top: 1.8rem;
+  }
+
+  .section-title {
+    margin-top: 1.75rem;
+    padding-top: 1.35rem;
+  }
+
+  .benefit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-block {
+    padding: 1.35rem 1rem;
+  }
+
+  .illustration-strip {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-cta,
+  .hero-cta::after {
+    animation: none;
+  }
 }
