@@ -4,6 +4,15 @@ alwaysApply: true
 ---
 # LP公開ルール・デプロイ先
 
+## ツール類の公開URL（正・共有用）
+
+**チームへの案内・ブックマーク・ドキュメントに書くベースURLは、次の GitHub Pages（`katsuya-repository`）だけに統一する。**
+
+- **正（ツールのハブ）**: `https://katsuya-fujinaga.github.io/katsuya-repository/tools/`
+- **LP Clean（`lp-clean-sight`）の URL はメイン運用では使わない。** 過去資料や別ミラー用リポジトリ向けの参考に留める。
+
+---
+
 ## 公開URL（すぐコピー用）
 
 ### 商品LP（hitobiji → `katsuya-repository` の GitHub Pages）
@@ -31,7 +40,7 @@ https://katsuya-fujinaga.github.io/katsuya-repository/
 
 ### ツール・ハブ（`katsuya-repository` の `tools/`）
 
-ローカルの **hitobiji ワークスペース**が `origin` = **katsuya-repository** のとき、`tools/` を編集して **このリポジトリへ push** すれば、次の GitHub Pages に反映される（`lp-clean-sight` へコピーしなくてよい）。
+ローカルの **hitobiji ワークスペース**が `origin` = **katsuya-repository** のとき、`tools/` を編集して **このリポジトリへ push** すれば、次の URL に反映される。
 
 **ベース（末尾スラッシュまで）**
 
@@ -45,37 +54,25 @@ https://katsuya-fujinaga.github.io/katsuya-repository/tools/
 | Katsuya Daily | https://katsuya-fujinaga.github.io/katsuya-repository/tools/katsuya-daily/ |
 | Katsuya Board | https://katsuya-fujinaga.github.io/katsuya-repository/tools/katsuya-taskboard/ |
 
-### ハブ・ツール類（`lp-clean-sight` 専用・別リポジトリ）
+（`ffs-seminar` を `tools/` 配下に置いている場合は `{ベース}ffs-seminar/` と同様に組み立てる。）
 
-**サイトのルート（ツール一覧）**
+### 補足：`lp-clean-sight`（任意・別ミラー用）
 
-```
-https://katsuya-fujinaga.github.io/lp-clean-sight/
-```
-
-**直下フォルダ（いずれも `tools/` 以下と同じパス）**
-
-| 内容 | URL |
-|------|-----|
-| ツール一覧（ハブ） | https://katsuya-fujinaga.github.io/lp-clean-sight/ |
-| Katsuya Board | https://katsuya-fujinaga.github.io/lp-clean-sight/katsuya-taskboard/ |
-| FFSセミナー台本 | https://katsuya-fujinaga.github.io/lp-clean-sight/ffs-seminar/ |
-
-リポジトリ: [katsuya-fujinaga/lp-clean-sight](https://github.com/katsuya-fujinaga/lp-clean-sight)（`main` を Pages ソースにしている想定）
+**案内文や正URLとしては使わない。** 別リポジトリ [lp-clean-sight](https://github.com/katsuya-fujinaga/lp-clean-sight) で同じ構成をミラーしている場合の参考: ルートは `https://katsuya-fujinaga.github.io/lp-clean-sight/`（パスは `katsuya-repository` の `tools/` と同じ並びの想定）。
 
 ## 開発と公開の役割（hitobiji リポジトリ内）
 
 - **`product/<商品名>/lp/`** … **商品LP（HTML）**。編集後は **hitobiji（`katsuya-repository`）を push** → 上記 **GitHub Pages の `.../product/.../lp/`** で表示。共有リンクを短くしたい場合は `<商品名>` フォルダをASCII名にリネームしてよい。
-- **`hitobiji/tools/`** … **`index.html` ＋ 直下フォルダ**の並び。**`origin` が katsuya-repository なら本リポジトリの `tools/` を push すれば** `.../katsuya-repository/tools/...` に反映。別途 **`lp-clean-sight` リポジトリをミラー運用している場合のみ**、同じ並びを **lp-clean-sight のルートへコピーして push** し、`lp-clean-sight` の URL で表示する。
-- **`lp-clean-sight/`**（別リポジトリ・ワークツリー）… ミラー公開する場合の**別実体**。使っていなければ katsuya-repository のみでよい。
+- **`hitobiji/tools/`** … **`index.html` ＋ 直下フォルダ**の並び。**`katsuya-repository` に push** → **`https://katsuya-fujinaga.github.io/katsuya-repository/tools/...`** が正として更新される。
+- **`lp-clean-sight/`**（別リポジトリ）… **任意のミラー**。主な共有URL・運用の前提は **katsuya-repository** とする。
 - **FFS 台本の HTML 再生成** … `product/FFSコーチング/` で `python3 _md_to_seminar_html.py --write-html` → `セミナーシナリオ_完成版テキスト.html` と **`tools/ffs-seminar/index.html`** が更新される。
 
-## ディレクトリ構成（`hitobiji/tools/` ＝ katsuya-repository の `tools/` または lp-clean-sight ルートのミラー）
+## ディレクトリ構成（`hitobiji/tools/` ＝ `katsuya-repository` の `tools/`）
 
 - **ルート**: `index.html` … ツール一覧（Katsuya Board / Katsuya Daily などへのリンク）
 - **`./katsuya-taskboard/`** … カンバン・カレンダー・アプリ本体（`index.html` / `app.js` / `styles.css`）
 - **`./katsuya-daily/`** … デイリーツール（`index.html` / `app.js` / `styles.css` / `images/`）
-- **`./ffs-seminar/`** … FFS セミナーシナリオ（`lp-clean-sight` 側や生成スクリプトで置く場合あり。`index.html` のみ。md から生成）
+- **`./ffs-seminar/`** … FFS セミナーシナリオ（生成スクリプトで `tools/ffs-seminar/index.html` に出力する想定。`index.html` のみ。md から生成）
 - **画像**: 各フォルダ内の `./images/` など（使用時）
 - **共通CSS/JS**: 必要になったときだけルートに `css/` `js/` を置く（現状は未使用）
 

@@ -4,7 +4,7 @@
 - 既定: 本文フラグメントを標準出力
 - --write-html: 次を上書き保存
     - セミナーシナリオ_完成版テキスト.html（product）
-    - ../../tools/ffs-seminar/index.html（Web用・lp-clean-sight と同じパス）
+    - ../../tools/ffs-seminar/index.html（Web用・katsuya-repository の tools/ 配下）
 """
 import re
 import sys

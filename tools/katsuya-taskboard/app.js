@@ -1,4 +1,4 @@
-/** LP用コピー：hitobiji 本体と localStorage を分離 */
+/** LP用コピー：hitobiji 本体と localStorage を分離。公開URLの正は katsuya-repository の /tools/（キー名は互換のため従来のまま） */
 const APP_MODE = document.body?.dataset.appMode === "daily" ? "daily" : "board";
 const STORAGE_KEY =
   APP_MODE === "daily" ? "katsuya-daily-lp-clean-sight-v1" : "katsuya-board-lp-clean-sight-v1";
