@@ -60,6 +60,20 @@ function migrateEntries(entries) {
   return out;
 }
 
+function normalizeEvents(events) {
+  if (!Array.isArray(events)) return [];
+  return events
+    .filter((ev) => ev && typeof ev === "object")
+    .map((ev) => ({
+      id: ev.id || uid(),
+      date: typeof ev.date === "string" ? ev.date : "",
+      time: typeof ev.time === "string" ? ev.time : "",
+      title: (ev.title || "").trim(),
+      createdAt: typeof ev.createdAt === "number" ? ev.createdAt : Date.now(),
+    }))
+    .filter((ev) => ev.date && /^\d{4}-\d{2}-\d{2}$/.test(ev.date) && ev.title);
+}
+
 function emptyState() {
   const today = fmtDate(new Date());
   return {
@@ -72,6 +86,7 @@ function emptyState() {
     entries: {
       [today]: emptyEntry(),
     },
+    events: [],
   };
 }
 
@@ -97,6 +112,7 @@ function loadState() {
       data.ui.themeTab = "auto";
     }
     data.entries = migrateEntries(data.entries);
+    data.events = normalizeEvents(data.events);
     return data;
   } catch {
     return emptyState();
@@ -362,6 +378,12 @@ const el = {
   btnExport: document.getElementById("btn-export"),
   btnImport: document.getElementById("btn-import"),
   importFile: document.getElementById("import-file"),
+  scheduleDayList: document.getElementById("schedule-day-list"),
+  scheduleDayEmpty: document.getElementById("schedule-day-empty"),
+  scheduleDate: document.getElementById("schedule-date"),
+  scheduleTime: document.getElementById("schedule-time"),
+  scheduleTitle: document.getElementById("schedule-title"),
+  scheduleAdd: document.getElementById("schedule-add"),
 };
 
 let state = loadState();
@@ -411,6 +433,28 @@ function renderProgress() {
   }
 }
 
+function datesWithScheduleEvents() {
+  const set = new Set();
+  for (const ev of state.events || []) {
+    if (ev?.date) set.add(ev.date);
+  }
+  return set;
+}
+
+function sortEventsForDisplay(list) {
+  return [...list].sort((a, b) => {
+    const ta = a.time && a.time.trim() ? a.time : "\uffff";
+    const tb = b.time && b.time.trim() ? b.time : "\uffff";
+    if (ta !== tb) return ta.localeCompare(tb);
+    return (a.title || "").localeCompare(b.title || "");
+  });
+}
+
+function eventsForDate(dateKey) {
+  const list = (state.events || []).filter((ev) => ev.date === dateKey);
+  return sortEventsForDisplay(list);
+}
+
 function calendarCells(year, month) {
   const first = new Date(year, month, 1);
   const start = first.getDay();
@@ -440,6 +484,7 @@ function renderCalendar() {
   el.calLabel.textContent = `${calYear}年${calMonth + 1}月`;
   el.calendarGrid.innerHTML = "";
 
+  const eventDates = datesWithScheduleEvents();
   const cells = calendarCells(calYear, calMonth);
   for (const c of cells) {
     const btn = document.createElement("button");
@@ -454,6 +499,7 @@ function renderCalendar() {
     const hasDiary = !!(entry.diary || "").trim();
     const hasPhotos = (entry.images || []).length > 0;
     const hasTodo = entry.todos.length > 0;
+    const hasSchedule = eventDates.has(c.date);
 
     btn.innerHTML = `<span class="cal-day">${c.day}</span><span class="cal-dot-row"></span>`;
     const dotRow = btn.querySelector(".cal-dot-row");
@@ -475,6 +521,11 @@ function renderCalendar() {
     if (hasTodo) {
       const d = document.createElement("span");
       d.className = "dot todo";
+      dotRow.appendChild(d);
+    }
+    if (hasSchedule) {
+      const d = document.createElement("span");
+      d.className = "dot schedule";
       dotRow.appendChild(d);
     }
     if (done === 100 && hasTodo) {
@@ -586,6 +637,94 @@ function renderTomorrowTasks(entry) {
   }
 }
 
+function formatScheduleTimeLabel(timeStr) {
+  const t = (timeStr || "").trim();
+  if (!t) return "時刻なし";
+  return t.length >= 5 ? t.slice(0, 5) : t;
+}
+
+function renderSchedulePanel() {
+  if (!el.scheduleDayList || !el.scheduleDayEmpty) return;
+
+  const dateKey = state.ui.selectedDate;
+  const list = eventsForDate(dateKey);
+
+  el.scheduleDayList.innerHTML = "";
+  if (el.scheduleDate) el.scheduleDate.value = dateKey;
+
+  if (list.length === 0) {
+    el.scheduleDayEmpty.classList.remove("is-hidden");
+  } else {
+    el.scheduleDayEmpty.classList.add("is-hidden");
+    for (const ev of list) {
+      const li = document.createElement("li");
+      li.className = "schedule-item";
+      const main = document.createElement("div");
+      main.className = "schedule-item-main";
+      const timeEl = document.createElement("span");
+      timeEl.className = "schedule-item-time";
+      timeEl.textContent = formatScheduleTimeLabel(ev.time);
+      const titleEl = document.createElement("p");
+      titleEl.className = "schedule-item-title";
+      titleEl.textContent = ev.title;
+      main.appendChild(timeEl);
+      main.appendChild(titleEl);
+      const del = document.createElement("button");
+      del.type = "button";
+      del.className = "delete-btn";
+      del.textContent = "削除";
+      del.addEventListener("click", () => {
+        state.events = (state.events || []).filter((x) => x.id !== ev.id);
+        try {
+          saveState();
+        } catch {
+          return;
+        }
+        renderAll();
+      });
+      li.appendChild(main);
+      li.appendChild(del);
+      el.scheduleDayList.appendChild(li);
+    }
+  }
+}
+
+function addScheduleEvent() {
+  if (!el.scheduleDate || !el.scheduleTitle) return;
+  const dateKey = el.scheduleDate.value;
+  const title = el.scheduleTitle.value.trim();
+  const timeVal = el.scheduleTime?.value?.trim() || "";
+  if (!dateKey || !/^\d{4}-\d{2}-\d{2}$/.test(dateKey)) {
+    alert("日付を選んでください。");
+    return;
+  }
+  if (!title) {
+    alert("内容を入力してください。");
+    return;
+  }
+  if (!state.events) state.events = [];
+  state.events.push({
+    id: uid(),
+    date: dateKey,
+    time: timeVal,
+    title,
+    createdAt: Date.now(),
+  });
+  el.scheduleTitle.value = "";
+  if (el.scheduleTime) el.scheduleTime.value = "";
+  try {
+    saveState();
+  } catch {
+    state.events.pop();
+    return;
+  }
+  state.ui.selectedDate = dateKey;
+  const d = parseDate(dateKey);
+  state.ui.calYear = d.getFullYear();
+  state.ui.calMonth = d.getMonth();
+  renderAll();
+}
+
 function renderPhotoGallery(entry) {
   el.photoGallery.innerHTML = "";
   const list = entry.images || [];
@@ -689,6 +828,7 @@ function renderAll() {
   renderStreak();
   renderProgress();
   renderCalendar();
+  renderSchedulePanel();
   renderDayPanel();
 }
 
@@ -793,6 +933,7 @@ el.importFile.addEventListener("change", () => {
         data.ui.themeTab = "auto";
       }
       data.entries = migrateEntries(data.entries);
+      data.events = normalizeEvents(data.events);
       state = data;
       rolloverToToday();
       saveState();
@@ -816,5 +957,13 @@ setInterval(() => {
 el.themeTabAuto?.addEventListener("click", () => setThemeTab("auto"));
 el.themeTabDay?.addEventListener("click", () => setThemeTab("day"));
 el.themeTabNight?.addEventListener("click", () => setThemeTab("night"));
+
+el.scheduleAdd?.addEventListener("click", addScheduleEvent);
+el.scheduleTitle?.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    addScheduleEvent();
+  }
+});
 
 renderAll();

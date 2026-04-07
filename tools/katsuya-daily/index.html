@@ -65,6 +65,29 @@
         </div>
         <div id="calendar-grid" class="calendar-grid"></div>
         <button type="button" id="go-today" class="btn ghost full">今日に戻る</button>
+
+        <section class="block schedule-section">
+          <h3>この日の予定</h3>
+          <p class="panel-note">カレンダーで選んだ日の予定を、時間順に一覧します。</p>
+          <ul id="schedule-day-list" class="schedule-list" aria-live="polite"></ul>
+          <p id="schedule-day-empty" class="schedule-empty">この日の予定はまだありません。</p>
+        </section>
+
+        <section class="block schedule-section">
+          <h3>予定を追加</h3>
+          <p class="panel-note">日付・時刻・内容を入れて追加。時刻は空でもOKです。</p>
+          <div class="schedule-form">
+            <label class="field-label" for="schedule-date">日付</label>
+            <input type="date" id="schedule-date" class="schedule-date-input" />
+            <label class="field-label" for="schedule-time">時刻（任意）</label>
+            <input type="time" id="schedule-time" class="schedule-time-input" />
+            <label class="field-label" for="schedule-title">内容</label>
+            <div class="schedule-add-row">
+              <input type="text" id="schedule-title" placeholder="例: クライアント打ち合わせ" />
+              <button type="button" id="schedule-add" class="btn">追加</button>
+            </div>
+          </div>
+        </section>
       </article>
 
       <article class="panel panel-day">

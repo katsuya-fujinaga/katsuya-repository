@@ -750,6 +750,14 @@ body.theme-night .bullet-item {
   background: #f0b97a;
 }
 
+.dot.schedule {
+  background: #5b9fd4;
+}
+
+body.theme-night .dot.schedule {
+  background: #569cd6;
+}
+
 body.theme-night .dot.diary {
   background: #dcdcaa;
 }
@@ -785,6 +793,8 @@ body.theme-night .dot.photo {
 }
 
 input[type="text"],
+input[type="date"],
+input[type="time"],
 textarea {
   width: 100%;
   border: 1px solid #ecd8e8;
@@ -797,10 +807,107 @@ textarea {
 }
 
 body.theme-night input[type="text"],
+body.theme-night input[type="date"],
+body.theme-night input[type="time"],
 body.theme-night textarea {
   background: #1e1e1e;
   border-color: #3e3e42;
   color: var(--ink);
+}
+
+.field-label {
+  display: block;
+  margin: 10px 0 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.field-label:first-of-type {
+  margin-top: 0;
+}
+
+.schedule-section {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(236, 216, 232, 0.85);
+}
+
+body.theme-night .schedule-section {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+.schedule-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.schedule-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 11px;
+  border-radius: 11px;
+  margin-bottom: 8px;
+  background: #fff;
+  border: 1px solid #f1deea;
+}
+
+body.theme-night .schedule-item {
+  background: #2d2d30;
+  border-color: #3e3e42;
+}
+
+.schedule-item-main {
+  min-width: 0;
+  flex: 1;
+}
+
+.schedule-item-time {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--primary-deep);
+  margin-bottom: 4px;
+}
+
+body.theme-night .schedule-item-time {
+  color: var(--primary);
+}
+
+.schedule-item-title {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.schedule-empty {
+  margin: 8px 0 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.schedule-empty.is-hidden {
+  display: none;
+}
+
+.schedule-form {
+  margin-top: 6px;
+}
+
+.schedule-add-row {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+  margin-top: 4px;
+}
+
+.schedule-add-row input[type="text"] {
+  flex: 1;
+  min-width: 0;
 }
 
 textarea {
