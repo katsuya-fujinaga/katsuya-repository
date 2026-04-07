@@ -34,20 +34,19 @@
             <input type="file" id="import-file" accept="application/json" hidden />
           </div>
         </div>
+        <div class="hero-progress" aria-label="達成グラフ">
+          <div class="hero-progress-head">
+            <h2>達成グラフ（14日）</h2>
+            <p id="progress-text">今日の達成率 0%</p>
+          </div>
+          <div id="progress-chart" class="progress-chart progress-chart--hero"></div>
+          <p class="hero-progress-note">チェック・振り返り・日記・写真で、その日の積み上げを可視化します。</p>
+        </div>
         <div class="hero-mascot" aria-hidden="true">
           <img src="./images/header-mascot.png" alt="" width="200" height="200" decoding="async" />
         </div>
       </div>
     </header>
-
-    <section class="panel panel-progress">
-      <div class="panel-head">
-        <h2>達成グラフ（14日）</h2>
-        <p id="progress-text">今日の達成率 0%</p>
-      </div>
-      <div id="progress-chart" class="progress-chart" aria-label="達成グラフ"></div>
-      <p class="panel-note">チェック完了率・振り返り・日記・写真で、その日の積み上げを可視化します。</p>
-    </section>
 
     <section class="layout">
       <article class="panel panel-calendar">

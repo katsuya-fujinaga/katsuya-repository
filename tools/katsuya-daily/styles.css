@@ -157,10 +157,62 @@ body.theme-night .panel {
 .hero-main {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: space-between;
-  gap: 1rem 1.5rem;
+  gap: 1rem 1.25rem;
   flex-wrap: wrap;
+}
+
+.hero-progress {
+  flex: 1 1 200px;
+  min-width: min(100%, 220px);
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px 10px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(236, 216, 232, 0.85);
+  align-self: center;
+}
+
+body.theme-night .hero-progress {
+  background: rgba(45, 45, 48, 0.65);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.hero-progress-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.hero-progress-head h2 {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.hero-progress-head p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.hero-progress-note {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.68rem;
+  line-height: 1.35;
+}
+
+.progress-chart--hero {
+  margin-top: 8px;
+  height: 118px;
+  gap: 4px;
 }
 
 .hero-mascot {
@@ -199,9 +251,19 @@ body.theme-night .hero-mascot {
     align-items: stretch;
   }
 
+  .hero-progress {
+    max-width: none;
+    order: 2;
+  }
+
   .hero-mascot {
     margin-left: 0;
     align-self: flex-end;
+    order: 3;
+  }
+
+  .hero-copy {
+    order: 1;
   }
 }
 
@@ -400,10 +462,6 @@ body.theme-night .photo-card {
 
 .panel {
   padding: 14px;
-}
-
-.panel-progress {
-  margin-bottom: 14px;
 }
 
 .panel-head {
