@@ -45,6 +45,26 @@
               <button type="button" id="btn-import" class="btn ghost">読み込み</button>
               <input type="file" id="import-file" accept="application/json" hidden />
             </div>
+            <div class="gdrive-panel" id="gdrive-panel" aria-label="Google Drive 同期">
+              <p class="panel-note gdrive-hint">
+                Google Cloud で「OAuth 2.0 クライアント ID（ウェブ）」を作成し、<strong>JavaScript の承認済みオリジン</strong>にこのページのURL（例:
+                https://katsuya-fujinaga.github.io）を追加。API ライブラリで <strong>Google Drive API</strong> を有効化してください。
+              </p>
+              <input
+                type="text"
+                id="gdrive-client-id"
+                class="gdrive-client-input"
+                placeholder="クライアントID（〜.apps.googleusercontent.com）"
+                autocomplete="off"
+                spellcheck="false"
+              />
+              <button type="button" id="gdrive-save-client-id" class="btn ghost full gdrive-btn">クライアントIDを保存</button>
+              <div class="gdrive-sync-actions">
+                <button type="button" id="gdrive-sync-upload" class="btn ghost full gdrive-btn">Driveに同期</button>
+                <button type="button" id="gdrive-sync-download" class="btn ghost full gdrive-btn">Driveから取り込み</button>
+              </div>
+              <p id="gdrive-status" class="gdrive-status" aria-live="polite"></p>
+            </div>
             <div class="hero-mascot" aria-hidden="true">
               <img src="./images/header-mascot.png" alt="" width="200" height="200" decoding="async" />
             </div>

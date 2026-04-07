@@ -1,5 +1,9 @@
 const STORAGE_KEY = "katsuya-daily-v2";
 const LEGACY_KEY = "katsuya-daily-v1";
+const GDRIVE_CLIENT_ID_KEY = "katsuya-daily-gdrive-client-id";
+const GDRIVE_FILE_ID_KEY = "katsuya-daily-gdrive-file-id";
+const GDRIVE_SYNC_FILENAME = "katsuya-daily-sync.json";
+const GDRIVE_SCOPE = "https://www.googleapis.com/auth/drive.file";
 const WD = ["日", "月", "火", "水", "木", "金", "土"];
 
 const MAX_PHOTOS_PER_DAY = 4;
@@ -128,6 +132,19 @@ function saveState() {
     }
     throw e;
   }
+}
+
+function applyImportedState(data) {
+  if (!data || !data.entries || !data.ui) throw new Error("invalid");
+  if (!data.ui.themeTab || !["auto", "day", "night"].includes(data.ui.themeTab)) {
+    data.ui.themeTab = "auto";
+  }
+  data.entries = migrateEntries(data.entries);
+  data.events = normalizeEvents(data.events);
+  state = data;
+  rolloverToToday();
+  saveState();
+  renderAll();
 }
 
 function ensureEntry(dateKey) {
@@ -378,6 +395,11 @@ const el = {
   btnExport: document.getElementById("btn-export"),
   btnImport: document.getElementById("btn-import"),
   importFile: document.getElementById("import-file"),
+  gdriveClientId: document.getElementById("gdrive-client-id"),
+  gdriveSaveClientId: document.getElementById("gdrive-save-client-id"),
+  gdriveSyncUpload: document.getElementById("gdrive-sync-upload"),
+  gdriveSyncDownload: document.getElementById("gdrive-sync-download"),
+  gdriveStatus: document.getElementById("gdrive-status"),
   scheduleDayList: document.getElementById("schedule-day-list"),
   scheduleDayEmpty: document.getElementById("schedule-day-empty"),
   scheduleDate: document.getElementById("schedule-date"),
@@ -832,6 +854,204 @@ function renderAll() {
   renderDayPanel();
 }
 
+function setGdriveStatus(message, isError) {
+  if (!el.gdriveStatus) return;
+  el.gdriveStatus.textContent = message || "";
+  el.gdriveStatus.classList.toggle("is-error", !!isError);
+}
+
+function loadGsiScript() {
+  if (window.google?.accounts?.oauth2) return Promise.resolve();
+  return new Promise((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = "https://accounts.google.com/gsi/client";
+    s.async = true;
+    s.onload = () => resolve();
+    s.onerror = () => reject(new Error("gsi"));
+    document.head.appendChild(s);
+  });
+}
+
+function requestDriveAccessToken(clientId) {
+  return new Promise((resolve, reject) => {
+    if (!window.google?.accounts?.oauth2) {
+      reject(new Error("gsi"));
+      return;
+    }
+    const client = google.accounts.oauth2.initTokenClient({
+      client_id: clientId,
+      scope: GDRIVE_SCOPE,
+      callback: (resp) => {
+        if (resp.error || !resp.access_token) {
+          reject(new Error(resp.error || "no_token"));
+          return;
+        }
+        resolve(resp.access_token);
+      },
+    });
+    client.requestAccessToken({ prompt: "" });
+  });
+}
+
+async function createDriveFile(token, payload) {
+  const boundary = `kdaily_${uid().replace(/[^a-z0-9]/gi, "")}`;
+  const meta = { name: GDRIVE_SYNC_FILENAME, mimeType: "application/json" };
+  const body =
+    `--${boundary}\r\n` +
+    "Content-Type: application/json; charset=UTF-8\r\n\r\n" +
+    JSON.stringify(meta) +
+    `\r\n--${boundary}\r\n` +
+    "Content-Type: application/json\r\n\r\n" +
+    payload +
+    `\r\n--${boundary}--`;
+  const res = await fetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": `multipart/related; boundary=${boundary}`,
+    },
+    body,
+  });
+  if (!res.ok) throw new Error((await res.text()) || res.statusText);
+  const json = await res.json();
+  if (json.id) localStorage.setItem(GDRIVE_FILE_ID_KEY, json.id);
+}
+
+/** 保存済みID、または Drive 上の同名ファイル（このアプリが作ったもの）を解決 */
+async function resolveDriveFileId(token) {
+  const cached = localStorage.getItem(GDRIVE_FILE_ID_KEY)?.trim();
+  if (cached) return cached;
+  const query = `name='${GDRIVE_SYNC_FILENAME}' and trashed=false`;
+  const url = new URL("https://www.googleapis.com/drive/v3/files");
+  url.searchParams.set("q", query);
+  url.searchParams.set("fields", "files(id,name,modifiedTime)");
+  url.searchParams.set("orderBy", "modifiedTime desc");
+  url.searchParams.set("pageSize", "5");
+  const res = await fetch(url.toString(), {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) return null;
+  const json = await res.json();
+  const files = json.files || [];
+  if (files.length === 0) return null;
+  const id = files[0].id;
+  localStorage.setItem(GDRIVE_FILE_ID_KEY, id);
+  return id;
+}
+
+async function syncUploadToDrive() {
+  setGdriveStatus("Drive に接続しています…");
+  try {
+    await loadGsiScript();
+  } catch {
+    setGdriveStatus("Google のスクリプトを読み込めませんでした。", true);
+    return;
+  }
+  const clientId = localStorage.getItem(GDRIVE_CLIENT_ID_KEY)?.trim();
+  if (!clientId) {
+    alert("先に OAuth クライアントID を入力して「クライアントIDを保存」してください。");
+    setGdriveStatus("");
+    return;
+  }
+  let token;
+  try {
+    token = await requestDriveAccessToken(clientId);
+  } catch {
+    setGdriveStatus("Google へのログインが完了しませんでした（キャンセルした可能性があります）。", true);
+    return;
+  }
+  const payload = JSON.stringify(state);
+  try {
+    let fileId = await resolveDriveFileId(token);
+    if (fileId) {
+      const res = await fetch(
+        `https://www.googleapis.com/upload/drive/v3/files/${encodeURIComponent(fileId)}?uploadType=media`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: payload,
+        }
+      );
+      if (res.status === 404) {
+        localStorage.removeItem(GDRIVE_FILE_ID_KEY);
+        fileId = null;
+      } else if (!res.ok) {
+        throw new Error((await res.text()) || res.statusText);
+      }
+    }
+    if (!fileId) {
+      await createDriveFile(token, payload);
+    }
+    try {
+      saveState();
+    } catch {
+      /* local only */
+    }
+    setGdriveStatus(`Drive に同期しました（${new Date().toLocaleString("ja-JP")}）`);
+  } catch (e) {
+    console.error(e);
+    setGdriveStatus("アップロードに失敗しました。Drive API が有効か、容量を確認してください。", true);
+  }
+}
+
+async function syncDownloadFromDrive() {
+  if (!confirm("このブラウザに保存中のデータを、Drive 上の内容で置き換えます。よろしいですか？")) {
+    return;
+  }
+  setGdriveStatus("Drive から取得しています…");
+  try {
+    await loadGsiScript();
+  } catch {
+    setGdriveStatus("Google のスクリプトを読み込めませんでした。", true);
+    return;
+  }
+  const clientId = localStorage.getItem(GDRIVE_CLIENT_ID_KEY)?.trim();
+  if (!clientId) {
+    alert("先に OAuth クライアントID を入力して保存してください。");
+    setGdriveStatus("");
+    return;
+  }
+  let token;
+  try {
+    token = await requestDriveAccessToken(clientId);
+  } catch {
+    setGdriveStatus("Google へのログインが完了しませんでした。", true);
+    return;
+  }
+  let fileId;
+  try {
+    fileId = await resolveDriveFileId(token);
+  } catch {
+    fileId = null;
+  }
+  if (!fileId) {
+    alert("Drive 上に同期ファイルが見つかりません。先にどちらかの端末で「Driveに同期」を実行してください。");
+    setGdriveStatus("");
+    return;
+  }
+  try {
+    const res = await fetch(
+      `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}?alt=media`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    if (!res.ok) throw new Error((await res.text()) || res.statusText);
+    const text = await res.text();
+    applyImportedState(JSON.parse(text));
+    setGdriveStatus(`Drive から取り込みました（${new Date().toLocaleString("ja-JP")}）`);
+  } catch (e) {
+    console.error(e);
+    setGdriveStatus("取り込みに失敗しました。JSON が壊れていないか確認してください。", true);
+  }
+}
+
+function initGdrivePanel() {
+  const saved = localStorage.getItem(GDRIVE_CLIENT_ID_KEY);
+  if (el.gdriveClientId && saved) el.gdriveClientId.value = saved;
+}
+
 el.calPrev.addEventListener("click", () => {
   let y = state.ui.calYear;
   let m = state.ui.calMonth - 1;
@@ -927,17 +1147,7 @@ el.importFile.addEventListener("change", () => {
   const reader = new FileReader();
   reader.onload = () => {
     try {
-      const data = JSON.parse(String(reader.result));
-      if (!data || !data.entries || !data.ui) throw new Error("invalid");
-      if (!data.ui.themeTab || !["auto", "day", "night"].includes(data.ui.themeTab)) {
-        data.ui.themeTab = "auto";
-      }
-      data.entries = migrateEntries(data.entries);
-      data.events = normalizeEvents(data.events);
-      state = data;
-      rolloverToToday();
-      saveState();
-      renderAll();
+      applyImportedState(JSON.parse(String(reader.result)));
     } catch {
       alert("読み込みできませんでした。JSON形式を確認してください。");
     } finally {
@@ -966,4 +1176,24 @@ el.scheduleTitle?.addEventListener("keydown", (e) => {
   }
 });
 
+el.gdriveSaveClientId?.addEventListener("click", () => {
+  const v = el.gdriveClientId?.value.trim() || "";
+  if (!v) {
+    localStorage.removeItem(GDRIVE_CLIENT_ID_KEY);
+    setGdriveStatus("クライアントIDを消去しました。");
+    return;
+  }
+  localStorage.setItem(GDRIVE_CLIENT_ID_KEY, v);
+  setGdriveStatus("クライアントIDを保存しました。");
+});
+
+el.gdriveSyncUpload?.addEventListener("click", () => {
+  syncUploadToDrive();
+});
+
+el.gdriveSyncDownload?.addEventListener("click", () => {
+  syncDownloadFromDrive();
+});
+
+initGdrivePanel();
 renderAll();

@@ -225,6 +225,61 @@ body.theme-night .panel {
   padding-right: 10px;
 }
 
+.gdrive-panel {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 10px 8px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(236, 216, 232, 0.85);
+}
+
+body.theme-night .gdrive-panel {
+  background: rgba(45, 45, 48, 0.65);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.gdrive-panel .gdrive-hint {
+  margin: 0 0 8px;
+  font-size: 0.68rem;
+  line-height: 1.45;
+}
+
+.gdrive-client-input {
+  width: 100%;
+  margin-bottom: 6px;
+  font-size: 0.78rem;
+  padding: 8px 9px;
+}
+
+.gdrive-btn {
+  margin-top: 6px;
+}
+
+.gdrive-sync-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.gdrive-status {
+  margin: 8px 0 0;
+  min-height: 1.2em;
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.gdrive-status.is-error {
+  color: #c45a6b;
+}
+
+body.theme-night .gdrive-status.is-error {
+  color: #f48771;
+}
+
 .hero-progress {
   flex: 1;
   width: 100%;
