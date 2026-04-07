@@ -404,7 +404,7 @@ function renderProgress() {
     bar.title = `${d}: ${score}点`;
     const lb = document.createElement("span");
     lb.className = "bar-label";
-    lb.textContent = d.slice(5).replace("-", "/");
+    lb.textContent = d === today ? "今日" : d.slice(5).replace("-", "/");
     wrap.appendChild(bar);
     wrap.appendChild(lb);
     el.progressChart.appendChild(wrap);
