@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "6b4dd81242469789",
+        "id": "18303e3fa2a1534e",
         "type": "tabs",
         "children": [
           {
-            "id": "b52299c9a483bab4",
+            "id": "b5ec553a10daa057",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -162,8 +162,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -176,7 +175,7 @@
       "bases:新規ベースを作成": false
     }
   },
-  "active": "b52299c9a483bab4",
+  "active": "f337f1ba04648ee9",
   "lastOpenFiles": [
     "ようこそ.md"
   ]
