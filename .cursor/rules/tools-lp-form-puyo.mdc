@@ -1,0 +1,31 @@
+---
+description: LPオプトイン「ぷよぷよボタン」フォームキット。tools/lp-form-puyo を他LPに組み込む・複製するときに読む。
+globs: "**/lp/**,tools/lp-form-puyo/**"
+alwaysApply: false
+---
+
+# LP フォーム（ぷよぷよ）再利用キット
+
+## 置き場所（正）
+
+`tools/lp-form-puyo/`
+
+| ファイル | 役割 |
+|----------|------|
+| `README.md` | **手順の本体**（取り込み・クラス対応・注意） |
+| `lp-form-puyo.css` | デザイン + `@keyframes lpfp-btn-puyo`（**JS 不要**） |
+| `snippet.html` | HTML のたたき台 |
+| `index.html` | プレビュー（`../lp3/images/` の画像を参照） |
+
+## エージェントがやること
+
+1. ユーザーが「ぷよぷよフォーム」「lp-form-puyo」を求めたら、まず **`tools/lp-form-puyo/README.md`** を前提にする。
+2. 新規 LP では **`.lp-form-puyo-kit` でラップ**し、`snippet.html` と同じ **`lpfp-*` クラス**を使う（グローバル衝突を避ける）。
+3. CSS は商品 LP 側に **コピーして相対パス読み込み**を推奨（Pages の直リンク依存は避ける）。
+4. 元デザインの参照実装: `tools/lp3/`（旧クラス名 `.form` / `.btn` / `@keyframes btn-animation-f`）。
+
+## 公開 URL（参考）
+
+`https://katsuya-fujinaga.github.io/katsuya-repository/tools/lp-form-puyo/`
+
+（詳細は `lp-deploy.mdc` の tools ベース URL と整合）

@@ -1,14 +1,14 @@
 {
   "main": {
-    "id": "6032cd3f2c9f500a",
+    "id": "78d7e184ae2e54a5",
     "type": "split",
     "children": [
       {
-        "id": "86f424e166830899",
+        "id": "6b4dd81242469789",
         "type": "tabs",
         "children": [
           {
-            "id": "2a449902c1e05fd3",
+            "id": "b52299c9a483bab4",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -23,15 +23,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "012bb887fc0c7f4f",
+    "id": "665287e5a32107d5",
     "type": "split",
     "children": [
       {
-        "id": "f5f7c3f4f142adf2",
+        "id": "e7d48ff899993fab",
         "type": "tabs",
         "children": [
           {
-            "id": "9f735ae43a0bc799",
+            "id": "f337f1ba04648ee9",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -44,12 +44,12 @@
             }
           },
           {
-            "id": "86e8634244e994a1",
+            "id": "828e9e21f8c8704b",
             "type": "leaf",
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#進行中",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -61,7 +61,7 @@
             }
           },
           {
-            "id": "16704cabf5e824d1",
+            "id": "3cff0bc947b5345a",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -70,23 +70,22 @@
               "title": "ブックマーク"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
     "width": 300
   },
   "right": {
-    "id": "a2df546a3d9eda79",
+    "id": "ab7928eb51a3a08b",
     "type": "split",
     "children": [
       {
-        "id": "12903f80323b456f",
+        "id": "28e6cbada1f6ae55",
         "type": "tabs",
         "children": [
           {
-            "id": "0bcbe9dd4c7ddb22",
+            "id": "01e08335f8a94d70",
             "type": "leaf",
             "state": {
               "type": "backlink",
@@ -104,7 +103,7 @@
             }
           },
           {
-            "id": "bf07d4e1b3309e45",
+            "id": "49745d981f74917c",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
@@ -117,7 +116,7 @@
             }
           },
           {
-            "id": "d1f6b3e603a9484f",
+            "id": "f6e33f113d3d8e2b",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -132,7 +131,7 @@
             }
           },
           {
-            "id": "5b4442d612a1362a",
+            "id": "73bddea4299f9cac",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -146,7 +145,7 @@
             }
           },
           {
-            "id": "b256a64f1a910974",
+            "id": "f0d9171f79788d7b",
             "type": "leaf",
             "state": {
               "type": "outline",
@@ -158,80 +157,27 @@
               "icon": "lucide-list",
               "title": "アウトライン"
             }
-          },
-          {
-            "id": "2c06db5c4c9e7a58",
-            "type": "leaf",
-            "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "グラフビュー"
-            }
-          },
-          {
-            "id": "f46d7c57bc3f508f",
-            "type": "leaf",
-            "state": {
-              "type": "juggl_nodes",
-              "state": {},
-              "icon": "ag-node-list",
-              "title": "Juggl nodes"
-            }
-          },
-          {
-            "id": "5050fe9d6899f6fd",
-            "type": "leaf",
-            "state": {
-              "type": "juggl_style",
-              "state": {},
-              "icon": "ag-style",
-              "title": "Juggl style"
-            }
           }
-        ],
-        "currentTab": 5
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 356.5
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
       "switcher:クイックスイッチャーを開く": false,
       "graph:グラフビューを開く": false,
       "canvas:新規キャンバスを作成": false,
+      "daily-notes:今日のデイリーノートを開く": false,
+      "templates:テンプレートを挿入": false,
       "command-palette:コマンドパレットを開く": false,
-      "bases:新規ベースを作成": false,
-      "templater-obsidian:Templater": false,
-      "juggl:Juggl global graph": false
+      "bases:新規ベースを作成": false
     }
   },
-  "active": "2a449902c1e05fd3",
+  "active": "b52299c9a483bab4",
   "lastOpenFiles": [
-    "本田有紀華コンテンツ/レターLP.md",
-    "本田有紀華コンテンツ/愛され手相カウンセラーLP.md",
-    "無題のファイル.canvas",
-    "本田有紀華コンテンツ/2026年3月末精算.md",
-    "ツール/cursor＋Google設定関係.md",
-    "ツール/cursor作成ツール.md",
-    "パーソナル/プロパティ.md",
-    "ペルソナ分析.md",
-    "ツール/プロパティ.md",
-    "katsuyafujinaga.canvas",
-    "パーソナル/藤永勝也_体質改善と1日のスケジュール.md",
-    "2026年3月末精算 1.md",
-    "ツール",
-    "本田有紀華コンテンツ",
-    "パーソナル",
-    "1日のスケジュール.md",
-    "育脳子育てカウンセラーメール",
-    "タスクリスト.md",
-    "子育て育脳カウンセラー/ハウスメール.md",
-    "子育て育脳カウンセラー",
-    "育脳子育てカウンセラー/ハウスメール.md",
-    "育脳子育てカウンセラー",
-    "2026-04-04タスク.md",
     "ようこそ.md"
   ]
 }
