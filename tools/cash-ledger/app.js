@@ -4,7 +4,7 @@
   var STORAGE_KEY = "hitobiji-cash-ledger-v1";
   var MAX_ACCOUNTS = 8;
 
-  var defaultAccountNames = ["SMBC信託銀行", "SBI銀行", "現金"];
+  var defaultAccountNames = ["SMBC信託銀行", "住信SBIネット銀行", "現金"];
 
   var WEEKDAYS = ["日", "月", "火", "水", "木", "金", "土"];
 
