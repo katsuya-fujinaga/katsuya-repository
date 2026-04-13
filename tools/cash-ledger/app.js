@@ -162,6 +162,7 @@
   var elHead = document.getElementById("ledger-head");
   var elBody = document.getElementById("ledger-body");
   var elOpeningsBar = document.getElementById("openings-bar");
+  var elLedgerScroll = document.getElementById("ledger-scroll");
   var elSummary = document.getElementById("summary-grid");
   var dlg = document.getElementById("dlg-accounts");
   var elAccountEdit = document.getElementById("account-edit-list");
@@ -191,6 +192,10 @@
     if (elThemeAuto) elThemeAuto.setAttribute("aria-selected", tab === "auto" ? "true" : "false");
     if (elThemeDay) elThemeDay.setAttribute("aria-selected", tab === "day" ? "true" : "false");
     if (elThemeNight) elThemeNight.setAttribute("aria-selected", tab === "night" ? "true" : "false");
+
+    requestAnimationFrame(function () {
+      syncLedgerTheadRow1Height();
+    });
   }
 
   function setThemeTab(next) {
@@ -231,6 +236,26 @@
     });
     html += "</tr>";
     elHead.innerHTML = html;
+  }
+
+  /** 見出し2段目の sticky top を、1段目 tr の実測高さに合わせる（ずれると1日目が欠ける） */
+  function syncLedgerTheadRow1Height() {
+    if (!elLedgerScroll) return;
+    var tr = document.querySelector("#ledger-table thead tr.account-names");
+    if (!tr) return;
+    var h = tr.getBoundingClientRect().height;
+    if (h > 0) {
+      elLedgerScroll.style.setProperty("--ledger-thead-row1", Math.ceil(h) + "px");
+    }
+  }
+
+  var ledgerTheadResizeObs = null;
+  function ensureLedgerTheadResizeObserver() {
+    if (ledgerTheadResizeObs || !window.ResizeObserver || !elLedgerScroll) return;
+    ledgerTheadResizeObs = new ResizeObserver(function () {
+      syncLedgerTheadRow1Height();
+    });
+    ledgerTheadResizeObs.observe(elLedgerScroll);
   }
 
   function renderOpeningsBar(mk, mdata) {
@@ -503,6 +528,13 @@
     elBody.innerHTML = body;
     wireBodyEvents(mdata);
     renderSummary(mk, dim, mdata);
+
+    ensureLedgerTheadResizeObserver();
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        syncLedgerTheadRow1Height();
+      });
+    });
   }
 
   function wireBodyEvents(mdata) {

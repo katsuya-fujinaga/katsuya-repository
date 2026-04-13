@@ -15,7 +15,8 @@
   --primary-text: #115e59;
   --table-zebra: rgba(28, 25, 23, 0.045);
   --thead-total-bg: rgba(13, 148, 136, 0.14);
-  --ledger-thead-row1: 3rem;
+  /* 初期値のみ。実測は app.js が #ledger-scroll に --ledger-thead-row1 を上書き */
+  --ledger-thead-row1: 4.5rem;
   --thead-total-text: #0f766e;
   --td-total-bg: rgba(13, 148, 136, 0.08);
   --grand-border: rgba(13, 148, 136, 0.35);
@@ -47,7 +48,8 @@ body.theme-night {
   --primary-text: #a7f3d0;
   --table-zebra: rgba(21, 28, 40, 0.65);
   --thead-total-bg: rgba(52, 211, 153, 0.12);
-  --ledger-thead-row1: 3rem;
+  /* 初期値のみ。実測は app.js が #ledger-scroll に --ledger-thead-row1 を上書き */
+  --ledger-thead-row1: 4.5rem;
   --thead-total-text: #a7f3d0;
   --td-total-bg: rgba(52, 211, 153, 0.06);
   --grand-border: rgba(52, 211, 153, 0.35);
@@ -271,7 +273,8 @@ body.theme-night .btn.primary {
   overflow: auto;
   max-height: calc(100vh - 15rem);
   margin: 0 1rem 1rem;
-  padding: 0;
+  /* border-radius + overflow で表の上端が角にかかり 1 行目が欠けるのを防ぐ */
+  padding: 4px 0 6px;
   border: 1px solid var(--border);
   border-radius: 10px;
   background: var(--surface);
