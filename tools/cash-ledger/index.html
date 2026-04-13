@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="複数口座の日別入出金・残高をブラウザ内で管理。スプレッドシート型の入出金表に近い操作感。" />
-  <title>入出金レジャー · tools</title>
+  <meta name="description" content="複数口座の入出金と残高を、日ごとにメモ感覚で残すツール。データはこのブラウザにだけ保存されます。" />
+  <title>お金のきろく · tools</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <header class="app-header">
-    <h1>入出金レジャー</h1>
-    <p class="sub">複数口座 × 月次カレンダー。1日あたり「＋行」で複数取引を追加可。右端は全口座の残高合計。データはこのブラウザにのみ保存</p>
+    <h1>お金のきろく</h1>
+    <p class="sub">口座がいくつあっても、月ごとのカレンダーにぽちぽち書いていくだけ。「＋行」で1日に何件でも。右端はぜんぶ合わせた残高。データはこのブラウザだけに保存</p>
   </header>
 
   <div class="toolbar" role="toolbar" aria-label="操作">
@@ -29,7 +29,7 @@
   </div>
 
   <div class="table-wrap">
-    <table class="ledger" id="ledger-table" aria-label="入出金一覧">
+    <table class="ledger" id="ledger-table" aria-label="お金のきろくの一覧">
       <thead id="ledger-head"></thead>
       <tbody id="ledger-body"></tbody>
     </table>
@@ -41,8 +41,8 @@
   </section>
 
   <p class="note-block">
-    同日の2件目以降は、日付セルの「＋行」で行を足します（不要な最下行は「−行」）。右の「合計」は、その時点での全口座残高の合算です。
-    税金・保険のマトリクスなどは「項目」メモや別管理でもOKです。
+    同じ日に何件も書きたいときは、日付の「＋行」。けしてよいのは一番下の行だけ（「−行」）。右の「合計」は、その行までの全口座の残高を足した数字です。
+    税金や保険の細かい表は、「項目」に一言メモするか、別の紙でもOKです。
   </p>
 
   <dialog class="modal" id="dlg-accounts">

@@ -54,7 +54,7 @@ https://katsuya-fujinaga.github.io/katsuya-repository/tools/
 | Katsuya Daily | https://katsuya-fujinaga.github.io/katsuya-repository/tools/katsuya-daily/ |
 | Katsuya Board | https://katsuya-fujinaga.github.io/katsuya-repository/tools/katsuya-taskboard/ |
 | LPフォーム（ぷよぷよ）キット | https://katsuya-fujinaga.github.io/katsuya-repository/tools/lp-form-puyo/ |
-| 入出金レジャー | https://katsuya-fujinaga.github.io/katsuya-repository/tools/cash-ledger/ |
+| お金のきろく | https://katsuya-fujinaga.github.io/katsuya-repository/tools/cash-ledger/ |
 
 （`ffs-seminar` を `tools/` 配下に置いている場合は `{ベース}ffs-seminar/` と同様に組み立てる。）
 
@@ -76,7 +76,7 @@ https://katsuya-fujinaga.github.io/katsuya-repository/tools/
 - **`./katsuya-daily/`** … デイリーツール（`index.html` / `app.js` / `styles.css` / `images/`）
 - **`./ffs-seminar/`** … FFS セミナーシナリオ（生成スクリプトで `tools/ffs-seminar/index.html` に出力する想定。`index.html` のみ。md から生成）
 - **`./lp-form-puyo/`** … オプトインフォームデザイン＋ぷよぷよボタン（CSS）の再利用キット（`README.md` / `lp-form-puyo.css` / `snippet.html` / プレビュー `index.html`）
-- **`./cash-ledger/`** … 複数口座の日別入出金・残高（`index.html` / `app.js` / `styles.css`）
+- **`./cash-ledger/`** … お金のきろく（複数口座の日別入出金・残高）（`index.html` / `app.js` / `styles.css`）
 - **画像**: 各フォルダ内の `./images/` など（使用時）
 - **共通CSS/JS**: 必要になったときだけルートに `css/` `js/` を置く（現状は未使用）
 
