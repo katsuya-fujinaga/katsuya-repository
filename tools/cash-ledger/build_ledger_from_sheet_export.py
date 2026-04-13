@@ -289,7 +289,7 @@ def main():
         / ".cursor/projects/Users-Katsuya-fujinaga-Documents-hitobiji/uploads/edit-0.md"
     )
     out_path = Path(
-        sys.argv[2] if len(sys.argv) > 2 else here / "import-2026-住信SBI-現金.json"
+        sys.argv[2] if len(sys.argv) > 2 else here / "import-output.json"
     )
     text = in_path.read_text(encoding="utf-8")
     order_lists = parse_export(text)
