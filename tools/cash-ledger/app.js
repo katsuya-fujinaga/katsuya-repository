@@ -6,6 +6,13 @@
   var CHART_AXIS_MIN = -20 * 10000; // -20万円
   var CHART_AXIS_MAX = 300 * 10000; // 300万円
   var CHART_AXIS_STEP = 20 * 10000; // 20万円刻み
+  var DEFAULT_LIABILITIES = [
+    { name: "ザリード", keyword: "ザリード", opening: 0 },
+    { name: "国税", keyword: "国税", opening: 0 },
+    { name: "市県民税", keyword: "市県民税", opening: 0 },
+    { name: "国民健康保険", keyword: "国民健康保険", opening: 0 },
+    { name: "弁護士", keyword: "弁護士", opening: 0 },
+  ];
 
   var defaultAccountNames = ["SMBC信託銀行", "住信SBIネット銀行", "現金"];
 
@@ -76,6 +83,65 @@
     return s;
   }
 
+  function ensureLiabilities(s) {
+    if (!Array.isArray(s.liabilities) || s.liabilities.length === 0) {
+      s.liabilities = DEFAULT_LIABILITIES.map(function (x, i) {
+        return {
+          id: "l" + (i + 1),
+          name: x.name,
+          keyword: x.keyword,
+          opening: x.opening,
+        };
+      });
+      return true;
+    }
+    var changed = false;
+    s.liabilities = s.liabilities
+      .map(function (x, i) {
+        if (!x || typeof x !== "object") {
+          changed = true;
+          return null;
+        }
+        var name = String(x.name || "").trim();
+        if (!name) {
+          changed = true;
+          return null;
+        }
+        return {
+          id: x.id || "l_" + Date.now() + "_" + i,
+          name: name,
+          keyword: String(x.keyword || name).trim(),
+          opening: parseNum(x.opening),
+        };
+      })
+      .filter(Boolean);
+    if (s.liabilities.length === 0) {
+      changed = true;
+      s.liabilities = DEFAULT_LIABILITIES.map(function (x, i) {
+        return {
+          id: "l" + (i + 1),
+          name: x.name,
+          keyword: x.keyword,
+          opening: x.opening,
+        };
+      });
+    }
+    DEFAULT_LIABILITIES.forEach(function (x, i) {
+      var exists = s.liabilities.some(function (li) {
+        return li && li.name === x.name;
+      });
+      if (exists) return;
+      changed = true;
+      s.liabilities.push({
+        id: "l_default_" + i + "_" + Date.now(),
+        name: x.name,
+        keyword: x.keyword,
+        opening: x.opening,
+      });
+    });
+    return changed;
+  }
+
   function saveState(state) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   }
@@ -90,8 +156,10 @@
           migrateV1ToV2(o);
           if (o.version === 2) {
             var missingUi = !o.ui || typeof o.ui !== "object";
+            var missingLiabilities = !Array.isArray(o.liabilities);
             ensureUi(o);
-            if (missingUi) saveState(o);
+            ensureLiabilities(o);
+            if (missingUi || missingLiabilities) saveState(o);
             return o;
           }
         }
@@ -101,6 +169,14 @@
       version: 2,
       accounts: defaultAccountNames.map(function (name, i) {
         return { id: "a" + (i + 1), name: name };
+      }),
+      liabilities: DEFAULT_LIABILITIES.map(function (x, i) {
+        return {
+          id: "l" + (i + 1),
+          name: x.name,
+          keyword: x.keyword,
+          opening: x.opening,
+        };
       }),
       months: {},
       ui: { themeTab: "auto" },
@@ -177,8 +253,11 @@
   var elLedgerScroll = document.getElementById("ledger-scroll");
   var elSummary = document.getElementById("summary-grid");
   var elMonthlyChart = document.getElementById("monthly-chart");
+  var elLiabilitiesGrid = document.getElementById("liabilities-grid");
   var dlg = document.getElementById("dlg-accounts");
   var elAccountEdit = document.getElementById("account-edit-list");
+  var dlgLiabilities = document.getElementById("dlg-liabilities");
+  var elLiabilityEditList = document.getElementById("liability-edit-list");
   var dlgFixedBatch = document.getElementById("dlg-fixed-batch");
   var elFixedAccount = document.getElementById("fixed-account");
   var elFixedKind = document.getElementById("fixed-kind");
@@ -590,6 +669,7 @@
     wireBodyEvents(mdata);
     renderSummary(mk, dim, mdata);
     renderMonthlyChart(currentKey);
+    renderLiabilitiesSummary();
 
     ensureLedgerTheadResizeObserver();
     requestAnimationFrame(function () {
@@ -926,6 +1006,85 @@
       "</div>";
   }
 
+  function totalWithdrawByKeyword(keyword) {
+    var kw = String(keyword || "").trim();
+    if (!kw) return 0;
+    var total = 0;
+    Object.keys(state.months || {}).forEach(function (key) {
+      var mk = parseMonthKey(key);
+      var dim = daysInMonth(mk.y, mk.m);
+      var mdata = state.months[key];
+      for (var day = 1; day <= dim; day++) {
+        var val = mdata.days && mdata.days[String(day)];
+        if (!val || !Array.isArray(val.lines)) continue;
+        for (var li = 0; li < val.lines.length; li++) {
+          var line = val.lines[li];
+          state.accounts.forEach(function (a) {
+            var c = line[a.id];
+            if (!c) return;
+            var note = String(c.note || "");
+            if (note.indexOf(kw) >= 0) total += parseNum(c.w);
+          });
+        }
+      }
+    });
+    return total;
+  }
+
+  function renderLiabilitiesSummary() {
+    if (!elLiabilitiesGrid) return;
+    ensureLiabilities(state);
+    var sumOpening = 0;
+    var sumPaid = 0;
+    var sumRemain = 0;
+    var html = state.liabilities
+      .map(function (item) {
+        var paid = totalWithdrawByKeyword(item.keyword);
+        var remain = parseNum(item.opening) - paid;
+        sumOpening += parseNum(item.opening);
+        sumPaid += paid;
+        sumRemain += remain;
+        return (
+          '<div class="summary-card">' +
+          "<h3>" +
+          escapeHtml(item.name) +
+          "</h3>" +
+          '<p>初期残高 <span class="num">' +
+          fmtNum(item.opening) +
+          "</span></p>" +
+          '<p>支払済み（引落累計） <span class="num">' +
+          fmtNum(paid) +
+          "</span></p>" +
+          '<p>残高 <span class="num ' +
+          (remain < 0 ? "num-neg" : "") +
+          '">' +
+          fmtNum(remain) +
+          "</span></p>" +
+          '<p>キーワード <span class="num">' +
+          escapeHtml(item.keyword || "-") +
+          "</span></p>" +
+          "</div>"
+        );
+      })
+      .join("");
+    html +=
+      '<div class="summary-card summary-card--grand">' +
+      "<h3>借入合計</h3>" +
+      '<p>初期残高合計 <span class="num">' +
+      fmtNum(sumOpening) +
+      "</span></p>" +
+      '<p>支払済み合計 <span class="num">' +
+      fmtNum(sumPaid) +
+      "</span></p>" +
+      '<p>残高合計 <span class="num ' +
+      (sumRemain < 0 ? "num-neg" : "") +
+      '">' +
+      fmtNum(sumRemain) +
+      "</span></p>" +
+      "</div>";
+    elLiabilitiesGrid.innerHTML = html;
+  }
+
   function openAccountDialog() {
     elAccountEdit.innerHTML = "";
     for (var i = 0; i < MAX_ACCOUNTS; i++) {
@@ -1155,6 +1314,56 @@
     render();
   }
 
+  function openLiabilitiesDialog() {
+    if (!dlgLiabilities || !elLiabilityEditList) return;
+    ensureLiabilities(state);
+    elLiabilityEditList.innerHTML = "";
+    state.liabilities.forEach(function (item) {
+      var row = document.createElement("div");
+      row.className = "liability-edit-row";
+      row.innerHTML =
+        '<label>項目名<input type="text" class="js-li-name" value="' +
+        escapeHtml(item.name) +
+        '" /></label>' +
+        '<label>項目キーワード<input type="text" class="js-li-keyword" value="' +
+        escapeHtml(item.keyword || item.name) +
+        '" /></label>' +
+        '<label>初期残高<input type="number" inputmode="numeric" step="1" class="js-li-opening" value="' +
+        escapeHtml(String(parseNum(item.opening))) +
+        '" /></label>';
+      elLiabilityEditList.appendChild(row);
+    });
+    openDialogSafe(dlgLiabilities);
+  }
+
+  function saveLiabilitiesFromDialog() {
+    if (!elLiabilityEditList) return;
+    var rows = elLiabilityEditList.querySelectorAll(".liability-edit-row");
+    var next = [];
+    rows.forEach(function (row, i) {
+      var name = (row.querySelector(".js-li-name") || {}).value || "";
+      var keyword = (row.querySelector(".js-li-keyword") || {}).value || "";
+      var opening = (row.querySelector(".js-li-opening") || {}).value || "0";
+      name = name.trim();
+      keyword = keyword.trim();
+      if (!name) return;
+      next.push({
+        id: state.liabilities[i] ? state.liabilities[i].id : "l_" + Date.now() + "_" + i,
+        name: name,
+        keyword: keyword || name,
+        opening: parseNum(opening),
+      });
+    });
+    if (next.length === 0) {
+      alert("1件以上の項目名を入力してください。");
+      return;
+    }
+    state.liabilities = next;
+    saveState(state);
+    closeDialogSafe(dlgLiabilities);
+    renderLiabilitiesSummary();
+  }
+
   elMonth.addEventListener("change", function () {
     currentKey = elMonth.value;
     if (!currentKey) return;
@@ -1186,6 +1395,7 @@
 
   safeBind("btn-accounts", "click", openAccountDialog);
   safeBind("btn-fixed-batch", "click", openFixedBatchDialog);
+  safeBind("btn-liabilities", "click", openLiabilitiesDialog);
   safeBind("dlg-cancel", "click", function () {
     closeDialogSafe(dlg);
   });
@@ -1194,6 +1404,10 @@
     closeDialogSafe(dlgFixedBatch);
   });
   safeBind("fixed-apply", "click", applyFixedBatchFromDialog);
+  safeBind("liability-cancel", "click", function () {
+    closeDialogSafe(dlgLiabilities);
+  });
+  safeBind("liability-save", "click", saveLiabilitiesFromDialog);
 
   document.getElementById("btn-export").addEventListener("click", function () {
     var blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
@@ -1220,6 +1434,7 @@
         migrateV1ToV2(o);
         if (o.version < 2) throw new Error("データを認識できません");
         state = ensureUi(o);
+        ensureLiabilities(state);
         saveState(state);
         applyTheme();
         render();
