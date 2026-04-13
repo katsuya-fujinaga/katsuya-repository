@@ -9,11 +9,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="../lp-form-puyo/lp-form-puyo.css">
 </head>
 <body>
 
-  <!-- 申込フォームは #myasp-consult（MyASP・リファラ付き） -->
+  <!-- 申込フォームは #myasp-consult（外部埋め込みフォーム） -->
   <header class="hero">
     <div class="container hero-inner">
       <div class="hero-visual-wrap">
@@ -52,7 +51,7 @@
           <span class="lp-subhead__line">手のひらは、あなたの人生の成績表</span>
         </h2>
         <figure class="lp-key-visual">
-          <img src="./images/header-under-illustration.png" alt="">
+          <img class="lp-key-visual__life-report" src="./images/life-report-illustration.png" alt="手相と人生の成績表のイラスト">
         </figure>
         <div class="lp-body">
           <p>当たり前のことですが、<br>生年月日は変わりません。</p>
@@ -262,6 +261,32 @@
         <header class="tesou-cta-briefing__head">
           <h2 class="cta-block__title tesou-cta-briefing__title">無料手相体験&amp;講座説明会</h2>
         </header>
+        <div class="tesou-cta-briefing__form">
+          <div class="tesou-form-alt" aria-label="説明会お申し込み">
+            <h4 class="tesou-entry-heading">無料手相体験&amp;講座説明会<br>お申し込みフォーム</h4>
+            <p class="tesou-entry-arrow" aria-hidden="true">
+              <img
+                class="tesou-entry-arrow__img"
+                src="images/entry-arrow.png"
+                width="360"
+                height="72"
+                alt=""
+                decoding="async"
+              >
+            </p>
+            <p class="tesou-form-alt__action">
+              <a
+                class="tesou-form-alt__btn"
+                href="https://sub.uranai-ambitious.com/r/Q8tYOww6ZAm1/register"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                今すぐお申し込みする
+              </a>
+            </p>
+            <p class="tesou-form-alt__note">ボタンを押すとお申し込みページが開きます。</p>
+          </div>
+        </div>
         <div class="tesou-cta-briefing__body">
           <h3 class="tesou-cta-briefing__content-label">内容</h3>
           <p class="tesou-cta-briefing__intro">説明会では、おおまかに次の順で進行します。</p>
@@ -282,65 +307,6 @@
             </li>
           </ol>
         </div>
-
-        <div class="tesou-cta-briefing__form">
-          <div class="lp-form-puyo-kit tesou-optin-form">
-            <section class="lpfp-section">
-              <form
-                action="https://my183p.com/p/r/dnDfdrXi"
-                enctype="multipart/form-data"
-                id="UserItemForm"
-                class="myForm lpfp-inner"
-                method="post"
-                accept-charset="utf-8"
-              >
-                <input type="hidden" name="_method" value="POST">
-                <h4 class="tesou-entry-heading">アンケートにお答えいただき<br>お申し込みください</h4>
-                <p class="tesou-entry-arrow" aria-hidden="true">
-                  <img
-                    class="tesou-entry-arrow__img"
-                    src="images/entry-arrow.png"
-                    width="360"
-                    height="72"
-                    alt=""
-                    decoding="async"
-                  >
-                </p>
-                <label for="Usermail" class="tesou-sr-only">メールアドレス（必須）</label>
-                <input
-                  class="lpfp-input required"
-                  name="data[User][mail]"
-                  id="Usermail"
-                  type="text"
-                  value=""
-                  autocomplete="email"
-                  inputmode="email"
-                  placeholder="メールアドレスを入力してください"
-                  aria-label="メールアドレス"
-                >
-                <span class="lpfp-btn-shell">
-                  <input
-                    class="lpfp-btn"
-                    type="image"
-                    src="../lp3/images/button.png"
-                    alt="お申し込みを送信する"
-                    name="regist"
-                  >
-                </span>
-                <div class="lpfp-optin">
-                  <p>
-                    フォームの内容を入力後、LINE登録画面に遷移します。LINEのメッセージにて、無料手相体験&amp;講座説明会の日程調整などのご連絡をお送りします。上記「内容」のとおりの構成で進行します。ご確認のうえご登録ください。
-                  </p>
-                </div>
-                <input type="hidden" id="server_url" value="https://my183p.com/">
-                <input type="hidden" name="data[User][referer_form_url]" value="" class="UserRefererFormUrl">
-                <input type="hidden" name="data[User][referer_url]" value="" class="UserRefererUrl">
-              </form>
-            </section>
-          </div>
-
-          <script src="https://my183p.com/js/validation.js?av=20260407144514"></script>
-        </div>
       </div>
     </div>
   </article>
@@ -352,6 +318,5 @@
     </div>
   </footer>
 
-  <script src="../lp3/js/referer.js"></script>
 </body>
 </html>

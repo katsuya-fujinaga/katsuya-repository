@@ -30,6 +30,7 @@
     <button type="button" class="btn" id="btn-next" title="翌月">翌月 ▶</button>
     <button type="button" class="btn ghost" id="btn-today">今月</button>
     <button type="button" class="btn" id="btn-accounts">口座名の編集</button>
+    <button type="button" class="btn" id="btn-fixed-batch">固定費を一括入力</button>
     <button type="button" class="btn ghost" id="btn-export">データをファイルに保存</button>
     <button type="button" class="btn ghost" id="btn-import">ファイルから読み込み</button>
     <input type="file" id="import-file" accept="application/json" hidden />
@@ -62,6 +63,50 @@
       <div class="modal-actions">
         <button type="button" class="btn ghost" id="dlg-cancel">キャンセル</button>
         <button type="button" class="btn primary" id="dlg-save">保存</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="dlg-fixed-batch">
+    <div class="modal-inner">
+      <h2>固定費を一括入力</h2>
+      <p class="modal-help">指定した期間の毎月同じ日に、引落または入金をまとめて登録します。</p>
+      <div class="fixed-batch-grid">
+        <label>
+          銀行名
+          <select id="fixed-account"></select>
+        </label>
+        <label>
+          種別
+          <select id="fixed-kind">
+            <option value="w">引落</option>
+            <option value="d">入金</option>
+          </select>
+        </label>
+        <label>
+          金額
+          <input type="number" id="fixed-amount" inputmode="numeric" min="1" step="1" placeholder="例: 35000" />
+        </label>
+        <label>
+          日にち
+          <input type="number" id="fixed-day" inputmode="numeric" min="1" max="31" step="1" placeholder="1〜31" />
+        </label>
+        <label>
+          いつから
+          <input type="month" id="fixed-start-month" />
+        </label>
+        <label>
+          いつまで
+          <input type="month" id="fixed-end-month" />
+        </label>
+        <label class="fixed-batch-note">
+          項目メモ
+          <input type="text" id="fixed-note" placeholder="例: 家賃 / サブスク / 給与" />
+        </label>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn ghost" id="fixed-cancel">キャンセル</button>
+        <button type="button" class="btn primary" id="fixed-apply">一括入力する</button>
       </div>
     </div>
   </dialog>

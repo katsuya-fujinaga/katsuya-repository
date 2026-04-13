@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>育脳子育てカウンセラー 4日間無料体験プログラム</title>
+  <meta
+    name="description"
+    content="子育て経験を地域で信頼される仕事に変える。育脳の考え方から現場での関わり方、お教室の始め方まで学べる4日間無料体験プログラム。"
+  />
+  <style>
+    :root {
+      --bg: #fff8fb;
+      --card: #ffffff;
+      --ink: #3a2a34;
+      --muted: #6c5a65;
+      --line: #efdce7;
+      --accent: #ef4e9a;
+      --accent-strong: #df2f84;
+      --accent-soft: #ffe8f3;
+      --ok: #18a957;
+      --shadow: 0 10px 30px rgba(58, 42, 52, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.8;
+    }
+    .container {
+      width: min(1040px, 92%);
+      margin: 0 auto;
+    }
+    .hero {
+      padding: 64px 0 52px;
+      background: radial-gradient(circle at 20% 20%, #fff, #ffeef7 60%, #ffe3f1);
+      border-bottom: 1px solid var(--line);
+    }
+    .eyebrow {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 6px 12px;
+      margin-bottom: 14px;
+    }
+    h1 {
+      margin: 0;
+      line-height: 1.35;
+      font-size: clamp(28px, 4vw, 46px);
+      letter-spacing: 0.01em;
+    }
+    .hero p {
+      margin: 16px 0 0;
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--muted);
+    }
+    .hero-box {
+      margin-top: 24px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+    .hero-box ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .cta-row {
+      margin-top: 22px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 14px 24px;
+      font-size: 16px;
+      text-align: center;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: linear-gradient(180deg, #29c96e, var(--ok));
+      color: #fff;
+      min-width: 320px;
+      box-shadow: 0 8px 20px rgba(24, 169, 87, 0.3);
+    }
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid var(--accent);
+      background: #fff;
+    }
+    section {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    h2 {
+      margin: 0 0 16px;
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.4;
+      color: #3b2030;
+    }
+    h3 {
+      margin: 0 0 8px;
+      font-size: 22px;
+      color: var(--accent-strong);
+    }
+    .lead {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+    .grid-2 {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+    .card ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .check {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .check li {
+      padding-left: 28px;
+      margin-bottom: 10px;
+      position: relative;
+    }
+    .check li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .course {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: stretch;
+    }
+    .price {
+      font-size: 30px;
+      font-weight: 800;
+      color: #381f2e;
+      margin: 8px 0 14px;
+    }
+    .highlight {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: var(--accent-soft);
+      color: #5f374a;
+      font-weight: 700;
+    }
+    .faq details {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+    }
+    .faq summary {
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .faq p {
+      margin: 10px 0 0;
+      color: var(--muted);
+    }
+    .final {
+      background: linear-gradient(180deg, #fff5fa, #ffe8f3);
+      text-align: center;
+    }
+    .final p {
+      margin: 8px 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+    footer {
+      padding: 30px 0 44px;
+      text-align: center;
+      color: #8e7684;
+      font-size: 13px;
+    }
+    @media (max-width: 860px) {
+      .grid-2, .course { grid-template-columns: 1fr; }
+      .btn-primary { min-width: auto; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <span class="eyebrow">4日間無料体験プログラム</span>
+      <h1>
+        大好きな子どもに関わる毎日を、<br />
+        “ただの子育て”で終わらせたくないあなたへ
+      </h1>
+      <p>
+        子どもの能力やコミュニケーション力を育てる「1秒育脳」で、<br />
+        子育て経験を地域で信頼される仕事に変える。
+      </p>
+      <div class="hero-box">
+        <ul>
+          <li>育脳の考え方</li>
+          <li>現場での関わり方</li>
+          <li>お教室の始め方</li>
+        </ul>
+        <p style="margin:12px 0 0; color: var(--muted);">4日間で「自分が何から始めるか」が明確になります。</p>
+      </div>
+      <div class="cta-row">
+        <a href="#entry" class="btn btn-primary">無料で4日間体験プログラムに参加する</a>
+        <a href="#course" class="btn btn-ghost">2つのコースを見る</a>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="container">
+      <h2>その子育て経験、ただの思い出で終わらせていませんか？</h2>
+      <p class="lead">
+        子どものために一生懸命向き合ってきた時間は、本来だれかを支える価値になります。
+        それでも「どう仕事にすればいいか分からない」という理由で止まってしまう方がほとんどです。
+      </p>
+      <ul class="check">
+        <li>資格や学びはあるのに、仕事にできない</li>
+        <li>地域のママに喜ばれる仕事がしたいのに、自信が持てない</li>
+        <li>やりたい気持ちはあるのに、一歩が踏み出せない</li>
+      </ul>
+      <p class="highlight">それは能力不足ではなく、「形にする方法を知らないだけ」です。</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2>今の子育て支援に足りないもの</h2>
+      <p class="lead">
+        情報だけでは、目の前の親子は変わりきりません。必要なのは、
+        状況を見て関わり方を変えられる“現場力”です。
+      </p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>情報中心の支援</h3>
+          <ul>
+            <li>知識は増えるが、現場で使えない</li>
+            <li>親子の個別事情に対応しづらい</li>
+            <li>継続支援につながりにくい</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>現場実装型の支援</h3>
+          <ul>
+            <li>親子の状態に応じて提案を変えられる</li>
+            <li>リアルな変化に伴走できる</li>
+            <li>地域で口コミと信頼が積み上がる</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2>子どもの可能性を引き出す「育脳」という考え方</h2>
+      <p class="lead">
+        育脳とは、0歳から6歳までの発達段階を理解しながら、親子の関係づくりを支える考え方です。
+        単発テクニックではなく、点ではなく線で関わることで、能力とコミュニケーション力を育てます。
+      </p>
+      <div class="card">
+        <ul class="check">
+          <li>0〜6歳を一貫してみる「線の育脳」</li>
+          <li>ママの安心感を整えるカウンセリング</li>
+          <li>日常で再現できる「1秒育脳」</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2>4日間で“動ける状態”まで整えます</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Day1-2</h3>
+          <ul>
+            <li>育脳が必要とされる理由</li>
+            <li>育脳と早期教育の違い</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Day3-4</h3>
+          <ul>
+            <li>1秒育脳の実践方法</li>
+            <li>活動を始める具体ステップ</li>
+          </ul>
+        </div>
+      </div>
+      <p class="highlight">学んで終わりではなく、「行動できる状態になること」を目的にしています。</p>
+    </div>
+  </section>
+
+  <section id="course">
+    <div class="container">
+      <h2>選べる2つのコース</h2>
+      <p class="lead">体験後は、目指す働き方に合わせてコースを選べます。</p>
+      <div class="course">
+        <article class="card">
+          <h3>カウンセラーコース</h3>
+          <p class="price">50万円</p>
+          <ul>
+            <li>カウンセリングまで習得</li>
+            <li>支援者として活動開始</li>
+            <li>親子支援の土台を構築</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>お教室実践コース</h3>
+          <p class="price">66万円</p>
+          <ul>
+            <li>カウンセラーコースの内容を含む</li>
+            <li>お教室ができるようになる講座 2つ</li>
+            <li>0歳〜3歳向けお教室構築講座</li>
+            <li>お客様の集め方（集客導線）まで習得</li>
+          </ul>
+        </article>
+      </div>
+      <p class="highlight">16万円の差で、支援提供だけでなく「教室運営と集客」まで学べます。</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2>受講生の声</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>親子関係が改善した</h3>
+          <p>子どもとの関わり方が変わり、家庭での会話が増えたという声が届いています。</p>
+        </div>
+        <div class="card">
+          <h3>活動が安定してきた</h3>
+          <p>無理なく続けられる設計で、リピートや紹介が増えたという報告があります。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2>講師プロフィール</h2>
+      <p class="lead">
+        講師は子育て現場での実践を積み重ね、多くの親子を支援してきました。
+        机上の理論ではなく、現場で使える形に落とし込んだノウハウをお伝えします。
+      </p>
+    </div>
+  </section>
+
+  <section class="faq">
+    <div class="container">
+      <h2>よくある質問</h2>
+      <details>
+        <summary>未経験でも大丈夫ですか？</summary>
+        <p>はい。段階的に学べる設計なので、初めての方でも一歩ずつ進めます。</p>
+      </details>
+      <details>
+        <summary>SNSが苦手でもできますか？</summary>
+        <p>はい。今回はリアル対応を軸に、地域で信頼を築く進め方を重視しています。</p>
+      </details>
+      <details>
+        <summary>家事や子育てと両立できますか？</summary>
+        <p>はい。最初は小さく始め、無理なく続ける前提で進められます。</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="final" id="entry">
+    <div class="container">
+      <h2>まずは無料体験から</h2>
+      <p>難しい準備は必要ありません。4日間の体験で、この働き方が自分に合うかを確かめてください。</p>
+      <p>あなたの一歩が、未来を変えるきっかけになります。</p>
+      <div class="cta-row" style="justify-content:center;">
+        <a href="#" class="btn btn-primary">無料で4日間体験プログラムに参加する</a>
+      </div>
+      <p style="font-size:13px; margin-top:10px;">※フォーム接続時は上記ボタンのリンク先を差し替えてください。</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <small>© 育脳子育てカウンセラー養成プログラム</small>
+    </div>
+  </footer>
+</body>
+</html>

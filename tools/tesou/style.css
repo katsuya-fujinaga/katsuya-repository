@@ -495,6 +495,7 @@ img {
   margin: 0 0 1.35rem;
   max-width: none;
   width: 100%;
+  display: none;
 }
 
 .lp-key-visual img {
@@ -502,6 +503,10 @@ img {
   width: 100%;
   height: auto;
   margin: 0 auto;
+}
+
+.lp-key-visual img.lp-key-visual__life-report {
+  width: min(100%, 500px);
 }
 
 .lp-key-visual--profile {
@@ -991,9 +996,10 @@ img {
 
 .tesou-cta-briefing__form {
   width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 clamp(1rem, 4vw, 2.75rem) clamp(1.75rem, 4vw, 2.5rem);
+  max-width: none;
+  margin: 0;
+  padding: 0 0 clamp(1.75rem, 4vw, 2.5rem);
+  background: #fff;
   box-sizing: border-box;
 }
 
@@ -1723,38 +1729,59 @@ img {
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
 }
 
-/* lp-form-puyo 組み込み（CTAブロック内・ライト） */
-.cta-block .tesou-optin-form {
+/* お申し込み導線（CTAブロック内） */
+.cta-block .tesou-form-alt {
   margin-top: 0.25rem;
-  text-align: left;
-  background: #fff;
+  text-align: center;
   color: #333;
-  padding: 1.15rem 1.15rem 1.35rem;
-  border-radius: 12px;
-  border: 1px solid rgba(78, 159, 111, 0.2);
-  box-shadow: 0 4px 16px rgba(17, 26, 51, 0.06);
+  padding: 0 clamp(1rem, 4vw, 2rem);
+  border: 0;
+  box-shadow: none;
+  display: grid;
+  gap: 1rem;
+  width: 100%;
 }
 
-.cta-block .tesou-optin-form .lpfp-section,
-.cta-block .tesou-optin-form .lpfp-inner {
-  background: #fff;
+.tesou-form-alt__action {
+  margin: 0;
 }
 
-.cta-block .tesou-optin-form .lpfp-optin {
-  background: #fafcfb;
-  color: #444;
-  border: 1px solid rgba(78, 159, 111, 0.15);
+.tesou-form-alt__btn {
+  display: inline-block;
+  width: min(100%, 520px);
+  padding: 1rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid #c99612;
+  background: linear-gradient(180deg, #ffe889 0%, #ffd74f 52%, #f4c821 100%);
+  color: #4a3a00;
+  font-family: var(--font-gothic);
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  box-shadow: 0 6px 0 #c99612, 0 10px 22px rgba(114, 84, 0, 0.24);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
 }
 
-.cta-block--tesou-briefing .tesou-optin-form {
-  border: 1px solid rgba(99, 102, 241, 0.3);
-  box-shadow: 0 8px 26px rgba(49, 46, 129, 0.09);
+.tesou-form-alt__btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+  box-shadow: 0 8px 0 #c99612, 0 14px 24px rgba(114, 84, 0, 0.24);
 }
 
-.cta-block--tesou-briefing .tesou-optin-form .lpfp-optin {
-  background: #f5f5ff;
-  color: #334155;
-  border: 1px solid rgba(99, 102, 241, 0.2);
+.tesou-form-alt__btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 3px 0 #c99612, 0 8px 16px rgba(114, 84, 0, 0.22);
+}
+
+.tesou-form-alt__note {
+  margin: 0;
+  font-family: var(--font-gothic);
+  font-size: clamp(0.82rem, 2vw, 0.92rem);
+  font-weight: 500;
+  color: #64748b;
+  text-align: center;
 }
 
 .tesou-entry-heading {
@@ -1794,12 +1821,6 @@ img {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cta-block .lp-form-puyo-kit .lpfp-btn-shell {
-    animation: none;
-  }
 }
 
 @media (max-width: 768px) {

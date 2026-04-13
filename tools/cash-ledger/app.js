@@ -21,6 +21,15 @@
     return { y: parseInt(p[0], 10), m: parseInt(p[1], 10) };
   }
 
+  function monthSerialFromKey(key) {
+    var mk = parseMonthKey(key);
+    return mk.y * 12 + (mk.m - 1);
+  }
+
+  function normalizeMonthInput(v) {
+    return /^\d{4}-\d{2}$/.test(String(v || "")) ? String(v) : "";
+  }
+
   function daysInMonth(y, m) {
     return new Date(y, m, 0).getDate();
   }
@@ -166,6 +175,14 @@
   var elSummary = document.getElementById("summary-grid");
   var dlg = document.getElementById("dlg-accounts");
   var elAccountEdit = document.getElementById("account-edit-list");
+  var dlgFixedBatch = document.getElementById("dlg-fixed-batch");
+  var elFixedAccount = document.getElementById("fixed-account");
+  var elFixedKind = document.getElementById("fixed-kind");
+  var elFixedAmount = document.getElementById("fixed-amount");
+  var elFixedDay = document.getElementById("fixed-day");
+  var elFixedStartMonth = document.getElementById("fixed-start-month");
+  var elFixedEndMonth = document.getElementById("fixed-end-month");
+  var elFixedNote = document.getElementById("fixed-note");
   var elThemeAuto = document.getElementById("theme-tab-auto");
   var elThemeDay = document.getElementById("theme-tab-day");
   var elThemeNight = document.getElementById("theme-tab-night");
@@ -666,6 +683,134 @@
     if (!dlg.open) dlg.showModal();
   }
 
+  function populateFixedAccountOptions() {
+    if (!elFixedAccount) return;
+    var prev = elFixedAccount.value;
+    elFixedAccount.innerHTML = state.accounts
+      .map(function (a) {
+        return '<option value="' + escapeHtml(a.id) + '">' + escapeHtml(a.name) + "</option>";
+      })
+      .join("");
+    var hasPrev = state.accounts.some(function (a) {
+      return a.id === prev;
+    });
+    if (hasPrev) elFixedAccount.value = prev;
+  }
+
+  function openFixedBatchDialog() {
+    if (!dlgFixedBatch) return;
+    populateFixedAccountOptions();
+    if (!elFixedStartMonth.value) elFixedStartMonth.value = currentKey;
+    if (!elFixedEndMonth.value) elFixedEndMonth.value = currentKey;
+    if (!elFixedDay.value) elFixedDay.value = "1";
+    if (!elFixedKind.value) elFixedKind.value = "w";
+    if (!dlgFixedBatch.open) dlgFixedBatch.showModal();
+  }
+
+  function buildFixedBatchKey(payload) {
+    return [
+      payload.accountId,
+      payload.kind,
+      payload.amount,
+      payload.day,
+      payload.startKey,
+      payload.endKey,
+      payload.note || "",
+    ].join("|");
+  }
+
+  function applyFixedBatchFromDialog() {
+    var accountId = elFixedAccount.value;
+    var kind = elFixedKind.value;
+    var amount = parseNum(elFixedAmount.value);
+    var day = parseInt(elFixedDay.value, 10);
+    var startKey = normalizeMonthInput(elFixedStartMonth.value);
+    var endKey = normalizeMonthInput(elFixedEndMonth.value);
+    var note = (elFixedNote.value || "").trim();
+
+    if (!accountId) {
+      alert("銀行名を選んでください。");
+      return;
+    }
+    if (kind !== "w" && kind !== "d") {
+      alert("種別は「引落」か「入金」を選んでください。");
+      return;
+    }
+    if (!(amount > 0)) {
+      alert("金額は1以上で入力してください。");
+      return;
+    }
+    if (!Number.isInteger(day) || day < 1 || day > 31) {
+      alert("日にちは1〜31で入力してください。");
+      return;
+    }
+    if (!startKey || !endKey) {
+      alert("開始月と終了月を選んでください。");
+      return;
+    }
+
+    var s = monthSerialFromKey(startKey);
+    var e = monthSerialFromKey(endKey);
+    if (s > e) {
+      alert("「いつから」は「いつまで」より前の月にしてください。");
+      return;
+    }
+
+    var fixedKey = buildFixedBatchKey({
+      accountId: accountId,
+      kind: kind,
+      amount: amount,
+      day: day,
+      startKey: startKey,
+      endKey: endKey,
+      note: note,
+    });
+    var added = 0;
+    var skipped = 0;
+
+    for (var serial = s; serial <= e; serial++) {
+      var y = Math.floor(serial / 12);
+      var m = (serial % 12) + 1;
+      var key = monthKey(y, m);
+      var mdata = ensureMonth(state, key);
+      var targetDay = Math.min(day, daysInMonth(y, m));
+      var ds = ensureDayStruct(mdata, targetDay);
+      var exists = ds.lines.some(function (line) {
+        return line && line.__fixedBatchKey === fixedKey;
+      });
+      if (exists) {
+        skipped++;
+        continue;
+      }
+
+      var nl = {};
+      state.accounts.forEach(function (a) {
+        nl[a.id] = emptyCell();
+      });
+      nl[accountId] = {
+        w: kind === "w" ? amount : 0,
+        d: kind === "d" ? amount : 0,
+        note: note,
+      };
+      nl.__fixedBatchKey = fixedKey;
+      ds.lines.push(nl);
+      added++;
+    }
+
+    if (added > 0) {
+      saveState(state);
+      render();
+    }
+    dlgFixedBatch.close();
+    alert(
+      "固定費を一括入力しました。\n追加: " +
+        added +
+        "件\n重複スキップ: " +
+        skipped +
+        "件\n※ 31日指定で日数が足りない月は月末日に入力しています。"
+    );
+  }
+
   function saveAccountsFromDialog() {
     var inputs = elAccountEdit.querySelectorAll("input[type=text]");
     var names = [];
@@ -712,6 +857,9 @@
                 nl[a.id] = emptyCell();
               }
             });
+            Object.keys(line).forEach(function (k) {
+              if (k.indexOf("__") === 0) nl[k] = line[k];
+            });
             return nl;
           });
         } else {
@@ -740,6 +888,7 @@
     });
 
     state.accounts = next;
+    populateFixedAccountOptions();
     dlg.close();
     saveState(state);
     render();
@@ -775,10 +924,15 @@
   });
 
   document.getElementById("btn-accounts").addEventListener("click", openAccountDialog);
+  document.getElementById("btn-fixed-batch").addEventListener("click", openFixedBatchDialog);
   document.getElementById("dlg-cancel").addEventListener("click", function () {
     dlg.close();
   });
   document.getElementById("dlg-save").addEventListener("click", saveAccountsFromDialog);
+  document.getElementById("fixed-cancel").addEventListener("click", function () {
+    dlgFixedBatch.close();
+  });
+  document.getElementById("fixed-apply").addEventListener("click", applyFixedBatchFromDialog);
 
   document.getElementById("btn-export").addEventListener("click", function () {
     var blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
@@ -828,6 +982,7 @@
   }, 60 * 1000);
 
   setMonthInputFromKey(currentKey);
+  populateFixedAccountOptions();
   applyTheme();
   render();
 })();
