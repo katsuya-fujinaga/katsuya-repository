@@ -676,20 +676,45 @@
 
   function buildMonthlySeries(centerKey, halfSpan) {
     var center = monthSerialFromKey(centerKey);
+    var minSerial = center - halfSpan;
+    var maxSerial = center + halfSpan;
+    var existingKeys = Object.keys(state.months || {});
+    var earliestSerial = null;
+    existingKeys.forEach(function (k) {
+      var s = monthSerialFromKey(k);
+      if (earliestSerial == null || s < earliestSerial) earliestSerial = s;
+    });
+
+    var cumulativeBySerial = {};
+    if (earliestSerial != null && earliestSerial <= maxSerial) {
+      var running = 0;
+      for (var s = earliestSerial; s <= maxSerial; s++) {
+        var y0 = Math.floor(s / 12);
+        var m0 = (s % 12) + 1;
+        var k0 = monthKey(y0, m0);
+        var mt = monthInOutTotals(state.months[k0], y0, m0);
+        running += mt.net;
+        cumulativeBySerial[s] = running;
+      }
+    }
+
     var list = [];
-    for (var off = -halfSpan; off <= halfSpan; off++) {
-      var serial = center + off;
+    for (var serial = minSerial; serial <= maxSerial; serial++) {
       var y = Math.floor(serial / 12);
       var m = (serial % 12) + 1;
       var key = monthKey(y, m);
       var mdata = state.months[key];
       var t = monthInOutTotals(mdata, y, m);
+      var cumulative = 0;
+      if (earliestSerial != null && serial >= earliestSerial) {
+        cumulative = cumulativeBySerial[serial] || 0;
+      }
       list.push({
         key: key,
         label: monthLabel(key),
         income: t.d,
         expense: t.w,
-        total: t.net,
+        total: cumulative,
       });
     }
     return list;
@@ -842,7 +867,7 @@
       '<div class="monthly-chart-legend">' +
       '<span class="legend-expense"><i></i>支出合計（引落）</span>' +
       '<span class="legend-income"><i></i>収入合計（入金）</span>' +
-      '<span class="legend-net"><i></i>合計金額（差額）</span>' +
+      '<span class="legend-net"><i></i>合計金額（累積残高）</span>' +
       "</div>";
   }
 
