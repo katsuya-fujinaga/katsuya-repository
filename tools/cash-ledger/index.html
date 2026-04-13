@@ -10,7 +10,7 @@
 <body>
   <header class="app-header">
     <h1>お金のきろく</h1>
-    <p class="sub">口座がいくつあっても、月ごとのカレンダーにぽちぽち書いていくだけ。「＋行」で1日に何件でも。右端はぜんぶ合わせた残高。データはこのブラウザだけに保存</p>
+    <p class="sub">上のボックスは今月なら「今日の残高」（前月繰越＋今月1日〜今日まで）。過去の月は月末、未来の月は月初だけ。表は縦スクロールしても見出し固定。「＋行」で1日に何件でも。データはこのブラウザだけに保存</p>
   </header>
 
   <div class="toolbar" role="toolbar" aria-label="操作">
@@ -27,14 +27,15 @@
     <button type="button" class="btn" id="btn-prev" title="前月">◀ 前月</button>
     <button type="button" class="btn" id="btn-next" title="翌月">翌月 ▶</button>
     <button type="button" class="btn ghost" id="btn-today">今月</button>
-    <button type="button" class="btn primary" id="btn-carry" title="前月の末日残高を月初にコピー">前月から繰越</button>
     <button type="button" class="btn" id="btn-accounts">口座名の編集</button>
     <button type="button" class="btn ghost" id="btn-export">データをファイルに保存</button>
     <button type="button" class="btn ghost" id="btn-import">ファイルから読み込み</button>
     <input type="file" id="import-file" accept="application/json" hidden />
   </div>
 
-  <div class="table-wrap">
+  <div id="openings-bar" class="openings-bar" aria-label="残高サマリー（今月は今日まで）"></div>
+
+  <div class="ledger-scroll" id="ledger-scroll">
     <table class="ledger" id="ledger-table" aria-label="お金のきろくの一覧">
       <thead id="ledger-head"></thead>
       <tbody id="ledger-body"></tbody>
@@ -48,6 +49,7 @@
 
   <p class="note-block">
     同じ日に何件も書きたいときは、日付の「＋行」。けしてよいのは一番下の行だけ（「−行」）。右の「合計」は、その行までの全口座の残高を足した数字です。
+    前月のデータがある月は、開くたびに「前月の末日残高」が月初へ自動で入ります。いちばん古い月の前にデータがないときだけ、月初は 0 です。今月を表示しているとき、上の数字はその「月初」に今日までの取引を足した「今日の残高」です。
     税金や保険の細かい表は、「項目」に一言メモするか、別の紙でもOKです。
   </p>
 

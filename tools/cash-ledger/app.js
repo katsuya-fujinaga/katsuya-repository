@@ -161,6 +161,7 @@
   var elMonth = document.getElementById("month-input");
   var elHead = document.getElementById("ledger-head");
   var elBody = document.getElementById("ledger-body");
+  var elOpeningsBar = document.getElementById("openings-bar");
   var elSummary = document.getElementById("summary-grid");
   var dlg = document.getElementById("dlg-accounts");
   var elAccountEdit = document.getElementById("account-edit-list");
@@ -217,19 +218,97 @@
   function renderHead() {
     var html = "";
     html += '<tr class="account-names">';
-    html += '<th class="sticky-col" scope="col">日</th>';
-    html += '<th class="sticky-col-2" scope="col">曜</th>';
+    html += '<th class="sticky-col thead-corner" scope="col">日</th>';
+    html += '<th class="sticky-col-2 thead-corner" scope="col">曜</th>';
     state.accounts.forEach(function (a) {
       html += '<th scope="colgroup" colspan="4">' + escapeHtml(a.name) + "</th>";
     });
     html += '<th scope="col" class="col-total" rowspan="2">合計<br /><span class="th-sub">（全口座残高）</span></th>';
     html += "</tr><tr class=\"subheads\">";
-    html += '<th class="sticky-col"></th><th class="sticky-col-2"></th>';
+    html += '<th class="sticky-col thead-corner thead-sub"></th><th class="sticky-col-2 thead-corner thead-sub"></th>';
     state.accounts.forEach(function () {
-      html += "<th>引落</th><th>入金</th><th>残高</th><th>項目</th>";
+      html += "<th class=\"thead-sub\">引落</th><th class=\"thead-sub\">入金</th><th class=\"thead-sub\">残高</th><th class=\"thead-sub\">項目</th>";
     });
     html += "</tr>";
     elHead.innerHTML = html;
+  }
+
+  function renderOpeningsBar(mk, mdata) {
+    if (!elOpeningsBar) return;
+    var now = new Date();
+    var cy = now.getFullYear();
+    var cm = now.getMonth() + 1;
+    var cd = now.getDate();
+    var dim = daysInMonth(mk.y, mk.m);
+    var prev = new Date(mk.y, mk.m - 2, 1);
+    var pkey = monthKey(prev.getFullYear(), prev.getMonth() + 1);
+    var hasPrev = !!state.months[pkey];
+    var lastDay;
+    var title;
+    var note;
+    if (mk.y === cy && mk.m === cm) {
+      lastDay = Math.min(cd, dim);
+      title = "今日の残高（" + mk.m + "月" + lastDay + "日現在）";
+      note =
+        (hasPrev
+          ? "「" +
+            prev.getFullYear() +
+            "年" +
+            (prev.getMonth() + 1) +
+            "月」末日までの金額を月初に自動でつないだうえ、"
+          : "前の月のデータがないため月初は0からで、") +
+        "今月1日〜" +
+        lastDay +
+        "日までに入力した引落・入金を足し引きした数字です。";
+    } else if (mk.y < cy || (mk.y === cy && mk.m < cm)) {
+      lastDay = dim;
+      title = "この月の残高";
+      note =
+        "（" +
+        mk.m +
+        "月末時点）前月からの自動繰越と、この月の全日の取引を反映しています。";
+    } else {
+      lastDay = 0;
+      title = "この月の残高（月初）";
+      note = hasPrev
+        ? "まだこの月は来ていません。前月末日までが自動でつながった「はじめの残高」だけを表示しています（日付の取引は含みません）。"
+        : "前の月のデータがないため月初は0です（当月前のため取引日はまだありません）。";
+    }
+    var balMap = balancesThroughDay(mdata, mk.y, mk.m, lastDay);
+    var parts = [];
+    parts.push(
+      "<p class=\"openings-bar-kicker\">" + escapeHtml(title) + "</p>" + '<p class="openings-bar-note">' + note + "</p>"
+    );
+    parts.push('<div class="openings-bar-grid">');
+    state.accounts.forEach(function (a) {
+      var v = balMap[a.id] != null ? balMap[a.id] : 0;
+      parts.push(
+        '<div class="openings-bar-item">' +
+          "<span class=\"openings-bar-label\">" +
+          escapeHtml(a.name) +
+          "</span>" +
+          '<span class="openings-bar-value">' +
+          fmtNum(v) +
+          "</span>" +
+          "</div>"
+      );
+    });
+    var osum = 0;
+    state.accounts.forEach(function (a) {
+      osum += balMap[a.id] || 0;
+    });
+    parts.push(
+      '<div class="openings-bar-item openings-bar-total">' +
+        "<span>合計</span>" +
+        '<strong class="' +
+        (osum < 0 ? "neg" : "") +
+        '">' +
+        fmtNum(osum) +
+        "</strong>" +
+        "</div>"
+    );
+    parts.push("</div>");
+    elOpeningsBar.innerHTML = parts.join("");
   }
 
   function escapeHtml(s) {
@@ -248,37 +327,68 @@
     return t;
   }
 
+  /** 月初＋1日〜lastDay 日までの入出金を反映した各口座残高。lastDay が 0 なら月初のみ */
+  function balancesThroughDay(mdata, y, m, lastDay) {
+    var dim = daysInMonth(y, m);
+    var upto = Math.min(Math.max(0, lastDay), dim);
+    var result = {};
+    state.accounts.forEach(function (a) {
+      result[a.id] = parseNum(mdata.openings[a.id]);
+    });
+    for (var day = 1; day <= upto; day++) {
+      var d = String(day);
+      var val = mdata.days && mdata.days[d];
+      if (!val || !Array.isArray(val.lines)) continue;
+      for (var li = 0; li < val.lines.length; li++) {
+        var line = val.lines[li];
+        state.accounts.forEach(function (a) {
+          var c = line[a.id];
+          if (c) result[a.id] += parseNum(c.d) - parseNum(c.w);
+        });
+      }
+    }
+    return result;
+  }
+
+  /** その月の各口座の月末残高 */
+  function closingBalancesFromMonthData(mdata, y, m) {
+    return balancesThroughDay(mdata, y, m, daysInMonth(y, m));
+  }
+
+  /** 前月がある → 前月末残高を月初に。前月がない → 月初は 0。変更があれば true */
+  function syncOpeningsFromPreviousMonth(mk, mdata) {
+    var prev = new Date(mk.y, mk.m - 2, 1);
+    var pkey = monthKey(prev.getFullYear(), prev.getMonth() + 1);
+    var pdat = state.months[pkey];
+    var changed = false;
+    if (!pdat) {
+      state.accounts.forEach(function (a) {
+        if (parseNum(mdata.openings[a.id]) !== 0) changed = true;
+        mdata.openings[a.id] = 0;
+      });
+      return changed;
+    }
+    var closings = closingBalancesFromMonthData(pdat, prev.getFullYear(), prev.getMonth() + 1);
+    state.accounts.forEach(function (a) {
+      var v = closings[a.id];
+      if (parseNum(mdata.openings[a.id]) !== v) changed = true;
+      mdata.openings[a.id] = v;
+    });
+    return changed;
+  }
+
   function render() {
     var mk = parseMonthKey(currentKey);
     var dim = daysInMonth(mk.y, mk.m);
     var mdata = ensureMonth(state, currentKey);
+    if (syncOpeningsFromPreviousMonth(mk, mdata)) {
+      saveState(state);
+    }
 
+    renderOpeningsBar(mk, mdata);
     renderHead();
 
     var body = "";
-    var openSum = sumOpenings(mdata);
-    body += '<tr class="open-row">';
-    body += '<td class="sticky-col label">月初残高</td>';
-    body += '<td class="sticky-col-2">—</td>';
-    state.accounts.forEach(function (a) {
-      var op = mdata.openings[a.id] != null ? mdata.openings[a.id] : 0;
-      body +=
-        '<td></td><td></td><td><input type="number" inputmode="numeric" class="js-opening" data-aid="' +
-        escapeHtml(a.id) +
-        '" value="' +
-        (op === 0 ? "" : op) +
-        '" step="1" aria-label="' +
-        escapeHtml(a.name) +
-        ' 月初残高" /></td><td></td>';
-    });
-    body +=
-      '<td class="bal col-total' +
-      (openSum < 0 ? " neg" : "") +
-      '">' +
-      fmtNum(openSum) +
-      "</td>";
-    body += "</tr>";
-
     var running = {};
     state.accounts.forEach(function (a) {
       running[a.id] = parseNum(mdata.openings[a.id]);
@@ -396,15 +506,6 @@
   }
 
   function wireBodyEvents(mdata) {
-    elBody.querySelectorAll(".js-opening").forEach(function (inp) {
-      inp.addEventListener("change", function () {
-        var id = inp.getAttribute("data-aid");
-        mdata.openings[id] = parseNum(inp.value);
-        saveState(state);
-        render();
-      });
-    });
-
     elBody.querySelectorAll(".js-w, .js-d").forEach(function (inp) {
       inp.addEventListener("change", function () {
         var day = parseInt(inp.getAttribute("data-day"), 10);
@@ -516,32 +617,6 @@
       fmtNum(grandEnd) +
       "</p>" +
       "</div>";
-  }
-
-  function carryFromPreviousMonth() {
-    var mk = parseMonthKey(currentKey);
-    var prev = new Date(mk.y, mk.m - 2, 1);
-    var pkey = monthKey(prev.getFullYear(), prev.getMonth() + 1);
-    var pdat = state.months[pkey];
-    if (!pdat) {
-      alert("前月のデータがありません。先に前月を開いて入力するか、月初残高を手で入れてください。");
-      return;
-    }
-    var pdim = daysInMonth(prev.getFullYear(), prev.getMonth() + 1);
-    var cur = ensureMonth(state, currentKey);
-    state.accounts.forEach(function (a) {
-      var end = parseNum(pdat.openings[a.id]);
-      for (var day = 1; day <= pdim; day++) {
-        var ds = ensureDayStruct(pdat, day);
-        for (var i = 0; i < ds.lines.length; i++) {
-          var c = readLineCell(ds, i, a.id);
-          end += c.d - c.w;
-        }
-      }
-      cur.openings[a.id] = end;
-    });
-    saveState(state);
-    render();
   }
 
   function openAccountDialog() {
@@ -666,8 +741,6 @@
     setMonthInputFromKey(currentKey);
     render();
   });
-
-  document.getElementById("btn-carry").addEventListener("click", carryFromPreviousMonth);
 
   document.getElementById("btn-accounts").addEventListener("click", openAccountDialog);
   document.getElementById("dlg-cancel").addEventListener("click", function () {

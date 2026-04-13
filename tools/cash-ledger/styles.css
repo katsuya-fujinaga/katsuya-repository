@@ -14,8 +14,8 @@
   --bal-neg: #b91c1c;
   --primary-text: #115e59;
   --table-zebra: rgba(28, 25, 23, 0.045);
-  --open-row-bg: rgba(13, 148, 136, 0.1);
   --thead-total-bg: rgba(13, 148, 136, 0.14);
+  --ledger-thead-row1: 3rem;
   --thead-total-text: #0f766e;
   --td-total-bg: rgba(13, 148, 136, 0.08);
   --grand-border: rgba(13, 148, 136, 0.35);
@@ -46,8 +46,8 @@ body.theme-night {
   --bal-neg: #fca5a5;
   --primary-text: #a7f3d0;
   --table-zebra: rgba(21, 28, 40, 0.65);
-  --open-row-bg: rgba(52, 211, 153, 0.08);
   --thead-total-bg: rgba(52, 211, 153, 0.12);
+  --ledger-thead-row1: 3rem;
   --thead-total-text: #a7f3d0;
   --td-total-bg: rgba(52, 211, 153, 0.06);
   --grand-border: rgba(52, 211, 153, 0.35);
@@ -202,10 +202,79 @@ body.theme-night .btn.primary {
   background: transparent;
 }
 
-.table-wrap {
-  overflow-x: auto;
-  margin: 0 0 1rem;
-  padding: 0 1rem;
+.openings-bar {
+  margin: 0 1rem 0.65rem;
+  padding: 0.65rem 0.85rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.openings-bar-kicker {
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.openings-bar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  gap: 0.5rem 1rem;
+  align-items: end;
+}
+
+.openings-bar-note {
+  margin: 0 0 0.55rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.openings-bar-label {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-bottom: 0.2rem;
+}
+
+.openings-bar-value {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  text-align: right;
+  padding: 0.35rem 0.45rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.openings-bar-total span {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-bottom: 0.2rem;
+}
+
+.openings-bar-total strong {
+  font-family: var(--mono);
+  font-size: 1rem;
+  color: var(--bal-pos);
+}
+
+.openings-bar-total strong.neg {
+  color: var(--bal-neg);
+}
+
+.ledger-scroll {
+  overflow: auto;
+  max-height: calc(100vh - 15rem);
+  margin: 0 1rem 1rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
   -webkit-overflow-scrolling: touch;
 }
 
@@ -229,23 +298,60 @@ body.theme-night .btn.primary {
   color: var(--muted);
   font-weight: 600;
   text-align: center;
-  position: sticky;
-  top: 0;
-  z-index: 2;
   white-space: nowrap;
 }
 
+.ledger-scroll .ledger thead th {
+  position: sticky;
+}
+
 .ledger thead tr.account-names th {
-  top: 0;
-  z-index: 3;
   color: var(--accent);
   font-size: 0.82rem;
   padding: 0.4rem 0.35rem;
 }
 
-.ledger thead tr.subheads th {
-  top: 2.1rem;
+.ledger-scroll .ledger thead tr.account-names th {
+  top: 0;
+  z-index: 3;
+}
+
+.ledger-scroll .ledger thead tr.subheads th.thead-sub {
+  top: var(--ledger-thead-row1);
+  z-index: 2;
   font-size: 0.72rem;
+}
+
+.ledger-scroll .ledger thead tr.account-names th.thead-corner {
+  left: 0;
+  top: 0;
+  z-index: 12;
+  background: var(--card) !important;
+  box-shadow: 4px 0 8px var(--sticky-shadow);
+}
+
+.ledger-scroll .ledger thead tr.account-names th.sticky-col-2.thead-corner {
+  left: 2.2rem;
+  z-index: 11;
+}
+
+.ledger-scroll .ledger thead tr.subheads th.thead-corner {
+  top: var(--ledger-thead-row1);
+  z-index: 10;
+  background: var(--card) !important;
+  box-shadow: 4px 0 8px var(--sticky-shadow);
+}
+
+.ledger-scroll .ledger thead tr.subheads th.sticky-col-2.thead-corner {
+  left: 2.2rem;
+  z-index: 9;
+}
+
+.ledger-scroll .ledger thead th.col-total {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  background: var(--thead-total-bg) !important;
 }
 
 .ledger thead th.col-total {
@@ -263,18 +369,18 @@ body.theme-night .btn.primary {
   margin-top: 0.15rem;
 }
 
-.ledger .sticky-col {
+.ledger tbody .sticky-col {
   position: sticky;
   left: 0;
-  z-index: 1;
+  z-index: 4;
   background: var(--sticky-bg) !important;
   box-shadow: 4px 0 8px var(--sticky-shadow);
 }
 
-.ledger .sticky-col-2 {
+.ledger tbody .sticky-col-2 {
   position: sticky;
   left: 2.2rem;
-  z-index: 1;
+  z-index: 3;
   background: var(--sticky-bg) !important;
   box-shadow: 4px 0 8px var(--sticky-shadow);
 }
@@ -317,17 +423,6 @@ body.theme-night .btn.primary {
 
 .ledger .bal.neg {
   color: var(--bal-neg);
-}
-
-.ledger .open-row td {
-  background: var(--open-row-bg);
-  font-weight: 600;
-}
-
-.ledger .open-row .label {
-  text-align: right;
-  color: var(--muted);
-  white-space: nowrap;
 }
 
 .summary {
