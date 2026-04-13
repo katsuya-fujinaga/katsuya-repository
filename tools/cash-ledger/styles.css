@@ -1,32 +1,35 @@
 /* 昼（既定） */
 :root {
-  --bg: #f5f0e8;
-  --surface: #fffefb;
-  --card: #ebe5dc;
-  --text: #1c1917;
-  --muted: #78716c;
-  --accent: #0d9488;
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --card: #f3f5fa;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --accent: #2563eb;
   --accent-dim: rgba(13, 148, 136, 0.18);
-  --border: rgba(28, 25, 23, 0.14);
-  --sticky-bg: #f0ebe3;
-  --sticky-shadow: rgba(0, 0, 0, 0.08);
-  --bal-pos: #0f766e;
+  --border: rgba(15, 23, 42, 0.11);
+  --sticky-bg: #f5f7fc;
+  --sticky-shadow: rgba(15, 23, 42, 0.08);
+  --bal-pos: #16a34a;
   --bal-neg: #b91c1c;
-  --primary-text: #115e59;
-  --table-zebra: rgba(28, 25, 23, 0.045);
-  --thead-total-bg: rgba(13, 148, 136, 0.14);
+  --primary-text: #1d4ed8;
+  --table-zebra: rgba(37, 99, 235, 0.035);
+  --thead-total-bg: rgba(37, 99, 235, 0.08);
   /* 初期値のみ。実測は app.js が #ledger-scroll に --ledger-thead-row1 を上書き */
   --ledger-thead-row1: 4.5rem;
-  --thead-total-text: #0f766e;
-  --td-total-bg: rgba(13, 148, 136, 0.08);
-  --grand-border: rgba(13, 148, 136, 0.35);
-  --grand-bg: rgba(13, 148, 136, 0.12);
-  --grand-h3: #0f766e;
-  --btn-night-hover: rgba(13, 148, 136, 0.35);
-  --btn-primary-border: rgba(13, 148, 136, 0.55);
+  --thead-total-text: #1d4ed8;
+  --td-total-bg: rgba(37, 99, 235, 0.06);
+  --grand-border: rgba(37, 99, 235, 0.28);
+  --grand-bg: rgba(37, 99, 235, 0.08);
+  --grand-h3: #1d4ed8;
+  --btn-night-hover: rgba(37, 99, 235, 0.35);
+  --btn-primary-border: rgba(37, 99, 235, 0.45);
   --btn-del-border: rgba(185, 28, 28, 0.35);
   --btn-del-text: #b91c1c;
-  --header-grad: rgba(235, 229, 220, 0.95);
+  --header-grad: rgba(255, 255, 255, 0.88);
+  --shadow-soft: 0 8px 24px rgba(15, 23, 42, 0.08);
+  --shadow-card: 0 10px 28px rgba(15, 23, 42, 0.06);
+  --radius-lg: 16px;
   --font: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", Meiryo, sans-serif;
   --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
@@ -34,32 +37,34 @@
 /* 夜 */
 body.theme-night {
   --bg: #0f1419;
-  --surface: #151c28;
-  --card: #1a2332;
+  --surface: #111a27;
+  --card: #172131;
   --text: #e8eef4;
   --muted: #94a3b8;
-  --accent: #34d399;
-  --accent-dim: rgba(52, 211, 153, 0.2);
+  --accent: #60a5fa;
+  --accent-dim: rgba(96, 165, 250, 0.2);
   --border: rgba(148, 163, 184, 0.18);
   --sticky-bg: #1a2332;
   --sticky-shadow: rgba(0, 0, 0, 0.2);
-  --bal-pos: #a7f3d0;
+  --bal-pos: #86efac;
   --bal-neg: #fca5a5;
-  --primary-text: #a7f3d0;
+  --primary-text: #bfdbfe;
   --table-zebra: rgba(21, 28, 40, 0.65);
-  --thead-total-bg: rgba(52, 211, 153, 0.12);
+  --thead-total-bg: rgba(96, 165, 250, 0.12);
   /* 初期値のみ。実測は app.js が #ledger-scroll に --ledger-thead-row1 を上書き */
   --ledger-thead-row1: 4.5rem;
-  --thead-total-text: #a7f3d0;
-  --td-total-bg: rgba(52, 211, 153, 0.06);
-  --grand-border: rgba(52, 211, 153, 0.35);
-  --grand-bg: rgba(52, 211, 153, 0.08);
-  --grand-h3: #a7f3d0;
-  --btn-night-hover: rgba(52, 211, 153, 0.45);
-  --btn-primary-border: rgba(52, 211, 153, 0.5);
+  --thead-total-text: #bfdbfe;
+  --td-total-bg: rgba(96, 165, 250, 0.08);
+  --grand-border: rgba(96, 165, 250, 0.35);
+  --grand-bg: rgba(96, 165, 250, 0.08);
+  --grand-h3: #bfdbfe;
+  --btn-night-hover: rgba(96, 165, 250, 0.45);
+  --btn-primary-border: rgba(96, 165, 250, 0.5);
   --btn-del-border: rgba(248, 113, 113, 0.35);
   --btn-del-text: #fca5a5;
   --header-grad: rgba(26, 35, 50, 0.95);
+  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.28);
+  --shadow-card: 0 10px 28px rgba(0, 0, 0, 0.22);
 }
 
 * {
@@ -69,7 +74,10 @@ body.theme-night {
 body {
   margin: 0;
   font-family: var(--font);
-  background: var(--bg);
+  background:
+    radial-gradient(circle at 10% 0%, rgba(59, 130, 246, 0.12), transparent 35%),
+    radial-gradient(circle at 95% 5%, rgba(34, 197, 94, 0.08), transparent 30%),
+    var(--bg);
   color: var(--text);
   line-height: 1.5;
   min-height: 100vh;
@@ -77,9 +85,12 @@ body {
 }
 
 .app-header {
-  padding: 1rem 1rem 0.75rem;
+  margin: 0 auto;
+  max-width: 1500px;
+  padding: 1.2rem 1.1rem 0.95rem;
   border-bottom: 1px solid var(--border);
-  background: linear-gradient(180deg, var(--header-grad), var(--bg));
+  background: linear-gradient(180deg, var(--header-grad), transparent);
+  backdrop-filter: blur(8px);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -87,8 +98,9 @@ body {
 
 .app-header h1 {
   margin: 0 0 0.25rem;
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-size: 1.28rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
 }
 
 .app-header .sub {
@@ -102,7 +114,9 @@ body {
   flex-wrap: wrap;
   gap: 0.5rem;
   align-items: center;
-  padding: 0.75rem 1rem 1rem;
+  margin: 0.45rem auto 0;
+  max-width: 1500px;
+  padding: 0.9rem 1.1rem 1rem;
 }
 
 .theme-tabs {
@@ -110,8 +124,8 @@ body {
   gap: 0;
   padding: 3px;
   border-radius: 999px;
-  background: rgba(13, 148, 136, 0.12);
-  border: 1px solid rgba(13, 148, 136, 0.22);
+  background: rgba(37, 99, 235, 0.12);
+  border: 1px solid rgba(37, 99, 235, 0.22);
 }
 
 body.theme-night .theme-tabs {
@@ -140,11 +154,11 @@ body.theme-night .theme-tabs {
   background: var(--surface);
   color: var(--accent);
   font-weight: 600;
-  box-shadow: 0 1px 4px var(--sticky-shadow);
+  box-shadow: 0 1px 6px var(--sticky-shadow);
 }
 
 body.theme-night .theme-tab[aria-selected="true"] {
-  background: #094771;
+  background: #1d4ed8;
   color: #e8eef4;
   box-shadow: none;
 }
@@ -177,17 +191,19 @@ body.theme-night .theme-tab[aria-selected="true"] {
 .btn {
   font-family: inherit;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 10px;
   border: 1px solid var(--border);
   background: var(--card);
   color: var(--text);
-  padding: 0.45rem 0.75rem;
+  padding: 0.5rem 0.82rem;
   font-size: 0.85rem;
-  transition: border-color 0.15s, background 0.15s;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.45) inset;
+  transition: border-color 0.16s, background 0.16s, transform 0.16s;
 }
 
 .btn:hover {
   border-color: var(--btn-night-hover);
+  transform: translateY(-1px);
 }
 
 .btn.primary {
@@ -205,11 +221,13 @@ body.theme-night .btn.primary {
 }
 
 .openings-bar {
-  margin: 0 1rem 0.65rem;
-  padding: 0.65rem 0.85rem;
+  margin: 0 auto 0.85rem;
+  max-width: 1500px;
+  padding: 0.75rem 0.95rem;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 14px;
+  box-shadow: var(--shadow-soft);
 }
 
 .openings-bar-kicker {
@@ -272,12 +290,14 @@ body.theme-night .btn.primary {
 .ledger-scroll {
   overflow: auto;
   max-height: calc(100vh - 15rem);
-  margin: 0 1rem 1rem;
+  margin: 0 auto 1.1rem;
+  max-width: 1500px;
   /* border-radius + overflow で表の上端が角にかかり 1 行目が欠けるのを防ぐ */
   padding: 4px 0 6px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   background: var(--surface);
+  box-shadow: var(--shadow-card);
   -webkit-overflow-scrolling: touch;
 }
 
@@ -291,7 +311,7 @@ body.theme-night .btn.primary {
 .ledger th,
 .ledger td {
   border: 1px solid var(--border);
-  padding: 0.25rem 0.35rem;
+  padding: 0.28rem 0.38rem;
   vertical-align: middle;
   background: var(--surface);
 }
@@ -401,12 +421,26 @@ body.theme-night .btn.primary {
 .ledger input[type="text"] {
   width: 100%;
   min-width: 4.5rem;
-  border: none;
-  background: transparent;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.65);
   color: var(--text);
   font-family: var(--mono);
   font-size: 0.78rem;
-  padding: 0.2rem;
+  border-radius: 7px;
+  padding: 0.24rem 0.3rem;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+body.theme-night .ledger input[type="number"],
+body.theme-night .ledger input[type="text"] {
+  background: rgba(15, 23, 42, 0.38);
+}
+
+.ledger input[type="number"]:focus,
+.ledger input[type="text"]:focus {
+  outline: none;
+  border-color: rgba(37, 99, 235, 0.55);
+  background: var(--surface);
 }
 
 .ledger input[type="number"] {
@@ -429,11 +463,13 @@ body.theme-night .btn.primary {
 }
 
 .summary {
-  margin: 0 1rem 1.25rem;
+  margin: 0 auto 1.25rem;
+  max-width: 1500px;
   padding: 1rem;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 14px;
+  box-shadow: var(--shadow-soft);
 }
 
 .summary h2 {
@@ -449,9 +485,10 @@ body.theme-night .btn.primary {
 
 .summary-card {
   background: var(--surface);
-  border-radius: 8px;
-  padding: 0.6rem 0.75rem;
+  border-radius: 12px;
+  padding: 0.65rem 0.78rem;
   border: 1px solid var(--border);
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
 }
 
 .summary-card h3 {
@@ -618,7 +655,8 @@ body.theme-night .btn.primary {
 }
 
 .note-block {
-  margin: 0 1rem 2rem;
+  margin: 0 auto 2rem;
+  max-width: 1500px;
   padding: 0.75rem 1rem;
   font-size: 0.78rem;
   color: var(--muted);
@@ -627,11 +665,12 @@ body.theme-night .btn.primary {
 
 dialog.modal {
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 16px;
   background: var(--card);
   color: var(--text);
   padding: 0;
   max-width: min(520px, 94vw);
+  box-shadow: var(--shadow-card);
 }
 
 dialog.modal::backdrop {

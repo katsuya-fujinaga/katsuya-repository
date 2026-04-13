@@ -3,6 +3,8 @@
 
   var STORAGE_KEY = "hitobiji-cash-ledger-v1";
   var MAX_ACCOUNTS = 8;
+  var CHART_AXIS_MIN = -20 * 10000; // -20万円
+  var CHART_AXIS_MAX = 300 * 10000; // 300万円
 
   var defaultAccountNames = ["SMBC信託銀行", "住信SBIネット銀行", "現金"];
 
@@ -268,6 +270,14 @@
   function monthLabel(key) {
     var mk = parseMonthKey(key);
     return String(mk.y).slice(2) + "/" + pad2(mk.m);
+  }
+
+  function fmtMan(n) {
+    if (!Number.isFinite(n)) return "";
+    return (n / 10000).toLocaleString("ja-JP", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });
   }
 
   function renderHead() {
@@ -756,13 +766,13 @@
     series.forEach(function (it) {
       vals.push(it.income, it.expense, it.total);
     });
-    var minV = Math.min.apply(null, vals.concat([0]));
-    var maxV = Math.max.apply(null, vals.concat([0]));
+    var minV = Math.min.apply(null, vals.concat([0, CHART_AXIS_MIN]));
+    var maxV = Math.max.apply(null, vals.concat([0, CHART_AXIS_MAX]));
     if (minV === maxV) {
       maxV += 1;
       minV -= 1;
     }
-    var pad = (maxV - minV) * 0.12;
+    var pad = (maxV - minV) * 0.08;
     var minY = minV - pad;
     var maxY = maxV + pad;
 
@@ -791,7 +801,7 @@
         '" y="' +
         (y + 4).toFixed(2) +
         '" text-anchor="end">' +
-        escapeHtml(fmtNum(v)) +
+        escapeHtml(fmtMan(v) + "万") +
         "</text>";
     }
 
