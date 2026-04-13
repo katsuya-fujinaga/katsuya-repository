@@ -173,6 +173,7 @@
   var elOpeningsBar = document.getElementById("openings-bar");
   var elLedgerScroll = document.getElementById("ledger-scroll");
   var elSummary = document.getElementById("summary-grid");
+  var elMonthlyChart = document.getElementById("monthly-chart");
   var dlg = document.getElementById("dlg-accounts");
   var elAccountEdit = document.getElementById("account-edit-list");
   var dlgFixedBatch = document.getElementById("dlg-fixed-batch");
@@ -262,6 +263,11 @@
   function fmtNum(n) {
     if (!Number.isFinite(n)) return "";
     return Math.round(n).toLocaleString("ja-JP");
+  }
+
+  function monthLabel(key) {
+    var mk = parseMonthKey(key);
+    return String(mk.y).slice(2) + "/" + pad2(mk.m);
   }
 
   function renderHead() {
@@ -572,6 +578,7 @@
     elBody.innerHTML = body;
     wireBodyEvents(mdata);
     renderSummary(mk, dim, mdata);
+    renderMonthlyChart(currentKey);
 
     ensureLedgerTheadResizeObserver();
     requestAnimationFrame(function () {
@@ -645,6 +652,198 @@
       perA[a.id] = { tw: tw, td: td };
     });
     return perA;
+  }
+
+  function monthInOutTotals(mdata, y, m) {
+    var dim = daysInMonth(y, m);
+    var w = 0;
+    var d = 0;
+    for (var day = 1; day <= dim; day++) {
+      var val = mdata && mdata.days ? mdata.days[String(day)] : null;
+      if (!val || !Array.isArray(val.lines)) continue;
+      for (var li = 0; li < val.lines.length; li++) {
+        var line = val.lines[li] || {};
+        state.accounts.forEach(function (a) {
+          var c = line[a.id];
+          if (!c) return;
+          w += parseNum(c.w);
+          d += parseNum(c.d);
+        });
+      }
+    }
+    return { w: w, d: d, net: d - w };
+  }
+
+  function buildMonthlySeries(centerKey, halfSpan) {
+    var center = monthSerialFromKey(centerKey);
+    var list = [];
+    for (var off = -halfSpan; off <= halfSpan; off++) {
+      var serial = center + off;
+      var y = Math.floor(serial / 12);
+      var m = (serial % 12) + 1;
+      var key = monthKey(y, m);
+      var mdata = state.months[key];
+      var t = monthInOutTotals(mdata, y, m);
+      list.push({
+        key: key,
+        label: monthLabel(key),
+        income: t.d,
+        expense: t.w,
+        total: t.net,
+      });
+    }
+    return list;
+  }
+
+  function pathFromSeries(series, plotX, plotY, plotW, plotH, minY, maxY, pickValue) {
+    var stepX = series.length > 1 ? plotW / (series.length - 1) : 0;
+    var d = "";
+    for (var i = 0; i < series.length; i++) {
+      var val = pickValue(series[i]);
+      var x = plotX + stepX * i;
+      var y = plotY + ((maxY - val) / (maxY - minY || 1)) * plotH;
+      d += (i === 0 ? "M" : " L") + x.toFixed(2) + " " + y.toFixed(2);
+    }
+    return d;
+  }
+
+  function dotsFromSeries(series, className, plotX, plotY, plotW, plotH, minY, maxY, pickValue) {
+    var stepX = series.length > 1 ? plotW / (series.length - 1) : 0;
+    return series
+      .map(function (it, i) {
+        var val = pickValue(it);
+        var x = plotX + stepX * i;
+        var y = plotY + ((maxY - val) / (maxY - minY || 1)) * plotH;
+        return '<circle class="' + className + '" cx="' + x.toFixed(2) + '" cy="' + y.toFixed(2) + '" r="2.7"></circle>';
+      })
+      .join("");
+  }
+
+  function renderMonthlyChart(centerKey) {
+    if (!elMonthlyChart) return;
+    var series = buildMonthlySeries(centerKey, 6);
+    if (series.length === 0) {
+      elMonthlyChart.innerHTML = "<p>表示できるデータがありません。</p>";
+      return;
+    }
+
+    var vals = [];
+    series.forEach(function (it) {
+      vals.push(it.income, it.expense, it.total);
+    });
+    var minV = Math.min.apply(null, vals.concat([0]));
+    var maxV = Math.max.apply(null, vals.concat([0]));
+    if (minV === maxV) {
+      maxV += 1;
+      minV -= 1;
+    }
+    var pad = (maxV - minV) * 0.12;
+    var minY = minV - pad;
+    var maxY = maxV + pad;
+
+    var w = 960;
+    var h = 300;
+    var left = 56;
+    var right = 20;
+    var top = 12;
+    var bottom = 52;
+    var plotX = left;
+    var plotY = top;
+    var plotW = w - left - right;
+    var plotH = h - top - bottom;
+    var stepX = series.length > 1 ? plotW / (series.length - 1) : 0;
+
+    var ticks = 4;
+    var grid = "";
+    for (var i = 0; i <= ticks; i++) {
+      var ratio = i / ticks;
+      var y = plotY + ratio * plotH;
+      var v = maxY - (maxY - minY) * ratio;
+      grid += '<line class="grid" x1="' + plotX + '" y1="' + y.toFixed(2) + '" x2="' + (plotX + plotW) + '" y2="' + y.toFixed(2) + '"></line>';
+      grid +=
+        '<text class="axis-label" x="' +
+        (plotX - 8) +
+        '" y="' +
+        (y + 4).toFixed(2) +
+        '" text-anchor="end">' +
+        escapeHtml(fmtNum(v)) +
+        "</text>";
+    }
+
+    var monthLabels = "";
+    for (var mi = 0; mi < series.length; mi++) {
+      if (mi % 2 !== 0 && mi !== series.length - 1) continue;
+      var lx = plotX + stepX * mi;
+      monthLabels +=
+        '<text class="month-label" x="' +
+        lx.toFixed(2) +
+        '" y="' +
+        (plotY + plotH + 18) +
+        '" text-anchor="middle">' +
+        escapeHtml(series[mi].label) +
+        "</text>";
+    }
+
+    var incomePath = pathFromSeries(series, plotX, plotY, plotW, plotH, minY, maxY, function (it) {
+      return it.income;
+    });
+    var expensePath = pathFromSeries(series, plotX, plotY, plotW, plotH, minY, maxY, function (it) {
+      return it.expense;
+    });
+    var totalPath = pathFromSeries(series, plotX, plotY, plotW, plotH, minY, maxY, function (it) {
+      return it.total;
+    });
+
+    var zeroY = plotY + ((maxY - 0) / (maxY - minY || 1)) * plotH;
+    var zeroLine = "";
+    if (zeroY >= plotY && zeroY <= plotY + plotH) {
+      zeroLine =
+        '<line x1="' +
+        plotX +
+        '" y1="' +
+        zeroY.toFixed(2) +
+        '" x2="' +
+        (plotX + plotW) +
+        '" y2="' +
+        zeroY.toFixed(2) +
+        '" stroke="' +
+        "var(--muted)" +
+        '" stroke-dasharray="4 3" stroke-width="1"></line>';
+    }
+
+    elMonthlyChart.innerHTML =
+      '<svg viewBox="0 0 ' +
+      w +
+      " " +
+      h +
+      '" aria-hidden="true">' +
+      grid +
+      zeroLine +
+      '<path class="line-expense" d="' +
+      expensePath +
+      '"></path>' +
+      '<path class="line-income" d="' +
+      incomePath +
+      '"></path>' +
+      '<path class="line-net" d="' +
+      totalPath +
+      '"></path>' +
+      dotsFromSeries(series, "dot-expense", plotX, plotY, plotW, plotH, minY, maxY, function (it) {
+        return it.expense;
+      }) +
+      dotsFromSeries(series, "dot-income", plotX, plotY, plotW, plotH, minY, maxY, function (it) {
+        return it.income;
+      }) +
+      dotsFromSeries(series, "dot-net", plotX, plotY, plotW, plotH, minY, maxY, function (it) {
+        return it.total;
+      }) +
+      monthLabels +
+      "</svg>" +
+      '<div class="monthly-chart-legend">' +
+      '<span class="legend-expense"><i></i>支出合計（引落）</span>' +
+      '<span class="legend-income"><i></i>収入合計（入金）</span>' +
+      '<span class="legend-net"><i></i>合計金額（差額）</span>' +
+      "</div>";
   }
 
   function renderSummary(mk, dim, mdata) {
