@@ -226,6 +226,33 @@
     elMonth.value = key;
   }
 
+  function safeBind(id, eventName, handler) {
+    var el = document.getElementById(id);
+    if (!el) return false;
+    el.addEventListener(eventName, handler);
+    return true;
+  }
+
+  function openDialogSafe(dialogEl) {
+    if (!dialogEl) return false;
+    if (typeof dialogEl.showModal === "function") {
+      if (!dialogEl.open) dialogEl.showModal();
+      return true;
+    }
+    dialogEl.setAttribute("open", "open");
+    return true;
+  }
+
+  function closeDialogSafe(dialogEl) {
+    if (!dialogEl) return false;
+    if (typeof dialogEl.close === "function") {
+      if (dialogEl.open) dialogEl.close();
+      return true;
+    }
+    dialogEl.removeAttribute("open");
+    return true;
+  }
+
   function parseNum(v) {
     if (v === "" || v == null) return 0;
     var n = Number(String(v).replace(/,/g, ""));
@@ -680,7 +707,7 @@
       li.appendChild(inp);
       elAccountEdit.appendChild(li);
     }
-    if (!dlg.open) dlg.showModal();
+    openDialogSafe(dlg);
   }
 
   function populateFixedAccountOptions() {
@@ -698,13 +725,16 @@
   }
 
   function openFixedBatchDialog() {
-    if (!dlgFixedBatch) return;
+    if (!dlgFixedBatch) {
+      alert("固定費入力画面の読み込みに失敗しました。ページを再読み込みしてください。");
+      return;
+    }
     populateFixedAccountOptions();
     if (!elFixedStartMonth.value) elFixedStartMonth.value = currentKey;
     if (!elFixedEndMonth.value) elFixedEndMonth.value = currentKey;
     if (!elFixedDay.value) elFixedDay.value = "1";
     if (!elFixedKind.value) elFixedKind.value = "w";
-    if (!dlgFixedBatch.open) dlgFixedBatch.showModal();
+    openDialogSafe(dlgFixedBatch);
   }
 
   function buildFixedBatchKey(payload) {
@@ -801,7 +831,7 @@
       saveState(state);
       render();
     }
-    dlgFixedBatch.close();
+    closeDialogSafe(dlgFixedBatch);
     alert(
       "固定費を一括入力しました。\n追加: " +
         added +
@@ -889,7 +919,7 @@
 
     state.accounts = next;
     populateFixedAccountOptions();
-    dlg.close();
+    closeDialogSafe(dlg);
     saveState(state);
     render();
   }
@@ -923,16 +953,16 @@
     render();
   });
 
-  document.getElementById("btn-accounts").addEventListener("click", openAccountDialog);
-  document.getElementById("btn-fixed-batch").addEventListener("click", openFixedBatchDialog);
-  document.getElementById("dlg-cancel").addEventListener("click", function () {
-    dlg.close();
+  safeBind("btn-accounts", "click", openAccountDialog);
+  safeBind("btn-fixed-batch", "click", openFixedBatchDialog);
+  safeBind("dlg-cancel", "click", function () {
+    closeDialogSafe(dlg);
   });
-  document.getElementById("dlg-save").addEventListener("click", saveAccountsFromDialog);
-  document.getElementById("fixed-cancel").addEventListener("click", function () {
-    dlgFixedBatch.close();
+  safeBind("dlg-save", "click", saveAccountsFromDialog);
+  safeBind("fixed-cancel", "click", function () {
+    closeDialogSafe(dlgFixedBatch);
   });
-  document.getElementById("fixed-apply").addEventListener("click", applyFixedBatchFromDialog);
+  safeBind("fixed-apply", "click", applyFixedBatchFromDialog);
 
   document.getElementById("btn-export").addEventListener("click", function () {
     var blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
