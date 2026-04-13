@@ -5,6 +5,7 @@
   var MAX_ACCOUNTS = 8;
   var CHART_AXIS_MIN = -20 * 10000; // -20万円
   var CHART_AXIS_MAX = 300 * 10000; // 300万円
+  var CHART_AXIS_STEP = 20 * 10000; // 20万円刻み
 
   var defaultAccountNames = ["SMBC信託銀行", "住信SBIネット銀行", "現金"];
 
@@ -768,13 +769,12 @@
     });
     var minV = Math.min.apply(null, vals.concat([0, CHART_AXIS_MIN]));
     var maxV = Math.max.apply(null, vals.concat([0, CHART_AXIS_MAX]));
-    if (minV === maxV) {
-      maxV += 1;
-      minV -= 1;
+    var minY = Math.floor(minV / CHART_AXIS_STEP) * CHART_AXIS_STEP;
+    var maxY = Math.ceil(maxV / CHART_AXIS_STEP) * CHART_AXIS_STEP;
+    if (minY === maxY) {
+      maxY += CHART_AXIS_STEP;
+      minY -= CHART_AXIS_STEP;
     }
-    var pad = (maxV - minV) * 0.08;
-    var minY = minV - pad;
-    var maxY = maxV + pad;
 
     var w = 960;
     var h = 300;
@@ -788,12 +788,9 @@
     var plotH = h - top - bottom;
     var stepX = series.length > 1 ? plotW / (series.length - 1) : 0;
 
-    var ticks = 4;
     var grid = "";
-    for (var i = 0; i <= ticks; i++) {
-      var ratio = i / ticks;
-      var y = plotY + ratio * plotH;
-      var v = maxY - (maxY - minY) * ratio;
+    for (var v = maxY; v >= minY; v -= CHART_AXIS_STEP) {
+      var y = plotY + ((maxY - v) / (maxY - minY || 1)) * plotH;
       grid += '<line class="grid" x1="' + plotX + '" y1="' + y.toFixed(2) + '" x2="' + (plotX + plotW) + '" y2="' + y.toFixed(2) + '"></line>';
       grid +=
         '<text class="axis-label" x="' +
