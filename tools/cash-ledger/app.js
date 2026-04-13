@@ -57,6 +57,17 @@
     s.version = 2;
   }
 
+  function ensureUi(s) {
+    if (!s.ui || typeof s.ui !== "object") s.ui = {};
+    var ok = ["auto", "day", "night"];
+    if (ok.indexOf(s.ui.themeTab) < 0) s.ui.themeTab = "auto";
+    return s;
+  }
+
+  function saveState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
   function loadState() {
     try {
       var raw = localStorage.getItem(STORAGE_KEY);
@@ -65,21 +76,23 @@
         if (o && Array.isArray(o.accounts)) {
           if (o.version == null) o.version = 1;
           migrateV1ToV2(o);
-          if (o.version === 2) return o;
+          if (o.version === 2) {
+            var missingUi = !o.ui || typeof o.ui !== "object";
+            ensureUi(o);
+            if (missingUi) saveState(o);
+            return o;
+          }
         }
       }
     } catch (e) {}
-    return {
+    return ensureUi({
       version: 2,
       accounts: defaultAccountNames.map(function (name, i) {
         return { id: "a" + (i + 1), name: name };
       }),
       months: {},
-    };
-  }
-
-  function saveState(state) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      ui: { themeTab: "auto" },
+    });
   }
 
   function ensureMonth(state, key) {
@@ -151,6 +164,40 @@
   var elSummary = document.getElementById("summary-grid");
   var dlg = document.getElementById("dlg-accounts");
   var elAccountEdit = document.getElementById("account-edit-list");
+  var elThemeAuto = document.getElementById("theme-tab-auto");
+  var elThemeDay = document.getElementById("theme-tab-day");
+  var elThemeNight = document.getElementById("theme-tab-night");
+
+  function getTimeTheme() {
+    var h = new Date().getHours();
+    if (h >= 6 && h < 18) return "day";
+    return "night";
+  }
+
+  function resolveTheme() {
+    var tab = (state.ui && state.ui.themeTab) || "auto";
+    if (tab === "day") return "day";
+    if (tab === "night") return "night";
+    return getTimeTheme();
+  }
+
+  function applyTheme() {
+    ensureUi(state);
+    var t = resolveTheme();
+    document.body.classList.toggle("theme-night", t === "night");
+
+    var tab = state.ui.themeTab || "auto";
+    if (elThemeAuto) elThemeAuto.setAttribute("aria-selected", tab === "auto" ? "true" : "false");
+    if (elThemeDay) elThemeDay.setAttribute("aria-selected", tab === "day" ? "true" : "false");
+    if (elThemeNight) elThemeNight.setAttribute("aria-selected", tab === "night" ? "true" : "false");
+  }
+
+  function setThemeTab(next) {
+    ensureUi(state);
+    state.ui.themeTab = next;
+    saveState(state);
+    applyTheme();
+  }
 
   function setMonthInputFromKey(key) {
     elMonth.value = key;
@@ -652,8 +699,9 @@
         if (o.version == null) o.version = 1;
         migrateV1ToV2(o);
         if (o.version < 2) throw new Error("データを認識できません");
-        state = o;
+        state = ensureUi(o);
         saveState(state);
+        applyTheme();
         render();
       } catch (e) {
         alert("読み込みに失敗しました: " + e.message);
@@ -663,6 +711,18 @@
     reader.readAsText(f, "UTF-8");
   });
 
+  if (elThemeAuto) elThemeAuto.addEventListener("click", function () { setThemeTab("auto"); });
+  if (elThemeDay) elThemeDay.addEventListener("click", function () { setThemeTab("day"); });
+  if (elThemeNight) elThemeNight.addEventListener("click", function () { setThemeTab("night"); });
+
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "visible") applyTheme();
+  });
+  setInterval(function () {
+    if ((state.ui || {}).themeTab === "auto") applyTheme();
+  }, 60 * 1000);
+
   setMonthInputFromKey(currentKey);
+  applyTheme();
   render();
 })();

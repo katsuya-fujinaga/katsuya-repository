@@ -1,4 +1,37 @@
+/* 昼（既定） */
 :root {
+  --bg: #f5f0e8;
+  --surface: #fffefb;
+  --card: #ebe5dc;
+  --text: #1c1917;
+  --muted: #78716c;
+  --accent: #0d9488;
+  --accent-dim: rgba(13, 148, 136, 0.18);
+  --border: rgba(28, 25, 23, 0.14);
+  --sticky-bg: #f0ebe3;
+  --sticky-shadow: rgba(0, 0, 0, 0.08);
+  --bal-pos: #0f766e;
+  --bal-neg: #b91c1c;
+  --primary-text: #115e59;
+  --table-zebra: rgba(28, 25, 23, 0.045);
+  --open-row-bg: rgba(13, 148, 136, 0.1);
+  --thead-total-bg: rgba(13, 148, 136, 0.14);
+  --thead-total-text: #0f766e;
+  --td-total-bg: rgba(13, 148, 136, 0.08);
+  --grand-border: rgba(13, 148, 136, 0.35);
+  --grand-bg: rgba(13, 148, 136, 0.12);
+  --grand-h3: #0f766e;
+  --btn-night-hover: rgba(13, 148, 136, 0.35);
+  --btn-primary-border: rgba(13, 148, 136, 0.55);
+  --btn-del-border: rgba(185, 28, 28, 0.35);
+  --btn-del-text: #b91c1c;
+  --header-grad: rgba(235, 229, 220, 0.95);
+  --font: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", Meiryo, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+/* 夜 */
+body.theme-night {
   --bg: #0f1419;
   --surface: #151c28;
   --card: #1a2332;
@@ -6,10 +39,25 @@
   --muted: #94a3b8;
   --accent: #34d399;
   --accent-dim: rgba(52, 211, 153, 0.2);
-  --warn: #fbbf24;
   --border: rgba(148, 163, 184, 0.18);
-  --font: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", Meiryo, sans-serif;
-  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --sticky-bg: #1a2332;
+  --sticky-shadow: rgba(0, 0, 0, 0.2);
+  --bal-pos: #a7f3d0;
+  --bal-neg: #fca5a5;
+  --primary-text: #a7f3d0;
+  --table-zebra: rgba(21, 28, 40, 0.65);
+  --open-row-bg: rgba(52, 211, 153, 0.08);
+  --thead-total-bg: rgba(52, 211, 153, 0.12);
+  --thead-total-text: #a7f3d0;
+  --td-total-bg: rgba(52, 211, 153, 0.06);
+  --grand-border: rgba(52, 211, 153, 0.35);
+  --grand-bg: rgba(52, 211, 153, 0.08);
+  --grand-h3: #a7f3d0;
+  --btn-night-hover: rgba(52, 211, 153, 0.45);
+  --btn-primary-border: rgba(52, 211, 153, 0.5);
+  --btn-del-border: rgba(248, 113, 113, 0.35);
+  --btn-del-text: #fca5a5;
+  --header-grad: rgba(26, 35, 50, 0.95);
 }
 
 * {
@@ -23,12 +71,13 @@ body {
   color: var(--text);
   line-height: 1.5;
   min-height: 100vh;
+  transition: background-color 0.25s ease, color 0.2s ease;
 }
 
 .app-header {
   padding: 1rem 1rem 0.75rem;
   border-bottom: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(26, 35, 50, 0.95), var(--bg));
+  background: linear-gradient(180deg, var(--header-grad), var(--bg));
   position: sticky;
   top: 0;
   z-index: 10;
@@ -52,6 +101,57 @@ body {
   gap: 0.5rem;
   align-items: center;
   padding: 0.75rem 1rem 1rem;
+}
+
+.theme-tabs {
+  display: inline-flex;
+  gap: 0;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(13, 148, 136, 0.12);
+  border: 1px solid rgba(13, 148, 136, 0.22);
+}
+
+body.theme-night .theme-tabs {
+  background: rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.theme-tab {
+  margin: 0;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.72rem;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  transition: background 0.2s, color 0.2s;
+}
+
+.theme-tab:hover {
+  color: var(--text);
+}
+
+.theme-tab[aria-selected="true"] {
+  background: var(--surface);
+  color: var(--accent);
+  font-weight: 600;
+  box-shadow: 0 1px 4px var(--sticky-shadow);
+}
+
+body.theme-night .theme-tab[aria-selected="true"] {
+  background: #094771;
+  color: #e8eef4;
+  box-shadow: none;
+}
+
+.toolbar-sep {
+  width: 1px;
+  height: 1.5rem;
+  background: var(--border);
+  flex-shrink: 0;
 }
 
 .toolbar label {
@@ -85,12 +185,16 @@ body {
 }
 
 .btn:hover {
-  border-color: rgba(52, 211, 153, 0.45);
+  border-color: var(--btn-night-hover);
 }
 
 .btn.primary {
   background: var(--accent-dim);
-  border-color: rgba(52, 211, 153, 0.5);
+  border-color: var(--btn-primary-border);
+  color: var(--primary-text);
+}
+
+body.theme-night .btn.primary {
   color: #a7f3d0;
 }
 
@@ -147,8 +251,8 @@ body {
 .ledger thead th.col-total {
   vertical-align: middle;
   min-width: 4.5rem;
-  background: rgba(52, 211, 153, 0.12);
-  color: #a7f3d0;
+  background: var(--thead-total-bg);
+  color: var(--thead-total-text);
 }
 
 .ledger thead th .th-sub {
@@ -163,24 +267,24 @@ body {
   position: sticky;
   left: 0;
   z-index: 1;
-  background: var(--card) !important;
-  box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2);
+  background: var(--sticky-bg) !important;
+  box-shadow: 4px 0 8px var(--sticky-shadow);
 }
 
 .ledger .sticky-col-2 {
   position: sticky;
   left: 2.2rem;
   z-index: 1;
-  background: var(--card) !important;
-  box-shadow: 4px 0 8px rgba(0, 0, 0, 0.15);
+  background: var(--sticky-bg) !important;
+  box-shadow: 4px 0 8px var(--sticky-shadow);
 }
 
 .ledger tbody tr.day-row--alt td:not(.sticky-col):not(.sticky-col-2):not(.col-total) {
-  background: rgba(21, 28, 40, 0.65);
+  background: var(--table-zebra);
 }
 
 .ledger td.col-total {
-  background: rgba(52, 211, 153, 0.06) !important;
+  background: var(--td-total-bg) !important;
   font-weight: 600;
 }
 
@@ -207,16 +311,16 @@ body {
 .ledger .bal {
   font-family: var(--mono);
   text-align: right;
-  color: #a7f3d0;
+  color: var(--bal-pos);
   white-space: nowrap;
 }
 
 .ledger .bal.neg {
-  color: #fca5a5;
+  color: var(--bal-neg);
 }
 
 .ledger .open-row td {
-  background: rgba(52, 211, 153, 0.08);
+  background: var(--open-row-bg);
   font-weight: 600;
 }
 
@@ -270,12 +374,12 @@ body {
 }
 
 .summary-card--grand {
-  border-color: rgba(52, 211, 153, 0.35);
-  background: rgba(52, 211, 153, 0.08);
+  border-color: var(--grand-border);
+  background: var(--grand-bg);
 }
 
 .summary-card--grand h3 {
-  color: #a7f3d0;
+  color: var(--grand-h3);
 }
 
 .summary-card--grand .grand-num {
@@ -305,8 +409,8 @@ body {
 }
 
 .btn-day-del {
-  border-color: rgba(248, 113, 113, 0.35);
-  color: #fca5a5;
+  border-color: var(--btn-del-border);
+  color: var(--btn-del-text);
 }
 
 .note-block {
