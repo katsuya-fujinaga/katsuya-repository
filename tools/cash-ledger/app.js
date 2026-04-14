@@ -1081,17 +1081,61 @@
     return total;
   }
 
-  function renderLiabilitiesSummary() {
+  function resolveDisplayLastDayInMonth(mk) {
+    var now = new Date();
+    var cy = now.getFullYear();
+    var cm = now.getMonth() + 1;
+    var cd = now.getDate();
+    var dim = daysInMonth(mk.y, mk.m);
+    if (mk.y === cy && mk.m === cm) return Math.min(cd, dim);
+    if (mk.y < cy || (mk.y === cy && mk.m < cm)) return dim;
+    return 0;
+  }
+
+  function totalWithdrawByKeywordUntil(keyword, maxSerial, maxDayInMaxMonth) {
+    var kw = String(keyword || "").trim();
+    if (!kw) return 0;
+    var total = 0;
+    Object.keys(state.months || {}).forEach(function (key) {
+      var serial = monthSerialFromKey(key);
+      if (serial > maxSerial) return;
+      var mk = parseMonthKey(key);
+      var dim = daysInMonth(mk.y, mk.m);
+      var limitDay = serial === maxSerial ? Math.min(Math.max(0, maxDayInMaxMonth), dim) : dim;
+      var mdata = state.months[key];
+      for (var day = 1; day <= limitDay; day++) {
+        var val = mdata.days && mdata.days[String(day)];
+        if (!val || !Array.isArray(val.lines)) continue;
+        for (var li = 0; li < val.lines.length; li++) {
+          var line = val.lines[li];
+          state.accounts.forEach(function (a) {
+            var c = line[a.id];
+            if (!c) return;
+            var note = String(c.note || "");
+            if (note.indexOf(kw) >= 0) total += parseNum(c.w);
+          });
+        }
+      }
+    });
+    return total;
+  }
+
+  function renderLiabilitiesSummary(mk) {
     if (!elLiabilitiesGrid) return;
     if (ensureLiabilities(state)) {
       saveState(state);
     }
+    var targetSerial = mk ? monthSerialFromKey(monthKey(mk.y, mk.m)) : null;
+    var targetLastDay = mk ? resolveDisplayLastDayInMonth(mk) : 0;
     var sumOpening = 0;
     var sumPaid = 0;
     var sumRemain = 0;
     var html = state.liabilities
       .map(function (item) {
-        var paid = totalWithdrawByKeyword(item.keyword);
+        var paid =
+          targetSerial == null
+            ? totalWithdrawByKeyword(item.keyword)
+            : totalWithdrawByKeywordUntil(item.keyword, targetSerial, targetLastDay);
         var remain = parseNum(item.opening) - paid;
         sumOpening += parseNum(item.opening);
         sumPaid += paid;
@@ -1413,7 +1457,7 @@
     state.liabilities = next;
     saveState(state);
     closeDialogSafe(dlgLiabilities);
-    renderLiabilitiesSummary();
+    renderLiabilitiesSummary(mk);
   }
 
   elMonth.addEventListener("change", function () {
