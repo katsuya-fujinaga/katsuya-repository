@@ -7,7 +7,6 @@
   var CHART_AXIS_MAX = 300 * 10000; // 300万円
   var CHART_AXIS_STEP = 20 * 10000; // 20万円刻み
   var DEFAULT_LIABILITIES = [
-    { name: "ザリード", keyword: "ザリード", opening: 0 },
     { name: "国税", keyword: "国税", opening: 0 },
     { name: "市県民税", keyword: "市県民税", opening: 0 },
     { name: "国民健康保険", keyword: "国民健康保険", opening: 0 },
@@ -103,7 +102,7 @@
           return null;
         }
         var name = String(x.name || "").trim();
-        if (!name) {
+        if (!name || name === "ザリード") {
           changed = true;
           return null;
         }
