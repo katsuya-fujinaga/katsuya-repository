@@ -589,6 +589,12 @@ body.theme-night .ledger input[type="text"] {
   stroke-width: 1.5;
 }
 
+.monthly-chart .line-net-asset {
+  stroke: #8b5cf6;
+  fill: none;
+  stroke-width: 1.5;
+}
+
 .monthly-chart .dot-expense {
   fill: #ef4444;
 }
@@ -599,6 +605,10 @@ body.theme-night .ledger input[type="text"] {
 
 .monthly-chart .dot-net {
   fill: #3b82f6;
+}
+
+.monthly-chart .dot-net-asset {
+  fill: #8b5cf6;
 }
 
 .monthly-chart-legend {
@@ -633,6 +643,10 @@ body.theme-night .ledger input[type="text"] {
 
 .monthly-chart-legend .legend-net i {
   background: #3b82f6;
+}
+
+.monthly-chart-legend .legend-net-asset i {
+  background: #8b5cf6;
 }
 
 .day-cell {

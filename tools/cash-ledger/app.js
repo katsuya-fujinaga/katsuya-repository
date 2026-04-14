@@ -765,7 +765,45 @@
     return { w: w, d: d, net: d - w };
   }
 
+  function totalWithdrawByKeywordThroughSerial(keyword, maxSerial) {
+    var kw = String(keyword || "").trim();
+    if (!kw) return 0;
+    var total = 0;
+    Object.keys(state.months || {}).forEach(function (key) {
+      var serial = monthSerialFromKey(key);
+      if (serial > maxSerial) return;
+      var mk = parseMonthKey(key);
+      var dim = daysInMonth(mk.y, mk.m);
+      var mdata = state.months[key];
+      for (var day = 1; day <= dim; day++) {
+        var val = mdata.days && mdata.days[String(day)];
+        if (!val || !Array.isArray(val.lines)) continue;
+        for (var li = 0; li < val.lines.length; li++) {
+          var line = val.lines[li];
+          state.accounts.forEach(function (a) {
+            var c = line[a.id];
+            if (!c) return;
+            var note = String(c.note || "");
+            if (note.indexOf(kw) >= 0) total += parseNum(c.w);
+          });
+        }
+      }
+    });
+    return total;
+  }
+
+  function totalLiabilityRemainingThroughSerial(maxSerial) {
+    ensureLiabilities(state);
+    var remain = 0;
+    state.liabilities.forEach(function (item) {
+      var paid = totalWithdrawByKeywordThroughSerial(item.keyword, maxSerial);
+      remain += parseNum(item.opening) - paid;
+    });
+    return remain;
+  }
+
   function buildMonthlySeries(centerKey, halfSpan) {
+    ensureLiabilities(state);
     var center = monthSerialFromKey(centerKey);
     var minSerial = center - halfSpan;
     var maxSerial = center + halfSpan;
@@ -800,12 +838,14 @@
       if (earliestSerial != null && serial >= earliestSerial) {
         cumulative = cumulativeBySerial[serial] || 0;
       }
+      var liabilitiesRemain = totalLiabilityRemainingThroughSerial(serial);
       list.push({
         key: key,
         label: monthLabel(key),
         income: t.d,
         expense: t.w,
         total: cumulative,
+        netAsset: cumulative - liabilitiesRemain,
       });
     }
     return list;
@@ -845,7 +885,7 @@
 
     var vals = [];
     series.forEach(function (it) {
-      vals.push(it.income, it.expense, it.total);
+      vals.push(it.income, it.expense, it.total, it.netAsset);
     });
     var minV = Math.min.apply(null, vals.concat([0, CHART_AXIS_MIN]));
     var maxV = Math.max.apply(null, vals.concat([0, CHART_AXIS_MAX]));
@@ -905,6 +945,9 @@
     var totalPath = pathFromSeries(series, plotX, plotY, plotW, plotH, minY, maxY, function (it) {
       return it.total;
     });
+    var netAssetPath = pathFromSeries(series, plotX, plotY, plotW, plotH, minY, maxY, function (it) {
+      return it.netAsset;
+    });
 
     var zeroY = plotY + ((maxY - 0) / (maxY - minY || 1)) * plotH;
     var zeroLine = "";
@@ -940,6 +983,9 @@
       '<path class="line-net" d="' +
       totalPath +
       '"></path>' +
+      '<path class="line-net-asset" d="' +
+      netAssetPath +
+      '"></path>' +
       dotsFromSeries(series, "dot-expense", plotX, plotY, plotW, plotH, minY, maxY, function (it) {
         return it.expense;
       }) +
@@ -949,12 +995,16 @@
       dotsFromSeries(series, "dot-net", plotX, plotY, plotW, plotH, minY, maxY, function (it) {
         return it.total;
       }) +
+      dotsFromSeries(series, "dot-net-asset", plotX, plotY, plotW, plotH, minY, maxY, function (it) {
+        return it.netAsset;
+      }) +
       monthLabels +
       "</svg>" +
       '<div class="monthly-chart-legend">' +
       '<span class="legend-expense"><i></i>支出合計（引落）</span>' +
       '<span class="legend-income"><i></i>収入合計（入金）</span>' +
       '<span class="legend-net"><i></i>合計金額（累積残高）</span>' +
+      '<span class="legend-net-asset"><i></i>純資産（累積残高 - 借入残高）</span>' +
       "</div>";
   }
 

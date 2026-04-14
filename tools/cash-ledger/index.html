@@ -7,12 +7,11 @@
   <title>お金のきろく · tools</title>
   <link rel="icon" type="image/png" href="./favicon.png" />
   <link rel="apple-touch-icon" href="./favicon.png" />
-  <link rel="stylesheet" href="./styles.css?v=20260413-8" />
+  <link rel="stylesheet" href="./styles.css?v=20260414-9" />
 </head>
 <body>
   <header class="app-header">
     <h1>お金のきろく</h1>
-    <p class="sub">上のボックスは今月なら「今日の残高」（前月繰越＋今月1日〜今日まで）。過去の月は月末、未来の月は月初だけ。表は縦スクロールしても見出し固定。「＋行」で1日に何件でも。データはこのブラウザだけに保存</p>
   </header>
 
   <div class="toolbar" role="toolbar" aria-label="操作">
@@ -62,12 +61,6 @@
     <p class="monthly-chart-note">初期残高から、項目メモに含まれるキーワードの引落累計を差し引いて表示します。</p>
     <div class="summary-grid" id="liabilities-grid"></div>
   </section>
-
-  <p class="note-block">
-    同じ日に何件も書きたいときは、日付の「＋行」。けしてよいのは一番下の行だけ（「−行」）。右の「合計」は、その行までの全口座の残高を足した数字です。
-    前月のデータがある月は、開くたびに「前月の末日残高」が月初へ自動で入ります。いちばん古い月の前にデータがないときだけ、月初は 0 です。今月を表示しているとき、上の数字はその「月初」に今日までの取引を足した「今日の残高」です。
-    税金や保険の細かい表は、「項目」に一言メモするか、別の紙でもOKです。
-  </p>
 
   <dialog class="modal" id="dlg-accounts">
     <div class="modal-inner">
@@ -136,6 +129,6 @@
     </div>
   </dialog>
 
-  <script src="./app.js?v=20260413-8"></script>
+  <script src="./app.js?v=20260414-9"></script>
 </body>
 </html>
