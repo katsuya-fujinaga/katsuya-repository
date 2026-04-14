@@ -574,25 +574,25 @@ body.theme-night .ledger input[type="text"] {
 .monthly-chart .line-expense {
   stroke: #ef4444;
   fill: none;
-  stroke-width: 1.5;
+  stroke-width: 1.2;
 }
 
 .monthly-chart .line-income {
   stroke: #22c55e;
   fill: none;
-  stroke-width: 1.5;
+  stroke-width: 1.2;
 }
 
 .monthly-chart .line-net {
   stroke: #3b82f6;
   fill: none;
-  stroke-width: 1.5;
+  stroke-width: 1.2;
 }
 
 .monthly-chart .line-net-asset {
   stroke: #8b5cf6;
   fill: none;
-  stroke-width: 2;
+  stroke-width: 1.4;
   stroke-dasharray: 6 4;
   stroke-linecap: round;
 }
