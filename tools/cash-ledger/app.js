@@ -90,6 +90,7 @@
           name: x.name,
           keyword: x.keyword,
           opening: x.opening,
+          startMonth: normalizeMonthInput(x.startMonth),
         };
       });
       return true;
@@ -112,6 +113,7 @@
           name: name,
           keyword: keyword,
           opening: parseNum(x.opening),
+          startMonth: normalizeMonthInput(x.startMonth),
         };
       })
       .filter(Boolean);
@@ -123,6 +125,7 @@
           name: x.name,
           keyword: x.keyword,
           opening: x.opening,
+          startMonth: normalizeMonthInput(x.startMonth),
         };
       });
     }
@@ -137,6 +140,7 @@
         name: x.name,
         keyword: x.keyword,
         opening: x.opening,
+        startMonth: normalizeMonthInput(x.startMonth),
       });
     });
     return changed;
@@ -176,6 +180,7 @@
           name: x.name,
           keyword: x.keyword,
           opening: x.opening,
+          startMonth: normalizeMonthInput(x.startMonth),
         };
       }),
       months: {},
@@ -669,7 +674,7 @@
     wireBodyEvents(mdata);
     renderSummary(mk, dim, mdata);
     renderMonthlyChart(currentKey);
-    renderLiabilitiesSummary();
+    renderLiabilitiesSummary(mk);
 
     ensureLedgerTheadResizeObserver();
     requestAnimationFrame(function () {
@@ -765,12 +770,13 @@
     return { w: w, d: d, net: d - w };
   }
 
-  function totalWithdrawByKeywordThroughSerial(keyword, maxSerial) {
+  function totalWithdrawByKeywordThroughSerial(keyword, maxSerial, minSerial) {
     var kw = String(keyword || "").trim();
     if (!kw) return 0;
     var total = 0;
     Object.keys(state.months || {}).forEach(function (key) {
       var serial = monthSerialFromKey(key);
+      if (minSerial != null && serial < minSerial) return;
       if (serial > maxSerial) return;
       var mk = parseMonthKey(key);
       var dim = daysInMonth(mk.y, mk.m);
@@ -796,7 +802,10 @@
     ensureLiabilities(state);
     var remain = 0;
     state.liabilities.forEach(function (item) {
-      var paid = totalWithdrawByKeywordThroughSerial(item.keyword, maxSerial);
+      var startMonth = normalizeMonthInput(item.startMonth);
+      var startSerial = startMonth ? monthSerialFromKey(startMonth) : null;
+      if (startSerial != null && maxSerial < startSerial) return;
+      var paid = totalWithdrawByKeywordThroughSerial(item.keyword, maxSerial, startSerial);
       remain += parseNum(item.opening) - paid;
     });
     return remain;
@@ -1092,12 +1101,13 @@
     return 0;
   }
 
-  function totalWithdrawByKeywordUntil(keyword, maxSerial, maxDayInMaxMonth) {
+  function totalWithdrawByKeywordUntil(keyword, maxSerial, maxDayInMaxMonth, minSerial) {
     var kw = String(keyword || "").trim();
     if (!kw) return 0;
     var total = 0;
     Object.keys(state.months || {}).forEach(function (key) {
       var serial = monthSerialFromKey(key);
+      if (minSerial != null && serial < minSerial) return;
       if (serial > maxSerial) return;
       var mk = parseMonthKey(key);
       var dim = daysInMonth(mk.y, mk.m);
@@ -1132,12 +1142,16 @@
     var sumRemain = 0;
     var html = state.liabilities
       .map(function (item) {
+        var startMonth = normalizeMonthInput(item.startMonth);
+        var startSerial = startMonth ? monthSerialFromKey(startMonth) : null;
+        var isActive = targetSerial == null || startSerial == null || targetSerial >= startSerial;
         var paid =
-          targetSerial == null
-            ? totalWithdrawByKeyword(item.keyword)
-            : totalWithdrawByKeywordUntil(item.keyword, targetSerial, targetLastDay);
-        var remain = parseNum(item.opening) - paid;
-        sumOpening += parseNum(item.opening);
+          !isActive || targetSerial == null
+            ? 0
+            : totalWithdrawByKeywordUntil(item.keyword, targetSerial, targetLastDay, startSerial);
+        var opening = isActive ? parseNum(item.opening) : 0;
+        var remain = opening - paid;
+        sumOpening += opening;
         sumPaid += paid;
         sumRemain += remain;
         return (
@@ -1146,7 +1160,7 @@
           escapeHtml(item.name) +
           "</h3>" +
           '<p>初期残高 <span class="num">' +
-          fmtNum(item.opening) +
+          fmtNum(opening) +
           "</span></p>" +
           '<p>支払済み（引落累計） <span class="num">' +
           fmtNum(paid) +
@@ -1155,6 +1169,9 @@
           (remain < 0 ? "num-neg" : "") +
           '">' +
           fmtNum(remain) +
+          "</span></p>" +
+          '<p>開始月 <span class="num">' +
+          escapeHtml(startMonth || "未設定（全期間）") +
           "</span></p>" +
           '<p>キーワード <span class="num">' +
           escapeHtml(item.keyword || "-") +
@@ -1426,6 +1443,9 @@
         '" /></label>' +
         '<label>初期残高<input type="number" inputmode="numeric" step="1" class="js-li-opening" value="' +
         escapeHtml(String(parseNum(item.opening))) +
+        '" /></label>' +
+        '<label>開始月<input type="month" class="js-li-start-month" value="' +
+        escapeHtml(normalizeMonthInput(item.startMonth)) +
         '" /></label>';
       elLiabilityEditList.appendChild(row);
     });
@@ -1440,6 +1460,7 @@
       var name = (row.querySelector(".js-li-name") || {}).value || "";
       var keyword = (row.querySelector(".js-li-keyword") || {}).value || "";
       var opening = (row.querySelector(".js-li-opening") || {}).value || "0";
+      var startMonth = normalizeMonthInput((row.querySelector(".js-li-start-month") || {}).value || "");
       name = name.trim();
       keyword = keyword.trim();
       if (!name) return;
@@ -1448,6 +1469,7 @@
         name: name,
         keyword: keyword || name,
         opening: parseNum(opening),
+        startMonth: startMonth,
       });
     });
     if (next.length === 0) {
@@ -1457,6 +1479,7 @@
     state.liabilities = next;
     saveState(state);
     closeDialogSafe(dlgLiabilities);
+    var mk = parseMonthKey(currentKey);
     renderLiabilitiesSummary(mk);
   }
 
