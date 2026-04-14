@@ -102,14 +102,15 @@
           return null;
         }
         var name = String(x.name || "").trim();
-        if (!name || name === "ザリード") {
+        var keyword = String(x.keyword || name).trim();
+        if (!name || name === "ザリード" || keyword === "ザリード") {
           changed = true;
           return null;
         }
         return {
           id: x.id || "l_" + Date.now() + "_" + i,
           name: name,
-          keyword: String(x.keyword || name).trim(),
+          keyword: keyword,
           opening: parseNum(x.opening),
         };
       })
@@ -1032,7 +1033,9 @@
 
   function renderLiabilitiesSummary() {
     if (!elLiabilitiesGrid) return;
-    ensureLiabilities(state);
+    if (ensureLiabilities(state)) {
+      saveState(state);
+    }
     var sumOpening = 0;
     var sumPaid = 0;
     var sumRemain = 0;
