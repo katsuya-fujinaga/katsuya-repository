@@ -13,12 +13,12 @@
 <body>
 
   <!-- 申込フォームは #myasp-consult（外部埋め込みフォーム） -->
+
   <header class="hero">
     <div class="container hero-inner">
       <div class="hero-visual-wrap">
         <img class="hero-visual" src="./images/header-hero.png" alt="手相を見せる女性のイラスト">
       </div>
-      <p class="hero-note">ご登録後、無料手相体験&amp;講座説明会についてお話しします。</p>
     </div>
   </header>
 
@@ -26,13 +26,65 @@
     <div class="container">
       <!-- 各ブロック: サブヘッド2行（明朝）→ キービジュアル（差し替え用）→ 本文（ゴシック・約15字幅） -->
 
+      <section class="tesou-top-form" aria-label="上部説明会フォーム">
+        <div class="tesou-cta-fullwidth">
+          <div class="cta-block cta-block--tesou-briefing cta-block--page-end" id="myasp-consult-top">
+            <header class="tesou-cta-briefing__head">
+              <h2 class="cta-block__title tesou-cta-briefing__title">無料手相体験&amp;講座説明会</h2>
+            </header>
+            <div class="tesou-cta-briefing__body">
+              <h3 class="tesou-cta-briefing__content-label">内容</h3>
+              <p class="tesou-cta-briefing__intro">説明会では、おおまかに次の順で進行します。</p>
+              <ol class="tesou-step-grid" aria-label="説明会の内容">
+                <li>
+                  <span class="tesou-step-grid__num" aria-hidden="true">1</span>
+                  <span class="tesou-step-grid__title">手相鑑定&amp;カウンセリング体験<br>（30分）</span>
+                  <span class="tesou-step-grid__meta">担当：本田有紀華</span>
+                </li>
+                <li>
+                  <span class="tesou-step-grid__num" aria-hidden="true">2</span>
+                  <span class="tesou-step-grid__title">講座の料金・カリキュラム案内<br>（約30分）</span>
+                  <span class="tesou-step-grid__meta">担当：講座事務局</span>
+                </li>
+              </ol>
+              <div class="tesou-cta-action" aria-label="説明会お申し込み">
+                <p class="tesou-entry-arrow" aria-hidden="true">
+                  <img
+                    class="tesou-entry-arrow__img"
+                    src="images/entry-arrow.png"
+                    width="360"
+                    height="72"
+                    alt=""
+                    decoding="async"
+                  >
+                </p>
+                <p class="tesou-cta-action__button">
+                  <a
+                    class="tesou-puyo-btn-shell"
+                    href="https://sub.uranai-ambitious.com/r/Q8tYOww6ZAm1/register"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      class="tesou-puyo-btn"
+                      src="./images/cta-free-trial-button.png"
+                      alt="今すぐ無料体験の日程を確認する"
+                    >
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="lp-section lp-block lp-section--first" aria-labelledby="sec-intro">
         <h2 id="sec-intro" class="lp-subhead">
           <span class="lp-subhead__line">手のひらは人生を教えてくれる</span>
         </h2>
         <!-- キービジュアル: ./images/ 配下の自作画像に src を差し替えてください -->
-        <figure class="lp-key-visual">
-          <img src="./images/header-under-illustration.png" alt="手相を読む占い師のイラスト">
+        <figure class="lp-key-visual lp-key-visual--intro-photo">
+          <img src="./images/palm-life-photo.png" alt="手のひらに触れる手元の写真">
         </figure>
         <div class="lp-body">
           <p>突然ですが、あなたの手のひらには、あなたの「これまで」と「これから」が刻まれています。</p>
@@ -50,8 +102,8 @@
         <h2 id="sec-palm-mirror" class="lp-subhead">
           <span class="lp-subhead__line">手のひらは、あなたの人生の成績表</span>
         </h2>
-        <figure class="lp-key-visual">
-          <img class="lp-key-visual__life-report" src="./images/life-report-illustration.png" alt="手相と人生の成績表のイラスト">
+        <figure class="lp-key-visual lp-key-visual--palm-report">
+          <img class="lp-key-visual__life-report" src="./images/palm-report-photo.png" alt="手のひらの写真">
         </figure>
         <div class="lp-body">
           <p>当たり前のことですが、<br>生年月日は変わりません。</p>
@@ -76,8 +128,8 @@
         <h2 id="sec-touch-trust" class="lp-subhead">
           <span class="lp-subhead__line">30年、1,000以上の手が教えてくれたこと</span>
         </h2>
-        <figure class="lp-key-visual">
-          <img src="./images/header-under-illustration.png" alt="">
+        <figure class="lp-key-visual lp-key-visual--touch-hands">
+          <img src="./images/touch-hands-banner.png" alt="さまざまな手を上げるイラスト">
         </figure>
         <div class="lp-body">
           <p>私は占い師として30年、1,000名以上の方に<br>手相の読み方と伝え方をお伝えしてきました。</p>
@@ -92,10 +144,10 @@
 
       <section class="lp-section lp-block" aria-labelledby="sec-learning-path">
         <h2 id="sec-learning-path" class="lp-subhead">
-          <span class="lp-subhead__line">占いではなく、カウンセラーとして</span>
+          <span class="lp-subhead__line">占い師ではなく、カウンセラーとして</span>
         </h2>
-        <figure class="lp-key-visual">
-          <img src="./images/header-under-illustration.png" alt="">
+        <figure class="lp-key-visual lp-key-visual--counselor-hands">
+          <img src="./images/counselor-hands-flower.png" alt="花に囲まれた手のひらの写真">
         </figure>
         <div class="lp-body">
           <p>ここまで読んで、胸のあたりが<br>少し熱くなっていませんか。</p>
@@ -128,10 +180,11 @@
 
       <section class="lp-section lp-block" aria-labelledby="sec-loved-counselor">
         <h2 id="sec-loved-counselor" class="lp-subhead">
-          <span class="lp-subhead__line">「話しやすい人」から「また会いたい人」へ</span>
+          <span class="lp-subhead__line">「話しやすい人」から〜</span>
+          <span class="lp-subhead__line">「また会いたい人」へ</span>
         </h2>
-        <figure class="lp-key-visual">
-          <img src="./images/header-under-illustration.png" alt="">
+        <figure class="lp-key-visual lp-key-visual--loved-counselor">
+          <img src="./images/loved-counselor-photo.png" alt="タブレットを持つ女性の写真">
         </figure>
         <div class="lp-body">
           <p>この講座でお伝えするのは、<br>線の意味を並べることだけではありません。</p>
@@ -156,8 +209,8 @@
         <h2 id="sec-program" class="lp-subhead">
           <span class="lp-subhead__line">講座のなかで、あなたが手にするもの</span>
         </h2>
-        <figure class="lp-key-visual">
-          <img src="./images/header-under-illustration.png" alt="">
+        <figure class="lp-key-visual lp-key-visual--program-fortune">
+          <img src="./images/program-fortune-illustration.png" alt="虫眼鏡を持つ占い師のイラスト">
         </figure>
         <div class="lp-body">
           <p>線を追うだけでは終わらない。</p>
@@ -188,31 +241,75 @@
               <p>伝え方まで落とし込む</p>
             </div>
           </div>
-          <p>ご提供のコースは、ライフスタイルに合わせて<br>お選びいただけます。</p>
-          <div class="curriculum" aria-label="提供コース">
-            <div class="lesson">
-              <h4>デビューコース</h4>
-              <p>手相を学び、収入につなげる仕組みまでを学びます</p>
-            </div>
-            <div class="lesson">
-              <h4>ナレッジコース</h4>
-              <p>手相カウンセラーとしての知識を学びます</p>
-            </div>
-            <div class="lesson">
-              <h4>動画学習コース</h4>
-              <p>自分のペースで卒業まで進められます</p>
-              <p class="lesson-note">※オンライン授業、サポートはありません</p>
-            </div>
-          </div>
           <p>受講を終えたあと、<br>手元にはたぶんこんな手応えが残ります。</p>
           <ul class="checklist">
             <li>手相を前にしても迷わない軸</li>
             <li>相手の心に届く伝え方</li>
             <li>人との距離が自然に縮まる関わり方</li>
           </ul>
-          <p>そして何より、<strong>「私でも、誰かのよろこびになれる」<br>という、胸に残る実感</strong>です。</p>
+          <p>そして何より、<strong>「私でも、誰かをよろこばせられる」<br>という、胸に残る実感</strong>です。</p>
         </div>
       </section>
+
+      <div class="tesou-break-zone">
+        <figure class="tesou-preheader-visual" aria-label="説明会セクション前の補助画像">
+          <img src="./images/cta-header-top.png" alt="黒板の前で手のひらを見せる女性のイラスト">
+        </figure>
+
+        <figure class="tesou-reheader-visual" aria-label="説明会セクション前のヘッダー画像">
+          <img src="./images/header-hero.png" alt="手相を見せる女性のイラスト">
+        </figure>
+
+        <div class="tesou-cta-fullwidth">
+          <div class="cta-block cta-block--tesou-briefing cta-block--page-end" id="myasp-consult">
+            <header class="tesou-cta-briefing__head">
+              <h2 class="cta-block__title tesou-cta-briefing__title">無料手相体験&amp;講座説明会</h2>
+            </header>
+            <div class="tesou-cta-briefing__body">
+              <h3 class="tesou-cta-briefing__content-label">内容</h3>
+              <p class="tesou-cta-briefing__intro">説明会では、おおまかに次の順で進行します。</p>
+              <ol class="tesou-step-grid" aria-label="説明会の内容">
+                <li>
+                  <span class="tesou-step-grid__num" aria-hidden="true">1</span>
+                  <span class="tesou-step-grid__title">手相鑑定&amp;カウンセリング体験<br>（30分）</span>
+                  <span class="tesou-step-grid__meta">担当：本田有紀華</span>
+                </li>
+                <li>
+                  <span class="tesou-step-grid__num" aria-hidden="true">2</span>
+                  <span class="tesou-step-grid__title">講座の料金・カリキュラム案内<br>（約30分）</span>
+                  <span class="tesou-step-grid__meta">担当：講座事務局</span>
+                </li>
+              </ol>
+              <div class="tesou-cta-action" aria-label="説明会お申し込み">
+                <p class="tesou-entry-arrow" aria-hidden="true">
+                  <img
+                    class="tesou-entry-arrow__img"
+                    src="images/entry-arrow.png"
+                    width="360"
+                    height="72"
+                    alt=""
+                    decoding="async"
+                  >
+                </p>
+                <p class="tesou-cta-action__button">
+                  <a
+                    class="tesou-puyo-btn-shell"
+                    href="https://sub.uranai-ambitious.com/r/Q8tYOww6ZAm1/register"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      class="tesou-puyo-btn"
+                      src="./images/cta-free-trial-button.png"
+                      alt="今すぐ無料体験の日程を確認する"
+                    >
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <section class="lp-section lp-block emotional-profile lp-section--profile-unified" aria-labelledby="sec-instructor-profile">
         <h2 id="sec-instructor-profile" class="lp-subhead">
@@ -240,8 +337,8 @@
           <span class="lp-subhead__line">うまくできなかった私から、</span>
           <span class="lp-subhead__line">求められる私へ</span>
         </h2>
-        <figure class="lp-key-visual">
-          <img src="./images/header-under-illustration.png" alt="">
+        <figure class="lp-key-visual lp-key-visual--closing-dandelion">
+          <img src="./images/closing-dandelion-photo.png" alt="青空の下でたんぽぽの綿毛を吹く女性の写真">
         </figure>
         <div class="lp-body">
           <p>人との関わり方は、ほんの少し変わるだけで、朝の空気まで違って見えてきます。</p>
@@ -251,19 +348,7 @@
           <p>難しい知識がなくても大丈夫です。<br>これまでのあなたの経験や、人への向き合い方そのものが、これからの土台になります。</p>
           <p>画面の向こうで、一度、体感してみてください。<br>「私にも、ちゃんと道があるかもしれない」――そんな小さな手応えが、朝の空気を変える、最初のひと押しになることがあります。</p>
           <p class="lead-strong">下のフォームから、説明会にお申し込みいただけます。<br>あなたの「ちょっと気になる」を、大切に待っています。</p>
-        </div>
-      </section>
-
-    </div>
-
-    <div class="tesou-cta-fullwidth">
-      <div class="cta-block cta-block--tesou-briefing cta-block--page-end" id="myasp-consult">
-        <header class="tesou-cta-briefing__head">
-          <h2 class="cta-block__title tesou-cta-briefing__title">無料手相体験&amp;講座説明会</h2>
-        </header>
-        <div class="tesou-cta-briefing__form">
-          <div class="tesou-form-alt" aria-label="説明会お申し込み">
-            <h4 class="tesou-entry-heading">無料手相体験&amp;講座説明会<br>お申し込みフォーム</h4>
+          <div class="tesou-inline-cta" aria-label="説明会お申し込み">
             <p class="tesou-entry-arrow" aria-hidden="true">
               <img
                 class="tesou-entry-arrow__img"
@@ -274,40 +359,23 @@
                 decoding="async"
               >
             </p>
-            <p class="tesou-form-alt__action">
+            <p class="tesou-cta-action__button">
               <a
-                class="tesou-form-alt__btn"
+                class="tesou-puyo-btn-shell"
                 href="https://sub.uranai-ambitious.com/r/Q8tYOww6ZAm1/register"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                今すぐお申し込みする
+                <img
+                  class="tesou-puyo-btn"
+                  src="./images/cta-free-trial-button.png"
+                  alt="今すぐ無料体験の日程を確認する"
+                >
               </a>
             </p>
-            <p class="tesou-form-alt__note">ボタンを押すとお申し込みページが開きます。</p>
           </div>
         </div>
-        <div class="tesou-cta-briefing__body">
-          <h3 class="tesou-cta-briefing__content-label">内容</h3>
-          <p class="tesou-cta-briefing__intro">説明会では、おおまかに次の順で進行します。</p>
-          <ol class="tesou-step-grid" aria-label="説明会の内容">
-            <li>
-              <span class="tesou-step-grid__num" aria-hidden="true">1</span>
-              <span class="tesou-step-grid__title">手相鑑定&amp;カウンセリング体験（30分）</span>
-              <span class="tesou-step-grid__meta">担当：本田有紀華</span>
-            </li>
-            <li>
-              <span class="tesou-step-grid__num" aria-hidden="true">2</span>
-              <span class="tesou-step-grid__title">講座の料金・カリキュラム案内（約30分）</span>
-              <span class="tesou-step-grid__meta">担当：講座事務局</span>
-            </li>
-            <li>
-              <span class="tesou-step-grid__num" aria-hidden="true">3</span>
-              <span class="tesou-step-grid__title">質疑応答・その他のご質問（約30分）</span>
-            </li>
-          </ol>
-        </div>
-      </div>
+      </section>
     </div>
   </article>
 
@@ -318,5 +386,16 @@
     </div>
   </footer>
 
+  <aside class="tesou-side-hover-cta" aria-label="説明会お申し込み">
+    <a
+      class="tesou-side-hover-cta__link"
+      href="#myasp-consult"
+    >
+      <span class="tesou-side-hover-cta__label">無料手相体験&講座説明会</span>
+      <span class="tesou-side-hover-cta__hint">お申し込みはこちら</span>
+    </a>
+  </aside>
+
+  <script src="./js/button-motion.js"></script>
 </body>
 </html>
