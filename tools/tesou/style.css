@@ -448,6 +448,50 @@ img {
   letter-spacing: 0.04em;
 }
 
+.curriculum--two-paths {
+  margin-top: 0.35rem;
+}
+
+.lesson-work-style-tag {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.05rem, 2.8vw, 1.22rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #5a2d6e;
+}
+
+.curriculum--two-paths .lesson-work-style-figure {
+  margin: 0.95rem 0 0.75rem;
+  padding: 0;
+  text-align: center;
+}
+
+.curriculum--two-paths .lesson-work-style-figure img {
+  display: inline-block;
+  max-width: 100%;
+  width: min(100%, 520px);
+  height: auto;
+  vertical-align: middle;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(28, 45, 87, 0.12);
+}
+
+/* お絵かき手相鑑定サンプル（手相鑑定の見本）— 本文ブロック内でややコンパクトに */
+.curriculum--two-paths .lesson:first-child .lesson-work-style-figure img {
+  width: min(100%, 360px);
+}
+
+.curriculum--two-paths .lesson .lesson-work-style-price {
+  margin-top: 0.65rem;
+  margin-bottom: 0;
+  font-family: var(--font-gothic);
+  font-size: clamp(0.98rem, 2.5vw, 1.08rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--navy);
+}
+
 /* LP sections（サブヘッド2行＝明朝 → キービジュアル → 本文＝ゴシック・コンテナ幅いっぱい） */
 .lp-section {
   margin-bottom: 0.25rem;
@@ -503,6 +547,11 @@ img {
 /* サブヘッド内で「け」1字だけ段落ちしないよう語をまとめる */
 .lp-subhead__keep {
   white-space: nowrap;
+}
+
+/* セクション本文の途中に置くサブヘッド（装飾は .lp-subhead と同一、上余白のみ詰める） */
+.lp-subhead--in-body {
+  margin-top: clamp(1.75rem, 5vw, 2.5rem);
 }
 
 .lp-key-visual {
@@ -651,6 +700,13 @@ img {
 .lp-body > .illustration-strip,
 .lp-body > .story-visual,
 .lp-body > .curriculum {
+  max-width: none;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.lp-body > .lp-subhead {
   max-width: none;
   width: 100%;
   margin-left: 0;
@@ -959,20 +1015,6 @@ img {
   background-size: 100% 100%;
   border-top: 1px solid rgba(28, 45, 87, 0.1);
   border-bottom: 1px solid rgba(28, 45, 87, 0.1);
-}
-
-.tesou-preheader-visual {
-  width: 100%;
-  margin: 0 0 30px;
-  padding: 0 0 30px;
-  border-bottom: 1px solid rgba(28, 45, 87, 0.2);
-}
-
-.tesou-preheader-visual img {
-  display: block;
-  width: min(100%, 500px);
-  height: auto;
-  margin: 0 auto;
 }
 
 .tesou-reheader-visual {
@@ -1828,6 +1870,10 @@ img {
     font-size: clamp(1.32rem, 5.4vw, 2rem);
     padding: 0.85rem 0.5rem 0.95rem;
     margin-top: clamp(2.25rem, 8vw, 3.5rem);
+  }
+
+  .lp-subhead--in-body {
+    margin-top: clamp(1.35rem, 5vw, 2rem);
   }
 
   .lp-body {
