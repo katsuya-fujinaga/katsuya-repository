@@ -203,7 +203,12 @@ def main() -> None:
     frag = md_to_html(md)
     if "--write-html" in sys.argv:
         here = Path(__file__).resolve().parent
-        repo = here.parent.parent
+        repo = here
+        while not (repo / ".git").exists():
+            parent = repo.parent
+            if parent == repo:
+                raise SystemExit(f"Could not find repository root (.git) from {here}")
+            repo = parent
         ffs_dir = repo / "tools/ffs-seminar"
         ffs_dir.mkdir(parents=True, exist_ok=True)
         write_html_pair(

@@ -4,7 +4,7 @@ type: [[セールスレター]]
 project: [[愛され手相カウンセラーLP]]
 client: [[本田有紀華]]
 parent: [[本田有紀華コンテンツ]]
-source: "hitobiji/tools/tesou/index.html"
+source: "tools/tesou/index.html"
 related:
   - [[愛され手相カウンセラーLP]]
 tags:

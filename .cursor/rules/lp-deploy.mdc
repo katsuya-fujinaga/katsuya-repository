@@ -26,15 +26,15 @@ https://katsuya-fujinaga.github.io/katsuya-repository/
 **商品LPのURL組み立て**
 
 ```
-{ベース}product/{商品フォルダ名}/lp/
+{ベース}product/案件/{商品フォルダ名}/lp/
 ```
 
-または `.../lp/index.html`（どちらでも可）。
+または `.../lp/index.html`（どちらでも可）。**2026-04 より `product/案件/` を挟む構成に変更**したため、旧URL（`product/{商品名}/lp/`）のブックマークは要更新。
 
-- **例・愛され手相カウンセラー**（フォルダ名が日本語のときはブラウザ・共有用にパーセントエンコードされる）  
-  `https://katsuya-fujinaga.github.io/katsuya-repository/product/%E6%84%9B%E3%81%95%E3%82%8C%E6%89%8B%E7%9B%B8%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BB%E3%83%A9%E3%83%BC/lp/`
-- **短いURLにしたいとき**: `product/` 直下のフォルダ名を**英小文字＋ハイフン**などASCIIにリネームする（例: `aisare-tesou`）→  
-  `https://katsuya-fujinaga.github.io/katsuya-repository/product/aisare-tesou/lp/`
+- **例・愛され手相カウンセラー（LPは `tools/tesou` のみ運用）**  
+  `https://katsuya-fujinaga.github.io/katsuya-repository/tools/tesou/`
+- **短いURLにしたいとき**: `product/案件/` 配下のフォルダ名を**英小文字＋ハイフン**などASCIIにすると共有しやすい（例: `aisare-tesou`）→  
+  `https://katsuya-fujinaga.github.io/katsuya-repository/product/案件/aisare-tesou/lp/`
 
 リポジトリ: [katsuya-fujinaga/katsuya-repository](https://github.com/katsuya-fujinaga/katsuya-repository)（`main` を Pages ソースにしている想定）
 
@@ -55,6 +55,7 @@ https://katsuya-fujinaga.github.io/katsuya-repository/tools/
 | Katsuya Board | https://katsuya-fujinaga.github.io/katsuya-repository/tools/katsuya-taskboard/ |
 | LPフォーム（ぷよぷよ）キット | https://katsuya-fujinaga.github.io/katsuya-repository/tools/lp-form-puyo/ |
 | お金のきろく | https://katsuya-fujinaga.github.io/katsuya-repository/tools/cash-ledger/ |
+| 愛され手相カウンセラー LP | https://katsuya-fujinaga.github.io/katsuya-repository/tools/tesou/ |
 
 （`ffs-seminar` を `tools/` 配下に置いている場合は `{ベース}ffs-seminar/` と同様に組み立てる。）
 
@@ -62,12 +63,20 @@ https://katsuya-fujinaga.github.io/katsuya-repository/tools/
 
 **案内文や正URLとしては使わない。** 別リポジトリ [lp-clean-sight](https://github.com/katsuya-fujinaga/lp-clean-sight) で同じ構成をミラーしている場合の参考: ルートは `https://katsuya-fujinaga.github.io/lp-clean-sight/`（パスは `katsuya-repository` の `tools/` と同じ並びの想定）。
 
+## `product/` の階層（リポジトリ内）
+
+| フォルダ | 用途 |
+|----------|------|
+| **`product/案件/`** | クライアント別のプロモーション資産（LP・メール・MTG・ナレッジ・台本など） |
+| **`product/共通/`** | 案件横断の型・ブランド共通ナレッジ（ひとびじLAB・セールス設計など） |
+| **`product/講師横断/`** | 講師単位で共有する素材（メールフッター原稿など） |
+
 ## 開発と公開の役割（hitobiji リポジトリ内）
 
-- **`product/<商品名>/lp/`** … **商品LP（HTML）**。編集後は **hitobiji（`katsuya-repository`）を push** → 上記 **GitHub Pages の `.../product/.../lp/`** で表示。共有リンクを短くしたい場合は `<商品名>` フォルダをASCII名にリネームしてよい。
+- **`product/案件/<商品名>/lp/`** … **商品LP（HTML）**。編集後は **hitobiji（`katsuya-repository`）を push** → 上記 **GitHub Pages の `.../product/案件/.../lp/`** で表示。共有リンクを短くしたい場合は `<商品名>` フォルダをASCII名にリネームしてよい。
 - **`hitobiji/tools/`** … **`index.html` ＋ 直下フォルダ**の並び。**`katsuya-repository` に push** → **`https://katsuya-fujinaga.github.io/katsuya-repository/tools/...`** が正として更新される。
 - **`lp-clean-sight/`**（別リポジトリ）… **任意のミラー**。主な共有URL・運用の前提は **katsuya-repository** とする。
-- **FFS 台本の HTML 再生成** … `product/FFSコーチング/` で `python3 _md_to_seminar_html.py --write-html` → `セミナーシナリオ_完成版テキスト.html` と **`tools/ffs-seminar/index.html`** が更新される。
+- **FFS 台本の HTML 再生成** … `product/案件/FFSコーチング/` で `python3 _md_to_seminar_html.py --write-html` → `セミナーシナリオ_完成版テキスト.html` と **`tools/ffs-seminar/index.html`** が更新される。
 
 ## ディレクトリ構成（`hitobiji/tools/` ＝ `katsuya-repository` の `tools/`）
 
@@ -77,6 +86,7 @@ https://katsuya-fujinaga.github.io/katsuya-repository/tools/
 - **`./ffs-seminar/`** … FFS セミナーシナリオ（生成スクリプトで `tools/ffs-seminar/index.html` に出力する想定。`index.html` のみ。md から生成）
 - **`./lp-form-puyo/`** … オプトインフォームデザイン＋ぷよぷよボタン（CSS）の再利用キット（`README.md` / `lp-form-puyo.css` / `snippet.html` / プレビュー `index.html`）
 - **`./cash-ledger/`** … お金のきろく（複数口座の日別入出金・残高）（`index.html` / `app.js` / `styles.css`）
+- **`./tesou/`** … 愛され手相カウンセラー LP（`index.html` / `style.css` / `images/`）
 - **画像**: 各フォルダ内の `./images/` など（使用時）
 - **共通CSS/JS**: 必要になったときだけルートに `css/` `js/` を置く（現状は未使用）
 

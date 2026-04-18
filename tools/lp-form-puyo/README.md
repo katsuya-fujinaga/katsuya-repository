@@ -24,7 +24,7 @@
 ## 取り込み手順（新規 LP）
 
 1. **`lp-form-puyo.css` を LP フォルダにコピー**  
-   例: `product/◯◯/lp/css/lp-form-puyo.css`
+   例: `product/案件/◯◯/lp/css/lp-form-puyo.css`
 
 2. **HTML の `<head>` で読み込む**（パスは環境に合わせる）
 

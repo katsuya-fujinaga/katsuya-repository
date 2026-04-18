@@ -38,6 +38,9 @@ node_modules/
 .npm
 .yarn/
 
+# PDF（生成物はローカルのみ。必要なら各フォルダで再生成）
+*.pdf
+
 # ローカル作業用（PDF変換など）—リポジトリに含めない
 .tmp_py/
 .tmp_pdf_images/

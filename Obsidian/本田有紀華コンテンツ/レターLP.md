@@ -10,7 +10,7 @@ tags:
   - #進行中
   - 
 
-sync_source: "product/愛され手相カウンセラー/lp/index.html"
+sync_source: "tools/tesou/index.html"
 
 # 愛され手相カウンセラー｜レターLP
 
@@ -61,7 +61,7 @@ sync_source: "product/愛され手相カウンセラー/lp/index.html"
 
 # レターLP本文（公開LPと同期）
 
-> 以下は `product/愛され手相カウンセラー/lp/index.html` の掲載文面です。
+> 以下は `tools/tesou/index.html` の掲載文面です。
 
 ---
 
