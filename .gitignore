@@ -38,6 +38,10 @@ node_modules/
 .npm
 .yarn/
 
+# ローカル作業用（PDF変換など）—リポジトリに含めない
+.tmp_py/
+.tmp_pdf_images/
+
 # ログ・一時・バックアップ
 *.log
 *.tmp
