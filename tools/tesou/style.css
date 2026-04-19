@@ -492,6 +492,16 @@ img {
   color: var(--navy);
 }
 
+.curriculum--two-paths .lesson-work-style-note {
+  margin: 0.4rem 0 0;
+  font-family: var(--font-gothic);
+  font-size: clamp(0.82rem, 2.1vw, 0.92rem);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  text-align: center;
+  color: rgba(28, 45, 87, 0.65);
+}
+
 /* LP sections（サブヘッド2行＝明朝 → キービジュアル → 本文＝ゴシック・コンテナ幅いっぱい） */
 .lp-section {
   margin-bottom: 0.25rem;
@@ -2165,4 +2175,176 @@ img {
   .cv-btn__triangle {
     border-width: 8px 0 8px 13px;
   }
+}
+
+/* 特定商取引法ページ */
+.tesou-legal-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.tesou-legal-page__header {
+  padding: 1.5rem 0 1rem;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.tesou-legal-page__back {
+  margin: 0 0 0.85rem;
+  font-size: clamp(0.88rem, 2vw, 0.95rem);
+}
+
+.tesou-legal-page__back a {
+  color: var(--accent);
+  text-underline-offset: 0.2em;
+}
+
+.tesou-legal-page__back a:hover {
+  opacity: 0.82;
+}
+
+.tesou-legal-page__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.35rem, 3.2vw, 1.65rem);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--navy);
+}
+
+.tesou-legal-page__main {
+  flex: 1;
+  padding: 2rem 0 3rem;
+}
+
+.tesou-legal-dl {
+  margin: 0;
+  padding: 0;
+  max-width: 42rem;
+}
+
+.tesou-legal-dl dt {
+  margin: 1.35rem 0 0.35rem;
+  font-weight: 700;
+  font-size: clamp(0.92rem, 2.1vw, 1rem);
+  color: var(--navy);
+  letter-spacing: 0.04em;
+}
+
+.tesou-legal-dl dt:first-child {
+  margin-top: 0;
+}
+
+.tesou-legal-dl dd {
+  margin: 0;
+  padding: 0;
+  font-size: clamp(0.92rem, 2.1vw, 1rem);
+  line-height: 1.85;
+  color: var(--ink);
+}
+
+.tesou-legal-dl dd a {
+  color: var(--accent);
+  text-underline-offset: 0.2em;
+}
+
+.tesou-legal-dl dd a:hover {
+  opacity: 0.82;
+}
+
+/* プライバシーポリシー */
+.tesou-policy .container {
+  max-width: min(100% - 2rem, 44rem);
+}
+
+.tesou-policy__body {
+  margin: 0;
+}
+
+.tesou-policy__section {
+  margin-top: 1.75rem;
+}
+
+.tesou-policy__section:first-of-type {
+  margin-top: 0;
+}
+
+.tesou-policy__heading {
+  margin: 0 0 0.65rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.02rem, 2.4vw, 1.15rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--navy);
+  line-height: 1.55;
+}
+
+.tesou-policy__subhead {
+  margin: 1.1rem 0 0.45rem;
+  font-size: clamp(0.95rem, 2.2vw, 1.02rem);
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.03em;
+}
+
+.tesou-policy__section p {
+  margin: 0.55rem 0 0;
+  font-size: clamp(0.9rem, 2.1vw, 0.98rem);
+  line-height: 1.9;
+  color: var(--ink);
+}
+
+.tesou-policy__section p:first-of-type {
+  margin-top: 0;
+}
+
+.tesou-policy__section p + p {
+  margin-top: 0.65rem;
+}
+
+.tesou-policy__list {
+  margin: 0.55rem 0 0;
+  padding-left: 1.35rem;
+  font-size: clamp(0.9rem, 2.1vw, 0.98rem);
+  line-height: 1.85;
+  color: var(--ink);
+}
+
+.tesou-policy__list--ordered {
+  list-style-type: decimal;
+}
+
+.tesou-policy__list li + li {
+  margin-top: 0.35rem;
+}
+
+.tesou-policy a {
+  color: var(--accent);
+  text-underline-offset: 0.2em;
+}
+
+.tesou-policy a:hover {
+  opacity: 0.82;
+}
+
+.tesou-policy__contact-lead {
+  margin-top: 0.85rem !important;
+}
+
+.tesou-policy__contact-link {
+  font-weight: 600;
+}
+
+.tesou-policy__note {
+  margin-top: 0.45rem !important;
+  font-size: clamp(0.84rem, 2vw, 0.92rem);
+  color: var(--ink-muted);
+}
+
+.tesou-policy__enacted {
+  margin: 2.25rem 0 0;
+  font-size: clamp(0.88rem, 2vw, 0.95rem);
+  color: var(--ink-muted);
+  text-align: right;
 }
