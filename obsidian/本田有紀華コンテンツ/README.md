@@ -9,4 +9,4 @@ Obsidian 用の frontmatter・wikilink を付けた **LP／レター／運用メ
 | レター LP・LP 系の編集稿 | ステップメール原稿、個別相談、MTG、README |
 | `2026年3月末精算.md` など事務メモ | ナレッジ・講座シナリオ・メール `.txt` 配信稿 |
 
-フッター文言の **MyASP 用の正本** は `product/講師横断/本田有紀華/honda-yukika-mail-footer.md`（3ブランド分の全文）。
+フッター文言の **MyASP 用の正本** は `product/講師横断/本田有紀華さん案件/honda-yukika-mail-footer.md`（3ブランド分の全文）。

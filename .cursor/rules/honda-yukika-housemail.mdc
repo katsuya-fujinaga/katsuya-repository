@@ -6,6 +6,8 @@ alwaysApply: true
 
 全案件共通の**形式・ファイル名・件名・改行（ㅤ）・ステップ骨格**は **`.cursor/rules/email-writing-format.mdc`**。本ファイルは**本田さんハウスメールのマインドセット・トーン・構成**のみ。
 
+**実ファイル正本ハブ**：`product/講師横断/本田有紀華さん案件/`（`README.md`・`00_全案件共通ルール.md`・`honda-yukika-mail-footer.md`）。
+
 ## トーン設計
 
 | 要素 | 方針 |

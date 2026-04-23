@@ -170,7 +170,7 @@ alwaysApply: true
 署名（案件ルール）
 ```
 
-**署名・フッター（SNS・連絡先・%cancelurl% 等）**は案件ごと。**ひとびじ**は `hitobizi-lab.mdc` のフッター節、**本田有紀華先生**は `honda-yukika-mail-footer.mdc` と `product/講師横断/本田有紀華/honda-yukika-mail-footer.md` を正とする。
+**署名・フッター（SNS・連絡先・%cancelurl% 等）**は案件ごと。**ひとびじ**は `hitobizi-lab.mdc` のフッター節、**本田有紀華先生**は `honda-yukika-mail-footer.mdc` と `product/講師横断/本田有紀華さん案件/honda-yukika-mail-footer.md` を正とする。
 
 ## オペレーション索引（人間向け）
 

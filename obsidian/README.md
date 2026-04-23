@@ -29,4 +29,5 @@
 
 - **LP・レター・精算メモ**：`本田有紀華コンテンツ/`（Obsidian 用のリンク付き原稿）。
 - **ステップメール・個別相談・案件 README**：`product/案件/愛され手相カウンセラー/`。
-- **メールフッター（MyASP 用・3ブランド）**：`product/講師横断/本田有紀華/honda-yukika-mail-footer.md`（Cursor ルール `.cursor/rules/honda-yukika-mail-footer.mdc` は要約＋共通ブロック）。
+- **全案件共通ハブ（本田有紀華）**：`product/講師横断/本田有紀華さん案件/`（`README.md`・`00_全案件共通ルール.md`・`honda-yukika-mail-footer.md`）。
+- **メールフッター（MyASP 用・3ブランド）**：`product/講師横断/本田有紀華さん案件/honda-yukika-mail-footer.md`（Cursor ルール `.cursor/rules/honda-yukika-mail-footer.mdc` は要約＋共通ブロック）。

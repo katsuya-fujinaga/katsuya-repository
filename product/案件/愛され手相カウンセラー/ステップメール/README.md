@@ -23,7 +23,7 @@
 ## MyASP・運用
 
 - 件名は**配信ツールの件名欄**で設定し、本文タイトルと同一にする運用でよい。
-- フッターは `product/講師横断/本田有紀華/honda-yukika-mail-footer.md` または `.cursor/rules/honda-yukika-mail-footer.mdc` に準拠。
+- フッターは `product/講師横断/本田有紀華さん案件/honda-yukika-mail-footer.md` または `.cursor/rules/honda-yukika-mail-footer.mdc` に準拠。
 - 改行・空行ルールは案件のハウスメール運用に合わせる（`ㅤ` 二行など）。
 
 ## LP・説明会URL
