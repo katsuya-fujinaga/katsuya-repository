@@ -44,7 +44,7 @@
 ## 世の中の流れ
 
 総務省の資料によると、副業をする人が増えています。
-
+[text](https://chatgpt.com/backend-api/estuary/content?id%3Dfile_000000003b64720ba3987f9f3ad5733c%26ts%3D493543%26p%3Dfs%26cid%3D1%26sig%3Dc6bb237f5053e484438692840cadcd78970232a37adbf02065c1ef6b7f824a56%26v%3D0)
 その中で、子育て経験を活かした働き方として  
 **「育脳子育てカウンセラー」** という選択肢があります。
 
