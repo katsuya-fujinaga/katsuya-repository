@@ -4,7 +4,7 @@ type: [[セールスレター]]
 project: [[愛され手相カウンセラーLP]]
 client: [[本田有紀華]]
 parent: [[本田有紀華コンテンツ]]
-source: "tools/tesou/index.html"
+source: "tools/aisare-tesou/index.html"
 related:
   - [[愛され手相カウンセラーLP]]
 tags:
@@ -14,7 +14,9 @@ tags:
 
 # 愛され手相カウンセラー LP（tools/tesou）｜コピー編集用
 
-修正後は `tools/tesou/index.html` の該当箇所へ反映。
+**プレーン版（セクション区切りの正）**：`tools/aisare-tesou/copy_編集用.txt`。ここは Obsidian 用の推敲・wikilink 付きノート。
+
+修正後は **`tools/aisare-tesou/index.html`** の該当箇所へ反映（GitHub Pages の公開 URL は `.../tools/tesou/` のまま）。
 
 ---
 

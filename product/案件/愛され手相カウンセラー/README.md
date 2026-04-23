@@ -2,13 +2,13 @@
 
 ## コンセプトLPライティングの参考（正）
 
-**LPの構成・トーン・コピー設計の参照先は、リポジトリ内の `tools/tesou/` に統一する。**
+**LPの構成・トーン・コピー設計の参照先は、リポジトリ内の `tools/aisare-tesou/` に統一する。**（GitHub Pages のパスは従来どおり `tools/tesou/` という URL 名。）
 
-| 用途 | パス |
+| 用途 | パス（リポジトリ内の実体） |
 |------|------|
-| **公開LP（HTML）** | `tools/tesou/index.html` |
-| **コピー編集用（セクション単位の素案）** | `tools/tesou/copy_編集用.txt` |
-| **スタイル** | `tools/tesou/style.css` |
+| **公開LP（HTML）** | `tools/aisare-tesou/index.html` |
+| **コピー編集用（セクション単位の素案）** | `tools/aisare-tesou/copy_編集用.txt` |
+| **スタイル** | `tools/aisare-tesou/style.css` |
 
 コピーを直したあとは、`copy_編集用.txt` の注記どおり **`index.html` の該当セクションへ反映**する。
 

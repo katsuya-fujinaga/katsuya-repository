@@ -5,7 +5,9 @@ alwaysApply: true
 
 # 本田有紀華 ハウスメール フッターフォーマット
 
-MyASP配信用。3ブランド共通の基本構造。
+MyASP配信用。3ブランド共通の基本構造。改行・ㅤなど**技術形式**は **`.cursor/rules/email-writing-format.mdc`** と整合させる。
+
+**正本（ブランド別の全文・差分）**：`product/講師横断/本田有紀華/honda-yukika-mail-footer.md`。本ルールは編集時の参照用に共通ブロックを載せ、詳細は正本に合わせる。
 
 ## フッターテンプレート（3ブランド共通）
 

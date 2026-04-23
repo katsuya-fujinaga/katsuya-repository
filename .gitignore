@@ -42,7 +42,9 @@ node_modules/
 *.pdf
 
 # ローカル作業用（PDF変換など）—リポジトリに含めない
+# PyMuPDF を --target 等で置いた場合の残骸。正しい依存管理は venv + pip
 .tmp_py/
+# PDF ページ画像の正本は `product/案件/育脳子育てカウンセラー/スワイプ_PDF書き出しPNG/`。スクリプトの一時出力先だけ使う場合向け
 .tmp_pdf_images/
 
 # ログ・一時・バックアップ
