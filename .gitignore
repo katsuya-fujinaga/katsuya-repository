@@ -77,3 +77,6 @@ node_modules/
 .Spotlight-V100
 .Trashes
 nul
+
+# ローカルビルド用（python-pptx vendoring）
+product/案件/**/_pptx_vendor/
