@@ -5,7 +5,7 @@ from fpdf import FPDF
 
 FONT_PATH = "/System/Library/Fonts/ヒラギノ角ゴシック W3.ttc"
 FONT_W6_PATH = "/System/Library/Fonts/ヒラギノ角ゴシック W6.ttc"
-OUTPUT_PATH = "/Users/Katsuya-fujinaga/Documents/hitobiji/product/案件/愛され手相カウンセラー/個別相談/愛され手相カウンセラー養成講座_ご案内資料.pdf"
+OUTPUT_PATH = "/Users/Katsuya-fujinaga/Documents/hitobiji/product/案件/愛され手相カウンセラー/お客様配布資料/愛され手相カウンセラー養成講座_ご案内資料.pdf"
 
 
 class SummaryPDF(FPDF):
@@ -284,7 +284,7 @@ def build_pdf():
     pdf.ln(2)
     table_header(pdf, W, ["区分", "価格"])
     table_row(pdf, W, ["通常価格（クレジット・分割）", "220,000円"])
-    table_row(pdf, W, ["銀行振込一括", "198,000円"], bold_col=1)
+    table_row(pdf, W, ["銀行振込一括", "200,000円"], bold_col=1)
     pdf.ln(5)
 
     step(pdf, "③ 動画視聴コース（視聴期限なし）")
@@ -294,6 +294,9 @@ def build_pdf():
     pdf.ln(2)
     table_header(pdf, W, ["区分", "価格"])
     table_row(pdf, W, ["銀行振込一括 または クレジット", "59,800円"], bold_col=1)
+    pdf.ln(3)
+    body(pdf, "グループチャットでの質問・5大特典はご利用いただけます。")
+    body(pdf, "ただし、Zoomの講座や練習会への参加はできません。")
     pdf.ln(6)
 
     separator(pdf)
@@ -303,11 +306,17 @@ def build_pdf():
     col_diff = [W * 0.40, W * 0.20, W * 0.20, W * 0.20]
     table_header_4(pdf, col_diff, ["", "手相の先生", "愛され手相カウンセラー", "動画視聴"])
     table_row_4(pdf, col_diff, ["STEP1（手相鑑定スキル）", "○", "○", "○（動画のみ）"])
-    table_row_4(pdf, col_diff, ["STEP2（教える技術）", "○", "ー", "ー"])
-    table_row_4(pdf, col_diff, ["練習会・実習", "○", "○", "ー"])
-    table_row_4(pdf, col_diff, ["グループチャット", "○", "○", "ー"])
-    table_row_4(pdf, col_diff, ["5大特典", "○", "○", "一部"])
+    table_row_4(pdf, col_diff, ["STEP2（教える技術）", "○", "×", "×"])
+    table_row_4(pdf, col_diff, ["練習会・実習（Zoom）", "○", "○", "×"])
+    table_row_4(pdf, col_diff, ["グループチャット", "○", "○", "○"])
+    table_row_4(pdf, col_diff, ["5大特典", "○", "○", "○"])
     pdf.ln(3)
+
+    set_regular(pdf, 9)
+    pdf.set_text_color(120, 120, 120)
+    pdf.cell(0, 5, "※ 動画視聴コースはグループチャットで質問はできますが、", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 5, "　 Zoomの講座や練習会に参加することはできません。", new_x="LMARGIN", new_y="NEXT")
+    pdf.ln(4)
 
     body(pdf, "「教える側」まで目指すなら → 手相の先生コース")
     body(pdf, "「鑑定でしっかり活動したい」なら → 愛され手相カウンセラーコース")
@@ -332,11 +341,11 @@ def build_pdf():
     step(pdf, "② 愛され手相カウンセラーコース")
     pdf.ln(2)
     table_header_3(pdf, col_pay, ["お支払い方法", "合計（税込）", "内訳"])
-    table_row_3_b(pdf, col_pay, ["銀行振込(一括)", "198,000円", "一括"], bold_col=1)
-    table_row_3(pdf, col_pay, ["クレジットカード(一括)", "198,000円", "一括"])
-    table_row_3(pdf, col_pay, ["銀行振込（2回払い）", "208,000円", "① 104,000円 ／ ② 104,000円"])
-    table_row_3(pdf, col_pay, ["銀行振込（3回払い）", "218,000円", "① 78,000 ／ ② 70,000 ／ ③ 70,000"])
-    table_row_3(pdf, col_pay, ["PayPal（10回分割）", "225,000円", "① 入学金 72,000 ／ ②〜⑩ 17,000"])
+    table_row_3_b(pdf, col_pay, ["銀行振込(一括)", "200,000円", "一括"], bold_col=1)
+    table_row_3(pdf, col_pay, ["クレジットカード(一括)", "220,000円", "一括"])
+    table_row_3(pdf, col_pay, ["銀行振込（2回払い）", "210,000円", "① 105,000円 ／ ② 105,000円"])
+    table_row_3(pdf, col_pay, ["銀行振込（3回払い）", "220,000円", "① 80,000 ／ ② 70,000 ／ ③ 70,000"])
+    table_row_3(pdf, col_pay, ["PayPal（10回分割）", "227,000円", "① 入学金 74,000 ／ ②〜⑩ 17,000"])
     pdf.ln(5)
 
     step(pdf, "③ 動画視聴コース")
@@ -352,7 +361,7 @@ def build_pdf():
 
     section(pdf, "講座代の回収シミュレーション")
 
-    step(pdf, "愛され手相カウンセラーコース（198,000円）の場合")
+    step(pdf, "愛され手相カウンセラーコース（200,000円）の場合")
     pdf.ln(2)
     col_sim = [W * 0.50, W * 0.25, W * 0.25]
     table_header_3(pdf, col_sim, ["活動例", "1ヶ月の収入", "回収までの目安"])
@@ -410,8 +419,7 @@ def build_pdf():
     qa(pdf,
        "Q. 「今じゃない気がする」と迷っています…",
        ["「やってみたい」気持ちがあるなら、その直感を大切にしてください。",
-        "タイミングは、待っていても整わないものです。",
-        "未来のあなたが感謝する選択を。"])
+        "タイミングは、待っていても整わないものです。"])
 
     pdf.ln(2)
     separator(pdf)
