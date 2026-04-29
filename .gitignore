@@ -40,6 +40,8 @@ node_modules/
 
 # PDF（生成物はローカルのみ。必要なら各フォルダで再生成）
 *.pdf
+# GitHub Pages 閲覧・共有用（保留者向けご案内PDFのみトラッキング）
+!product/案件/愛され手相カウンセラー/お客様配布資料/*.pdf
 
 # ローカル作業用（PDF変換など）—リポジトリに含めない
 # PyMuPDF を --target 等で置いた場合の残骸。正しい依存管理は venv + pip
