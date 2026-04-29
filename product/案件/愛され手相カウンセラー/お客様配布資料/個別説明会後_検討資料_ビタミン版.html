@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>愛され手相カウンセラー養成講座｜ご検討資料（ビタミン版）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=M+PLUS+Rounded+1c:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  /* ===== ビタミンカラー設計 ===== */
+  :root {
+    --c-orange:    #FF8A3D;
+    --c-orange-d:  #F26B1F;
+    --c-pink:      #FF6B9D;
+    --c-pink-l:    #FFD0DF;
+    --c-yellow:    #FFD93D;
+    --c-yellow-l:  #FFF3B0;
+    --c-lime:      #A8DC4D;
+    --c-lime-l:    #E5F5C2;
+    --c-aqua:      #4ECDC4;
+    --c-aqua-l:    #C7F0EC;
+
+    --c-bg:        #FFFAEC;
+    --c-cream:     #FFF3D6;
+    --c-text:      #3D2E1F;
+    --c-text-soft: #6B5A47;
+    --c-line:      #FFE4A8;
+
+    --ff-round: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif;
+    --ff-sans:  'Noto Sans JP', '游ゴシック', 'Yu Gothic', sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--ff-sans);
+    color: var(--c-text);
+    background: #F8E9C4;
+    line-height: 1.75;
+    font-size: 10.5pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ===== A4縦ページ枠 ===== */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 14mm 14mm 16mm;
+    background: var(--c-bg);
+    margin: 8mm auto;
+    box-shadow: 0 6px 24px rgba(0,0,0,.12);
+    position: relative;
+    page-break-after: always;
+    overflow: hidden;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ドットの装飾背景 */
+  .page::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6mm;
+    background:
+      radial-gradient(circle, var(--c-orange) 2px, transparent 2.5px) 0 50%/10mm 6mm repeat-x,
+      var(--c-yellow);
+  }
+  .page::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4mm;
+    background: linear-gradient(90deg,
+      var(--c-pink) 0%, var(--c-pink) 20%,
+      var(--c-orange) 20%, var(--c-orange) 40%,
+      var(--c-yellow) 40%, var(--c-yellow) 60%,
+      var(--c-lime) 60%, var(--c-lime) 80%,
+      var(--c-aqua) 80%, var(--c-aqua) 100%);
+  }
+
+  .page-inner {
+    padding-top: 8mm;
+    padding-bottom: 6mm;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* フッター（ノンブル） */
+  .page-footer {
+    position: absolute;
+    bottom: 7mm;
+    left: 0; right: 0;
+    text-align: center;
+    font-family: var(--ff-round);
+    font-size: 9pt;
+    color: var(--c-text-soft);
+    font-weight: 700;
+    z-index: 3;
+  }
+  .page-footer .brand {
+    color: var(--c-orange-d);
+    margin-left: 12px;
+  }
+
+  /* ===== タイポグラフィ ===== */
+  h1, h2, h3, h4 {
+    font-family: var(--ff-round);
+    font-weight: 900;
+    line-height: 1.4;
+  }
+  h1 { font-size: 26pt; margin: 0 0 .3em; }
+  h2 {
+    font-size: 18pt;
+    margin: 0 0 14px;
+    color: var(--c-text);
+    text-align: center;
+    position: relative;
+    padding: 10px 0;
+  }
+  h2 .h2-emoji {
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 22pt;
+    vertical-align: middle;
+  }
+  h2::after {
+    content: '';
+    display: block;
+    width: 60px; height: 5px;
+    background: linear-gradient(90deg, var(--c-orange), var(--c-pink));
+    margin: 10px auto 0;
+    border-radius: 3px;
+  }
+  h3 {
+    font-size: 13pt;
+    margin: 16px 0 8px;
+    color: var(--c-orange-d);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  h3 .h3-tag {
+    display: inline-block;
+    background: var(--c-orange);
+    color: #FFF;
+    font-size: 9pt;
+    padding: 3px 10px;
+    border-radius: 12px;
+    letter-spacing: .05em;
+    font-weight: 700;
+  }
+  h4 {
+    font-size: 11.5pt;
+    margin: 10px 0 6px;
+    color: var(--c-text);
+  }
+  p { margin: 0 0 .8em; }
+  strong {
+    color: var(--c-orange-d);
+    font-weight: 700;
+  }
+  em {
+    font-style: normal;
+    background: linear-gradient(transparent 55%, var(--c-yellow) 55%);
+    padding: 0 2px;
+    font-weight: 700;
+  }
+  em.pink {
+    background: linear-gradient(transparent 55%, var(--c-pink-l) 55%);
+  }
+
+  /* ===== 表紙 ===== */
+  .cover {
+    background:
+      radial-gradient(circle at 15% 15%, var(--c-pink-l) 0%, transparent 35%),
+      radial-gradient(circle at 85% 25%, var(--c-yellow-l) 0%, transparent 35%),
+      radial-gradient(circle at 80% 80%, var(--c-aqua-l) 0%, transparent 35%),
+      radial-gradient(circle at 15% 90%, var(--c-lime-l) 0%, transparent 35%),
+      var(--c-bg);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30mm 14mm;
+  }
+  .cover .badge-top {
+    display: inline-block;
+    background: var(--c-orange);
+    color: #FFF;
+    font-family: var(--ff-round);
+    font-weight: 900;
+    font-size: 11pt;
+    padding: 8px 24px;
+    border-radius: 30px;
+    letter-spacing: .15em;
+    margin-bottom: 22mm;
+    box-shadow: 0 4px 0 var(--c-orange-d);
+  }
+  .cover h1 {
+    font-size: 30pt;
+    color: var(--c-text);
+    line-height: 1.5;
+    margin: 0;
+  }
+  .cover h1 .accent {
+    color: var(--c-pink);
+    background: linear-gradient(transparent 60%, var(--c-yellow) 60%);
+    padding: 0 6px;
+  }
+  .cover .sub {
+    font-family: var(--ff-round);
+    font-weight: 700;
+    font-size: 13pt;
+    color: var(--c-orange-d);
+    margin: 18px 0 0;
+  }
+  .cover .lead {
+    margin-top: 22mm;
+    font-size: 11.5pt;
+    line-height: 2;
+    color: var(--c-text);
+    max-width: 130mm;
+  }
+  .cover .lead em {
+    background: linear-gradient(transparent 55%, var(--c-yellow) 55%);
+  }
+  .cover .footer-info {
+    margin-top: 22mm;
+    font-family: var(--ff-round);
+    font-weight: 700;
+    font-size: 10pt;
+    color: var(--c-text);
+    background: #FFF;
+    padding: 14px 24px;
+    border-radius: 16px;
+    border: 3px solid var(--c-orange);
+    box-shadow: 0 4px 0 var(--c-orange-d);
+  }
+  .cover .footer-info strong {
+    color: var(--c-pink);
+    font-size: 11pt;
+  }
+
+  /* 装飾ドット */
+  .cover .deco-dots {
+    position: absolute;
+    width: 100px; height: 100px;
+    background: radial-gradient(circle, var(--c-orange) 3px, transparent 3.5px);
+    background-size: 12px 12px;
+    opacity: .6;
+  }
+  .cover .deco-dots.tl { top: 30mm; left: 14mm; }
+  .cover .deco-dots.br { bottom: 30mm; right: 14mm; transform: rotate(45deg); }
+
+  /* ===== カードたち ===== */
+  .card {
+    background: #FFF;
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin: 0 0 12px;
+    border: 2px solid var(--c-line);
+  }
+  .card.orange { border-color: var(--c-orange); background: #FFF8EE; }
+  .card.pink   { border-color: var(--c-pink);   background: #FFF0F5; }
+  .card.yellow { border-color: var(--c-yellow); background: #FFFCEB; }
+  .card.lime   { border-color: var(--c-lime);   background: #F4FBE2; }
+  .card.aqua   { border-color: var(--c-aqua);   background: #EBFAF8; }
+
+  .card-title {
+    font-family: var(--ff-round);
+    font-weight: 900;
+    font-size: 12pt;
+    color: var(--c-text);
+    margin: 0 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title .icon-circle {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFF;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  /* チェックリスト（ポップ版） */
+  ul.check {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul.check li {
+    padding: 5px 0 5px 26px;
+    position: relative;
+    line-height: 1.7;
+  }
+  ul.check li::before {
+    content: '✓';
+    position: absolute;
+    left: 0; top: 5px;
+    width: 18px; height: 18px;
+    background: var(--c-lime);
+    color: #FFF;
+    font-weight: 900;
+    font-size: 11pt;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  ul.check.pink li::before { background: var(--c-pink); }
+  ul.check.orange li::before { background: var(--c-orange); }
+
+  /* 数字付きリスト */
+  ol.numbered {
+    list-style: none;
+    counter-reset: item;
+    padding: 0;
+    margin: 0;
+  }
+  ol.numbered > li {
+    counter-increment: item;
+    padding: 6px 0 6px 38px;
+    position: relative;
+    line-height: 1.7;
+  }
+  ol.numbered > li::before {
+    content: counter(item, decimal-leading-zero);
+    position: absolute;
+    left: 0; top: 4px;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--c-pink), var(--c-orange));
+    color: #FFF;
+    font-family: var(--ff-round);
+    font-size: 10pt;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ステップカード */
+  .step-block {
+    background: #FFF;
+    border-radius: 18px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border: 3px solid var(--c-orange);
+    position: relative;
+  }
+  .step-block.s2 { border-color: var(--c-pink); }
+  .step-label {
+    display: inline-block;
+    font-family: var(--ff-round);
+    font-weight: 900;
+    background: var(--c-orange);
+    color: #FFF;
+    font-size: 10pt;
+    letter-spacing: .1em;
+    padding: 4px 14px;
+    border-radius: 14px;
+    margin-bottom: 6px;
+  }
+  .step-block.s2 .step-label { background: var(--c-pink); }
+  .step-block h3 {
+    margin: 4px 0 8px;
+    color: var(--c-text);
+  }
+
+  /* テーブル */
+  table.tbl {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 10pt;
+    margin: 8px 0 12px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #FFF;
+  }
+  table.tbl th, table.tbl td {
+    padding: 9px 12px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--c-line);
+  }
+  table.tbl th {
+    background: var(--c-cream);
+    font-family: var(--ff-round);
+    font-weight: 900;
+    color: var(--c-orange-d);
+    width: 32%;
+  }
+  table.tbl tr:last-child th, table.tbl tr:last-child td { border-bottom: none; }
+
+  /* 価格テーブル */
+  table.price {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 9.5pt;
+    margin: 6px 0 12px;
+    background: #FFF;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  table.price th, table.price td {
+    padding: 8px 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--c-line);
+  }
+  table.price thead th {
+    background: linear-gradient(135deg, var(--c-orange), var(--c-pink));
+    color: #FFF;
+    font-family: var(--ff-round);
+    font-weight: 900;
+    letter-spacing: .03em;
+  }
+  table.price td.label {
+    background: var(--c-cream);
+    text-align: left;
+    font-family: var(--ff-round);
+    font-weight: 700;
+    color: var(--c-text);
+  }
+  table.price .strong {
+    color: var(--c-orange-d);
+    font-weight: 900;
+    font-size: 11pt;
+  }
+
+  /* バッジ */
+  .badge {
+    display: inline-block;
+    background: var(--c-orange);
+    color: #FFF;
+    font-family: var(--ff-round);
+    font-weight: 900;
+    font-size: 9pt;
+    padding: 3px 12px;
+    border-radius: 12px;
+    letter-spacing: .05em;
+    margin-right: 6px;
+  }
+  .badge.pink { background: var(--c-pink); }
+  .badge.lime { background: var(--c-lime); color: var(--c-text); }
+  .badge.aqua { background: var(--c-aqua); }
+
+  /* ハイライトボックス */
+  .highlight {
+    background: linear-gradient(135deg, var(--c-yellow-l), #FFF);
+    border: 2.5px dashed var(--c-orange);
+    border-radius: 16px;
+    padding: 14px 18px;
+    margin: 10px 0;
+  }
+  .highlight .title {
+    font-family: var(--ff-round);
+    font-weight: 900;
+    font-size: 12pt;
+    color: var(--c-orange-d);
+    margin: 0 0 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .highlight.pink {
+    background: linear-gradient(135deg, var(--c-pink-l), #FFF);
+    border-color: var(--c-pink);
+  }
+  .highlight.pink .title { color: var(--c-pink); }
+  .highlight.lime {
+    background: linear-gradient(135deg, var(--c-lime-l), #FFF);
+    border-color: var(--c-lime);
+  }
+  .highlight.lime .title { color: #5C8B1A; }
+  .highlight.aqua {
+    background: linear-gradient(135deg, var(--c-aqua-l), #FFF);
+    border-color: var(--c-aqua);
+  }
+  .highlight.aqua .title { color: #1F8A82; }
+
+  /* お客様の声 */
+  blockquote.voice {
+    background: #FFF;
+    border-radius: 16px;
+    padding: 14px 18px 14px 50px;
+    margin: 10px 0;
+    font-size: 10.5pt;
+    line-height: 1.85;
+    border: 2px solid var(--c-aqua);
+    position: relative;
+  }
+  blockquote.voice::before {
+    content: '💬';
+    position: absolute;
+    left: 14px; top: 14px;
+    font-size: 22px;
+  }
+
+  /* 2カラム / 3カラム */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+
+  /* リード文中央 */
+  .lead-center {
+    text-align: center;
+    font-family: var(--ff-round);
+    font-weight: 700;
+    font-size: 11pt;
+    line-height: 1.9;
+    color: var(--c-text);
+    margin: 0 0 14px;
+  }
+
+  /* FAQ */
+  .faq-item {
+    background: #FFF;
+    border-radius: 14px;
+    padding: 12px 16px 12px 16px;
+    margin-bottom: 8px;
+    border-left: 5px solid var(--c-aqua);
+  }
+  .faq-q {
+    font-family: var(--ff-round);
+    font-weight: 900;
+    color: var(--c-text);
+    font-size: 11pt;
+    margin: 0 0 4px;
+    padding-left: 28px;
+    position: relative;
+  }
+  .faq-q::before {
+    content: 'Q';
+    position: absolute;
+    left: 0; top: -2px;
+    width: 22px; height: 22px;
+    background: var(--c-pink);
+    color: #FFF;
+    font-size: 11pt;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .faq-a {
+    padding-left: 28px;
+    position: relative;
+    font-size: 10pt;
+    color: var(--c-text);
+    margin: 0;
+  }
+  .faq-a::before {
+    content: 'A';
+    position: absolute;
+    left: 0; top: -2px;
+    width: 22px; height: 22px;
+    background: var(--c-orange);
+    color: #FFF;
+    font-family: var(--ff-round);
+    font-weight: 900;
+    font-size: 11pt;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  /* 特典カード */
+  .gift-card {
+    background: #FFF;
+    border-radius: 14px;
+    padding: 12px 14px 12px 64px;
+    margin-bottom: 8px;
+    position: relative;
+    min-height: 60px;
+    border: 2px solid var(--c-yellow);
+  }
+  .gift-card .gift-num {
+    position: absolute;
+    left: 10px; top: 50%;
+    transform: translateY(-50%);
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--c-yellow), var(--c-orange));
+    color: #FFF;
+    font-family: var(--ff-round);
+    font-size: 9pt;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.1;
+    text-align: center;
+    box-shadow: 0 2px 0 var(--c-orange-d);
+  }
+  .gift-card.early {
+    border-color: var(--c-pink);
+  }
+  .gift-card.early .gift-num {
+    background: linear-gradient(135deg, var(--c-pink), #FF3D81);
+    box-shadow: 0 2px 0 #C73A6B;
+  }
+  .gift-card .gift-title {
+    font-family: var(--ff-round);
+    font-weight: 900;
+    font-size: 11pt;
+    color: var(--c-text);
+    margin: 0 0 2px;
+  }
+  .gift-card p { margin: 0; font-size: 9.5pt; line-height: 1.6; }
+
+  /* CTA */
+  .cta-box {
+    background: linear-gradient(135deg, var(--c-orange), var(--c-pink));
+    color: #FFF;
+    text-align: center;
+    padding: 18px 20px;
+    border-radius: 18px;
+    margin: 14px 0;
+    box-shadow: 0 4px 0 var(--c-orange-d);
+  }
+  .cta-box h3 {
+    color: #FFF;
+    margin: 0 0 6px;
+    font-size: 14pt;
+    justify-content: center;
+  }
+  .cta-box p { margin: 0; font-size: 10.5pt; line-height: 1.85; }
+
+  /* 数字を強調するスタッツ */
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin: 10px 0;
+  }
+  .stat-card {
+    background: #FFF;
+    border-radius: 14px;
+    padding: 12px 8px;
+    text-align: center;
+    border: 2px solid var(--c-yellow);
+  }
+  .stat-card .num {
+    font-family: var(--ff-round);
+    font-weight: 900;
+    font-size: 22pt;
+    color: var(--c-orange-d);
+    display: block;
+    line-height: 1.1;
+  }
+  .stat-card .num small { font-size: 12pt; }
+  .stat-card .label {
+    font-family: var(--ff-round);
+    font-weight: 700;
+    font-size: 9.5pt;
+    color: var(--c-text-soft);
+    display: block;
+    margin-top: 4px;
+  }
+
+  /* タイムライン（受講後の変化） */
+  .timeline {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 8px 0;
+  }
+  .tl-card {
+    background: #FFF;
+    border-radius: 14px;
+    padding: 12px 14px;
+    border-top: 5px solid var(--c-orange);
+    position: relative;
+  }
+  .tl-card.t2 { border-top-color: var(--c-pink); }
+  .tl-card.t3 { border-top-color: var(--c-lime); }
+  .tl-card.t4 { border-top-color: var(--c-aqua); }
+  .tl-card .tl-when {
+    font-family: var(--ff-round);
+    font-weight: 900;
+    font-size: 11pt;
+    color: var(--c-orange-d);
+    margin: 0 0 4px;
+  }
+  .tl-card.t2 .tl-when { color: var(--c-pink); }
+  .tl-card.t3 .tl-when { color: #5C8B1A; }
+  .tl-card.t4 .tl-when { color: #1F8A82; }
+  .tl-card p { margin: 0; font-size: 9.5pt; line-height: 1.65; }
+
+  /* 印刷時 */
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  @media print {
+    body { background: #FFF; }
+    .page {
+      margin: 0;
+      box-shadow: none;
+      page-break-after: always;
+    }
+    .page:last-child { page-break-after: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+  P.1  表紙
+============================================================ -->
+<section class="page cover">
+  <div class="deco-dots tl"></div>
+  <div class="deco-dots br"></div>
+  <div class="badge-top">YASASHIKU URANAI</div>
+  <h1>愛され<span class="accent">手相</span>カウンセラー<br>養成講座</h1>
+  <p class="sub">— やさしく売れる占い師への、二つのステップ —</p>
+  <p class="lead">
+    占いを「<em>ちゃんと、やさしく、仕事にする</em>」<br>
+    その道のりを、丁寧にご案内する一冊です。
+  </p>
+  <div class="footer-info">
+    <strong>ご検討資料</strong><br>
+    アンビシャス占いの学校 ／ 本田有紀華<br>
+    2026年5月19日 開講
+  </div>
+</section>
+
+<!-- ============================================================
+  P.2  ごあいさつ＋コンセプト
+============================================================ -->
+<section class="page">
+  <div class="page-inner">
+    <h2><span class="h2-emoji">🌷</span>ごあいさつ＆この講座が目指す世界</h2>
+
+    <p class="lead-center">
+      本日は説明会にお越しいただき、本当にありがとうございました。<br>
+      ご自宅でゆっくりご覧いただける一冊にまとめました。
+    </p>
+
+    <div class="card pink">
+      <div class="card-title"><span class="icon-circle" style="background:var(--c-pink)">💌</span>ごあいさつ</div>
+      <p style="margin:0;">
+        お話の中で出てきた<em class="pink">「やってみたい」</em>と<em class="pink">「でも私にできるかな…」</em>。<br>
+        その両方を抱えながらここまで来てくださったこと、わたしはとても素敵なことだと思っています。<strong>急がず、焦らず、あなた自身の心が「うん」とうなずく方</strong>をお選びくださいね。
+      </p>
+    </div>
+
+    <h3><span class="h3-tag">コンセプト</span>「当てる占い」ではなく「寄り添う占い」へ</h3>
+    <p>
+      本田が30年以上の鑑定経験から確信しているのは、<strong>お客さまが本当に求めているのは「未来当て」ではない</strong>ということ。
+      悩みをやさしく受け止めて、進む方向を一緒に考えてくれる人。だからこそ大切にするのは <em>「共感と承認」</em> です。
+    </p>
+
+    <div class="stats">
+      <div class="stat-card">
+        <span class="num">30<small>年+</small></span>
+        <span class="label">本田の鑑定歴</span>
+      </div>
+      <div class="stat-card" style="border-color:var(--c-pink)">
+        <span class="num" style="color:var(--c-pink)">150<small>名+</small></span>
+        <span class="label">育成プロ占い師</span>
+      </div>
+      <div class="stat-card" style="border-color:var(--c-aqua)">
+        <span class="num" style="color:#1F8A82">1,000<small>名+</small></span>
+        <span class="label">累計受講者</span>
+      </div>
+    </div>
+
+    <div class="highlight">
+      <div class="title">🎯 この講座の3つの約束</div>
+      <ul class="check">
+        <li>初対面の方の手相を、<strong>自信を持って読める</strong>ようになります</li>
+        <li><strong>5,000円〜10,000円</strong>の鑑定料金を、堂々と受け取れるようになります</li>
+        <li><strong>「先生」</strong>と呼ばれる立場で、誰かの人生を支えられるようになります</li>
+      </ul>
+    </div>
+
+    <div class="page-footer">— 02 —<span class="brand">愛され手相カウンセラー養成講座</span></div>
+  </div>
+</section>
+
+<!-- ============================================================
+  P.3  こんな方におすすめ＋受講後の変化
+============================================================ -->
+<section class="page">
+  <div class="page-inner">
+    <h2><span class="h2-emoji">🌈</span>こんな方におすすめ ＆ 受講後の変化</h2>
+
+    <h3><span class="h3-tag" style="background:var(--c-pink)">こんな方へ</span>一つでも当てはまったら、ぜひ</h3>
+    <ol class="numbered">
+      <li>占い・スピリチュアルが好きで、<em>仕事にできたらいいな</em>と思っている方</li>
+      <li>子育てや介護がひと段落して、<em>これから自分の人生を生きたい</em>方</li>
+      <li>看護・保育・接客など、<em>人に寄り添う仕事</em>を長くしてきた方</li>
+      <li>収入よりも、<em>やりがいや意味のある仕事</em>を大切にしたい方</li>
+      <li>SNSや売り込みが苦手で、<em>やさしく届ける方法</em>を知りたい方</li>
+    </ol>
+
+    <h3><span class="h3-tag" style="background:var(--c-lime); color:var(--c-text)">受講後</span>人生はこう変わっていきます</h3>
+    <div class="timeline">
+      <div class="tl-card">
+        <p class="tl-when">🌱 2ヶ月後</p>
+        <p>手相の基本が読めるように。<strong>友人やご家族の手相を鑑定して喜ばれる</strong>経験がはじまる。</p>
+      </div>
+      <div class="tl-card t2">
+        <p class="tl-when">🌸 6ヶ月後</p>
+        <p>ココナラ・マルシェで <strong>5,000円〜10,000円の鑑定料</strong> を受け取れる段階に。</p>
+      </div>
+      <div class="tl-card t3">
+        <p class="tl-when">🌟 1年後</p>
+        <p>ストアカ・カルチャーで講座開講。<em>「先生」と呼ばれる立場</em>に。</p>
+      </div>
+      <div class="tl-card t4">
+        <p class="tl-when">💎 3年後〜</p>
+        <p>口コミでお客さま増。<strong>一生もののお仕事</strong>として人生に根付く。</p>
+      </div>
+    </div>
+
+    <div class="cta-box">
+      <h3>🎉 続けるほど深まる、年齢が味方になる仕事</h3>
+      <p>占いは「人生経験」がそのまま価値になる、数少ないお仕事です。</p>
+    </div>
+
+    <div class="page-footer">— 03 —<span class="brand">愛され手相カウンセラー養成講座</span></div>
+  </div>
+</section>
+
+<!-- ============================================================
+  P.4  講座の全体像（2STEP＋5つの働き方）
+============================================================ -->
+<section class="page">
+  <div class="page-inner">
+    <h2><span class="h2-emoji">🗺️</span>講座の全体像</h2>
+    <p class="lead-center">
+      「愛され手相カウンセラー」になるための<em>2つのステップ</em>でご案内します。
+    </p>
+
+    <div class="step-block">
+      <span class="step-label">STEP 01 ／ 2ヶ月</span>
+      <h3>手相を読めるようになる</h3>
+      <p style="margin:0 0 6px;">手相の知識を身につけ、<strong>5,000円〜10,000円の鑑定が堂々とできる</strong>レベルへ。</p>
+      <ul class="check orange">
+        <li>手相講座 2時間×5回（理論・線の読み方・実例）</li>
+        <li>手相練習会 1.5時間×3回（型→鑑定書→10分鑑定）</li>
+        <li>ココナラ・マルシェ・自宅サロンで活動できる状態に</li>
+      </ul>
+    </div>
+
+    <div class="step-block s2">
+      <span class="step-label">STEP 02 ／ 1ヶ月</span>
+      <h3>手相を「教える先生」になる</h3>
+      <p style="margin:0 0 6px;">アンビシャス占いの学校認定の<strong>「手相先生」</strong>として、ストアカ・カルチャーで活動できる力を身につけます。</p>
+      <ul class="check pink">
+        <li>教え方の型を習得（台本・指導書・教材すべて使えます）</li>
+        <li>ミニ講座を実際にやってみる実習＋本田の個別フィードバック</li>
+        <li>ストアカ登録・選ばれる投稿のコツ・決済までサポート</li>
+      </ul>
+    </div>
+
+    <div class="highlight lime">
+      <div class="title">🌟 5つの「働き方」が選べます</div>
+      <p style="margin:0 0 6px;">どれか1つでも、複数組み合わせてもOK。あなたの暮らしのペースで選べます。</p>
+      <ol class="numbered">
+        <li>ココナラ・メルカリで <em>鑑定書を販売</em></li>
+        <li>ココナラなどで <em>オンライン鑑定</em></li>
+        <li>マルシェ・自宅サロンで <em>対面鑑定</em></li>
+        <li>ストアカで <em>手相を教える</em>（10〜15万円／講座）</li>
+        <li>カルチャーセンター・地域で <em>対面で先生</em>として教える</li>
+      </ol>
+    </div>
+
+    <div class="page-footer">— 04 —<span class="brand">愛され手相カウンセラー養成講座</span></div>
+  </div>
+</section>
+
+<!-- ============================================================
+  P.5  STEP01・STEP02 詳細＋サポート
+============================================================ -->
+<section class="page">
+  <div class="page-inner">
+    <h2><span class="h2-emoji">📚</span>カリキュラム詳細 ＆ サポート体制</h2>
+
+    <div class="two-col">
+      <div class="card orange">
+        <div class="card-title"><span class="icon-circle" style="background:var(--c-orange)">①</span>STEP 01｜読める</div>
+        <h4 style="margin:6px 0 4px; color:var(--c-orange-d)">📖 手相講座 2h×5回</h4>
+        <p style="margin:0 0 6px; font-size:9.5pt;">累計1,000人以上に教えてきた再現性100%の内容。</p>
+        <table class="tbl" style="font-size:9.5pt;">
+          <tr><th>1回</th><td>手の形（土台）</td></tr>
+          <tr><th>2回</th><td>生命線・知能線</td></tr>
+          <tr><th>3回</th><td>感情線・運命線</td></tr>
+          <tr><th>4回</th><td>太陽線・財運線・結婚線</td></tr>
+          <tr><th>5回</th><td>その他の線（応用）</td></tr>
+        </table>
+        <h4 style="margin:8px 0 4px; color:var(--c-orange-d)">🎯 練習会 1.5h×3回</h4>
+        <p style="margin:0; font-size:9.5pt;">①3分鑑定の型 ②鑑定書の作り方 ③10分鑑定（お金をいただけるレベル）</p>
+      </div>
+
+      <div class="card pink">
+        <div class="card-title"><span class="icon-circle" style="background:var(--c-pink)">②</span>STEP 02｜教える</div>
+        <h4 style="margin:6px 0 4px; color:var(--c-pink)">❶ 教え方の練習 2h</h4>
+        <p style="margin:0 0 6px; font-size:9.5pt;">「教え方」の型を知り、用意された<strong>台本</strong>に沿って安心してスタート。</p>
+        <h4 style="margin:6px 0 4px; color:var(--c-pink)">❷ ミニ講座実習 2h</h4>
+        <p style="margin:0 0 6px; font-size:9.5pt;">実際にミニ講座を開催。<strong>本田からの個別フィードバック</strong>付き。</p>
+        <h4 style="margin:6px 0 4px; color:var(--c-pink)">❸ サイト登録 3h</h4>
+        <p style="margin:0; font-size:9.5pt;">ストアカ登録・選ばれる投稿のコツ・決済方法・アフターフォローまで。<br><em class="pink">提供価格の目安：1講座 10〜15万円</em></p>
+      </div>
+    </div>
+
+    <div class="highlight aqua">
+      <div class="title">🤝 講座期間中・終了後のサポート（ずっと一緒です）</div>
+      <div class="three-col">
+        <div>
+          <h4 style="margin:0 0 3px; color:#1F8A82;">永続サポート</h4>
+          <p style="margin:0; font-size:9.5pt;">本田有紀華による<strong>永続的なサポート</strong>。質問・相談はいつでもどうぞ。</p>
+        </div>
+        <div>
+          <h4 style="margin:0 0 3px; color:#1F8A82;">同期生コミュニティ</h4>
+          <p style="margin:0; font-size:9.5pt;">仲間と<em>気軽に質問・相談</em>できる環境。ひとりで悩まない仕組みです。</p>
+        </div>
+        <div>
+          <h4 style="margin:0 0 3px; color:#1F8A82;">対面イベント</h4>
+          <p style="margin:0; font-size:9.5pt;">東京・大阪で <strong>「占い祭り」</strong> 定期開催。<em>一生の友人</em>ができる場。</p>
+        </div>
+      </div>
+    </div>
+
+    <blockquote class="voice">
+      占いを学んだことよりも、<strong>ここで仲間ができたこと</strong>が、人生で一番の宝物です。<br>
+      <span style="color:var(--c-text-soft); font-size:9.5pt;">— 受講生の声より</span>
+    </blockquote>
+
+    <div class="page-footer">— 05 —<span class="brand">愛され手相カウンセラー養成講座</span></div>
+  </div>
+</section>
+
+<!-- ============================================================
+  P.6  特典まるごと（5大特典＋3日特典）
+============================================================ -->
+<section class="page">
+  <div class="page-inner">
+    <h2><span class="h2-emoji">🎁</span>受講生のための 特典いろいろ</h2>
+
+    <h3><span class="h3-tag">5大特典</span>受講生のみなさまへ</h3>
+
+    <div class="gift-card">
+      <div class="gift-num">特典<br>01</div>
+      <div class="gift-title">専用グループチャット（質問無制限）</div>
+      <p>Chatworkでいつでも質問OK。疑問・不明点はすぐ解決できる安心の環境です。</p>
+    </div>
+
+    <div class="gift-card">
+      <div class="gift-num">特典<br>02</div>
+      <div class="gift-title">AI鑑定サポートツール（無償提供）</div>
+      <p>本田自らが開発した、鑑定時に使える便利な生成AIサポートツール（随時アップデート）。</p>
+    </div>
+
+    <div class="gift-card">
+      <div class="gift-num">特典<br>03</div>
+      <div class="gift-title">本田有紀華の鑑定が <strong>3,000円</strong>（通常 15,000円相当）</div>
+      <p>講座期間中、いつでも何度でも利用可能。西洋占星術／九星気学／数秘術／四柱推命／タロット／ルノルマン／ペンデュラム／ルーン／易／手相／家相風水 など対応。</p>
+    </div>
+
+    <div class="gift-card">
+      <div class="gift-num">特典<br>04</div>
+      <div class="gift-title">他講座 受講料 <strong>10% OFF</strong>（期間制限なし）</div>
+      <p>未来覚醒カウンセラー養成講座／星使いカウンセラー養成講座 などにご利用いただけます。</p>
+    </div>
+
+    <div class="gift-card">
+      <div class="gift-num">特典<br>05</div>
+      <div class="gift-title">「愛され手相カウンセラー」動画講座（59,800円相当）を<strong>無料プレゼント</strong></div>
+      <p>一般向けに販売している動画講座を、ご受講のみなさまには無料で。講座開始前から学べます。</p>
+    </div>
+
+    <h3 style="margin-top:14px;"><span class="h3-tag" style="background:var(--c-pink)">3日以内特典</span>本日より3日以内のお申込み限定</h3>
+    <p style="margin:0 0 8px; font-size:9.5pt; color:var(--c-text-soft);">※銀行振込 または クレジット一括 にてお支払いの方／動画視聴コースは対象外</p>
+
+    <div class="gift-card early">
+      <div class="gift-num">早特<br>01</div>
+      <div class="gift-title">お絵かき手相鑑定 講座 参加権利</div>
+      <p>1時間Zoom授業（6月末予定）。<strong>手書き鑑定書</strong>で単価が3,000〜5,000円アップ！</p>
+    </div>
+
+    <div class="gift-card early">
+      <div class="gift-num">早特<br>02</div>
+      <div class="gift-title">本田有紀華の「ガチ鑑定」</div>
+      <p>あなたの悩みを直接相談、その場で解消できる時間。<em class="pink">受けたい占術を選べます。</em></p>
+    </div>
+
+    <div class="gift-card early">
+      <div class="gift-num">早特<br>03</div>
+      <div class="gift-title">ペンデュラム ＆ 動画講座</div>
+      <p>YES・NOがクリアに。<em class="pink">浄化と開運エネルギーを込めて</em>お届けします。</p>
+    </div>
+
+    <div class="page-footer">— 06 —<span class="brand">愛され手相カウンセラー養成講座</span></div>
+  </div>
+</section>
+
+<!-- ============================================================
+  P.7  受講生の実績（寺澤さん・あすみさん）
+============================================================ -->
+<section class="page">
+  <div class="page-inner">
+    <h2><span class="h2-emoji">🌟</span>受講生の実績</h2>
+    <p class="lead-center">年齢・性別・経歴は関係ありません。<br>「やってみたい」その気持ちが、何よりのスタートです。</p>
+
+    <div class="card orange">
+      <div class="card-title"><span class="icon-circle" style="background:var(--c-orange)">①</span>寺澤 祐義 さん（69歳）／ 横浜中華街 鑑定士</div>
+      <p style="margin:0 0 6px;">自衛隊を退官後、興味のあった占いの世界へ。手相を学び、<strong>横浜中華街で占い師としてデビュー</strong>。</p>
+      <table class="tbl" style="font-size:9.5pt;">
+        <tr><th>現在の活動</th><td>週4日、横浜中華街にて鑑定中</td></tr>
+        <tr><th>月収</th><td><strong>約 20万円</strong></td></tr>
+        <tr><th>受講前</th><td>自衛隊退官後／占いは興味のある程度</td></tr>
+      </table>
+      <blockquote class="voice" style="margin:8px 0 0;">人に喜んでもらえることが嬉しくて、<strong>新しい生きがいを見つけました</strong>。</blockquote>
+    </div>
+
+    <div class="card pink">
+      <div class="card-title"><span class="icon-circle" style="background:var(--c-pink)">②</span>あすみ さん（35歳）／ 派遣OL × 副業占い師</div>
+      <p style="margin:0 0 6px;">タロット経験者が手相も習得。<strong>昼間OL × 休日マルシェ × ココナラ</strong>で副業展開。</p>
+      <table class="tbl" style="font-size:9.5pt;">
+        <tr><th>現在の活動</th><td>OL × 休日マルシェ × ココナラ鑑定書</td></tr>
+        <tr><th>副収入</th><td><strong>月 約 5万円〜</strong>（鑑定書5,000円 × 約10件）</td></tr>
+        <tr><th>受講前</th><td>タロット経験あり／手相は未経験</td></tr>
+      </table>
+      <p style="margin:6px 0 0; font-size:9.5pt;">手相は親しみやすく <em class="pink">リピートも多い</em>のが特長。本業を辞めずに無理なく続けられます。</p>
+    </div>
+
+    <div class="highlight">
+      <div class="title">📌 この2人から読み取れること</div>
+      <ul class="check">
+        <li>男性・60代・占い未経験 ——「年齢」「性別」「経歴」は関係なし</li>
+        <li>本業を辞めずに <em>週末や夜だけ</em> でもスタートできる</li>
+        <li>マルシェ・ココナラ・自宅サロンと、<em>出店ハードルが低い場所</em>から始められる</li>
+        <li>定年後の<strong>生きがいと収入</strong>を、両方手に入れる選択肢になる</li>
+      </ul>
+    </div>
+
+    <div class="page-footer">— 07 —<span class="brand">愛され手相カウンセラー養成講座</span></div>
+  </div>
+</section>
+
+<!-- ============================================================
+  P.8  料金（コース＋お支払い）
+============================================================ -->
+<section class="page">
+  <div class="page-inner">
+    <h2><span class="h2-emoji">💰</span>講座料金 ／ 3つのコース</h2>
+    <p class="lead-center">あなたの目標と暮らしに合わせて、3つのコースからお選びいただけます。</p>
+
+    <div class="three-col">
+      <div class="card orange" style="margin-bottom:6px;">
+        <div style="text-align:center;"><span class="badge">コース①</span></div>
+        <h4 style="text-align:center; margin:6px 0; color:var(--c-orange-d);">手相の先生コース<br><span style="font-size:9.5pt; color:var(--c-text-soft);">3ヶ月／STEP01+02</span></h4>
+        <ul class="check orange" style="font-size:9.5pt;">
+          <li>鑑定スキル（5〜10千円帯）</li>
+          <li>講師力（10〜15万円帯）</li>
+          <li>ストアカ・カルチャー対応</li>
+        </ul>
+      </div>
+      <div class="card pink" style="margin-bottom:6px;">
+        <div style="text-align:center;"><span class="badge pink">コース②</span></div>
+        <h4 style="text-align:center; margin:6px 0; color:var(--c-pink);">愛され手相<br>カウンセラーコース<br><span style="font-size:9.5pt; color:var(--c-text-soft);">2ヶ月／STEP01のみ</span></h4>
+        <ul class="check pink" style="font-size:9.5pt;">
+          <li>鑑定スキル（5〜10千円帯）</li>
+          <li>ココナラ・マルシェOK</li>
+          <li>「聴く・読む」主軸の方に</li>
+        </ul>
+      </div>
+      <div class="card aqua" style="margin-bottom:6px;">
+        <div style="text-align:center;"><span class="badge aqua">コース③</span></div>
+        <h4 style="text-align:center; margin:6px 0; color:#1F8A82;">動画学習コース<br><span style="font-size:9.5pt; color:var(--c-text-soft);">視聴期限なし</span></h4>
+        <ul class="check" style="font-size:9.5pt;">
+          <li>動画でじっくり学ぶ</li>
+          <li>視聴期限なし／何度でも</li>
+          <li>差額アップグレード可</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:14px;"><span class="h3-tag">①</span>手相の先生コース</h3>
+    <table class="price">
+      <thead><tr><th>お支払い方法</th><th>合計（税込）</th><th>内訳</th></tr></thead>
+      <tbody>
+        <tr><td class="label">銀行振込（一括）<span class="badge lime" style="margin-left:6px; font-size:8pt; padding:2px 8px;">お得</span></td><td class="strong">300,000円</td><td>一括</td></tr>
+        <tr><td class="label">クレカ（一括）</td><td>330,000円</td><td>一括</td></tr>
+        <tr><td class="label">銀行振込（2回）</td><td>310,000円</td><td>① 155,000 ／ ② 155,000</td></tr>
+        <tr><td class="label">銀行振込（3回）</td><td>320,000円</td><td>① 120,000 ／ ② 100,000 ／ ③ 100,000</td></tr>
+        <tr><td class="label">PayPal（10回分割）</td><td>343,000円</td><td>① 入学金 100,000 ／ ②〜⑩ 27,000</td></tr>
+      </tbody>
+    </table>
+
+    <h3><span class="h3-tag" style="background:var(--c-pink)">②</span>愛され手相カウンセラーコース</h3>
+    <table class="price">
+      <thead><tr><th>お支払い方法</th><th>合計（税込）</th><th>内訳</th></tr></thead>
+      <tbody>
+        <tr><td class="label">銀行振込（一括）<span class="badge lime" style="margin-left:6px; font-size:8pt; padding:2px 8px;">お得</span></td><td class="strong">198,000円</td><td>一括</td></tr>
+        <tr><td class="label">クレカ（一括）</td><td>198,000円</td><td>一括</td></tr>
+        <tr><td class="label">銀行振込（2回）</td><td>208,000円</td><td>① 104,000 ／ ② 104,000</td></tr>
+        <tr><td class="label">銀行振込（3回）</td><td>218,000円</td><td>① 78,000 ／ ② 70,000 ／ ③ 70,000</td></tr>
+        <tr><td class="label">PayPal（10回分割）</td><td>225,000円</td><td>① 入学金 72,000 ／ ②〜⑩ 17,000</td></tr>
+      </tbody>
+    </table>
+
+    <h3><span class="h3-tag" style="background:var(--c-aqua)">③</span>動画視聴コース</h3>
+    <table class="price">
+      <thead><tr><th>お支払い方法</th><th>合計（税込）</th><th>備考</th></tr></thead>
+      <tbody>
+        <tr><td class="label">銀行振込（一括）</td><td class="strong">59,800円</td><td>視聴期限なし</td></tr>
+        <tr><td class="label">クレカ（一括）</td><td>59,800円</td><td>視聴期限なし</td></tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:9pt; color:var(--c-text-soft); margin-top:6px;">
+      ※銀行振込一括が、もっともお得にご受講いただける方法です。<br>
+      ※「絶好の機会を、お金の制約であきらめてほしくない」という想いから、分割もご用意しています。
+    </p>
+
+    <div class="page-footer">— 08 —<span class="brand">愛され手相カウンセラー養成講座</span></div>
+  </div>
+</section>
+
+<!-- ============================================================
+  P.9  FAQ＋ご家族の方へ
+============================================================ -->
+<section class="page">
+  <div class="page-inner">
+    <h2><span class="h2-emoji">❓</span>よくあるご質問 ＆ ご家族の方へ</h2>
+
+    <h3><span class="h3-tag" style="background:var(--c-aqua)">FAQ</span>気になることぜんぶ、お答えします</h3>
+
+    <div class="faq-item">
+      <p class="faq-q">私にもできますか？ 占いは未経験です。</p>
+      <p class="faq-a">未経験から始める方が <strong>98%</strong>。手相は「センス」ではなく「型」。実際に、未経験スタートで読めるようになった方がほとんどです。</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">どれくらいで見れるようになりますか？</p>
+      <p class="faq-a">早い方で <strong>1ヶ月</strong> で簡単な鑑定はOK。お仕事として安定するのは、10〜30人ほど鑑定を経験したあたりから。</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">毎回リアルタイムで参加できるか不安です。</p>
+      <p class="faq-a"><strong>アーカイブ動画</strong>でも十分学べる内容になっています。不明点はグループチャットで随時ご相談OK。</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">実際にどれくらい稼げますか？</p>
+      <p class="faq-a">鑑定なら1回 <strong>5,000円〜10,000円</strong>。手相を教えるなら1講座 <strong>10万円〜15万円</strong> が目安です。</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">「今じゃない気がする」と迷っています。</p>
+      <p class="faq-a">「やってみたい」気持ちがあるなら、その直感を大切に。タイミングは、待っていても整わないものです。<em>未来のあなたが感謝する選択を</em>。</p>
+    </div>
+
+    <h3 style="margin-top:14px;"><span class="h3-tag" style="background:var(--c-pink)">ご家族へ</span>大切な方が、新しい一歩を踏み出します</h3>
+
+    <div class="card pink">
+      <div class="card-title"><span class="icon-circle" style="background:var(--c-pink)">💗</span>ご家族にとってのメリット</div>
+      <ul class="check pink" style="font-size:10pt;">
+        <li><strong>収入面</strong>：副業で月5万円〜、本業として月20万円超の事例も</li>
+        <li><strong>働き方</strong>：自宅・オンライン中心。家事育児と両立しやすい</li>
+        <li><strong>心の充実</strong>：「人に喜ばれる仕事」を通して、毎日が前向きに</li>
+        <li><strong>長期視点</strong>：年齢を重ねるほど深まる、<em class="pink">一生もののお仕事</em></li>
+      </ul>
+    </div>
+
+    <table class="tbl" style="font-size:9.5pt;">
+      <tr><th>占い＝怪しい？</th><td>「カウンセリング」を主軸に、寄り添う仕事として体系化。霊感商法・高額商品とは一切無関係です。</td></tr>
+      <tr><th>本人にできるの？</th><td>未経験から始める方が98%。元教師の本田が、<em>体系化されたカリキュラム</em>でゼロから丁寧に。</td></tr>
+      <tr><th>続けられるの？</th><td>同期生コミュニティ・グループチャット・本田の永続サポートで、<em>挫折しない仕組み</em>を整えています。</td></tr>
+    </table>
+
+    <p style="text-align:center; font-family:var(--ff-round); font-weight:900; color:var(--c-pink); margin-top:8px;">
+      🌷 ご家族の新しい挑戦を、温かく見守っていただけますと幸いです。
+    </p>
+
+    <div class="page-footer">— 09 —<span class="brand">愛され手相カウンセラー養成講座</span></div>
+  </div>
+</section>
+
+<!-- ============================================================
+  P.10  本田からのメッセージ＋お申込み
+============================================================ -->
+<section class="page">
+  <div class="page-inner">
+    <h2><span class="h2-emoji">💌</span>本田有紀華からのメッセージ ／ お申込みの流れ</h2>
+
+    <div class="card pink">
+      <p class="lead-center" style="margin:0 0 8px;">ここまで読んでくださって、本当にありがとうございます。</p>
+      <p style="margin:0 0 6px;">
+        手相を学ぶ道を選ぶことは、わたしにとって <strong>「新しい人生の扉」を開く瞬間</strong> でした。
+        わたしは心から思っています ——「<em class="pink">手相という占術を学んでよかった</em>」と。
+      </p>
+      <p style="margin:0;">
+        あなたにも、同じように <em class="pink">「愛され手相カウンセラーになってよかった」</em> と思っていただけるように、わたしが一生懸命お教えすることをお約束します。
+      </p>
+    </div>
+
+    <blockquote class="voice">
+      あなたの占いが、誰かの人生を照らす日を楽しみにしています。<br>
+      <strong>この決断は、未来のあなたが感謝する最高の選択です。</strong>
+    </blockquote>
+
+    <p style="text-align:right; font-family:var(--ff-round); font-weight:700; color:var(--c-pink); margin:6px 0 14px;">
+      アンビシャス占いの学校 ／ 本田 有紀華
+    </p>
+
+    <h3><span class="h3-tag">📝</span>お申込みの流れ</h3>
+    <ol class="numbered">
+      <li>お申込みフォームより、ご希望のコースをお申込み</li>
+      <li>事務局より、<strong>受講手続きのご案内</strong>をメールでお送りします</li>
+      <li>お支払い完了後、<strong>専用チャット</strong>にご招待</li>
+      <li><strong>2026年5月19日</strong>より本講座スタート🎉</li>
+    </ol>
+
+    <div class="highlight aqua">
+      <div class="title">📞 お問い合わせ</div>
+      <table class="tbl" style="font-size:9.5pt; margin:0;">
+        <tr><th>運営</th><td>アンビシャス占いの学校／合同会社アンビシャス</td></tr>
+        <tr><th>所在地</th><td>〒104-0061 東京都中央区銀座1丁目12番4号 N&E BLD. 6F</td></tr>
+        <tr><th>講師</th><td>本田 有紀華</td></tr>
+        <tr><th>メール</th><td>info@yasashiku.lfl4927.com</td></tr>
+      </table>
+    </div>
+
+    <div class="cta-box">
+      <h3>🎉 ご決断、お待ちしております。</h3>
+      <p>あなたの「やってみたい」を、<br>わたしたちは全力でお支えします。</p>
+    </div>
+
+    <div class="page-footer">— 10 —<span class="brand">愛され手相カウンセラー養成講座</span></div>
+  </div>
+</section>
+
+</body>
+</html>
