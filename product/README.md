@@ -22,7 +22,7 @@ macOS の大小文字非区別ボリュームでは `Obsidian/` と `obsidian/` 
 
 ## 案件フォルダのハブ README（YAML＋ウィキリンク索引）
 
-新規案件で **`product/案件/<案件名>/README.md`** を「索引ノート」にするときは、ワークスペース共通のひな形 **`katsuya_project/テンプレート/案件ハブ_NOTE.md`** を複製して使う。**Cursor が自動で効かせる条件**は **`.cursor/rules/project-case-hub.mdc`** に定義されている（LP 本文・メール本文など別用途には同じ型を入れない）。
+新規案件で **`product/案件/<案件名>/README.md`** を「索引ノート」にするときは、ワークスペース共通のひな形 **`katsuya_project/テンプレート/案件ハブ_NOTE.md`** を複製して使う。**Cursor が自動で効かせる条件**は **`.cursor/rules/project-case-hub.mdc`** に定義されている（LP 本文・メール本文など別用途には同じ型を入れない）。Cursor への指示は **「ハブを入れて」** でも同じ型を指す（詳細は同ルールの「呼び出し語」節）。
 
 ## リポジトリ直下の `product` について
 
