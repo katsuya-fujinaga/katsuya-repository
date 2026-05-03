@@ -20,6 +20,10 @@
 
 macOS の大小文字非区別ボリュームでは `Obsidian/` と `obsidian/` が同一パスとして解決されることがあります。
 
+## 案件フォルダのハブ README（YAML＋ウィキリンク索引）
+
+新規案件で **`product/案件/<案件名>/README.md`** を「索引ノート」にするときは、ワークスペース共通のひな形 **`katsuya_project/テンプレート/案件ハブ_NOTE.md`** を複製して使う。**Cursor が自動で効かせる条件**は **`.cursor/rules/project-case-hub.mdc`** に定義されている（LP 本文・メール本文など別用途には同じ型を入れない）。
+
 ## リポジトリ直下の `product` について
 
 GitHub Pages の公開 URL は **`.../product/案件/...`** のままです。ルートの **`product` は通常ディレクトリ**なので、GitHub・Windows・シンボリックリンク無効のクローンでも問題になりません。

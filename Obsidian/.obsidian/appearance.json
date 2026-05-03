@@ -4,5 +4,6 @@
   "interfaceFontFamily": "",
   "textFontFamily": "",
   "monospaceFontFamily": "",
-  "showRibbon": true
+  "showRibbon": true,
+  "theme": "system"
 }
