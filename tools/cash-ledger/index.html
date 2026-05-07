@@ -13,7 +13,7 @@
   <title>お金のきろく · tools</title>
   <link rel="icon" type="image/png" href="./favicon.png" />
   <link rel="apple-touch-icon" href="./favicon.png" />
-  <link rel="stylesheet" href="./styles.css?v=20260507-openings-updated" />
+  <link rel="stylesheet" href="./styles.css?v=20260507-csv-export" />
 </head>
 <body>
   <header class="app-header">
@@ -41,6 +41,7 @@
       <button type="button" class="btn" id="btn-fixed-batch">固定費を一括入力</button>
       <button type="button" class="btn" id="btn-liabilities">借入残高の設定</button>
       <button type="button" class="btn ghost" id="btn-export">データをファイルに保存</button>
+      <button type="button" class="btn ghost" id="btn-csv-export">CSV出力（期間）</button>
       <button type="button" class="btn ghost" id="btn-import">ファイルから読み込み</button>
       <input type="file" id="import-file" accept="application/json" hidden />
     </div>
@@ -147,6 +148,29 @@
     </div>
   </dialog>
 
+  <dialog class="modal" id="dlg-csv-export">
+    <div class="modal-inner">
+      <h2>CSV出力（期間指定）</h2>
+      <p class="modal-help">
+        指定した開始月〜終了月の取引を、口座ごとの明細（縦持ち）でCSVにまとめます。Excel 向けに UTF-8（BOM付き）です。
+      </p>
+      <div class="fixed-batch-grid csv-export-grid">
+        <label>
+          開始月
+          <input type="month" id="csv-start-month" />
+        </label>
+        <label>
+          終了月
+          <input type="month" id="csv-end-month" />
+        </label>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn ghost" id="csv-cancel">キャンセル</button>
+        <button type="button" class="btn primary" id="csv-download">ダウンロード</button>
+      </div>
+    </div>
+  </dialog>
+
   <dialog class="modal modal--wide" id="dlg-drive">
     <div class="modal-inner">
       <h2>Googleドライブ連携</h2>
@@ -182,6 +206,6 @@
   </dialog>
 
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <script src="./app.js?v=20260507-no-openings-note"></script>
+  <script src="./app.js?v=20260507-csv-export"></script>
 </body>
 </html>

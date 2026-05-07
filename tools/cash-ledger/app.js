@@ -914,6 +914,171 @@
       .replace(/"/g, "&quot;");
   }
 
+  function csvEscapeField(val) {
+    var t = String(val == null ? "" : val);
+    if (/[",\r\n]/.test(t)) {
+      return '"' + t.replace(/"/g, '""') + '"';
+    }
+    return t;
+  }
+
+  /** エクスポート用に月データをクローン（state を変更しない） */
+  function cloneMonthDataForExport(key) {
+    var m = state.months[key];
+    var copy = m ? JSON.parse(JSON.stringify(m)) : { openings: {}, days: {} };
+    state.accounts.forEach(function (a) {
+      if (copy.openings[a.id] == null) copy.openings[a.id] = 0;
+    });
+    return copy;
+  }
+
+  /**
+   * 開始月〜終了月の明細CSV（BOM付きUTF-8）
+   * 列: 年月日,曜日,口座名,行番号,引落,入金,項目メモ,口座残高,当行処理後の全口座合計
+   */
+  function buildCsvExport(startKey, endKey) {
+    var serA = monthSerialFromKey(startKey);
+    var serB = monthSerialFromKey(endKey);
+    var lo = Math.min(serA, serB);
+    var hi = Math.max(serA, serB);
+    var MAX_SPAN = 120;
+    if (hi - lo > MAX_SPAN) {
+      throw new Error("出力できるのは最大 " + (MAX_SPAN + 1) + " ヶ月分までです。期間を狭めてください。");
+    }
+
+    var header = [
+      "年月日",
+      "曜日",
+      "口座名",
+      "行番号",
+      "引落",
+      "入金",
+      "項目メモ",
+      "口座残高",
+      "当行処理後の全口座合計",
+    ];
+    var linesOut = [header.map(csvEscapeField).join(",")];
+
+    for (var serial = lo; serial <= hi; serial++) {
+      var y = Math.floor(serial / 12);
+      var m = (serial % 12) + 1;
+      var key = monthKey(y, m);
+      var mk = { y: y, m: m };
+      var mdata = cloneMonthDataForExport(key);
+      syncOpeningsFromPreviousMonth(mk, mdata);
+      var dim = daysInMonth(y, m);
+      var running = {};
+      state.accounts.forEach(function (a) {
+        running[a.id] = parseNum(mdata.openings[a.id]);
+      });
+
+      for (var day = 1; day <= dim; day++) {
+        var ds = ensureDayStruct(mdata, day);
+        var nLines = ds.lines.length;
+        var dt = new Date(y, m - 1, day);
+        var dow = WEEKDAYS[dt.getDay()];
+        var isoDate = y + "-" + pad2(m) + "-" + pad2(day);
+
+        for (var li = 0; li < nLines; li++) {
+          var lineRows = [];
+          state.accounts.forEach(function (a) {
+            var ent = readLineCell(ds, li, a.id);
+            var w = parseNum(ent.w);
+            var dAmt = parseNum(ent.d);
+            running[a.id] = running[a.id] + dAmt - w;
+            lineRows.push({
+              isoDate: isoDate,
+              dow: dow,
+              account: a.name,
+              lineNo: li + 1,
+              w: w,
+              d: dAmt,
+              note: String(ent.note || ""),
+              bal: running[a.id],
+            });
+          });
+
+          var hasAny = lineRows.some(function (r) {
+            return r.w !== 0 || r.d !== 0 || String(r.note || "").trim() !== "";
+          });
+          if (!hasAny) continue;
+
+          var totalBal = 0;
+          state.accounts.forEach(function (a) {
+            totalBal += running[a.id];
+          });
+
+          lineRows.forEach(function (r) {
+            linesOut.push(
+              [
+                r.isoDate,
+                r.dow,
+                r.account,
+                String(r.lineNo),
+                String(Math.round(r.w)),
+                String(Math.round(r.d)),
+                r.note,
+                String(Math.round(r.bal)),
+                String(Math.round(totalBal)),
+              ]
+                .map(csvEscapeField)
+                .join(",")
+            );
+          });
+        }
+      }
+    }
+
+    return "\uFEFF" + linesOut.join("\r\n");
+  }
+
+  function openCsvExportDialog() {
+    var dlgCsv = document.getElementById("dlg-csv-export");
+    var inpS = document.getElementById("csv-start-month");
+    var inpE = document.getElementById("csv-end-month");
+    if (inpS) inpS.value = currentKey;
+    if (inpE) inpE.value = currentKey;
+    openDialogSafe(dlgCsv);
+  }
+
+  function downloadCsvExportFile() {
+    var inpS = document.getElementById("csv-start-month");
+    var inpE = document.getElementById("csv-end-month");
+    var startKey = normalizeMonthInput(inpS ? inpS.value : "");
+    var endKey = normalizeMonthInput(inpE ? inpE.value : "");
+    if (!startKey || !endKey) {
+      alert("開始月と終了月を選んでください。");
+      return;
+    }
+    var csv;
+    try {
+      csv = buildCsvExport(startKey, endKey);
+    } catch (e) {
+      alert(e.message || String(e));
+      return;
+    }
+    var serS = monthSerialFromKey(startKey);
+    var serE = monthSerialFromKey(endKey);
+    var loSer = Math.min(serS, serE);
+    var hiSer = Math.max(serS, serE);
+    var loKey = monthKey(Math.floor(loSer / 12), (loSer % 12) + 1);
+    var hiKey = monthKey(Math.floor(hiSer / 12), (hiSer % 12) + 1);
+    var fname =
+      "cash-ledger_" +
+      loKey.replace("-", "") +
+      "_" +
+      hiKey.replace("-", "") +
+      ".csv";
+
+    var blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = fname;
+    a.click();
+    URL.revokeObjectURL(a.href);
+    closeDialogSafe(document.getElementById("dlg-csv-export"));
+  }
+
   function sumOpenings(mdata) {
     var t = 0;
     state.accounts.forEach(function (a) {
@@ -1988,6 +2153,12 @@
     a.click();
     URL.revokeObjectURL(a.href);
   });
+
+  safeBind("btn-csv-export", "click", openCsvExportDialog);
+  safeBind("csv-cancel", "click", function () {
+    closeDialogSafe(document.getElementById("dlg-csv-export"));
+  });
+  safeBind("csv-download", "click", downloadCsvExportFile);
 
   document.getElementById("btn-import").addEventListener("click", function () {
     document.getElementById("import-file").click();
