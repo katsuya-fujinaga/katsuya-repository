@@ -250,6 +250,28 @@ body.theme-night .btn.primary {
   color: var(--muted);
 }
 
+.openings-bar-kicker--with-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+}
+
+.openings-bar-title {
+  font-weight: 700;
+  color: var(--text);
+  font-size: 0.82rem;
+}
+
+.openings-bar-updated {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--muted);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
 .openings-bar-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));

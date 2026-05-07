@@ -87,6 +87,27 @@
     return s;
   }
 
+  /** このブラウザへ保存したときの時刻（入力・取込・自動繰越の保存など） */
+  function touchLedgerLocalUpdatedAt(st) {
+    ensureUi(st);
+    st.ui.lastLedgerUpdateAt = Date.now();
+  }
+
+  function formatLedgerLocalUpdatedAt(st) {
+    var t = st && st.ui && st.ui.lastLedgerUpdateAt;
+    if (t == null || !Number.isFinite(Number(t))) return "";
+    var d = new Date(Number(t));
+    if (Number.isNaN(d.getTime())) return "";
+    return d.toLocaleString("ja-JP", {
+      month: "numeric",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+    });
+  }
+
   function ensureLiabilities(s) {
     if (!Array.isArray(s.liabilities) || s.liabilities.length === 0) {
       s.liabilities = DEFAULT_LIABILITIES.map(function (x, i) {
@@ -165,6 +186,7 @@
   }
 
   function saveState(stateArg, skipDriveSchedule) {
+    touchLedgerLocalUpdatedAt(stateArg);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(stateArg));
     if (!skipDriveSchedule) scheduleDrivePushIfEnabled();
   }
@@ -858,8 +880,24 @@
     }
     var balMap = balancesThroughDay(mdata, mk.y, mk.m, lastDay);
     var parts = [];
+    var updatedStr = formatLedgerLocalUpdatedAt(state);
+    var kickerInner =
+      '<span class="openings-bar-title">' +
+      escapeHtml(title) +
+      "</span>" +
+      (updatedStr
+        ? '<span class="openings-bar-updated" title="このブラウザに保存したデータの最終更新時刻">' +
+          "更新 " +
+          escapeHtml(updatedStr) +
+          "</span>"
+        : "");
     parts.push(
-      "<p class=\"openings-bar-kicker\">" + escapeHtml(title) + "</p>" + '<p class="openings-bar-note">' + note + "</p>"
+      '<p class="openings-bar-kicker openings-bar-kicker--with-meta">' +
+        kickerInner +
+        "</p>" +
+        '<p class="openings-bar-note">' +
+        note +
+        "</p>"
     );
     parts.push('<div class="openings-bar-grid">');
     state.accounts.forEach(function (a) {
