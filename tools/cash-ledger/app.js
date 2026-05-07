@@ -6,7 +6,8 @@
   var LS_DRIVE_FILE_ID = "cash-ledger-google-drive-file-id";
   var LS_DRIVE_AUTO_PUSH = "cash-ledger-drive-auto-push";
   var LS_DRIVE_AUTO_PULL = "cash-ledger-drive-auto-pull-startup";
-  var DRIVE_SYNC_FILENAME = "cash-ledger-sync.json";
+  /** Drive 上の同期ファイル名。旧名 cash-ledger-sync.json とは別物（検索・新規作成の対象が変わる） */
+  var DRIVE_SYNC_FILENAME = "hitobiji-ledger-sync.json";
   var MAX_ACCOUNTS = 8;
   var CHART_AXIS_MIN = -20 * 10000; // -20万円
   var CHART_AXIS_MAX = 300 * 10000; // 300万円
@@ -1194,7 +1195,7 @@
 
   /**
    * スマホ等で記録されたファイルIDが「空の同名ファイル」を指しているとセルが空になる。
-   * 月キーはあるが取引セルが読めないとき、ほかの cash-ledger-sync.json を順に試す。
+   * 月キーはあるが取引セルが読めないとき、ほかの同名同期ファイルを順に試す。
    */
   function resolveDriveLedgerPayload(token, primaryFid, remoteObj, driveModifiedMs, cb) {
     try {
@@ -1266,7 +1267,9 @@
         updateDriveStatusLabel(
           "取引セルが空に見えます。" +
             hint +
-            " 同名の cash-ledger-sync.json が複数ないか確認するか、Drive設定で「ファイルIDをリセット」してから読込してください。"
+            " 同名の " +
+              DRIVE_SYNC_FILENAME +
+              " が複数ないか確認するか、Drive設定で「ファイルIDをリセット」してから読込してください。"
         );
       } else {
         var altNote = pullOpts.usedAlternateDriveFile ? "中身のあるほうの同期ファイルに切り替えました。" : "";
@@ -3002,7 +3005,9 @@
           "読み込めましたが、このファイルから取引の数字は読み取れませんでした。\n\n" +
             hintImp +
             fileLine +
-            "\n\n以上がヒントです。Driveで別の cash-ledger-sync.json（サイズ大・更新が新しいほう）を試すか、PCで「データをファイルに保存」したJSONを送って読み込んでください。"
+            "\n\n以上がヒントです。Driveで別の " +
+              DRIVE_SYNC_FILENAME +
+              "（サイズ大・更新が新しいほう）を試すか、PCで「データをファイルに保存」したJSONを送って読み込んでください。"
         );
       }
       inputEl.value = "";
