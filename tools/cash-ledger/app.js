@@ -30,6 +30,31 @@
     return y + "-" + pad2(m);
   }
 
+  /** 「2025-5」などを 「2025-05」 に統一（Drive／手編集JSONのズレ対策） */
+  function coerceMonthKey(k) {
+    var p = String(k || "").trim().split("-");
+    if (p.length !== 2) return "";
+    var y = parseInt(p[0], 10);
+    var mo = parseInt(p[1], 10);
+    if (!Number.isFinite(y) || !Number.isFinite(mo) || mo < 1 || mo > 12) return "";
+    return monthKey(y, mo);
+  }
+
+  function normalizeStateMonthKeys(st) {
+    if (!st || !st.months || typeof st.months !== "object") return false;
+    var next = {};
+    var changed = false;
+    Object.keys(st.months).forEach(function (k) {
+      var ck = coerceMonthKey(k);
+      var keyUse = ck || k;
+      if (ck && ck !== k) changed = true;
+      if (next[keyUse] !== undefined) changed = true;
+      next[keyUse] = st.months[k];
+    });
+    if (changed) st.months = next;
+    return changed;
+  }
+
   function parseMonthKey(key) {
     var p = key.split("-");
     return { y: parseInt(p[0], 10), m: parseInt(p[1], 10) };
@@ -133,11 +158,171 @@
     s.version = 2;
   }
 
+  /**
+   * version が 2 でも日ごとの形が旧式（lines が無い）だと、render の ensureDayStruct が空で上書きする。
+   */
+  function normalizeMislabeledV2Days(st) {
+    if (!st || st.version < 2 || !Array.isArray(st.accounts) || !st.months) return false;
+    var accounts = st.accounts;
+    var changed = false;
+    Object.keys(st.months).forEach(function (mkStr) {
+      var m = st.months[mkStr];
+      if (!m || !m.days || typeof m.days !== "object") return;
+      Object.keys(m.days).forEach(function (d) {
+        var val = m.days[d];
+        if (isV2Day(val)) return;
+        if (!val || typeof val !== "object") return;
+        var line0 = {};
+        var recognized = false;
+        accounts.forEach(function (a) {
+          function rawCellForFlatDay(v, acc) {
+            var rid = acc.id;
+            var rname = String(acc.name || "").trim();
+            var candidates = [rid, rname];
+            var raw = null;
+            for (var ci = 0; ci < candidates.length; ci++) {
+              var ck = candidates[ci];
+              if (!ck || !Object.prototype.hasOwnProperty.call(v, ck)) continue;
+              var x = v[ck];
+              if (x && typeof x === "object" && !Array.isArray(x) && x.lines == null) {
+                raw = x;
+                break;
+              }
+            }
+            if (!raw) {
+              Object.keys(v).forEach(function (k) {
+                if (k === "lines" || raw) return;
+                if (String(k).trim() !== rname) return;
+                var x2 = v[k];
+                if (x2 && typeof x2 === "object" && !Array.isArray(x2) && x2.lines == null) raw = x2;
+              });
+            }
+            return raw;
+          }
+          var raw = rawCellForFlatDay(val, a);
+          if (raw) {
+            line0[a.id] = {
+              w: parseNum(raw.w),
+              d: parseNum(raw.d),
+              note: String(raw.note || ""),
+            };
+            recognized = true;
+          } else {
+            line0[a.id] = emptyCell();
+          }
+        });
+        if (recognized) {
+          m.days[d] = { lines: [line0] };
+          changed = true;
+        }
+      });
+    });
+    return changed;
+  }
+
+  /** lines が配列でない場合に配列へ（JSON手編集や別形式の対策） */
+  function coerceDaysLinesShape(st) {
+    if (!st || !st.months) return false;
+    var changed = false;
+    Object.keys(st.months).forEach(function (mk) {
+      var m = st.months[mk];
+      if (!m || !m.days) return;
+      Object.keys(m.days).forEach(function (d) {
+        var val = m.days[d];
+        if (!val || typeof val !== "object") return;
+        if (Array.isArray(val.lines)) return;
+        if (val.lines != null && typeof val.lines === "object") {
+          val.lines = [val.lines];
+          changed = true;
+        }
+      });
+    });
+    return changed;
+  }
+
+  /** 各 line のセルキーが口座 id ではなく「表示名」だけのとき、a1… に付け替える */
+  function repairLineAccountKeys(st) {
+    if (!st || st.version < 2 || !Array.isArray(st.accounts) || !st.months) return false;
+    var idSet = {};
+    var nameToId = {};
+    st.accounts.forEach(function (a) {
+      idSet[a.id] = true;
+      nameToId[String(a.name || "").trim()] = a.id;
+    });
+    var changed = false;
+    Object.keys(st.months).forEach(function (mk) {
+      var m = st.months[mk];
+      if (!m || !m.days) return;
+      Object.keys(m.days).forEach(function (d) {
+        var val = m.days[d];
+        if (!isV2Day(val)) return;
+        val.lines.forEach(function (line) {
+          if (!line || typeof line !== "object") return;
+          Object.keys(line).slice().forEach(function (k) {
+            if (k === "__proto__" || k === "constructor") return;
+            if (idSet[k]) return;
+            var nid = nameToId[String(k).trim()];
+            if (!nid || Object.prototype.hasOwnProperty.call(line, nid)) return;
+            var cell = line[k];
+            if (!cell || typeof cell !== "object" || Array.isArray(cell)) return;
+            line[nid] = {
+              w: parseNum(cell.w),
+              d: parseNum(cell.d),
+              note: String(cell.note || ""),
+            };
+            delete line[k];
+            changed = true;
+          });
+        });
+      });
+    });
+    return changed;
+  }
+
+  /** 月データはあるがセルがすべて空に見える異常の検知用 */
+  function stateHasAnyLedgerCells(st) {
+    if (!st || !st.months) return false;
+    var found = false;
+    Object.keys(st.months).forEach(function (mk) {
+      var m = st.months[mk];
+      if (!m || !m.days || found) return;
+      Object.keys(m.days).forEach(function (d) {
+        var val = m.days[d];
+        if (!isV2Day(val)) return;
+        val.lines.forEach(function (line) {
+          if (!line || found) return;
+          Object.keys(line).forEach(function (aid) {
+            var c = line[aid];
+            if (!c || typeof c !== "object") return;
+            if (
+              parseNum(c.w) !== 0 ||
+              parseNum(c.d) !== 0 ||
+              String(c.note || "").trim() !== ""
+            ) {
+              found = true;
+            }
+          });
+        });
+      });
+    });
+    return found;
+  }
+
   function ensureUi(s) {
     if (!s.ui || typeof s.ui !== "object") s.ui = {};
     var ok = ["auto", "day", "night"];
     if (ok.indexOf(s.ui.themeTab) < 0) s.ui.themeTab = "auto";
     return s;
+  }
+
+  /** 起動時・リロード後に「対象月」を復元（localStorage に ui.focusMonthKey で保存） */
+  function resolveInitialMonthKey(st) {
+    ensureUi(st);
+    var fm = st.ui.focusMonthKey;
+    if (fm && /^\d{4}-\d{2}$/.test(String(fm)) && st.months && st.months[String(fm)]) {
+      return String(fm);
+    }
+    return pickDisplayMonthKeyForState(st);
   }
 
   /** このブラウザへ保存したときの時刻（入力・取込・自動繰越の保存など） */
@@ -230,10 +415,15 @@
     if (!o || !Array.isArray(o.accounts)) throw new Error("形式が違います");
     if (o.version == null) o.version = 1;
     migrateV1ToV2(o);
+    normalizeStateMonthKeys(o);
+    normalizeMislabeledV2Days(o);
+    coerceDaysLinesShape(o);
+    repairLineAccountKeys(o);
     if (o.version < 2) throw new Error("データを認識できません");
     state = ensureUi(o);
     ensureLiabilities(state);
     currentKey = pickDisplayMonthKeyForState(state);
+    state.ui.focusMonthKey = currentKey;
     saveState(state);
     applyTheme();
     setMonthInputFromKey(currentKey);
@@ -250,7 +440,7 @@
     try {
       var raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
-        var o = JSON.parse(raw);
+        var o = JSON.parse(String(raw).replace(/^\uFEFF/, "").trim());
         if (o && Array.isArray(o.accounts)) {
           if (o.version == null) o.version = 1;
           migrateV1ToV2(o);
@@ -259,7 +449,11 @@
             var missingLiabilities = !Array.isArray(o.liabilities);
             ensureUi(o);
             ensureLiabilities(o);
-            if (missingUi || missingLiabilities) saveState(o);
+            var chMk = normalizeStateMonthKeys(o);
+            var chDay = normalizeMislabeledV2Days(o);
+            var chLines = coerceDaysLinesShape(o);
+            var chKeys = repairLineAccountKeys(o);
+            if (missingUi || missingLiabilities || chMk || chDay || chLines || chKeys) saveState(o);
             return o;
           }
         }
@@ -345,7 +539,7 @@
   }
 
   var state = loadState();
-  var currentKey = monthKey(new Date().getFullYear(), new Date().getMonth() + 1);
+  var currentKey = resolveInitialMonthKey(state);
 
   var elMonth = document.getElementById("month-input");
   var elHead = document.getElementById("ledger-head");
@@ -771,7 +965,11 @@
       var monthsCount = Object.keys(state.months || {}).length;
       if (monthsCount === 0) {
         updateDriveStatusLabel(
-          "Driveから読み込みましたが、月の記録がありません（空ファイルか、別の cash-ledger-sync.json の可能性があります）"
+          "Driveから読み込みましたが、月の記録がありません（PCで一度入力→Driveへ保存したファイルか確認してください）"
+        );
+      } else if (!stateHasAnyLedgerCells(state)) {
+        updateDriveStatusLabel(
+          "読み込み済みですが取引セルが空です。PCで「データをファイルに保存」しJSONの months→days に数字があるか確認するか、口座名とキーが一致しているか見てください"
         );
       } else {
         updateDriveStatusLabel(
@@ -844,7 +1042,11 @@
           }
           var remoteObj;
           try {
-            remoteObj = JSON.parse(bundle.text);
+            remoteObj = JSON.parse(
+              String(bundle.text)
+                .replace(/^\uFEFF/, "")
+                .trim()
+            );
           } catch (pe) {
             updateDriveStatusLabel("");
             cb(new Error("Drive上のファイルがJSONとして読み取れませんでした。"));
@@ -2318,9 +2520,16 @@
     renderLiabilitiesSummary(mk);
   }
 
+  function persistFocusMonth() {
+    ensureUi(state);
+    state.ui.focusMonthKey = currentKey;
+    saveState(state);
+  }
+
   elMonth.addEventListener("change", function () {
     currentKey = elMonth.value;
     if (!currentKey) return;
+    persistFocusMonth();
     render();
   });
 
@@ -2329,6 +2538,7 @@
     var d = new Date(mk.y, mk.m - 2, 1);
     currentKey = monthKey(d.getFullYear(), d.getMonth() + 1);
     setMonthInputFromKey(currentKey);
+    persistFocusMonth();
     render();
   });
 
@@ -2337,6 +2547,7 @@
     var d = new Date(mk.y, mk.m, 1);
     currentKey = monthKey(d.getFullYear(), d.getMonth() + 1);
     setMonthInputFromKey(currentKey);
+    persistFocusMonth();
     render();
   });
 
@@ -2344,6 +2555,7 @@
     var n = new Date();
     currentKey = monthKey(n.getFullYear(), n.getMonth() + 1);
     setMonthInputFromKey(currentKey);
+    persistFocusMonth();
     render();
   });
 
@@ -2445,7 +2657,7 @@
     var reader = new FileReader();
     reader.onload = function () {
       try {
-        ingestWholeLedgerPayload(JSON.parse(reader.result));
+        ingestWholeLedgerPayload(JSON.parse(String(reader.result).replace(/^\uFEFF/, "").trim()));
       } catch (e) {
         alert("読み込みに失敗しました: " + e.message);
       }
