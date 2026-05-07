@@ -40,6 +40,58 @@
     return mk.y * 12 + (mk.m - 1);
   }
 
+  /**
+   * 「対象月」は state に含まれないため、取り込み直後だけ合わせる。
+   * 今月に行が無いと表が空に見えるので、データがあるもっとも新しい月へ寄せる。
+   */
+  function pickDisplayMonthKeyForState(st) {
+    var months = st && st.months && typeof st.months === "object" ? st.months : {};
+    var y = new Date().getFullYear();
+    var mo = new Date().getMonth() + 1;
+    var nowK = monthKey(y, mo);
+    function monthHasAnyRows(mdata) {
+      if (!mdata || !mdata.days || typeof mdata.days !== "object") return false;
+      return Object.keys(mdata.days).some(function (d) {
+        var ds = mdata.days[d];
+        if (!ds || !Array.isArray(ds.lines)) return false;
+        return ds.lines.some(function (line) {
+          if (!line || typeof line !== "object") return false;
+          return Object.keys(line).some(function (aid) {
+            if (aid === "__proto__") return false;
+            var c = line[aid];
+            if (!c || typeof c !== "object") return false;
+            return (
+              parseNum(c.w) !== 0 ||
+              parseNum(c.d) !== 0 ||
+              String(c.note || "").trim() !== ""
+            );
+          });
+        });
+      });
+    }
+    function monthHasOpeningsOnly(mdata) {
+      if (!mdata || !mdata.openings || typeof mdata.openings !== "object") return false;
+      return Object.keys(mdata.openings).some(function (aid) {
+        return parseNum(mdata.openings[aid]) !== 0;
+      });
+    }
+    if (
+      months[nowK] &&
+      (monthHasAnyRows(months[nowK]) || monthHasOpeningsOnly(months[nowK]))
+    ) {
+      return nowK;
+    }
+    var keys = Object.keys(months).filter(function (k) {
+      return /^\d{4}-\d{2}$/.test(k);
+    }).sort();
+    for (var i = keys.length - 1; i >= 0; i--) {
+      var mu = months[keys[i]];
+      if (monthHasAnyRows(mu) || monthHasOpeningsOnly(mu)) return keys[i];
+    }
+    if (keys.length) return keys[keys.length - 1];
+    return nowK;
+  }
+
   function normalizeMonthInput(v) {
     return /^\d{4}-\d{2}$/.test(String(v || "")) ? String(v) : "";
   }
@@ -59,6 +111,7 @@
 
   function migrateV1ToV2(s) {
     if (s.version >= 2) return;
+    if (!s.months || typeof s.months !== "object") s.months = {};
     Object.keys(s.months).forEach(function (key) {
       var m = s.months[key];
       var newDays = {};
@@ -180,8 +233,10 @@
     if (o.version < 2) throw new Error("データを認識できません");
     state = ensureUi(o);
     ensureLiabilities(state);
+    currentKey = pickDisplayMonthKeyForState(state);
     saveState(state);
     applyTheme();
+    setMonthInputFromKey(currentKey);
     render();
   }
 
@@ -518,7 +573,7 @@
       var url =
         "https://www.googleapis.com/drive/v3/files?q=" +
         encodeURIComponent(q) +
-        "&fields=files(id,modifiedTime)&pageSize=20";
+        "&fields=files(id,modifiedTime,size)&pageSize=50";
       return fetch(url, { headers: { Authorization: "Bearer " + token } }).then(function (r) {
         return r.json().then(function (j) {
           if (!r.ok) throw new Error(j.error ? JSON.stringify(j.error) : String(r.status));
@@ -537,6 +592,9 @@
           return;
         }
         files.sort(function (a, b) {
+          var sa = parseInt(String(a.size || "0"), 10) || 0;
+          var sb = parseInt(String(b.size || "0"), 10) || 0;
+          if (sb !== sa) return sb - sa;
           return String(b.modifiedTime || "").localeCompare(String(a.modifiedTime || ""));
         });
         cb(null, files[0].id);
@@ -710,7 +768,20 @@
   function applyDrivePullIngest(remoteObj, cb) {
     try {
       ingestWholeLedgerPayload(remoteObj);
-      updateDriveStatusLabel("Driveから読み込みました");
+      var monthsCount = Object.keys(state.months || {}).length;
+      if (monthsCount === 0) {
+        updateDriveStatusLabel(
+          "Driveから読み込みましたが、月の記録がありません（空ファイルか、別の cash-ledger-sync.json の可能性があります）"
+        );
+      } else {
+        updateDriveStatusLabel(
+          "Driveから読み込みました（表示月: " +
+            monthLabel(currentKey) +
+            "／" +
+            monthsCount +
+            "ヶ月分。対象月を変えれば他月も確認できます）"
+        );
+      }
       cb(null);
     } catch (ingErr) {
       cb(ingErr instanceof Error ? ingErr : new Error(String(ingErr)));
