@@ -509,20 +509,27 @@
 
   /** PC と別端末ではファイル ID が共有されないため、Drive 上の同名ファイルを検索して紐づける */
   function findLedgerSyncFilesOnDrive(token, cb) {
-    var q =
-      "name='" +
-      DRIVE_SYNC_FILENAME.replace(/\\/g, "\\\\").replace(/'/g, "\\'") +
-      "' and mimeType='application/json' and trashed=false";
-    var url =
-      "https://www.googleapis.com/drive/v3/files?q=" +
-      encodeURIComponent(q) +
-      "&fields=files(id,modifiedTime)&pageSize=20";
-    fetch(url, { headers: { Authorization: "Bearer " + token } })
-      .then(function (r) {
+    function fetchList(useJsonMime) {
+      var q =
+        "name='" +
+        DRIVE_SYNC_FILENAME.replace(/\\/g, "\\\\").replace(/'/g, "\\'") +
+        "' and trashed=false" +
+        (useJsonMime ? " and mimeType='application/json'" : "");
+      var url =
+        "https://www.googleapis.com/drive/v3/files?q=" +
+        encodeURIComponent(q) +
+        "&fields=files(id,modifiedTime)&pageSize=20";
+      return fetch(url, { headers: { Authorization: "Bearer " + token } }).then(function (r) {
         return r.json().then(function (j) {
           if (!r.ok) throw new Error(j.error ? JSON.stringify(j.error) : String(r.status));
           return j.files || [];
         });
+      });
+    }
+    fetchList(true)
+      .then(function (files) {
+        if (files.length) return files;
+        return fetchList(false);
       })
       .then(function (files) {
         if (!files.length) {
@@ -723,7 +730,11 @@
     }
     msgEl.textContent = message;
     drivePullConfirmCallback = cb;
-    openDialogSafe(dlg);
+    var opened = openDialogSafe(dlg);
+    if (!opened || !dlg.open) {
+      drivePullConfirmCallback = null;
+      cb(confirm(message));
+    }
   }
 
   function performDrivePull(opts, cb) {
@@ -731,26 +742,32 @@
     cb = cb || function () {};
     requestDriveAccess(function (err, token) {
       if (err) {
+        updateDriveStatusLabel("");
         cb(err);
         return;
       }
+      if (!opts.startup) updateDriveStatusLabel("Drive上の同期ファイルを探しています…");
       ensureDriveFileId(token, function (errId, fid) {
         if (errId) {
+          updateDriveStatusLabel("");
           cb(errId);
           return;
         }
         if (!fid) {
+          updateDriveStatusLabel("");
           cb(
             new Error(
               "Driveに " +
                 DRIVE_SYNC_FILENAME +
-                " がありません。PC で一度「Driveへ保存」してから、スマホで「Driveから読込」を試してください。"
+                " がありません。PC で一度「Driveへ保存」してから、スマホで「Driveから読込」を試してください。\n（Googleドライブでファイル名が一致しているか、アプリと同じGoogleアカウントかも確認してください）"
             )
           );
           return;
         }
+        updateDriveStatusLabel("Driveからデータをダウンロードしています…");
         fetchDriveJsonBundle(token, fid, function (bundleErr, bundle) {
           if (bundleErr) {
+            updateDriveStatusLabel("");
             cb(bundleErr);
             return;
           }
@@ -758,6 +775,7 @@
           try {
             remoteObj = JSON.parse(bundle.text);
           } catch (pe) {
+            updateDriveStatusLabel("");
             cb(new Error("Drive上のファイルがJSONとして読み取れませんでした。"));
             return;
           }
@@ -771,11 +789,12 @@
             }
             if (!startupRemoteLooksNewerThanLocal(remoteObj, driveModifiedMs)) {
               updateDriveStatusLabel(
-                "起動時: Driveが新しくないため自動では読み込みません。「Driveから読込」で確認して取り込めます。"
+                "起動時: Driveが新しくないため自動では読み込みません。「Driveから読込」をタップすると読み込みます。"
               );
               cb(null);
               return;
             }
+            updateDriveStatusLabel("Driveに新しいデータがあります。読み込むか確認してください。");
             showDrivePullConfirm(
               "Googleドライブのデータのほうが新しいです。\nこのブラウザのデータと置き換えますか？",
               function (yes) {
@@ -789,7 +808,7 @@
             return;
           }
 
-          if (opts.forceReplace) {
+          if (opts.forceReplace || opts.skipConfirm) {
             applyDrivePullIngest(remoteObj, cb);
             return;
           }
@@ -909,8 +928,21 @@
   function openDialogSafe(dialogEl) {
     if (!dialogEl) return false;
     if (typeof dialogEl.showModal === "function") {
-      if (!dialogEl.open) dialogEl.showModal();
-      return true;
+      try {
+        if (!dialogEl.open) dialogEl.showModal();
+        return !!dialogEl.open;
+      } catch (eDlg) {
+        try {
+          if (typeof dialogEl.show === "function") {
+            if (!dialogEl.open) dialogEl.show();
+          } else {
+            dialogEl.setAttribute("open", "open");
+          }
+          return !!(dialogEl.open || dialogEl.hasAttribute("open"));
+        } catch (e2) {
+          return false;
+        }
+      }
     }
     dialogEl.setAttribute("open", "open");
     return true;
@@ -2266,8 +2298,16 @@
     });
   });
   safeBind("btn-drive-pull", "click", function () {
-    performDrivePull({}, function (err) {
-      if (err) alert("Driveから読み込めませんでした。\n" + err.message);
+    updateDriveStatusLabel("Googleへ接続しています…（この後、そのままDriveから読み込みます）");
+    performDrivePull({ skipConfirm: true }, function (err) {
+      if (err) {
+        updateDriveStatusLabel("");
+        alert(
+          "Driveから読み込めませんでした。\n\n" +
+            err.message +
+            "\n\n※別ブラウザ／シークレットでは Client ID の再入力が必要です。\n※GCP の「承認済みのJavaScript生成元」にこのページのURL（末尾まで一致）が入っているか確認してください。"
+        );
+      }
     });
   });
   safeBind("btn-drive-settings", "click", openDriveSettingsDialog);
