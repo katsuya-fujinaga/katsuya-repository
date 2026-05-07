@@ -976,6 +976,11 @@ dialog.modal.modal--wide {
   font-size: 0.68rem;
 }
 
+.drive-pull-confirm-message {
+  white-space: pre-line;
+  margin-bottom: 1rem;
+}
+
 .modal-actions--spread {
   justify-content: space-between;
   align-items: center;

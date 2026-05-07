@@ -13,7 +13,7 @@
   <title>お金のきろく · tools</title>
   <link rel="icon" type="image/png" href="./favicon.png" />
   <link rel="apple-touch-icon" href="./favicon.png" />
-  <link rel="stylesheet" href="./styles.css?v=20260507-today-row" />
+  <link rel="stylesheet" href="./styles.css?v=20260507-drive-dialog" />
 </head>
 <body>
   <header class="app-header">
@@ -205,7 +205,18 @@
     </div>
   </dialog>
 
+  <dialog class="modal" id="dlg-drive-pull-confirm">
+    <div class="modal-inner">
+      <h2>Driveからの読み込み</h2>
+      <p class="modal-help drive-pull-confirm-message" id="drive-pull-confirm-message"></p>
+      <div class="modal-actions">
+        <button type="button" class="btn ghost" id="drive-pull-confirm-cancel">キャンセル</button>
+        <button type="button" class="btn primary" id="drive-pull-confirm-ok">読み込む</button>
+      </div>
+    </div>
+  </dialog>
+
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <script src="./app.js?v=20260507-drive-pull-fix"></script>
+  <script src="./app.js?v=20260507-drive-dialog"></script>
 </body>
 </html>

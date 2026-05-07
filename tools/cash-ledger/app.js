@@ -322,6 +322,8 @@
   var driveTokenClient = null;
   var driveTokenClientCid = "";
   var drivePushTimer = null;
+  /** `<dialog>` で確認（OAuth後の `confirm()` はモバイルで無視されることがある） */
+  var drivePullConfirmCallback = null;
 
   function syncTs(st) {
     return st && st._cashLedgerSync && typeof st._cashLedgerSync.updatedAt === "number"
@@ -356,6 +358,48 @@
     if (lTs > 0 && dm != null && dm > lTs) return true;
     if (rTs === 0 && lTs > 0 && rk > lk) return true;
     return false;
+  }
+
+  /** メタフィールドを除き、台帳本体が同一か（起動時スキップ判定用） */
+  function ledgerSyncBodySignature(st) {
+    if (!st || typeof st !== "object") return "";
+    try {
+      var acc = (Array.isArray(st.accounts) ? st.accounts.slice() : [])
+        .map(function (a) {
+          return { id: String(a.id || ""), name: String(a.name || "") };
+        })
+        .sort(function (a, b) {
+          return a.id.localeCompare(b.id);
+        });
+      var monthKeys = Object.keys(st.months || {}).sort();
+      var monthsNorm = {};
+      monthKeys.forEach(function (mk) {
+        monthsNorm[mk] = st.months[mk];
+      });
+      var liab = (Array.isArray(st.liabilities) ? st.liabilities.slice() : [])
+        .map(function (x) {
+          return {
+            id: String(x.id || ""),
+            name: String(x.name || ""),
+            keyword: String(x.keyword || ""),
+            opening: Number(x.opening) || 0,
+            startMonth: String(x.startMonth || ""),
+          };
+        })
+        .sort(function (a, b) {
+          return a.id.localeCompare(b.id);
+        });
+      var uiTab = st.ui && st.ui.themeTab ? String(st.ui.themeTab) : "auto";
+      return JSON.stringify({
+        v: st.version != null ? st.version : 1,
+        a: acc,
+        m: monthsNorm,
+        l: liab,
+        ui: uiTab,
+      });
+    } catch (eSig) {
+      return "";
+    }
   }
 
   function stampLedgerSyncMeta(st) {
@@ -618,6 +662,70 @@
     });
   }
 
+  function fetchDriveJsonBundle(token, fid, cb) {
+    var mediaUrl =
+      "https://www.googleapis.com/drive/v3/files/" + encodeURIComponent(fid) + "?alt=media";
+    var metaUrl =
+      "https://www.googleapis.com/drive/v3/files/" +
+      encodeURIComponent(fid) +
+      "?fields=modifiedTime";
+    fetch(metaUrl, { headers: { Authorization: "Bearer " + token } })
+      .then(function (r) {
+        if (!r.ok) return null;
+        return r.json().catch(function () {
+          return null;
+        });
+      })
+      .catch(function () {
+        return null;
+      })
+      .then(function (meta) {
+        var ms = null;
+        if (meta && meta.modifiedTime) {
+          var parsed = Date.parse(meta.modifiedTime);
+          if (!Number.isNaN(parsed)) ms = parsed;
+        }
+        return fetch(mediaUrl, { headers: { Authorization: "Bearer " + token } }).then(function (r2) {
+          if (!r2.ok) return r2.text().then(function (t) { throw new Error(t || String(r2.status)); });
+          return r2.text().then(function (text) {
+            return { text: text, driveModifiedMs: ms };
+          });
+        });
+      })
+      .then(function (bundle) {
+        cb(null, bundle);
+      })
+      .catch(function (e) {
+        cb(e instanceof Error ? e : new Error(String(e)));
+      });
+  }
+
+  function applyDrivePullIngest(remoteObj, cb) {
+    try {
+      ingestWholeLedgerPayload(remoteObj);
+      updateDriveStatusLabel("Driveから読み込みました");
+      cb(null);
+    } catch (ingErr) {
+      cb(ingErr instanceof Error ? ingErr : new Error(String(ingErr)));
+    }
+  }
+
+  function showDrivePullConfirm(message, cb) {
+    var dlg = document.getElementById("dlg-drive-pull-confirm");
+    var msgEl = document.getElementById("drive-pull-confirm-message");
+    if (!dlg || !msgEl) {
+      cb(confirm(message));
+      return;
+    }
+    if (drivePullConfirmCallback) {
+      cb(false);
+      return;
+    }
+    msgEl.textContent = message;
+    drivePullConfirmCallback = cb;
+    openDialogSafe(dlg);
+  }
+
   function performDrivePull(opts, cb) {
     opts = opts || {};
     cb = cb || function () {};
@@ -641,65 +749,62 @@
           );
           return;
         }
-        var metaUrl =
-          "https://www.googleapis.com/drive/v3/files/" +
-          encodeURIComponent(fid) +
-          "?fields=modifiedTime";
-        fetch(metaUrl, { headers: { Authorization: "Bearer " + token } })
-          .then(function (r) {
-            if (!r.ok) return r.text().then(function (t) { throw new Error(t || String(r.status)); });
-            return r.json();
-          })
-          .then(function (meta) {
-            var driveModifiedMs =
-              meta && meta.modifiedTime ? Date.parse(meta.modifiedTime) : NaN;
-            if (Number.isNaN(driveModifiedMs)) driveModifiedMs = null;
-            return fetch(
-              "https://www.googleapis.com/drive/v3/files/" + encodeURIComponent(fid) + "?alt=media",
-              { headers: { Authorization: "Bearer " + token } }
-            ).then(function (r2) {
-              if (!r2.ok) return r2.text().then(function (t) { throw new Error(t || String(r2.status)); });
-              return r2.text().then(function (text) {
-                return { text: text, driveModifiedMs: driveModifiedMs };
-              });
-            });
-          })
-          .then(function (bundle) {
-            var remoteObj = JSON.parse(bundle.text);
-            var driveModifiedMs = bundle.driveModifiedMs;
-            if (opts.startup) {
-              if (!startupRemoteLooksNewerThanLocal(remoteObj, driveModifiedMs)) {
-                updateDriveStatusLabel(
-                  "Driveはローカルと同じか古いため、そのままにしました（手動の「Driveから読込」なら確認後に取り込めます）"
-                );
-                cb(null);
-                return;
-              }
-              if (
-                !confirm(
-                  "Googleドライブのデータのほうが新しいです。\n読み込むと、このブラウザのデータは置き換わります。\nよろしいですか？"
-                )
-              ) {
-                cb(null);
-                return;
-              }
-            } else if (!opts.forceReplace) {
-              if (
-                !confirm(
-                  "Driveの内容で、このブラウザのデータをすべて置き換えます。\nよろしいですか？"
-                )
-              ) {
-                cb(null);
-                return;
-              }
+        fetchDriveJsonBundle(token, fid, function (bundleErr, bundle) {
+          if (bundleErr) {
+            cb(bundleErr);
+            return;
+          }
+          var remoteObj;
+          try {
+            remoteObj = JSON.parse(bundle.text);
+          } catch (pe) {
+            cb(new Error("Drive上のファイルがJSONとして読み取れませんでした。"));
+            return;
+          }
+          var driveModifiedMs = bundle.driveModifiedMs;
+
+          if (opts.startup) {
+            if (ledgerSyncBodySignature(remoteObj) === ledgerSyncBodySignature(state)) {
+              updateDriveStatusLabel("Driveとデータは同じです（自動取り込みは行いませんでした）");
+              cb(null);
+              return;
             }
-            ingestWholeLedgerPayload(remoteObj);
-            updateDriveStatusLabel("Driveから読み込みました");
-            cb(null);
-          })
-          .catch(function (e) {
-            cb(e instanceof Error ? e : new Error(String(e)));
-          });
+            if (!startupRemoteLooksNewerThanLocal(remoteObj, driveModifiedMs)) {
+              updateDriveStatusLabel(
+                "起動時: Driveが新しくないため自動では読み込みません。「Driveから読込」で確認して取り込めます。"
+              );
+              cb(null);
+              return;
+            }
+            showDrivePullConfirm(
+              "Googleドライブのデータのほうが新しいです。\nこのブラウザのデータと置き換えますか？",
+              function (yes) {
+                if (!yes) {
+                  cb(null);
+                  return;
+                }
+                applyDrivePullIngest(remoteObj, cb);
+              }
+            );
+            return;
+          }
+
+          if (opts.forceReplace) {
+            applyDrivePullIngest(remoteObj, cb);
+            return;
+          }
+
+          showDrivePullConfirm(
+            "Driveの内容で、このブラウザのデータをすべて置き換えます。\nよろしいですか？",
+            function (yes) {
+              if (!yes) {
+                cb(null);
+                return;
+              }
+              applyDrivePullIngest(remoteObj, cb);
+            }
+          );
+        });
       });
     });
   }
@@ -2166,6 +2271,28 @@
     });
   });
   safeBind("btn-drive-settings", "click", openDriveSettingsDialog);
+  safeBind("drive-pull-confirm-ok", "click", function () {
+    closeDialogSafe(document.getElementById("dlg-drive-pull-confirm"));
+    var fn = drivePullConfirmCallback;
+    drivePullConfirmCallback = null;
+    if (fn) fn(true);
+  });
+  safeBind("drive-pull-confirm-cancel", "click", function () {
+    closeDialogSafe(document.getElementById("dlg-drive-pull-confirm"));
+    var fn = drivePullConfirmCallback;
+    drivePullConfirmCallback = null;
+    if (fn) fn(false);
+  });
+  var dlgDrivePullConfirm = document.getElementById("dlg-drive-pull-confirm");
+  if (dlgDrivePullConfirm) {
+    dlgDrivePullConfirm.addEventListener("cancel", function (ev) {
+      ev.preventDefault();
+      closeDialogSafe(dlgDrivePullConfirm);
+      var fn = drivePullConfirmCallback;
+      drivePullConfirmCallback = null;
+      if (fn) fn(false);
+    });
+  }
   safeBind("dlg-drive-close", "click", function () {
     closeDialogSafe(document.getElementById("dlg-drive"));
   });
