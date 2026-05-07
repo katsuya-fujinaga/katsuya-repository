@@ -412,8 +412,90 @@
     } catch (e) {}
   }
 
-  function uploadLedgerToDrive(token, jsonStr, cb) {
+  /** PC と別端末ではファイル ID が共有されないため、Drive 上の同名ファイルを検索して紐づける */
+  function findLedgerSyncFilesOnDrive(token, cb) {
+    var q =
+      "name='" +
+      DRIVE_SYNC_FILENAME.replace(/\\/g, "\\\\").replace(/'/g, "\\'") +
+      "' and mimeType='application/json' and trashed=false";
+    var url =
+      "https://www.googleapis.com/drive/v3/files?q=" +
+      encodeURIComponent(q) +
+      "&fields=files(id,modifiedTime)&pageSize=20";
+    fetch(url, { headers: { Authorization: "Bearer " + token } })
+      .then(function (r) {
+        return r.json().then(function (j) {
+          if (!r.ok) throw new Error(j.error ? JSON.stringify(j.error) : String(r.status));
+          return j.files || [];
+        });
+      })
+      .then(function (files) {
+        if (!files.length) {
+          cb(null, null);
+          return;
+        }
+        files.sort(function (a, b) {
+          return String(b.modifiedTime || "").localeCompare(String(a.modifiedTime || ""));
+        });
+        cb(null, files[0].id);
+      })
+      .catch(cb);
+  }
+
+  function driveStoredFileStillExists(token, id, cb) {
+    fetch("https://www.googleapis.com/drive/v3/files/" + encodeURIComponent(id) + "?fields=id", {
+      headers: { Authorization: "Bearer " + token },
+    })
+      .then(function (r) {
+        cb(null, r.ok);
+      })
+      .catch(function () {
+        cb(null, false);
+      });
+  }
+
+  /** localStorage の ID を検証し、無ければ／無効なら同名検索で補完する */
+  function ensureDriveFileId(token, cb) {
     var fid = localStorage.getItem(LS_DRIVE_FILE_ID);
+    if (fid) {
+      driveStoredFileStillExists(token, fid, function (_err, ok) {
+        if (ok) {
+          cb(null, fid);
+          return;
+        }
+        try {
+          localStorage.removeItem(LS_DRIVE_FILE_ID);
+        } catch (e) {}
+        findLedgerSyncFilesOnDrive(token, function (e2, found) {
+          if (e2) {
+            cb(e2);
+            return;
+          }
+          if (found) {
+            try {
+              localStorage.setItem(LS_DRIVE_FILE_ID, found);
+            } catch (e3) {}
+          }
+          cb(null, found);
+        });
+      });
+      return;
+    }
+    findLedgerSyncFilesOnDrive(token, function (e2, found) {
+      if (e2) {
+        cb(e2);
+        return;
+      }
+      if (found) {
+        try {
+          localStorage.setItem(LS_DRIVE_FILE_ID, found);
+        } catch (e3) {}
+      }
+      cb(null, found);
+    });
+  }
+
+  function uploadLedgerToDrive(token, jsonStr, cb) {
     function patch(id, tok) {
       fetch(
         "https://www.googleapis.com/upload/drive/v3/files/" + encodeURIComponent(id) + "?uploadType=media",
@@ -433,33 +515,42 @@
         })
         .catch(cb);
     }
-    if (fid) {
-      patch(fid, token);
-      return;
+    function createEmptyThenPatch(tok) {
+      fetch("https://www.googleapis.com/drive/v3/files", {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + tok,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: DRIVE_SYNC_FILENAME,
+          mimeType: "application/json",
+        }),
+      })
+        .then(function (r) {
+          return r.json().then(function (j) {
+            if (!r.ok) throw new Error(j.error ? JSON.stringify(j.error) : String(r.status));
+            return j;
+          });
+        })
+        .then(function (j) {
+          if (!j.id) throw new Error("ファイルIDを取得できませんでした");
+          localStorage.setItem(LS_DRIVE_FILE_ID, j.id);
+          patch(j.id, tok);
+        })
+        .catch(cb);
     }
-    fetch("https://www.googleapis.com/drive/v3/files", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: DRIVE_SYNC_FILENAME,
-        mimeType: "application/json",
-      }),
-    })
-      .then(function (r) {
-        return r.json().then(function (j) {
-          if (!r.ok) throw new Error(j.error ? JSON.stringify(j.error) : String(r.status));
-          return j;
-        });
-      })
-      .then(function (j) {
-        if (!j.id) throw new Error("ファイルIDを取得できませんでした");
-        localStorage.setItem(LS_DRIVE_FILE_ID, j.id);
-        patch(j.id, token);
-      })
-      .catch(cb);
+    ensureDriveFileId(token, function (err, fid) {
+      if (err) {
+        cb(err);
+        return;
+      }
+      if (fid) {
+        patch(fid, token);
+        return;
+      }
+      createEmptyThenPatch(token);
+    });
   }
 
   function performDrivePush(cb) {
@@ -479,16 +570,26 @@
   function performDrivePull(opts, cb) {
     opts = opts || {};
     cb = cb || function () {};
-    var fid = localStorage.getItem(LS_DRIVE_FILE_ID);
-    if (!fid) {
-      cb(new Error('まだDriveとリンクしたファイルがありません。まず「Driveへ保存」してください。'));
-      return;
-    }
     requestDriveAccess(function (err, token) {
       if (err) {
         cb(err);
         return;
       }
+      ensureDriveFileId(token, function (errId, fid) {
+        if (errId) {
+          cb(errId);
+          return;
+        }
+        if (!fid) {
+          cb(
+            new Error(
+              "Driveに " +
+                DRIVE_SYNC_FILENAME +
+                " がありません。PC で一度「Driveへ保存」してから、スマホで「Driveから読込」を試してください。"
+            )
+          );
+          return;
+        }
       fetch("https://www.googleapis.com/drive/v3/files/" + encodeURIComponent(fid) + "?alt=media", {
         headers: { Authorization: "Bearer " + token },
       })
@@ -531,6 +632,7 @@
         .catch(function (e) {
           cb(e instanceof Error ? e : new Error(String(e)));
         });
+      });
     });
   }
 
@@ -538,7 +640,6 @@
     try {
       if (localStorage.getItem(LS_DRIVE_AUTO_PULL) !== "1") return;
       if (!getDriveClientId()) return;
-      if (!localStorage.getItem(LS_DRIVE_FILE_ID)) return;
       setTimeout(function () {
         performDrivePull({ startup: true }, function (err) {
           if (err) updateDriveStatusLabel("Drive確認: " + err.message);
