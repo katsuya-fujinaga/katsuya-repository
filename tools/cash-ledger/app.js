@@ -329,6 +329,35 @@
       : 0;
   }
 
+  function ledgerMonthKeyCount(st) {
+    if (!st || !st.months || typeof st.months !== "object") return 0;
+    return Object.keys(st.months).length;
+  }
+
+  /**
+   * 起動時自動読込用：JSON 内の updatedAt だけだとメタ欠落時に常にスキップされるため、
+   * Drive の modifiedTime と「月データの量」で補助判定する。
+   */
+  function startupRemoteLooksNewerThanLocal(remoteObj, driveModifiedMs) {
+    var rTs = syncTs(remoteObj);
+    var lTs = syncTs(state);
+    if (rTs > lTs) return true;
+    var dm =
+      driveModifiedMs != null && Number.isFinite(Number(driveModifiedMs))
+        ? Number(driveModifiedMs)
+        : null;
+    var rk = ledgerMonthKeyCount(remoteObj);
+    var lk = ledgerMonthKeyCount(state);
+    if (rTs === 0 && lTs === 0) {
+      if (rk > lk) return true;
+      if (rk > 0 && lk === 0) return true;
+      return false;
+    }
+    if (lTs > 0 && dm != null && dm > lTs) return true;
+    if (rTs === 0 && lTs > 0 && rk > lk) return true;
+    return false;
+  }
+
   function stampLedgerSyncMeta(st) {
     if (!st || typeof st !== "object") return;
     st._cashLedgerSync = st._cashLedgerSync || {};
@@ -612,48 +641,65 @@
           );
           return;
         }
-      fetch("https://www.googleapis.com/drive/v3/files/" + encodeURIComponent(fid) + "?alt=media", {
-        headers: { Authorization: "Bearer " + token },
-      })
-        .then(function (r) {
-          if (!r.ok) return r.text().then(function (t) { throw new Error(t || String(r.status)); });
-          return r.text();
-        })
-        .then(function (text) {
-          var remoteObj = JSON.parse(text);
-          var rTs = syncTs(remoteObj);
-          var lTs = syncTs(state);
-          if (opts.startup) {
-            if (rTs <= lTs) {
-              updateDriveStatusLabel("Driveはローカルと同じか古いため、そのままにしました");
-              cb(null);
-              return;
+        var metaUrl =
+          "https://www.googleapis.com/drive/v3/files/" +
+          encodeURIComponent(fid) +
+          "?fields=modifiedTime";
+        fetch(metaUrl, { headers: { Authorization: "Bearer " + token } })
+          .then(function (r) {
+            if (!r.ok) return r.text().then(function (t) { throw new Error(t || String(r.status)); });
+            return r.json();
+          })
+          .then(function (meta) {
+            var driveModifiedMs =
+              meta && meta.modifiedTime ? Date.parse(meta.modifiedTime) : NaN;
+            if (Number.isNaN(driveModifiedMs)) driveModifiedMs = null;
+            return fetch(
+              "https://www.googleapis.com/drive/v3/files/" + encodeURIComponent(fid) + "?alt=media",
+              { headers: { Authorization: "Bearer " + token } }
+            ).then(function (r2) {
+              if (!r2.ok) return r2.text().then(function (t) { throw new Error(t || String(r2.status)); });
+              return r2.text().then(function (text) {
+                return { text: text, driveModifiedMs: driveModifiedMs };
+              });
+            });
+          })
+          .then(function (bundle) {
+            var remoteObj = JSON.parse(bundle.text);
+            var driveModifiedMs = bundle.driveModifiedMs;
+            if (opts.startup) {
+              if (!startupRemoteLooksNewerThanLocal(remoteObj, driveModifiedMs)) {
+                updateDriveStatusLabel(
+                  "Driveはローカルと同じか古いため、そのままにしました（手動の「Driveから読込」なら確認後に取り込めます）"
+                );
+                cb(null);
+                return;
+              }
+              if (
+                !confirm(
+                  "Googleドライブのデータのほうが新しいです。\n読み込むと、このブラウザのデータは置き換わります。\nよろしいですか？"
+                )
+              ) {
+                cb(null);
+                return;
+              }
+            } else if (!opts.forceReplace) {
+              if (
+                !confirm(
+                  "Driveの内容で、このブラウザのデータをすべて置き換えます。\nよろしいですか？"
+                )
+              ) {
+                cb(null);
+                return;
+              }
             }
-            if (
-              !confirm(
-                "Googleドライブのデータのほうが新しいです。\n読み込むと、このブラウザのデータは置き換わります。\nよろしいですか？"
-              )
-            ) {
-              cb(null);
-              return;
-            }
-          } else if (!opts.forceReplace) {
-            if (
-              !confirm(
-                "Driveの内容で、このブラウザのデータをすべて置き換えます。\nよろしいですか？"
-              )
-            ) {
-              cb(null);
-              return;
-            }
-          }
-          ingestWholeLedgerPayload(remoteObj);
-          updateDriveStatusLabel("Driveから読み込みました");
-          cb(null);
-        })
-        .catch(function (e) {
-          cb(e instanceof Error ? e : new Error(String(e)));
-        });
+            ingestWholeLedgerPayload(remoteObj);
+            updateDriveStatusLabel("Driveから読み込みました");
+            cb(null);
+          })
+          .catch(function (e) {
+            cb(e instanceof Error ? e : new Error(String(e)));
+          });
       });
     });
   }
@@ -934,7 +980,7 @@
 
   /**
    * 開始月〜終了月の明細CSV（BOM付きUTF-8）
-   * 列: 年月日,曜日,口座名,行番号,引落,入金,項目メモ,口座残高,当行処理後の全口座合計
+   * 銀行（口座）ごとに列ブロック: 〇〇_引落 / 〇〇_入金 / 〇〇_項目 / 〇〇_残高。1行＝その日のその「行」。
    */
   function buildCsvExport(startKey, endKey) {
     var serA = monthSerialFromKey(startKey);
@@ -946,17 +992,12 @@
       throw new Error("出力できるのは最大 " + (MAX_SPAN + 1) + " ヶ月分までです。期間を狭めてください。");
     }
 
-    var header = [
-      "年月日",
-      "曜日",
-      "口座名",
-      "行番号",
-      "引落",
-      "入金",
-      "項目メモ",
-      "口座残高",
-      "当行処理後の全口座合計",
-    ];
+    var header = ["年月日", "曜日", "行番号"];
+    state.accounts.forEach(function (a) {
+      var base = String(a.name || "").trim() || "口座";
+      header.push(base + "_引落", base + "_入金", base + "_項目", base + "_残高");
+    });
+    header.push("全口座合計残高");
     var linesOut = [header.map(csvEscapeField).join(",")];
 
     for (var serial = lo; serial <= hi; serial++) {
@@ -980,51 +1021,39 @@
         var isoDate = y + "-" + pad2(m) + "-" + pad2(day);
 
         for (var li = 0; li < nLines; li++) {
-          var lineRows = [];
-          state.accounts.forEach(function (a) {
-            var ent = readLineCell(ds, li, a.id);
-            var w = parseNum(ent.w);
-            var dAmt = parseNum(ent.d);
-            running[a.id] = running[a.id] + dAmt - w;
-            lineRows.push({
-              isoDate: isoDate,
-              dow: dow,
-              account: a.name,
-              lineNo: li + 1,
-              w: w,
-              d: dAmt,
-              note: String(ent.note || ""),
-              bal: running[a.id],
-            });
+          var ents = state.accounts.map(function (a) {
+            return readLineCell(ds, li, a.id);
           });
-
-          var hasAny = lineRows.some(function (r) {
-            return r.w !== 0 || r.d !== 0 || String(r.note || "").trim() !== "";
+          var hasAny = ents.some(function (ent) {
+            return (
+              parseNum(ent.w) !== 0 ||
+              parseNum(ent.d) !== 0 ||
+              String(ent.note || "").trim() !== ""
+            );
           });
           if (!hasAny) continue;
 
+          var cells = [isoDate, dow, String(li + 1)];
+          for (var ai = 0; ai < state.accounts.length; ai++) {
+            var acc = state.accounts[ai];
+            var ent = ents[ai];
+            var w = parseNum(ent.w);
+            var dAmt = parseNum(ent.d);
+            var note = String(ent.note || "");
+            running[acc.id] = running[acc.id] + dAmt - w;
+            cells.push(
+              String(Math.round(w)),
+              String(Math.round(dAmt)),
+              note,
+              String(Math.round(running[acc.id]))
+            );
+          }
           var totalBal = 0;
           state.accounts.forEach(function (a) {
             totalBal += running[a.id];
           });
-
-          lineRows.forEach(function (r) {
-            linesOut.push(
-              [
-                r.isoDate,
-                r.dow,
-                r.account,
-                String(r.lineNo),
-                String(Math.round(r.w)),
-                String(Math.round(r.d)),
-                r.note,
-                String(Math.round(r.bal)),
-                String(Math.round(totalBal)),
-              ]
-                .map(csvEscapeField)
-                .join(",")
-            );
-          });
+          cells.push(String(Math.round(totalBal)));
+          linesOut.push(cells.map(csvEscapeField).join(","));
         }
       }
     }
@@ -1155,14 +1184,22 @@
     });
 
     var rowIndex = 0;
+    var todayRef = new Date();
+    var ty = todayRef.getFullYear();
+    var tm = todayRef.getMonth() + 1;
+    var td = todayRef.getDate();
     for (var day = 1; day <= dim; day++) {
       var ds = ensureDayStruct(mdata, day);
       var nLines = ds.lines.length;
       var dt = new Date(mk.y, mk.m - 1, day);
       var dow = WEEKDAYS[dt.getDay()];
+      var isCalendarToday = mk.y === ty && mk.m === tm && day === td;
 
       for (var li = 0; li < nLines; li++) {
-        body += '<tr class="day-row' + (rowIndex % 2 === 0 ? " day-row--alt" : "") + '" data-day="' + day + '">';
+        var rowClass = "day-row";
+        if (rowIndex % 2 === 0) rowClass += " day-row--alt";
+        if (isCalendarToday) rowClass += " day-row--today";
+        body += '<tr class="' + rowClass + '" data-day="' + day + '">';
         if (li === 0) {
           body +=
             '<td class="sticky-col day-cell" rowspan="' +

@@ -13,7 +13,7 @@
   <title>お金のきろく · tools</title>
   <link rel="icon" type="image/png" href="./favicon.png" />
   <link rel="apple-touch-icon" href="./favicon.png" />
-  <link rel="stylesheet" href="./styles.css?v=20260507-csv-export" />
+  <link rel="stylesheet" href="./styles.css?v=20260507-today-row" />
 </head>
 <body>
   <header class="app-header">
@@ -152,7 +152,7 @@
     <div class="modal-inner">
       <h2>CSV出力（期間指定）</h2>
       <p class="modal-help">
-        指定した開始月〜終了月の取引を、口座ごとの明細（縦持ち）でCSVにまとめます。Excel 向けに UTF-8（BOM付き）です。
+        指定した開始月〜終了月の取引をCSVにまとめます。<strong>口座（銀行）ごとに列ブロック</strong>（引落・入金・項目・残高）が横に並び、<strong>1行＝その日のその「行」</strong>です。Excel向け UTF-8（BOM付き）。
       </p>
       <div class="fixed-batch-grid csv-export-grid">
         <label>
@@ -206,6 +206,6 @@
   </dialog>
 
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <script src="./app.js?v=20260507-csv-export"></script>
+  <script src="./app.js?v=20260507-drive-pull-fix"></script>
 </body>
 </html>
