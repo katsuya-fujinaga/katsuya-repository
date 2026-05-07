@@ -178,6 +178,10 @@
         OAuth Client ID を 1 度だけ入力すると、このブラウザから Drive API で <strong>cash-ledger-sync.json</strong> を読み書きできます。
         手順は <strong>README.md</strong>（このフォルダ直下）を参照してください。
       </p>
+      <p class="modal-help drive-setup-help drive-save-vs-upload-note">
+        連携するときはこのページの<strong>「Driveへ保存」</strong>を使ってください。
+        <strong>手元の JSON を Googleドライブのサイトからだけアップロードしても、このアプリの同期とは別</strong>です（別ファイルになる／同名が増えて気づきにくいです）。
+      </p>
       <label class="drive-client-label">
         OAuth 2.0 クライアント ID（末尾が <code>.apps.googleusercontent.com</code>）
         <input type="text" id="drive-client-id-input" class="drive-client-input" autocomplete="off" spellcheck="false" placeholder="123456789-xxxx.apps.googleusercontent.com" />
@@ -217,6 +221,6 @@
   </dialog>
 
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <script src="./app.js?v=20260507-empty-hint-diag"></script>
+  <script src="./app.js?v=20260507-drive-push-feedback"></script>
 </body>
 </html>

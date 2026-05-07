@@ -901,10 +901,13 @@
     });
   }
 
-  function updateDriveStatusLabel(msg) {
+  function updateDriveStatusLabel(msg, tone) {
     var el = document.getElementById("drive-sync-status");
     if (!el) return;
     el.textContent = msg || "";
+    el.classList.remove("drive-sync-status--ok", "drive-sync-status--err");
+    if (tone === "ok") el.classList.add("drive-sync-status--ok");
+    else if (tone === "err") el.classList.add("drive-sync-status--err");
   }
 
   function scheduleDrivePushIfEnabled() {
@@ -914,9 +917,7 @@
       clearTimeout(drivePushTimer);
       drivePushTimer = setTimeout(function () {
         drivePushTimer = null;
-        performDrivePush(function (err) {
-          if (err) updateDriveStatusLabel("Drive自動保存: " + err.message);
-        });
+        performDrivePush(function () {});
       }, 2800);
     } catch (e) {}
   }
@@ -1039,7 +1040,6 @@
       )
         .then(function (r) {
           if (!r.ok) return r.text().then(function (t) { throw new Error(t || String(r.status)); });
-          updateDriveStatusLabel("Driveへ保存 " + new Date().toLocaleTimeString());
           cb(null);
         })
         .catch(cb);
@@ -1082,17 +1082,66 @@
     });
   }
 
-  function performDrivePush(cb) {
+  function performDrivePush(cb, pushOpts) {
+    pushOpts = pushOpts || {};
     cb = cb || function () {};
+    var interactive = !!pushOpts.interactive;
     stampLedgerSyncMeta(state);
     saveState(state, true);
     var jsonStr = JSON.stringify(state, null, 2);
+    if (interactive) {
+      updateDriveStatusLabel(
+        "Driveへ保存しています… まずGoogleへ接続します（別ウィンドウで許可を求められたら承認してください）"
+      );
+    }
     requestDriveAccess(function (err, token) {
       if (err) {
+        if (interactive) {
+          updateDriveStatusLabel(
+            "接続できませんでした（ポップアップブロック・Client ID未設定など）。エラー: " + err.message,
+            "err"
+          );
+        } else {
+          updateDriveStatusLabel("Drive自動保存: " + err.message, "err");
+        }
         cb(err);
         return;
       }
-      uploadLedgerToDrive(token, jsonStr, cb);
+      if (interactive) {
+        updateDriveStatusLabel("Googleドライブにアップロードしています…");
+      }
+      uploadLedgerToDrive(token, jsonStr, function (upErr) {
+        if (upErr) {
+          if (interactive) {
+            updateDriveStatusLabel("Driveへの保存に失敗しました: " + upErr.message, "err");
+          } else {
+            updateDriveStatusLabel("Drive自動保存: " + upErr.message, "err");
+          }
+          cb(upErr);
+          return;
+        }
+        var tStr = new Date().toLocaleTimeString("ja-JP");
+        if (interactive) {
+          updateDriveStatusLabel(
+            "保存完了：" +
+              DRIVE_SYNC_FILENAME +
+              " · " +
+              tStr +
+              "（Drive一覧でこのファイルの更新日時が今になっていれば成功です）",
+            "ok"
+          );
+          alert(
+            "Driveへの保存が完了しました。\n\n" +
+              "ファイル名: " +
+              DRIVE_SYNC_FILENAME +
+              "\n\nGoogleドライブでこのファイルを検索し、一覧または詳細で「更新日時」がいまの時刻付近になっているか確認してください。\n\n" +
+              "※パソコンからドラッグ＆ドロップでDriveに置いたJSONだけでは、このアプリの同期とは別物です。連携するときは、このページの「Driveへ保存」を押してください。"
+          );
+        } else {
+          updateDriveStatusLabel("Drive自動保存 OK · " + tStr + "（" + DRIVE_SYNC_FILENAME + "）", "ok");
+        }
+        cb(null);
+      });
     });
   }
 
@@ -2841,9 +2890,12 @@
   safeBind("liability-save", "click", saveLiabilitiesFromDialog);
 
   safeBind("btn-drive-push", "click", function () {
-    performDrivePush(function (err) {
-      if (err) alert("Driveへ保存できませんでした。\n" + err.message);
-    });
+    performDrivePush(
+      function (err) {
+        if (err) alert("Driveへ保存できませんでした。\n\n" + err.message);
+      },
+      { interactive: true }
+    );
   });
   safeBind("btn-drive-pull", "click", function () {
     updateDriveStatusLabel("Googleへ接続しています…（この後、そのままDriveから読み込みます）");

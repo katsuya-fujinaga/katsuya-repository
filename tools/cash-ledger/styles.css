@@ -919,6 +919,16 @@ dialog.modal::backdrop {
   line-height: 1.35;
 }
 
+.drive-sync-status.drive-sync-status--ok {
+  color: var(--bal-pos);
+  font-weight: 600;
+}
+
+.drive-sync-status.drive-sync-status--err {
+  color: var(--bal-neg);
+  font-weight: 600;
+}
+
 dialog.modal.modal--wide {
   max-width: min(560px, 96vw);
 }
