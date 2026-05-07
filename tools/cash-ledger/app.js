@@ -220,6 +220,24 @@
     return changed;
   }
 
+  /** days の値がいきなり行の配列だけになっているJSONへの対応 */
+  function normalizeLooseDayStructures(st) {
+    if (!st || !Array.isArray(st.accounts) || !st.months) return false;
+    var changed = false;
+    Object.keys(st.months).forEach(function (mk) {
+      var m = st.months[mk];
+      if (!m || !m.days || typeof m.days !== "object") return;
+      Object.keys(m.days).forEach(function (d) {
+        var val = m.days[d];
+        if (Array.isArray(val)) {
+          m.days[d] = { lines: val };
+          changed = true;
+        }
+      });
+    });
+    return changed;
+  }
+
   /** lines が配列でない場合に配列へ（JSON手編集や別形式の対策） */
   function coerceDaysLinesShape(st) {
     if (!st || !st.months) return false;
@@ -306,6 +324,25 @@
       });
     });
     return found;
+  }
+
+  function normalizeLedgerPayloadAfterMigrate(o) {
+    if (!o || typeof o !== "object") return false;
+    return (
+      normalizeStateMonthKeys(o) ||
+      normalizeMislabeledV2Days(o) ||
+      normalizeLooseDayStructures(o) ||
+      coerceDaysLinesShape(o) ||
+      repairLineAccountKeys(o)
+    );
+  }
+
+  /** Drive／ファイル取込で共通の形直し（version はそのあと 2 であること） */
+  function normalizeLedgerPayloadForImport(o) {
+    if (!o || !Array.isArray(o.accounts)) return;
+    if (o.version == null) o.version = 1;
+    migrateV1ToV2(o);
+    normalizeLedgerPayloadAfterMigrate(o);
   }
 
   function ensureUi(s) {
@@ -413,12 +450,7 @@
   /** Drive／ファイルインポート共通の読み込み本体（パース済みオブジェクト） */
   function ingestWholeLedgerPayload(o) {
     if (!o || !Array.isArray(o.accounts)) throw new Error("形式が違います");
-    if (o.version == null) o.version = 1;
-    migrateV1ToV2(o);
-    normalizeStateMonthKeys(o);
-    normalizeMislabeledV2Days(o);
-    coerceDaysLinesShape(o);
-    repairLineAccountKeys(o);
+    normalizeLedgerPayloadForImport(o);
     if (o.version < 2) throw new Error("データを認識できません");
     state = ensureUi(o);
     ensureLiabilities(state);
@@ -449,11 +481,13 @@
             var missingLiabilities = !Array.isArray(o.liabilities);
             ensureUi(o);
             ensureLiabilities(o);
-            var chMk = normalizeStateMonthKeys(o);
-            var chDay = normalizeMislabeledV2Days(o);
-            var chLines = coerceDaysLinesShape(o);
-            var chKeys = repairLineAccountKeys(o);
-            if (missingUi || missingLiabilities || chMk || chDay || chLines || chKeys) saveState(o);
+            if (
+              missingUi ||
+              missingLiabilities ||
+              normalizeLedgerPayloadAfterMigrate(o)
+            ) {
+              saveState(o);
+            }
             return o;
           }
         }
@@ -756,8 +790,8 @@
     } catch (e) {}
   }
 
-  /** PC と別端末ではファイル ID が共有されないため、Drive 上の同名ファイルを検索して紐づける */
-  function findLedgerSyncFilesOnDrive(token, cb) {
+  /** 一覧を返す。findLedgerSyncFilesOnDrive は先頭 ID のみ取る用途 */
+  function findLedgerSyncFilesOnDriveAll(token, cb) {
     function fetchList(useJsonMime) {
       var q =
         "name='" +
@@ -782,7 +816,7 @@
       })
       .then(function (files) {
         if (!files.length) {
-          cb(null, null);
+          cb(null, []);
           return;
         }
         files.sort(function (a, b) {
@@ -791,9 +825,19 @@
           if (sb !== sa) return sb - sa;
           return String(b.modifiedTime || "").localeCompare(String(a.modifiedTime || ""));
         });
-        cb(null, files[0].id);
+        cb(null, files);
       })
       .catch(cb);
+  }
+
+  function findLedgerSyncFilesOnDrive(token, cb) {
+    findLedgerSyncFilesOnDriveAll(token, function (err, files) {
+      if (err) {
+        cb(err);
+        return;
+      }
+      cb(null, files.length ? files[0].id : null);
+    });
   }
 
   function driveStoredFileStillExists(token, id, cb) {
@@ -923,7 +967,10 @@
 
   function fetchDriveJsonBundle(token, fid, cb) {
     var mediaUrl =
-      "https://www.googleapis.com/drive/v3/files/" + encodeURIComponent(fid) + "?alt=media";
+      "https://www.googleapis.com/drive/v3/files/" +
+      encodeURIComponent(fid) +
+      "?alt=media&_nc=" +
+      encodeURIComponent(String(Date.now()));
     var metaUrl =
       "https://www.googleapis.com/drive/v3/files/" +
       encodeURIComponent(fid) +
@@ -944,7 +991,13 @@
           var parsed = Date.parse(meta.modifiedTime);
           if (!Number.isNaN(parsed)) ms = parsed;
         }
-        return fetch(mediaUrl, { headers: { Authorization: "Bearer " + token } }).then(function (r2) {
+        return fetch(mediaUrl, {
+          headers: {
+            Authorization: "Bearer " + token,
+            "Cache-Control": "no-cache",
+            Pragma: "no-cache",
+          },
+        }).then(function (r2) {
           if (!r2.ok) return r2.text().then(function (t) { throw new Error(t || String(r2.status)); });
           return r2.text().then(function (text) {
             return { text: text, driveModifiedMs: ms };
@@ -959,7 +1012,65 @@
       });
   }
 
-  function applyDrivePullIngest(remoteObj, cb) {
+  /**
+   * スマホ等で記録されたファイルIDが「空の同名ファイル」を指しているとセルが空になる。
+   * 月キーはあるが取引セルが読めないとき、ほかの cash-ledger-sync.json を順に試す。
+   */
+  function resolveDriveLedgerPayload(token, primaryFid, remoteObj, driveModifiedMs, cb) {
+    try {
+      normalizeLedgerPayloadForImport(remoteObj);
+    } catch (e0) {
+      cb(e0 instanceof Error ? e0 : new Error(String(e0)));
+      return;
+    }
+    var mc = ledgerMonthKeyCount(remoteObj);
+    if (mc === 0 || stateHasAnyLedgerCells(remoteObj)) {
+      cb(null, remoteObj, driveModifiedMs, false);
+      return;
+    }
+    updateDriveStatusLabel("取引が見つかりません。別の同名ファイルを試しています…");
+    findLedgerSyncFilesOnDriveAll(token, function (err, files) {
+      if (err || !files || files.length < 2) {
+        cb(null, remoteObj, driveModifiedMs, false);
+        return;
+      }
+      var idx = 0;
+      function tryNext() {
+        while (idx < files.length && files[idx].id === primaryFid) idx++;
+        if (idx >= files.length) {
+          cb(null, remoteObj, driveModifiedMs, false);
+          return;
+        }
+        var altId = files[idx++].id;
+        fetchDriveJsonBundle(token, altId, function (e2, bundle2) {
+          if (e2) {
+            tryNext();
+            return;
+          }
+          try {
+            var altObj = JSON.parse(
+              String(bundle2.text)
+                .replace(/^\uFEFF/, "")
+                .trim()
+            );
+            normalizeLedgerPayloadForImport(altObj);
+            if (stateHasAnyLedgerCells(altObj)) {
+              try {
+                localStorage.setItem(LS_DRIVE_FILE_ID, altId);
+              } catch (e3) {}
+              cb(null, altObj, bundle2.driveModifiedMs, true);
+              return;
+            }
+          } catch (e4) {}
+          tryNext();
+        });
+      }
+      tryNext();
+    });
+  }
+
+  function applyDrivePullIngest(remoteObj, cb, pullOpts) {
+    pullOpts = pullOpts || {};
     try {
       ingestWholeLedgerPayload(remoteObj);
       var monthsCount = Object.keys(state.months || {}).length;
@@ -969,15 +1080,18 @@
         );
       } else if (!stateHasAnyLedgerCells(state)) {
         updateDriveStatusLabel(
-          "読み込み済みですが取引セルが空です。PCで「データをファイルに保存」しJSONの months→days に数字があるか確認するか、口座名とキーが一致しているか見てください"
+          "読み込み済みですが取引セルが空です。Googleドライブで不要な cash-ledger-sync.json が複数ないか確認するか、「ファイルIDをリセット」してから読込してください。"
         );
       } else {
+        var altNote = pullOpts.usedAlternateDriveFile ? "中身のあるほうの同期ファイルに切り替えました。" : "";
         updateDriveStatusLabel(
           "Driveから読み込みました（表示月: " +
             monthLabel(currentKey) +
             "／" +
             monthsCount +
-            "ヶ月分。対象月を変えれば他月も確認できます）"
+            "ヶ月分。" +
+            (altNote ? altNote : "対象月を変えれば他月も確認できます。") +
+            "）"
         );
       }
       cb(null);
@@ -1054,48 +1168,62 @@
           }
           var driveModifiedMs = bundle.driveModifiedMs;
 
-          if (opts.startup) {
-            if (ledgerSyncBodySignature(remoteObj) === ledgerSyncBodySignature(state)) {
-              updateDriveStatusLabel("Driveとデータは同じです（自動取り込みは行いませんでした）");
-              cb(null);
+          resolveDriveLedgerPayload(token, fid, remoteObj, driveModifiedMs, function (
+            resolveErr,
+            finalObj,
+            finalDriveModifiedMs,
+            usedAlternateDriveFile
+          ) {
+            if (resolveErr) {
+              updateDriveStatusLabel("");
+              cb(resolveErr);
               return;
             }
-            if (!startupRemoteLooksNewerThanLocal(remoteObj, driveModifiedMs)) {
-              updateDriveStatusLabel(
-                "起動時: Driveが新しくないため自動では読み込みません。「Driveから読込」をタップすると読み込みます。"
+            var ingestOpts = { usedAlternateDriveFile: !!usedAlternateDriveFile };
+
+            if (opts.startup) {
+              if (ledgerSyncBodySignature(finalObj) === ledgerSyncBodySignature(state)) {
+                updateDriveStatusLabel("Driveとデータは同じです（自動取り込みは行いませんでした）");
+                cb(null);
+                return;
+              }
+              if (!startupRemoteLooksNewerThanLocal(finalObj, finalDriveModifiedMs)) {
+                updateDriveStatusLabel(
+                  "起動時: Driveが新しくないため自動では読み込みません。「Driveから読込」をタップすると読み込みます。"
+                );
+                cb(null);
+                return;
+              }
+              updateDriveStatusLabel("Driveに新しいデータがあります。読み込むか確認してください。");
+              showDrivePullConfirm(
+                "Googleドライブのデータのほうが新しいです。\nこのブラウザのデータと置き換えますか？",
+                function (yes) {
+                  if (!yes) {
+                    cb(null);
+                    return;
+                  }
+                  applyDrivePullIngest(finalObj, cb, ingestOpts);
+                }
               );
-              cb(null);
               return;
             }
-            updateDriveStatusLabel("Driveに新しいデータがあります。読み込むか確認してください。");
+
+            if (opts.forceReplace || opts.skipConfirm) {
+              applyDrivePullIngest(finalObj, cb, ingestOpts);
+              return;
+            }
+
             showDrivePullConfirm(
-              "Googleドライブのデータのほうが新しいです。\nこのブラウザのデータと置き換えますか？",
+              "Driveの内容で、このブラウザのデータをすべて置き換えます。\nよろしいですか？",
               function (yes) {
                 if (!yes) {
                   cb(null);
                   return;
                 }
-                applyDrivePullIngest(remoteObj, cb);
+                applyDrivePullIngest(finalObj, cb, ingestOpts);
               }
             );
-            return;
-          }
-
-          if (opts.forceReplace || opts.skipConfirm) {
-            applyDrivePullIngest(remoteObj, cb);
-            return;
-          }
-
-          showDrivePullConfirm(
-            "Driveの内容で、このブラウザのデータをすべて置き換えます。\nよろしいですか？",
-            function (yes) {
-              if (!yes) {
-                cb(null);
-                return;
-              }
-              applyDrivePullIngest(remoteObj, cb);
-            }
-          );
+          });
         });
       });
     });
