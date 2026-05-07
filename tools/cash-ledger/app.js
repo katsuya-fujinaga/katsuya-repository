@@ -238,6 +238,90 @@
     return changed;
   }
 
+  /**
+   * days のキーが "01"〜"09" のようにゼロ詰めだと、表は "1"〜"9" を参照するため空に見える。
+   * Drive経由のJSON・別ツール連携で混ざりやすいので正規化する。
+   */
+  function normalizeDayKeysUnpadded(st) {
+    if (!st || !Array.isArray(st.accounts) || !st.months) return false;
+    var changed = false;
+    function emptyLine0() {
+      var L = {};
+      st.accounts.forEach(function (a) {
+        L[a.id] = emptyCell();
+      });
+      return L;
+    }
+    function mergeTwoDayStructs(existing, paddedVal) {
+      var linesA = existing && Array.isArray(existing.lines) ? existing.lines : [];
+      var linesB = paddedVal && Array.isArray(paddedVal.lines) ? paddedVal.lines : [];
+      var maxL = Math.max(linesA.length, linesB.length, 1);
+      var out = [];
+      for (var i = 0; i < maxL; i++) {
+        var la = linesA[i] || emptyLine0();
+        var lb = linesB[i] || emptyLine0();
+        var merged = {};
+        st.accounts.forEach(function (acc) {
+          var ca = la[acc.id];
+          var cb = lb[acc.id];
+          if (!ca || typeof ca !== "object") ca = emptyCell();
+          if (!cb || typeof cb !== "object") cb = emptyCell();
+          var hasA =
+            parseNum(ca.w) !== 0 ||
+            parseNum(ca.d) !== 0 ||
+            String(ca.note || "").trim() !== "";
+          var hasB =
+            parseNum(cb.w) !== 0 ||
+            parseNum(cb.d) !== 0 ||
+            String(cb.note || "").trim() !== "";
+          if (hasB && !hasA) {
+            merged[acc.id] = {
+              w: cb.w,
+              d: cb.d,
+              note: String(cb.note || ""),
+            };
+          } else if (hasA && !hasB) {
+            merged[acc.id] = {
+              w: ca.w,
+              d: ca.d,
+              note: String(ca.note || ""),
+            };
+          } else if (hasA && hasB) {
+            merged[acc.id] = {
+              w: parseNum(ca.w) + parseNum(cb.w),
+              d: parseNum(ca.d) + parseNum(cb.d),
+              note: String(ca.note || "").trim() || String(cb.note || "").trim(),
+            };
+          } else {
+            merged[acc.id] = emptyCell();
+          }
+        });
+        out.push(merged);
+      }
+      return { lines: out };
+    }
+    Object.keys(st.months).forEach(function (mk) {
+      var m = st.months[mk];
+      if (!m || !m.days || typeof m.days !== "object") return;
+      Object.keys(m.days).slice().forEach(function (dk) {
+        var s = String(dk);
+        if (!/^\d+$/.test(s)) return;
+        var canon = String(parseInt(s, 10));
+        if (canon === s) return;
+        var paddedVal = m.days[dk];
+        var existing = m.days[canon];
+        if (!Object.prototype.hasOwnProperty.call(m.days, canon)) {
+          m.days[canon] = paddedVal;
+        } else {
+          m.days[canon] = mergeTwoDayStructs(existing, paddedVal);
+        }
+        delete m.days[dk];
+        changed = true;
+      });
+    });
+    return changed;
+  }
+
   /** lines が配列でない場合に配列へ（JSON手編集や別形式の対策） */
   function coerceDaysLinesShape(st) {
     if (!st || !st.months) return false;
@@ -326,12 +410,59 @@
     return found;
   }
 
+  /** 取込・Drive読込後の「空です」メッセージ用：ユーザーが原因を切り分けやすい数字を集める */
+  function ledgerImportDiagnostics(st) {
+    var dayKeysTotal = 0;
+    var daysV2 = 0;
+    var daysBadShape = 0;
+    if (st && st.months && typeof st.months === "object") {
+      Object.keys(st.months).forEach(function (mk) {
+        var m = st.months[mk];
+        if (!m || !m.days || typeof m.days !== "object") return;
+        Object.keys(m.days).forEach(function (d) {
+          dayKeysTotal++;
+          var val = m.days[d];
+          if (isV2Day(val)) daysV2++;
+          else if (val && typeof val === "object" && !Array.isArray(val)) daysBadShape++;
+        });
+      });
+    }
+    return {
+      monthCount: ledgerMonthKeyCount(st),
+      accountCount: st && Array.isArray(st.accounts) ? st.accounts.length : 0,
+      hasCells: stateHasAnyLedgerCells(st),
+      dayKeysTotal: dayKeysTotal,
+      daysV2: daysV2,
+      daysBadShape: daysBadShape,
+    };
+  }
+
+  function formatLedgerImportHintLine(diag) {
+    var parts = [
+      "月 " + diag.monthCount + "件",
+      "口座 " + diag.accountCount + "件",
+      "日ブロック " + diag.dayKeysTotal + "個（表で読める形 " + diag.daysV2 + "）",
+    ];
+    if (diag.daysBadShape > 0) parts.push("形が合わない日 " + diag.daysBadShape);
+    parts.push("数字の入ったセル: " + (diag.hasCells ? "あり" : "なし"));
+    var tail = "";
+    if (diag.monthCount > 0 && !diag.hasCells && diag.dayKeysTotal === 0) {
+      tail = " …月だけあり・日データなし（空に近いファイルの可能性）";
+    } else if (diag.monthCount > 0 && !diag.hasCells && diag.daysV2 > 0) {
+      tail = " …表の形はあるがすべて0（別の同名ファイルを開いている可能性が高い）";
+    } else if (diag.monthCount > 0 && !diag.hasCells && diag.daysBadShape > 0 && diag.daysV2 === 0) {
+      tail = " …JSONの形がこのアプリと合っていない可能性";
+    }
+    return "【状況】" + parts.join("／") + tail;
+  }
+
   function normalizeLedgerPayloadAfterMigrate(o) {
     if (!o || typeof o !== "object") return false;
     return (
       normalizeStateMonthKeys(o) ||
       normalizeMislabeledV2Days(o) ||
       normalizeLooseDayStructures(o) ||
+      normalizeDayKeysUnpadded(o) ||
       coerceDaysLinesShape(o) ||
       repairLineAccountKeys(o)
     );
@@ -1074,13 +1205,19 @@
     try {
       ingestWholeLedgerPayload(remoteObj);
       var monthsCount = Object.keys(state.months || {}).length;
+      var diag = ledgerImportDiagnostics(state);
+      var hint = formatLedgerImportHintLine(diag);
       if (monthsCount === 0) {
         updateDriveStatusLabel(
-          "Driveから読み込みましたが、月の記録がありません（PCで一度入力→Driveへ保存したファイルか確認してください）"
+          "Driveから読み込みましたが、月の記録がありません。" +
+            hint +
+            " PCで入力→「Driveへ保存」したファイルか、Googleアカウントが同じか確認してください。"
         );
       } else if (!stateHasAnyLedgerCells(state)) {
         updateDriveStatusLabel(
-          "読み込み済みですが取引セルが空です。Googleドライブで不要な cash-ledger-sync.json が複数ないか確認するか、「ファイルIDをリセット」してから読込してください。"
+          "取引セルが空に見えます。" +
+            hint +
+            " 同名の cash-ledger-sync.json が複数ないか確認するか、Drive設定で「ファイルIDをリセット」してから読込してください。"
         );
       } else {
         var altNote = pullOpts.usedAlternateDriveFile ? "中身のあるほうの同期ファイルに切り替えました。" : "";
@@ -2782,14 +2919,41 @@
   document.getElementById("import-file").addEventListener("change", function (ev) {
     var f = ev.target.files && ev.target.files[0];
     if (!f) return;
+    var inputEl = ev.target;
     var reader = new FileReader();
     reader.onload = function () {
-      try {
-        ingestWholeLedgerPayload(JSON.parse(String(reader.result).replace(/^\uFEFF/, "").trim()));
-      } catch (e) {
-        alert("読み込みに失敗しました: " + e.message);
+      var raw = String(reader.result).replace(/^\uFEFF/, "").trim();
+      if (/^<!DOCTYPE/i.test(raw) || /^<html/i.test(raw)) {
+        alert(
+          "これはJSONではなくWebページです。\nGoogleドライブでは「⋯」メニューから「ダウンロード」で保存し、そのファイルを選んでください。（ブラウザのプレビュー画面でそのまま保存しないでください）"
+        );
+        inputEl.value = "";
+        return;
       }
-      ev.target.value = "";
+      try {
+        ingestWholeLedgerPayload(JSON.parse(raw));
+      } catch (e) {
+        alert("読み込みに失敗しました: " + (e && e.message ? e.message : String(e)));
+        inputEl.value = "";
+        return;
+      }
+      var mc = ledgerMonthKeyCount(state);
+      if (mc > 0 && !stateHasAnyLedgerCells(state)) {
+        var diagImp = ledgerImportDiagnostics(state);
+        var hintImp = formatLedgerImportHintLine(diagImp);
+        var kb = f.size != null && Number.isFinite(f.size) ? Math.max(1, Math.round(Number(f.size) / 1024)) : null;
+        var fileLine =
+          "\n\n【ファイル】" +
+          (f.name ? " " + f.name : "") +
+          (kb != null ? "（およそ " + kb + " KB）" : "");
+        alert(
+          "読み込めましたが、このファイルから取引の数字は読み取れませんでした。\n\n" +
+            hintImp +
+            fileLine +
+            "\n\n以上がヒントです。Driveで別の cash-ledger-sync.json（サイズ大・更新が新しいほう）を試すか、PCで「データをファイルに保存」したJSONを送って読み込んでください。"
+        );
+      }
+      inputEl.value = "";
     };
     reader.readAsText(f, "UTF-8");
   });
