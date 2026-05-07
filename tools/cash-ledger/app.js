@@ -844,39 +844,17 @@
     var cm = now.getMonth() + 1;
     var cd = now.getDate();
     var dim = daysInMonth(mk.y, mk.m);
-    var prev = new Date(mk.y, mk.m - 2, 1);
-    var pkey = monthKey(prev.getFullYear(), prev.getMonth() + 1);
-    var hasPrev = !!state.months[pkey];
     var lastDay;
     var title;
-    var note;
     if (mk.y === cy && mk.m === cm) {
       lastDay = Math.min(cd, dim);
       title = "今日の残高（" + mk.m + "月" + lastDay + "日現在）";
-      note =
-        (hasPrev
-          ? "「" +
-            prev.getFullYear() +
-            "年" +
-            (prev.getMonth() + 1) +
-            "月」末日までの金額を月初に自動でつないだうえ、"
-          : "前の月のデータがないため月初は0からで、") +
-        "今月1日〜" +
-        lastDay +
-        "日までに入力した引落・入金を足し引きした数字です。";
     } else if (mk.y < cy || (mk.y === cy && mk.m < cm)) {
       lastDay = dim;
       title = "この月の残高";
-      note =
-        "（" +
-        mk.m +
-        "月末時点）前月からの自動繰越と、この月の全日の取引を反映しています。";
     } else {
       lastDay = 0;
       title = "この月の残高（月初）";
-      note = hasPrev
-        ? "まだこの月は来ていません。前月末日までが自動でつながった「はじめの残高」だけを表示しています（日付の取引は含みません）。"
-        : "前の月のデータがないため月初は0です（当月前のため取引日はまだありません）。";
     }
     var balMap = balancesThroughDay(mdata, mk.y, mk.m, lastDay);
     var parts = [];
@@ -894,9 +872,6 @@
     parts.push(
       '<p class="openings-bar-kicker openings-bar-kicker--with-meta">' +
         kickerInner +
-        "</p>" +
-        '<p class="openings-bar-note">' +
-        note +
         "</p>"
     );
     parts.push('<div class="openings-bar-grid">');
