@@ -1,3 +1,15 @@
+---
+title: 九星覚醒カウンセラー｜DAY1 シナリオ（マスター準拠・全文）
+project: 九星覚醒カウンセラー
+type: scenario
+status: draft
+tags:
+  - project
+  - scenario
+  - live
+制作日: 2026-04-04
+---
+
 # 🌟九星覚醒カウンセラー｜DAY1 シナリオ（マスター準拠・全文）
 
 ## ドキュメント情報

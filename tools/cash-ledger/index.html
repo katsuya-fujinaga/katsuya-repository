@@ -2,12 +2,18 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="複数口座の入出金と残高を、日ごとにメモ感覚で残すツール。データはこのブラウザにだけ保存されます。" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#f6f7fb" />
+  <!-- 任意: GitHub Pages 等で全ユーザー共通の Client ID を埋める場合のみ -->
+  <meta name="cash-ledger-google-client-id" content="" />
+  <meta name="description" content="複数口座の入出金と残高を日ごとに記録。データはブラウザに保存。Googleドライブ連携で自動バックアップも可能（設定時のみ）。" />
   <title>お金のきろく · tools</title>
   <link rel="icon" type="image/png" href="./favicon.png" />
   <link rel="apple-touch-icon" href="./favicon.png" />
-  <link rel="stylesheet" href="./styles.css?v=20260414-14" />
+  <link rel="stylesheet" href="./styles.css?v=20260507-drive" />
 </head>
 <body>
   <header class="app-header">
@@ -15,28 +21,40 @@
   </header>
 
   <div class="toolbar" role="toolbar" aria-label="操作">
-    <div class="theme-tabs" role="tablist" aria-label="色の切り替え">
-      <button type="button" class="theme-tab" id="theme-tab-auto" role="tab" aria-selected="true">自動</button>
-      <button type="button" class="theme-tab" id="theme-tab-day" role="tab" aria-selected="false">昼</button>
-      <button type="button" class="theme-tab" id="theme-tab-night" role="tab" aria-selected="false">夜</button>
+    <div class="toolbar-cluster toolbar-cluster--primary">
+      <div class="theme-tabs" role="tablist" aria-label="色の切り替え">
+        <button type="button" class="theme-tab" id="theme-tab-auto" role="tab" aria-selected="true">自動</button>
+        <button type="button" class="theme-tab" id="theme-tab-day" role="tab" aria-selected="false">昼</button>
+        <button type="button" class="theme-tab" id="theme-tab-night" role="tab" aria-selected="false">夜</button>
+      </div>
+      <span class="toolbar-sep" aria-hidden="true"></span>
+      <label class="toolbar-month-label">
+        対象月
+        <input type="month" id="month-input" />
+      </label>
+      <button type="button" class="btn" id="btn-prev" title="前月">◀ 前月</button>
+      <button type="button" class="btn" id="btn-next" title="翌月">翌月 ▶</button>
+      <button type="button" class="btn ghost" id="btn-today">今月</button>
     </div>
-    <span class="toolbar-sep" aria-hidden="true"></span>
-    <label>
-      対象月
-      <input type="month" id="month-input" />
-    </label>
-    <button type="button" class="btn" id="btn-prev" title="前月">◀ 前月</button>
-    <button type="button" class="btn" id="btn-next" title="翌月">翌月 ▶</button>
-    <button type="button" class="btn ghost" id="btn-today">今月</button>
-    <button type="button" class="btn" id="btn-accounts">口座名の編集</button>
-    <button type="button" class="btn" id="btn-fixed-batch">固定費を一括入力</button>
-    <button type="button" class="btn" id="btn-liabilities">借入残高の設定</button>
-    <button type="button" class="btn ghost" id="btn-export">データをファイルに保存</button>
-    <button type="button" class="btn ghost" id="btn-import">ファイルから読み込み</button>
-    <input type="file" id="import-file" accept="application/json" hidden />
+    <div class="toolbar-cluster toolbar-cluster--secondary">
+      <button type="button" class="btn" id="btn-accounts">口座名の編集</button>
+      <button type="button" class="btn" id="btn-fixed-batch">固定費を一括入力</button>
+      <button type="button" class="btn" id="btn-liabilities">借入残高の設定</button>
+      <button type="button" class="btn ghost" id="btn-export">データをファイルに保存</button>
+      <button type="button" class="btn ghost" id="btn-import">ファイルから読み込み</button>
+      <input type="file" id="import-file" accept="application/json" hidden />
+    </div>
+    <div class="toolbar-cluster toolbar-cluster--drive">
+      <button type="button" class="btn primary" id="btn-drive-push">Driveへ保存</button>
+      <button type="button" class="btn" id="btn-drive-pull">Driveから読込</button>
+      <button type="button" class="btn ghost" id="btn-drive-settings">Drive設定</button>
+      <span class="drive-sync-status" id="drive-sync-status" aria-live="polite"></span>
+    </div>
   </div>
 
   <div id="openings-bar" class="openings-bar" aria-label="残高サマリー（今月は今日まで）"></div>
+
+  <p class="ledger-mobile-hint">表は横にスワイプして、すべての口座列を表示できます。</p>
 
   <div class="ledger-scroll" id="ledger-scroll">
     <table class="ledger" id="ledger-table" aria-label="お金のきろくの一覧">
@@ -129,6 +147,41 @@
     </div>
   </dialog>
 
-  <script src="./app.js?v=20260414-13"></script>
+  <dialog class="modal modal--wide" id="dlg-drive">
+    <div class="modal-inner">
+      <h2>Googleドライブ連携</h2>
+      <p class="modal-help drive-setup-help">
+        OAuth Client ID を 1 度だけ入力すると、このブラウザから Drive API で <strong>cash-ledger-sync.json</strong> を読み書きできます。
+        手順は <strong>README.md</strong>（このフォルダ直下）を参照してください。
+      </p>
+      <label class="drive-client-label">
+        OAuth 2.0 クライアント ID（末尾が <code>.apps.googleusercontent.com</code>）
+        <input type="text" id="drive-client-id-input" class="drive-client-input" autocomplete="off" spellcheck="false" placeholder="123456789-xxxx.apps.googleusercontent.com" />
+      </label>
+      <div class="drive-checkboxes">
+        <label class="drive-checkbox-row">
+          <input type="checkbox" id="drive-auto-push" />
+          編集のあと、約3秒まとめて <strong>自動で Drive に保存</strong>する
+        </label>
+        <label class="drive-checkbox-row">
+          <input type="checkbox" id="drive-auto-pull" />
+          <strong>開いたとき</strong>、Drive のほうが新しければ確認してから取り込む
+        </label>
+      </div>
+      <p class="modal-help drive-note">
+        スコープは <code>drive.file</code> のみです（このアプリが作成・選択したファイル以外にはアクセスしません）。
+      </p>
+      <div class="modal-actions modal-actions--spread">
+        <button type="button" class="btn ghost" id="drive-reset-file-id">ファイルIDをリセット</button>
+        <span class="drive-actions-right">
+          <button type="button" class="btn ghost" id="dlg-drive-close">閉じる</button>
+          <button type="button" class="btn primary" id="dlg-drive-save-settings">設定を保存</button>
+        </span>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="./app.js?v=20260507-drive"></script>
 </body>
 </html>

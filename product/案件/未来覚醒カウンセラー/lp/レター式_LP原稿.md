@@ -4,6 +4,7 @@ project: 九星覚醒カウンセラー
 type: lp
 status: draft
 tags: [project, lp]
+制作日: 2026-05-03
 ---
 
 # 九星覚醒カウンセラー｜LP原稿（レター式）

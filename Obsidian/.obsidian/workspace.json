@@ -4,37 +4,24 @@
     "type": "split",
     "children": [
       {
-        "id": "86f424e166830899",
+        "id": "1db992820a146dd1",
         "type": "tabs",
         "children": [
           {
-            "id": "2a449902c1e05fd3",
-            "type": "leaf",
-            "pinned": true,
-            "state": {
-              "type": "juggl_view",
-              "state": {},
-              "pinned": true,
-              "icon": "lucide-ghost",
-              "title": "juggl_view"
-            }
-          },
-          {
-            "id": "0b98523e39bb128d",
+            "id": "1f97cd7fe4372b38",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "product/案件/未来覚醒カウンセラー/メール/オプトイン直後_ウェルカムメール.md",
+                "file": "product/案件/未来覚醒カウンセラー/シナリオ/登録者向け_ウェルカム動画.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "オプトイン直後_ウェルカムメール"
+              "title": "登録者向け_ウェルカム動画"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -102,11 +89,22 @@
         "type": "tabs",
         "children": [
           {
+            "id": "924ec1c82680ef56",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "グラフビュー"
+            }
+          },
+          {
             "id": "0bcbe9dd4c7ddb22",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
+                "file": "product/案件/未来覚醒カウンセラー/シナリオ/登録者向け_ウェルカム動画.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -116,7 +114,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "バックリンク"
+              "title": "登録者向け_ウェルカム動画へのバックリンク"
             }
           },
           {
@@ -167,12 +165,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "product/案件/未来覚醒カウンセラー/シナリオ/登録者向け_ウェルカム動画.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "アウトライン"
+              "title": "登録者向け_ウェルカム動画のアウトライン"
             }
           },
           {
@@ -193,10 +192,14 @@
             "id": "fd94866c4b183b4f",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "グラフビュー"
+              "type": "markdown",
+              "state": {
+                "file": "本田有紀華.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "本田有紀華"
             }
           },
           {
@@ -219,8 +222,7 @@
               "title": "Juggl style"
             }
           }
-        ],
-        "currentTab": 6
+        ]
       }
     ],
     "direction": "horizontal",
@@ -237,8 +239,12 @@
       "juggl:Juggl global graph": false
     }
   },
-  "active": "0b98523e39bb128d",
+  "active": "1f97cd7fe4372b38",
   "lastOpenFiles": [
+    "product/案件/未来覚醒カウンセラー/シナリオ/登録者向け_ウェルカム動画.md",
+    "無題のファイル.canvas",
+    "本田有紀華.md",
+    "product/案件/未来覚醒カウンセラー/メール/オプトイン直後_ウェルカムメール.md",
     "product/案件/未来覚醒カウンセラー/シナリオ/4日間LIVE_DAY1_シナリオ.md",
     "product/案件/未来覚醒カウンセラー/広告/配信用_広告クリエイティブブリーフ.txt",
     "product/案件/未来覚醒カウンセラー/lp/レター式_LP原稿.md",
@@ -265,7 +271,6 @@
     "ツール/cursor作成ツール.md",
     "product/案件/育脳子育てカウンセラー/シナリオ/Vol09_4日間LIVE_最新版.md",
     "product/案件/育脳子育てカウンセラー/シナリオ/Vol05_4日間LIVE_最終版.md",
-    "ツール/cursor＋Google設定関係.md",
     "メール原稿",
     "ひとびじ/ハウスメール/illustrations/20260401_sakura-fubuki-april-illustration.png",
     "ひとびじ/ハウスメール/illustrations",
@@ -274,7 +279,6 @@
     "ひとびじ/ハウスメール/No.7_道の作り方_20260327.txt",
     "ひとびじ/ハウスメール/No.6_何やってる人_20260320.txt",
     "ハウスメール/illustrations/20260401_sakura-fubuki-april-illustration.png",
-    "無題のファイル.canvas",
     "katsuyafujinaga.canvas"
   ]
 }

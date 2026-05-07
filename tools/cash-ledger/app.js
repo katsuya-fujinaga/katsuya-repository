@@ -2,6 +2,11 @@
   "use strict";
 
   var STORAGE_KEY = "hitobiji-cash-ledger-v1";
+  var LS_GOOGLE_CLIENT_ID = "cash-ledger-google-oauth-client-id";
+  var LS_DRIVE_FILE_ID = "cash-ledger-google-drive-file-id";
+  var LS_DRIVE_AUTO_PUSH = "cash-ledger-drive-auto-push";
+  var LS_DRIVE_AUTO_PULL = "cash-ledger-drive-auto-pull-startup";
+  var DRIVE_SYNC_FILENAME = "cash-ledger-sync.json";
   var MAX_ACCOUNTS = 8;
   var CHART_AXIS_MIN = -20 * 10000; // -20万円
   var CHART_AXIS_MAX = 300 * 10000; // 300万円
@@ -146,8 +151,22 @@
     return changed;
   }
 
-  function saveState(state) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  /** Drive／ファイルインポート共通の読み込み本体（パース済みオブジェクト） */
+  function ingestWholeLedgerPayload(o) {
+    if (!o || !Array.isArray(o.accounts)) throw new Error("形式が違います");
+    if (o.version == null) o.version = 1;
+    migrateV1ToV2(o);
+    if (o.version < 2) throw new Error("データを認識できません");
+    state = ensureUi(o);
+    ensureLiabilities(state);
+    saveState(state);
+    applyTheme();
+    render();
+  }
+
+  function saveState(stateArg, skipDriveSchedule) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(stateArg));
+    if (!skipDriveSchedule) scheduleDrivePushIfEnabled();
   }
 
   function loadState() {
@@ -275,6 +294,288 @@
   var elThemeDay = document.getElementById("theme-tab-day");
   var elThemeNight = document.getElementById("theme-tab-night");
 
+  /* ----- Google Drive 同期（ブラウザのみ・OAuth PKCE / drive.file スコープ） ----- */
+  var driveOAuthWaiters = [];
+  var driveAccessPending = false;
+  var driveTokenClient = null;
+  var driveTokenClientCid = "";
+  var drivePushTimer = null;
+
+  function syncTs(st) {
+    return st && st._cashLedgerSync && typeof st._cashLedgerSync.updatedAt === "number"
+      ? st._cashLedgerSync.updatedAt
+      : 0;
+  }
+
+  function stampLedgerSyncMeta(st) {
+    if (!st || typeof st !== "object") return;
+    st._cashLedgerSync = st._cashLedgerSync || {};
+    st._cashLedgerSync.updatedAt = Date.now();
+  }
+
+  function getDriveClientId() {
+    try {
+      var fromLs = localStorage.getItem(LS_GOOGLE_CLIENT_ID);
+      if (fromLs && String(fromLs).trim()) return String(fromLs).trim();
+      var meta = document.querySelector('meta[name="cash-ledger-google-client-id"]');
+      if (meta && meta.getAttribute("content")) return meta.getAttribute("content").trim();
+    } catch (e) {}
+    return "";
+  }
+
+  function ensureGsiLoaded(cb) {
+    if (window.google && google.accounts && google.accounts.oauth2) {
+      cb(null);
+      return;
+    }
+    var n = 0;
+    var t = setInterval(function () {
+      if (window.google && google.accounts && google.accounts.oauth2) {
+        clearInterval(t);
+        cb(null);
+      } else if (++n > 160) {
+        clearInterval(t);
+        cb(new Error("Googleのサインイン用スクリプトが読み込めませんでした（広告ブロックやネットワークを確認してください）"));
+      }
+    }, 50);
+  }
+
+  function ensureDriveTokenClient(cid) {
+    if (driveTokenClient && driveTokenClientCid === cid) return driveTokenClient;
+    driveTokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: cid,
+      scope: "https://www.googleapis.com/auth/drive.file",
+      callback: function (resp) {
+        driveAccessPending = false;
+        var waiters = driveOAuthWaiters.slice();
+        driveOAuthWaiters = [];
+        if (resp.error) {
+          waiters.forEach(function (w) {
+            w(new Error(resp.error));
+          });
+          return;
+        }
+        waiters.forEach(function (w) {
+          w(null, resp.access_token);
+        });
+      },
+    });
+    driveTokenClientCid = cid;
+    return driveTokenClient;
+  }
+
+  function requestDriveAccess(cb) {
+    driveOAuthWaiters.push(cb);
+    if (driveAccessPending) return;
+    driveAccessPending = true;
+    ensureGsiLoaded(function (gsiErr) {
+      if (gsiErr) {
+        driveAccessPending = false;
+        var w = driveOAuthWaiters.slice();
+        driveOAuthWaiters = [];
+        w.forEach(function (x) {
+          x(gsiErr);
+        });
+        return;
+      }
+      var cid = getDriveClientId();
+      if (!cid) {
+        driveAccessPending = false;
+        var w2 = driveOAuthWaiters.slice();
+        driveOAuthWaiters = [];
+        w2.forEach(function (x) {
+          x(new Error("OAuth Client ID が未設定です。「Drive設定」から入力してください。"));
+        });
+        return;
+      }
+      ensureDriveTokenClient(cid).requestAccessToken({ prompt: "" });
+    });
+  }
+
+  function updateDriveStatusLabel(msg) {
+    var el = document.getElementById("drive-sync-status");
+    if (!el) return;
+    el.textContent = msg || "";
+  }
+
+  function scheduleDrivePushIfEnabled() {
+    try {
+      if (localStorage.getItem(LS_DRIVE_AUTO_PUSH) !== "1") return;
+      if (!getDriveClientId()) return;
+      clearTimeout(drivePushTimer);
+      drivePushTimer = setTimeout(function () {
+        drivePushTimer = null;
+        performDrivePush(function (err) {
+          if (err) updateDriveStatusLabel("Drive自動保存: " + err.message);
+        });
+      }, 2800);
+    } catch (e) {}
+  }
+
+  function uploadLedgerToDrive(token, jsonStr, cb) {
+    var fid = localStorage.getItem(LS_DRIVE_FILE_ID);
+    function patch(id, tok) {
+      fetch(
+        "https://www.googleapis.com/upload/drive/v3/files/" + encodeURIComponent(id) + "?uploadType=media",
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: "Bearer " + tok,
+            "Content-Type": "application/json",
+          },
+          body: jsonStr,
+        }
+      )
+        .then(function (r) {
+          if (!r.ok) return r.text().then(function (t) { throw new Error(t || String(r.status)); });
+          updateDriveStatusLabel("Driveへ保存 " + new Date().toLocaleTimeString());
+          cb(null);
+        })
+        .catch(cb);
+    }
+    if (fid) {
+      patch(fid, token);
+      return;
+    }
+    fetch("https://www.googleapis.com/drive/v3/files", {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: DRIVE_SYNC_FILENAME,
+        mimeType: "application/json",
+      }),
+    })
+      .then(function (r) {
+        return r.json().then(function (j) {
+          if (!r.ok) throw new Error(j.error ? JSON.stringify(j.error) : String(r.status));
+          return j;
+        });
+      })
+      .then(function (j) {
+        if (!j.id) throw new Error("ファイルIDを取得できませんでした");
+        localStorage.setItem(LS_DRIVE_FILE_ID, j.id);
+        patch(j.id, token);
+      })
+      .catch(cb);
+  }
+
+  function performDrivePush(cb) {
+    cb = cb || function () {};
+    stampLedgerSyncMeta(state);
+    saveState(state, true);
+    var jsonStr = JSON.stringify(state, null, 2);
+    requestDriveAccess(function (err, token) {
+      if (err) {
+        cb(err);
+        return;
+      }
+      uploadLedgerToDrive(token, jsonStr, cb);
+    });
+  }
+
+  function performDrivePull(opts, cb) {
+    opts = opts || {};
+    cb = cb || function () {};
+    var fid = localStorage.getItem(LS_DRIVE_FILE_ID);
+    if (!fid) {
+      cb(new Error('まだDriveとリンクしたファイルがありません。まず「Driveへ保存」してください。'));
+      return;
+    }
+    requestDriveAccess(function (err, token) {
+      if (err) {
+        cb(err);
+        return;
+      }
+      fetch("https://www.googleapis.com/drive/v3/files/" + encodeURIComponent(fid) + "?alt=media", {
+        headers: { Authorization: "Bearer " + token },
+      })
+        .then(function (r) {
+          if (!r.ok) return r.text().then(function (t) { throw new Error(t || String(r.status)); });
+          return r.text();
+        })
+        .then(function (text) {
+          var remoteObj = JSON.parse(text);
+          var rTs = syncTs(remoteObj);
+          var lTs = syncTs(state);
+          if (opts.startup) {
+            if (rTs <= lTs) {
+              updateDriveStatusLabel("Driveはローカルと同じか古いため、そのままにしました");
+              cb(null);
+              return;
+            }
+            if (
+              !confirm(
+                "Googleドライブのデータのほうが新しいです。\n読み込むと、このブラウザのデータは置き換わります。\nよろしいですか？"
+              )
+            ) {
+              cb(null);
+              return;
+            }
+          } else if (!opts.forceReplace) {
+            if (
+              !confirm(
+                "Driveの内容で、このブラウザのデータをすべて置き換えます。\nよろしいですか？"
+              )
+            ) {
+              cb(null);
+              return;
+            }
+          }
+          ingestWholeLedgerPayload(remoteObj);
+          updateDriveStatusLabel("Driveから読み込みました");
+          cb(null);
+        })
+        .catch(function (e) {
+          cb(e instanceof Error ? e : new Error(String(e)));
+        });
+    });
+  }
+
+  function maybeDriveStartupPull() {
+    try {
+      if (localStorage.getItem(LS_DRIVE_AUTO_PULL) !== "1") return;
+      if (!getDriveClientId()) return;
+      if (!localStorage.getItem(LS_DRIVE_FILE_ID)) return;
+      setTimeout(function () {
+        performDrivePull({ startup: true }, function (err) {
+          if (err) updateDriveStatusLabel("Drive確認: " + err.message);
+        });
+      }, 700);
+    } catch (e) {}
+  }
+
+  function openDriveSettingsDialog() {
+    var dlgDrive = document.getElementById("dlg-drive");
+    var inp = document.getElementById("drive-client-id-input");
+    var chkPush = document.getElementById("drive-auto-push");
+    var chkPull = document.getElementById("drive-auto-pull");
+    if (inp) inp.value = getDriveClientId();
+    if (chkPush) chkPush.checked = localStorage.getItem(LS_DRIVE_AUTO_PUSH) === "1";
+    if (chkPull) chkPull.checked = localStorage.getItem(LS_DRIVE_AUTO_PULL) === "1";
+    openDialogSafe(dlgDrive);
+  }
+
+  function saveDriveSettingsFromDialog() {
+    var dlgDrive = document.getElementById("dlg-drive");
+    var inp = document.getElementById("drive-client-id-input");
+    var chkPush = document.getElementById("drive-auto-push");
+    var chkPull = document.getElementById("drive-auto-pull");
+    var cid = inp ? String(inp.value || "").trim() : "";
+    try {
+      if (cid) localStorage.setItem(LS_GOOGLE_CLIENT_ID, cid);
+      else localStorage.removeItem(LS_GOOGLE_CLIENT_ID);
+      localStorage.setItem(LS_DRIVE_AUTO_PUSH, chkPush && chkPush.checked ? "1" : "0");
+      localStorage.setItem(LS_DRIVE_AUTO_PULL, chkPull && chkPull.checked ? "1" : "0");
+    } catch (e) {}
+    driveTokenClient = null;
+    driveTokenClientCid = "";
+    updateDriveStatusLabel(cid ? "Drive設定を保存しました" : "Client ID を消しました（連携は無効）");
+    closeDialogSafe(dlgDrive);
+  }
+
   function getTimeTheme() {
     var h = new Date().getHours();
     if (h >= 6 && h < 18) return "day";
@@ -288,10 +589,20 @@
     return getTimeTheme();
   }
 
+  function syncThemeColorMeta() {
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (!meta) return;
+    meta.setAttribute(
+      "content",
+      document.body.classList.contains("theme-night") ? "#0f1419" : "#f6f7fb"
+    );
+  }
+
   function applyTheme() {
     ensureUi(state);
     var t = resolveTheme();
     document.body.classList.toggle("theme-night", t === "night");
+    syncThemeColorMeta();
 
     var tab = state.ui.themeTab || "auto";
     if (elThemeAuto) elThemeAuto.setAttribute("aria-selected", tab === "auto" ? "true" : "false");
@@ -1528,6 +1839,33 @@
   });
   safeBind("liability-save", "click", saveLiabilitiesFromDialog);
 
+  safeBind("btn-drive-push", "click", function () {
+    performDrivePush(function (err) {
+      if (err) alert("Driveへ保存できませんでした。\n" + err.message);
+    });
+  });
+  safeBind("btn-drive-pull", "click", function () {
+    performDrivePull({}, function (err) {
+      if (err) alert("Driveから読み込めませんでした。\n" + err.message);
+    });
+  });
+  safeBind("btn-drive-settings", "click", openDriveSettingsDialog);
+  safeBind("dlg-drive-close", "click", function () {
+    closeDialogSafe(document.getElementById("dlg-drive"));
+  });
+  safeBind("dlg-drive-save-settings", "click", saveDriveSettingsFromDialog);
+  safeBind("drive-reset-file-id", "click", function () {
+    if (
+      !confirm(
+        "Drive側で作成済みのファイルIDをこのブラウザから忘れます。\n次に保存すると新しいファイルが増える可能性があります。\n（Drive上で古い重複を手で削除できます）\n続けますか？"
+      )
+    ) {
+      return;
+    }
+    localStorage.removeItem(LS_DRIVE_FILE_ID);
+    updateDriveStatusLabel("DriveファイルIDをリセットしました");
+  });
+
   document.getElementById("btn-export").addEventListener("click", function () {
     var blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
     var a = document.createElement("a");
@@ -1547,16 +1885,7 @@
     var reader = new FileReader();
     reader.onload = function () {
       try {
-        var o = JSON.parse(reader.result);
-        if (!o || !Array.isArray(o.accounts)) throw new Error("形式が違います");
-        if (o.version == null) o.version = 1;
-        migrateV1ToV2(o);
-        if (o.version < 2) throw new Error("データを認識できません");
-        state = ensureUi(o);
-        ensureLiabilities(state);
-        saveState(state);
-        applyTheme();
-        render();
+        ingestWholeLedgerPayload(JSON.parse(reader.result));
       } catch (e) {
         alert("読み込みに失敗しました: " + e.message);
       }
@@ -1580,4 +1909,5 @@
   populateFixedAccountOptions();
   applyTheme();
   render();
+  maybeDriveStartupPull();
 })();

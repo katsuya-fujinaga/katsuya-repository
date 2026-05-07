@@ -4,6 +4,7 @@ project: 九星覚醒カウンセラー
 type: hub
 status: active
 tags: [project]
+制作日: 2026-04-18
 ---
 
 # 九星覚醒カウンセラー｜ドキュメント索引
