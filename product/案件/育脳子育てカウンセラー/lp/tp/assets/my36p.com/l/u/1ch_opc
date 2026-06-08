@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html dir="ltr" lang="ja" prefix="og: http://ogp.me/ns# fb: http://www.facebook.com/2008/fbml">
+<head>
+  <meta charset="UTF-8">
+  <title>LINE OPENCHAT</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="育脳子育てカウンセラー®︎4日間体験プログラム（6/1〜）">
+  <meta property="og:title" content="育脳子育てカウンセラー®︎4日間体験プログラム（6/1〜）">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="">
+  <meta property="og:url" content="http://line.me/ti/g2/vo8XyUu3xvhHKgxbVRtwnV9jVOCyvPzG5xbA9g?utm_source=invitation&amp;utm_medium=link_copy&amp;utm_campaign=default">
+  <meta property="og:image" content="https://profile.line-scdn.net/r/g2/group/og_tag_default_image.png/c.496x273">
+  <meta property="og:site_name" content="LINE OPENCHAT">
+  <meta property="fb:app_id" content="136895609724349">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="育脳子育てカウンセラー®︎4日間体験プログラム（6/1〜）">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="https://profile.line-scdn.net/r/g2/group/og_tag_default_image.png/c.496x273">
+  <link rel="stylesheet" href="https://static.line-scdn.net/line_openchat_lp/1956fd37a6d/css/pc.css">
+  <script
+          src="https://code.jquery.com/jquery-1.12.4.min.js"
+          integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+          crossorigin="anonymous"></script>
+  <script src="https://static.line-scdn.net/uts/edge/stable/uts.js"></script>
+  <script>
+    window.uts.init({
+      utsId: 'line_square',
+      appName: 'openchat.line.me',
+      appEnv: 'release'
+    },
+    { endpoint: 'https://uts-front.line-apps.com' });
+
+    window.uts.setAppVersion('1.0.0');
+  </script>
+</head>
+<body>
+<!--CONTENTS-AREA-->
+<main class="LyContents" role="main">
+
+  <div class="MdMN01Container">
+    <div class="mdMN01Img">
+      <img src="https://obs.line-scdn.net/0hhPmYudfjN39QICseFWdIKG52alErUy5tLVg6HHMkaEZ4FHQrZUcrHX0oPE19RXksPkB_HHQpPk0qFXQ" alt="">
+      <!-- /mdMN01Img --></div>
+    <div class="mdMN01Content">
+
+      <h1 class="MdMN02Logo">
+        <img src="https://static.line-scdn.net/line_openchat_lp/1956fd37a6d/img/pc/logo.png"
+             alt="LINE OPENCHAT">
+      </h1>
+
+      <div class="MdMN03Box">
+        <div class="mdMN03Inner" style="background-image: url('https://obs.line-scdn.net/0hhPmYudfjN39QICseFWdIKG52alErUy5tLVg6HHMkaEZ4FHQrZUcrHX0oPE19RXksPkB_HHQpPk0qFXQ');">
+          <div class="mdMN03Content">
+            <p class="MdMN04Txt">育脳子育てカウンセラー®︎4日間体験プログラム（6/1〜）</p>
+            <p class="MdMN05Txt">Members 44</p>
+            <p class="MdMN06Desc"></p>
+            <p><a href="line://ti/g2/vo8XyUu3xvhHKgxbVRtwnV9jVOCyvPzG5xbA9g?utm_source=invitation&amp;utm_medium=link_copy&amp;utm_campaign=default" class="MdMN07Btn" data-uts-click="open_line">Open in LINE</a></p>
+            <div class="mdMN03Qrcode" id="qr_code" style="box-sizing: border-box; border: white solid 4px">
+              <!-- /mdMN03Qrcode --></div>
+            <!-- /mdMN03Content --></div>
+          <!-- /mdMN03Inner --></div>
+        <!-- /MdMN03Box --></div>
+      <!-- /mdMN01Content --></div>
+    <!-- /MdMN01Container --></div>
+
+  <div class="MdMN10Container">
+    <div class="mdMN10Inner">
+      <p><a href="https://line.me/D" class="MdMN08Btn" data-uts-click="download_line">Download LINE</a></p>
+      <p class="MdMN09Txt">If you are unable to join this OpenChat, update your app to the latest version and try again.</p>
+      <!-- /mdMN10Content --></div>
+    <!-- /MdMN10Container --></div>
+  <!--/LyContents--></main>
+<!--/CONTENTS-AREA-->
+
+<!--SCRIPT-->
+<script src="https://static.line-scdn.net/line_openchat_lp/1956fd37a6d/js/main.pc.js"></script>
+<script src="https://obs.line-scdn.net/0hJuL68GXBFVpxTwP7t-RqDXIZSHQdOwFRFXtEfBcdFT8IYA5UEjYBfg"></script>
+<script>
+  (function() {
+    new QRCode(document.getElementById("qr_code"), "https://line.me/R/ti/g2/vo8XyUu3xvhHKgxbVRtwnV9jVOCyvPzG5xbA9g?utm_source=invitation&utm_medium=link_copy&utm_campaign=default");
+  })();
+</script>
+<script>
+  $(document).ready(function () {
+    setTimeout(function () {
+      window.location.href = "line://ti/g2/vo8XyUu3xvhHKgxbVRtwnV9jVOCyvPzG5xbA9g?utm_source=invitation&utm_medium=link_copy&utm_campaign=default";
+    }, 1500)
+  })
+</script>
+<!--/SCRIPT-->
+</body>
+</html>

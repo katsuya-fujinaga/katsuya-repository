@@ -1,0 +1,14 @@
+source_url=https://eqno.mamaaka.com/page/UVEW7XZcc0L7?preview=true
+local_page=index.html
+public_url=https://ikunou.net/tp/
+legacy_redirect=tp.html -> /tp/
+note=公開サーバの旧index.htmlがtp.htmlへ転送していたのが原因。index.htmlを本体に差し替えてデプロイすること
+remote_backup=tp.remote.html
+
+downloaded_assets=5 (new images for this version)
+copied_from_lp01=fonts,fontawesome,pageafter.css,pagevideo.css,pagevideo.js
+
+keep_remote:
+- video.m3u8 (動画ストリーム)
+- line.me (オープンチャット参加ボタン)
+- eqno.mamaaka.com/p/privacy, /p/law (フッター)
