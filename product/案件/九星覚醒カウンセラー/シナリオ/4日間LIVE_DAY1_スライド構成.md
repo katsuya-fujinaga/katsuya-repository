@@ -1,6 +1,6 @@
 ---
-title: 未来覚醒カウンセラー｜DAY1 スライド構成
-project: 未来覚醒カウンセラー
+title: 九星覚醒カウンセラー｜DAY1 スライド構成
+project: 九星覚醒カウンセラー
 type: scenario
 status: draft
 tags:
