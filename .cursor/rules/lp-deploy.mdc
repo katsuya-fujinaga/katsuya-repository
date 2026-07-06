@@ -67,14 +67,14 @@ https://katsuya-fujinaga.github.io/katsuya-repository/tools/
 
 **`product/`** はリポジトリ直下の通常ディレクトリ（Git・GitHub Pages・Windows 対応）。Obsidian ボルトからは **`obsidian/product` → `../product`** で同じツリーにアクセスします。
 
-**`katsuya_project/`** もリポジトリ直下。**Katsuya プロジェクト**の正本置き場。**`セールスマインドセット/`**（案件横断のセールス・教育設計の型）と **`ひとびじ/`**（LAB・ハウスメール・X）を同じ直下に置く。Obsidian からは **`obsidian/katsuya_project` → `../katsuya_project`**、**`obsidian/ひとびじ` → `../katsuya_project/ひとびじ`**（シンボリックリンク）。
+**`katsuya_project/`** もリポジトリ直下。**Katsuya プロジェクト**の正本置き場。**`マインドセット/`**（案件横断の考え方の型。現状は `セールス/` を格納）と **`ひとびじ/`**（LAB・ハウスメール・X）を同じ直下に置く。Obsidian からは **`obsidian/katsuya_project` → `../katsuya_project`**、**`obsidian/ひとびじ` → `../katsuya_project/ひとびじ`**（シンボリックリンク）。
 
 | フォルダ | 用途 |
 |----------|------|
 | **`product/案件/`** | クライアント別のプロモーション資産（LP・メール・MTG・ナレッジ・台本など） |
 | **`product/講師横断/`** | 講師単位で共有する素材（メールフッター原稿など） |
-| **`katsuya_project/セールスマインドセット/`** | 案件横断のセールス・教育設計の型 |
-| **`katsuya_project/ひとびじ/`** | 藤永個人ブランド（**`LAB/`**・**`ハウスメール/`**・**`X/`**）。ひとびじLAB の実ファイルはここ（ボルトでは `obsidian/ひとびじ` が同じツリーへのリンク） |
+| **`katsuya_project/マインドセット/`** | 案件横断の考え方の型（現状は `セールス/` を格納） |
+| **`katsuya_project/ひとびじ/`** | 藤永個人ブランド（**`ブランド設計/`**・**`プロフィール/`**・**`運用/`**・**`メール/`**・**`SNS/`**）。ひとびじLAB の実ファイルはここ（ボルトでは `obsidian/ひとびじ` が同じツリーへのリンク） |
 
 ## 開発と公開の役割（hitobiji リポジトリ内）
 

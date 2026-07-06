@@ -1,0 +1,35 @@
+body {
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-smoothing: antialiased;
+            margin: 0;
+            width: 100%;
+            font-family: Arial;
+            font-weight: 400;
+            background: rgb(255, 255, 255);
+        }
+    
+        section.comp-footer-template {
+            background: rgb(0, 0, 0);
+            padding: 16px;
+            vertical-align: middle;
+        }
+    
+        ul.footer-template-layout {
+            text-align: center;
+            padding: 0px;
+        }
+    
+        li.footer-template-list {
+            display: inline-block;
+            list-style: none;
+        }
+    
+        li.footer-template-list:not(.list1) {
+            margin-left: 20px;
+        }
+    
+        a.footer-template-list-parts {
+            color: rgb(255, 255, 255);
+            font-size: 12px;
+            text-decoration: none;
+        }
