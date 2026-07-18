@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- LP_ASSET_VERSION: 20260714 -->
+    <!-- LP_ASSET_VERSION: 20260718j -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -110,11 +110,11 @@ h1,
 .firstview {
 	width: 100%;
 	max-width: none;
-	aspect-ratio: 1024 / 682;
+	aspect-ratio: 1024 / 683;
 	height: auto;
 	margin: 0 auto;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-	background: url(assets/header-replacement.png?v=20260713b) center center / 100% auto no-repeat;
+	background: url(assets/header-replacement.png?v=20260718a) center center / 100% auto no-repeat;
 	text-indent: -9999px;
 	}
 
@@ -244,34 +244,50 @@ address {
 }
 
 .form-nudge {
-	margin: 0 auto 18px;
-	padding: 0 16px;
-	max-width: 96vw;
+	margin: 0 auto 10px;
+	padding: 0;
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
 	color: var(--brand-text);
-	font-size: 1.55em;
+	font-size: 1.25em;
 	font-weight: bold;
-	line-height: 1.6;
+	line-height: 1.4;
 	text-align: center;
-	letter-spacing: 0.04em;
+	letter-spacing: 0.01em;
+	overflow: hidden;
 }
 
 .form-nudge span {
-	display: inline;
-	padding-bottom: 0.15em;
+	display: inline-block;
+	max-width: 100%;
+	box-sizing: border-box;
+	white-space: nowrap;
+	padding-bottom: 0.12em;
 	border-bottom: 2px solid rgba(196, 112, 126, 0.55);
 	color: #9b4d5c;
 }
 
 .form-nudge-date {
 	margin: 0 auto 22px;
-	padding: 0 16px;
-	max-width: 96vw;
+	padding: 0;
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
 	color: #9b4d5c;
-	font-size: 1.45em;
+	font-size: 1.25em;
 	font-weight: bold;
-	line-height: 1.5;
+	line-height: 1.4;
 	text-align: center;
-	letter-spacing: 0.06em;
+	letter-spacing: 0.01em;
+}
+
+@media screen and (max-width: 599px) {
+	.form-nudge,
+	.form-nudge-date {
+		font-size: 16px;
+		letter-spacing: 0;
+	}
 }
 
 
@@ -455,6 +471,23 @@ button[type=submit] img:hover,
 	max-width: 96vw;
 	height: auto;
 	margin: 0 auto;
+}
+
+.who-feelings {
+	padding: 2.5em 0;
+	width: 100%;
+	background: #ffffff;
+}
+.wrap_who_feelings {
+	margin: 0 auto;
+	max-width: 1000px;
+}
+.img_who_feelings {
+	display: block;
+	margin: 0 auto;
+	width: 900px;
+	max-width: 96vw;
+	height: auto;
 }
 
 
@@ -699,6 +732,15 @@ button[type=submit] img:hover,
 	letter-spacing: 0.03em;
 }
 
+@media screen and (max-width: 599px) {
+	.cycle-bridge {
+		font-size: 1.05em;
+		line-height: 1.75;
+		letter-spacing: 0.02em;
+		padding: 0 4vw;
+	}
+}
+
 .img_irritation_cycle {
 	margin-top: 0.4em;
 }
@@ -790,6 +832,10 @@ button[type=submit] img:hover,
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
+.tokucho02-below-form {
+	padding: 0;
+	margin: 0;
+}
 .tokucho02 {
 	padding: 0;
 	margin: 0;
@@ -1178,7 +1224,7 @@ button[type=submit] img:hover,
 
 	h1,.firstview {
 		max-width: none;
-		aspect-ratio: 1024 / 682;
+		aspect-ratio: 1024 / 683;
 		height: auto;
 	}
 	h1.tbonly {display: block;}
@@ -1806,6 +1852,24 @@ h3 {margin-bottom: 0;}
     font-size: 0.85em;
 }
 }
+@media screen and (max-width: 599px) {
+	.fn-el-form input[type=email],
+	.deco,
+	.myasp-form-wrap .form_input_input.deco {
+		height: 52px !important;
+		min-height: 52px !important;
+		padding: 8px 10px !important;
+		border-width: 3px !important;
+		font-size: 1em !important;
+	}
+	.myasp-form-wrap .form_input_input.deco::placeholder {
+		font-size: 0.95em;
+	}
+	.myasp-form-wrap .form_input_submit {
+		margin-top: 14px;
+		padding: 0.4em 0.25em !important;
+	}
+}
     </style>
 
 </head>
@@ -1818,7 +1882,7 @@ h3 {margin-bottom: 0;}
 
 <div id="body">
     <div id="main" v-bind:class="[pagePcWidth, borderType, pageBackgroundImageClasses]" v-bind:style="pageBackgroundStyles">
-        <elements-component v-bind:data='{"page":{"background_color":null,"background_image_src":null,"background_image_style":null},"elements":[{"id":754635255,"is_popup":0,"type":"section","padding_bottom_sp":0,"padding_side_sp":0,"device":"only-sp","sid":"","children":[{"id":754635256,"is_popup":0,"type":"row","padding_bottom_sp":0,"sid":"","children":[{"id":754635257,"is_popup":0,"type":"col","sid":"","children":[{"id":754635258,"is_popup":0,"type":"image","img_src":"assets/header-mobile-replacement.png?v=20260713","align":"center","target":"same","sid":"","children":[]}]}]}]},{"id":754635259,"is_popup":0,"type":"section","device":"only-pc","class":"firstview","sid":"","children":[{"id":754635260,"is_popup":0,"type":"row","sid":"","children":[{"id":754635261,"is_popup":0,"type":"col","sid":"","children":[]}]}]},{"id":754635267,"is_popup":0,"type":"section","class":"form","sid":"","children":[{"id":754635268,"is_popup":0,"type":"row","class":"submit","sid":"","children":[{"id":754635269,"is_popup":0,"type":"col","sid":"","children":[{"id":754635270,"is_popup":0,"type":"html","text":"<p class=\"form-nudge\"><span>ママをサポートするカウンセラーへの道</span></p><p class=\"form-nudge-date\">↓7月27日(月)21:30スタート↓</p><div id=\"form\" class=\"myasp-form-wrap\"><div class=\"content_form\"><form action=\"https://my183p.com/p/r/iak8HPwC\" enctype=\"multipart/form-data\" id=\"UserItemForm\" class=\"myForm\" method=\"post\" accept-charset=\"utf-8\" data-myasp-item-id=\"iak8HPwC\" data-myasp-form-id=\"iak8HPwC\" data-myasp-page-key=\"form_page_html\" data-myasp-form-asset-version=\"7376e12c588b\"><input type=\"hidden\" name=\"_method\" value=\"POST\"><div class=\"input text input_unit required myasp-mail-row\" data-form-key=\"Usermail\"><input name=\"data[User][mail]\" id=\"Usermail\" value=\"\" class=\"form_input_input deco\" type=\"text\" placeholder=\"メールアドレスを入力してください\"></div><div class=\"submit form_input_submit\"><span class=\"btn_utg myasp-btn-shell\"><input type=\"image\" src=\"assets/button-replacement.png?v=20260607\" alt=\"無料で今すぐ5日間チャレンジプログラムに参加する\" class=\"myasp-btn-image\"></span></div><input type=\"hidden\" id=\"server_url_UserItemForm\" value=\"https://my183p.com/\"><!-- ▼リファラ --><input type=\"hidden\" name=\"data[User][referer_form_url]\" value=\"\" class=\"UserRefererFormUrl\"/><input type=\"hidden\" name=\"data[User][referer_url]\" value=\"\" class=\"UserRefererUrl\"/><script type=\"text/javascript\">//<!--\n    if (document.referrer.length !=0 ){\n        if (document.getElementsByClassName(\"UserRefererUrl\"))\n        {\n        var user_referer_url = document.getElementsByClassName(\"UserRefererUrl\");\n        for (var i = 0; i < user_referer_url.length; i++)\n        {\n            user_referer_url[i].value = document.referrer;\n        }\n        }\n        else if (document.getElementById(\"UserRefererUrl\"))\n        {\n            document.getElementById(\"UserRefererUrl\").value = document.referrer;\n        }\n    }\n\n\n    if (document.getElementsByClassName(\"UserRefererFormUrl\"))\n    {\n        var user_referer_form_url = document.getElementsByClassName(\"UserRefererFormUrl\");\n        for (var i = 0; i < user_referer_form_url.length; i++)\n        {\n            user_referer_form_url[i].value = location.href;\n        }\n    }\n    else if (document.getElementById(\"UserRefererFormUrl\"))\n    {\n        document.getElementById(\"UserRefererFormUrl\").value = location.href;\n    }\n//-->\n    </script><!-- ▲リファラ --></form></div></div>","sid":"","children":[]},{"id":754635272,"is_popup":0,"type":"text","text":"<p>Gmailなどのフリーメールアドレスでのご登録をお願いいたします。メールが確認できない場合は、迷惑フォルダもご確認ください。@icloud.com、outlook.jp、hotmail.com、mac.com、msn.comは届かない場合があります。</p>","class":"optin","sid":"","children":[]}]}]}]},{"id":754635273,"is_popup":0,"type":"section","padding_side_sp":0,"sid":"","children":[{"id":754635274,"is_popup":0,"type":"row","sid":"","children":[{"id":754635275,"is_popup":0,"type":"col","sid":"","children":[{"id":754635276,"is_popup":0,"type":"html","text":"<section class=\"bonus\">\n\n\t\t<h2><img src=\"https://utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/SWfPdfc9Z1zQisx9Q2U8Rd9CfUaVrKC7iygs2E8x.png\" alt=\"プログラム参加特典\"></h2>\n\n\t\t<div class=\"wrap_bonus\">\n\t\t\n\n\t\t\t<div class=\"con_bonus\">\n\n\t\t\t\t<img src=\"https://utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/WdLb0jPpd4E1440Bk1xNBwJ5tEzAdCxXSrGkriQb.png\" alt=\"今すぐ使える ”予想外”で子どものシナプスを刺激する 「1秒育脳ぷち」\">\n\n\t\t\t</div><!--/con_bonus-->\n\n\n\t\t</div><!--/wrap_bonus-->\n\t\t\n\t</section><!--/bonus-->\n\n\n<section class=\"who\">\n\n\t\t<h2><img src=\"https://utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/xs4PxQd9BBP8vclRk234tbWC9zDh6lDK16GwSy47.png\" alt=\"「育脳子育てカウンセラー」はこんな方におすすめです\"></h2>\n\n\t\t<div class=\"wrap_who\">\n\n\t\t\t<div class=\"con_who\">\n\t\t\t\t<img class=\"img_who_checklist\" src=\"assets/who-checklist-replacement.png?v=20260714\" alt=\"一生続けられる仕事がしたい。そう思っているのに…\">\n\t\t\t</div><!--/con_who-->\n\n\t\t</div><!--/wrap_who-->\n\n\t</section><!--/who-->\n\t<section class=\"insight-story\">\n\t\t<div class=\"wrap_insight_story\">\n\t\t\t<img class=\"img_insight_story\" src=\"assets/insight-story-replacement.png?v=20260714\" alt=\"実はわたしは、5000組以上の親子をサポートする中である共通点に気づきました。\">\n\t\t</div>\n\t</section><!--/insight-story-->\n\t\n\t<section class=\"contrast-question\">\n\t\t<div class=\"wrap_contrast_question\">\n\t\t\t<img class=\"img_contrast_question\" src=\"assets/contrast-question-replacement.png?v=20260714\" alt=\"うまくいく家庭にあって、うまくいってない家庭にないもの\">\n\t\t\t<p class=\"cycle-title cycle-title-happy\">うまくいく家庭の「ハッピーサイクル」</p>\n\t\t\t<img class=\"img_irritation_cycle\" src=\"assets/happy-cycle-replacement.png?v=20260714\" alt=\"ハッピーサイクル\">\n\t\t\t<p class=\"cycle-title cycle-title-irritation\">うまくいかない家庭の「イライラサイクル」</p>\n\t\t\t<img class=\"img_irritation_cycle\" src=\"assets/irritation-cycle-02.png?v=20260714\" alt=\"イライラサイクル\">\n\t\t\t<p class=\"cycle-bridge\">このように、ママが不安や焦りを抱えていると、<br>負のループに入りやすくなります。<br>親子の関係がすれ違ったり、<br>子どもが挑戦しにくくなったりしてしまいます。</p>\n\n\t\t</div>\n\t</section><!--/contrast-question-->\n<section class=\"conclusion-story\">\n\t\t<div class=\"wrap_conclusion_story\">\n\t\t\t<img class=\"img_conclusion_story\" src=\"assets/conclusion-text-replacement.png?v=20260714\" alt=\"そこで私たちは、ある結論にたどり着きます。子どもを支える前に、ママを支える人が必要だ。\">\n\t\t</div>\n\t</section><!--/conclusion-story-->\n\t<section class=\"workstyle-examples\">\n\t\t<div class=\"wrap_workstyle_examples\">\n\t\t\t<img class=\"img_workstyle_examples\" src=\"assets/workstyle-examples-replacement.png?v=20260714\" alt=\"例えばこんな働き方があります\">\n\t\t</div>\n\t</section><!--/workstyle-examples-->\n\n\n\n\n\n\t\t\n\t<section class=\"tokucho\">\n\n\t\t<div class=\"wrap_tokucho\">\n\t\t\n\t\t\t<picture>\n\t\t\t\t<source srcset=\"assets/tokucho-workstyle-replacement.png?v=20260714\" media=\"(max-width: 599px)\">\n\t\t\t\t<img class=\"img_tokucho\" src=\"assets/tokucho-workstyle-replacement.png?v=20260714\">\n\t\t\t</picture>\n\n\t\t</div><!--/wrap_tokucho-->\n\t\t\n\t</section><!--/tokucho-->\n\n\n\t\n\n\t<section class=\"merit\">\n\n\t\t<h2><img src=\"assets/merit-heading-replacement.png?v=20260607\" alt=\"５日間で何が学べるの？ \"></h2>\n\n\t\t<div class=\"wrap_merit\">\n\t\t\n\t\t\t<ul class=\"con_merit\">\n\t\t\t\t<li>子どもが好きという想いを仕事にする考え方</li>\n\t\t\t\t<li>ママを支える育脳メソッドの全体像</li>\n\t\t\t\t<li>育脳子育てカウンセラー®の具体的な活動内容</li>\n\t\t\t\t<li>未経験から始めるためのステップ</li>\n\t\t\t\t<li>あなたに合った働き方の見つけ方</li>\n\t\t\t\t<li>親子の未来を育てながら選ばれる仕事の作り方</li>\n\n\t\t\t</ul><!--/con_merit--></div><!--/wrap_merit-->\n\t\t\n\t</section><!--/merit-->\n\t<section class=\"workstyle-fun\">\n\t\t<img class=\"img_workstyle_fun\" src=\"assets/workstyle-fun-banner.png?v=20260714\" alt=\"ママを笑顔にする働きかた、ちょっと楽しそうじゃない？\">\n\t</section><!--/workstyle-fun-->\n","sid":"","children":[]}]}]}]},{"id":754635337,"is_popup":0,"type":"section","class":"tokucho02-above-form","sid":"","children":[{"id":754635338,"is_popup":0,"type":"row","sid":"","children":[{"id":754635339,"is_popup":0,"type":"col","sid":"","children":[{"id":754635340,"is_popup":0,"type":"html","text":"<section id=\"tokucho02\" class=\"tokucho02\">\n\n\t\t<div class=\"wrap_tokucho02\">\n\n\t\t\t<picture>\n\t\t\t\t<source srcset=\"assets/tokucho02-mobile-replacement.png?v=20260714\" media=\"(max-width: 599px)\">\n\t\t\t\t<img class=\"img_tokucho02\" src=\"assets/tokucho02-replacement.png?v=20260714\" alt=\"育脳子育てカウンセラー®の始め方\">\n\t\t\t</picture>\n\n\t\t</div><!--/wrap_tokucho02-->\n\n\t</section><!--/tokucho02-->","sid":"","children":[]}]}]}]},{"id":754635277,"is_popup":0,"type":"section","class":"form","sid":"","children":[{"id":754635278,"is_popup":0,"type":"row","class":"submit","sid":"","children":[{"id":754635279,"is_popup":0,"type":"col","sid":"","children":[{"id":754635280,"is_popup":0,"type":"html","text":"<p class=\"form-nudge\"><span>ママをサポートするカウンセラーへの道</span></p><p class=\"form-nudge-date\">↓7月27日(月)21:30スタート↓</p><div id=\"form-bottom\" class=\"myasp-form-wrap\"><div class=\"content_form\"><form action=\"https://my183p.com/p/r/iak8HPwC\" enctype=\"multipart/form-data\" id=\"UserItemForm2\" class=\"myForm\" method=\"post\" accept-charset=\"utf-8\" data-myasp-item-id=\"iak8HPwC\" data-myasp-form-id=\"iak8HPwC\" data-myasp-page-key=\"form_page_html\" data-myasp-form-asset-version=\"7376e12c588b\"><input type=\"hidden\" name=\"_method\" value=\"POST\"><div class=\"input text input_unit required myasp-mail-row\" data-form-key=\"Usermail\"><input name=\"data[User][mail]\" id=\"Usermail2\" value=\"\" class=\"form_input_input deco\" type=\"text\" placeholder=\"メールアドレスを入力してください\"></div><div class=\"submit form_input_submit\"><span class=\"btn_utg myasp-btn-shell\"><input type=\"image\" src=\"assets/button-replacement.png?v=20260607\" alt=\"無料で今すぐ5日間チャレンジプログラムに参加する\" class=\"myasp-btn-image\"></span></div><input type=\"hidden\" id=\"server_url_UserItemForm2\" value=\"https://my183p.com/\"><!-- ▼リファラ --><input type=\"hidden\" name=\"data[User][referer_form_url]\" value=\"\" class=\"UserRefererFormUrl\"/><input type=\"hidden\" name=\"data[User][referer_url]\" value=\"\" class=\"UserRefererUrl\"/><script type=\"text/javascript\">//<!--\n    if (document.referrer.length !=0 ){\n        if (document.getElementsByClassName(\"UserRefererUrl\"))\n        {\n        var user_referer_url = document.getElementsByClassName(\"UserRefererUrl\");\n        for (var i = 0; i < user_referer_url.length; i++)\n        {\n            user_referer_url[i].value = document.referrer;\n        }\n        }\n        else if (document.getElementById(\"UserRefererUrl\"))\n        {\n            document.getElementById(\"UserRefererUrl\").value = document.referrer;\n        }\n    }\n\n\n    if (document.getElementsByClassName(\"UserRefererFormUrl\"))\n    {\n        var user_referer_form_url = document.getElementsByClassName(\"UserRefererFormUrl\");\n        for (var i = 0; i < user_referer_form_url.length; i++)\n        {\n            user_referer_form_url[i].value = location.href;\n        }\n    }\n    else if (document.getElementById(\"UserRefererFormUrl\"))\n    {\n        document.getElementById(\"UserRefererFormUrl\").value = location.href;\n    }\n//-->\n    </script><!-- ▲リファラ --></form></div></div>","sid":"","children":[]},{"id":754635281,"is_popup":0,"type":"text","text":"<p>Gmailなどのフリーメールアドレスでのご登録をお願いいたします。メールが確認できない場合は、迷惑フォルダもご確認ください。@icloud.com、outlook.jp、hotmail.com、mac.com、msn.comは届かない場合があります。</p>","class":"optin","sid":"","children":[]}]}]}]},{"id":754635325,"is_popup":0,"type":"section","sid":"","children":[{"id":754635326,"is_popup":0,"type":"row","sid":"","children":[{"id":754635327,"is_popup":0,"type":"col","sid":"","children":[{"id":754635328,"is_popup":0,"type":"html","text":"<div class=\"profile\">\n\t\t\t<h2><img src=\"https://utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/f8qoOenCimcPo5xTOmAGJpNZt6yGKnnaaPh8ux0I.png\" alt=\"講師紹介\"></h2>\n\t\t\t\n\t\t\t<div class=\"con_profile\">\n\t\t\t\t<div class=\"shd_profile\">\n\t\t\t\t\t<picture>\n\t\t\t\t\t\t<source srcset=\"https://utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/IRZdUzYIFDPmhhSWgDZT4NMjxL5KNq7nam1GNsdj.png\" media=\"(max-width: 768px)\">\n\t\t\t\t\t\t<img class=\"tt_shdprofile\" src=\"https://utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/gdZe5hp0Q0dcBDhO5JMk6Y29eAghQGKnOTh5LJz4.png\">\n\t\t\t\t\t</picture>\n\t\t\t\t\t<img class=\"pic_profile\" src=\"assets/profile-photo-replacement.png?v=20260607\">\n\t\t\t\t</div><!-- /shd_profile -->\n\t\t\t\t\n\t\t\t\t<p>私も、2男1女の母です。<br>\n<br>\n幼いころから特別な英才教育をしてきたわけではありません。<br>\nごく普通の家庭で、ただただ愛情をたっぷり注いで子育てをしてきました。<br>\n<br>\nその結果、<br>\n<br>\n医者になった長男<br>\n特待生を経て幼稚園教諭になった長女<br>\n国立大学を卒業し、独立行政法人の団体職員として歩んでいる次男<br>\n<br>\n3人とも、自分のやりたいことを見つけて、<br>\n自分で選んだ道を、しっかりと歩んでいます。<br>\n<br>\nそんな子どもたちの成長を見守りながら、<br>\n私はずっと思っていました。<br>\n<br>\n<strong>「おかえり」と言える毎日を大切にしながら、<br>\n誰かの力になれる仕事がしたい。</strong><br>\n<br>\nその想いから、17年前に起業しました。<br>\n<br>\n子育て中は、本当に毎日があっという間です。<br>\n母として、妻として、家族のために動いているうちに、<br>\n気づけば自分のことはいつも後回し。<br>\n<br>\nでも私は思うのです。<br>\n<br>\n<strong>ママだって、自分のことを考えていい。<br>\nママだって、自分の人生を生きていい。</strong><br>\n<br>\n限られた時間の中でも、<br>\nやりたいことをやっていい。<br>\n楽しんでいい。<br>\n自分の「好き」や「得意」を活かして、<br>\n子育てをしながら働くことだって、できる。<br>\n<br>\nそんな生き方が当たり前になったら、<br>\nきっと今よりもっと、子育てしやすくて、<br>\n助け合いがあって、あたたかい社会になっていく。<br>\n<br>\n<strong>私は、そんな想いで<br>\n育脳子育てカウンセラー®️として活動しています。</strong></p>\n\t\t\t</div><!-- /con_profile -->\n\t\t</div><!-- /profile -->","sid":"","children":[]}]}]}]},{"id":754635329,"is_popup":0,"type":"section","class":"footer","sid":"","children":[{"id":754635330,"is_popup":0,"type":"row","sid":"","children":[{"id":754635331,"is_popup":0,"type":"col","sid":"","children":[{"id":754635332,"is_popup":0,"type":"footer","color":"#ffffff","privacy":"https://eqno.mamaaka.com/p/privacy","asct":"https://eqno.mamaaka.com/p/law","copyright":"育脳子育てカウンセラー 運営事務局","background_color":"#ffffff","sid":"","children":[]}]}]}]},{"id":754635333,"is_popup":0,"type":"section","sid":"","children":[{"id":754635334,"is_popup":0,"type":"row","sid":"","children":[{"id":754635335,"is_popup":0,"type":"col","sid":"","children":[{"id":754635336,"is_popup":0,"type":"html","text":"<div class=\"flbtn\"><a href=\"#tokucho02\">無料で今すぐ5日間チャレンジプログラムに参加する</a></div><!--/flbtn-->","sid":"","children":[]}]}]}]}],"popupelements":[],"products":[],"actions":[],"forms":[],"funnel":{"id":125951,"id_str":"tIuqBmSeuvw6","funnel_group_id":0,"memo":null,"share_id":"SIjKFcmlg632","is_test_mode":0,"is_archived":0,"is_deleted":0,"status":"published","share_type":"email","from_funnel_id":null,"period_to":null,"url_closed":null,"webinar_format":"web","webinar_type":"day","webinar_registration_type":"default","webinar_period_minute":null,"webinar_day_after":null,"webinar_days":null,"webinar_count_per_day":null,"webinar_from_hour1":null,"webinar_from_min1":null,"webinar_to_hour1":null,"webinar_to_min1":null,"webinar_from_hour2":null,"webinar_from_min2":null,"webinar_to_hour2":null,"webinar_to_min2":null,"webinar_length_hour":null,"webinar_length_minute":null,"webinar_replay_days":null,"webinar_chat_type":"none","webinar_chat_approval_type":"auto","webinar_default_schedule_type":"none","zoom_webinar_project_id":null,"js_head":null,"js_body_top":null,"js_body":null,"order":0,"user_id_str":"g5kxXfM1ukUE","share_status":null,"today":"2026-06-03T12:09:54.798179Z"},"ispreview":false,"pageid":"dSMe05KIyIEV","pcwidth":100,"bordertype":"shadow","swipetype":"none","userdata":[],"webinarschedules":[],"uselazyload":true}'></elements-component>
+        <elements-component v-bind:data='{"page":{"background_color":null,"background_image_src":null,"background_image_style":null},"elements":[{"id":754635255,"is_popup":0,"type":"section","padding_bottom_sp":0,"padding_side_sp":0,"device":"only-sp","sid":"","children":[{"id":754635256,"is_popup":0,"type":"row","padding_bottom_sp":0,"sid":"","children":[{"id":754635257,"is_popup":0,"type":"col","sid":"","children":[{"id":754635258,"is_popup":0,"type":"image","img_src":"assets/header-mobile-replacement.png?v=20260718b","align":"center","target":"same","sid":"","children":[]}]}]}]},{"id":754635259,"is_popup":0,"type":"section","device":"only-pc","class":"firstview","sid":"","children":[{"id":754635260,"is_popup":0,"type":"row","sid":"","children":[{"id":754635261,"is_popup":0,"type":"col","sid":"","children":[]}]}]},{"id":754635267,"is_popup":0,"type":"section","class":"form","sid":"","children":[{"id":754635268,"is_popup":0,"type":"row","class":"submit","sid":"","children":[{"id":754635269,"is_popup":0,"type":"col","sid":"","children":[{"id":754635270,"is_popup":0,"type":"html","text":"<p class=\"form-nudge\"><span>子育て経験を収入に変える秘密</span></p><p class=\"form-nudge-date\">↓7月27日(月)21:30スタート↓</p><div id=\"form\" class=\"myasp-form-wrap\"><div class=\"content_form\"><form action=\"https://my183p.com/p/r/iak8HPwC\" enctype=\"multipart/form-data\" id=\"UserItemForm\" class=\"myForm\" method=\"post\" accept-charset=\"utf-8\" data-myasp-item-id=\"iak8HPwC\" data-myasp-form-id=\"iak8HPwC\" data-myasp-page-key=\"form_page_html\" data-myasp-form-asset-version=\"7376e12c588b\"><input type=\"hidden\" name=\"_method\" value=\"POST\"><div class=\"input text input_unit required myasp-mail-row\" data-form-key=\"Usermail\"><input name=\"data[User][mail]\" id=\"Usermail\" value=\"\" class=\"form_input_input deco\" type=\"text\" placeholder=\"メールアドレスを入力してください\"></div><div class=\"submit form_input_submit\"><span class=\"btn_utg myasp-btn-shell\"><input type=\"image\" src=\"assets/button-replacement.png?v=20260607\" alt=\"無料で今すぐ5日間チャレンジプログラムに参加する\" class=\"myasp-btn-image\"></span></div><input type=\"hidden\" id=\"server_url_UserItemForm\" value=\"https://my183p.com/\"><!-- ▼リファラ --><input type=\"hidden\" name=\"data[User][referer_form_url]\" value=\"\" class=\"UserRefererFormUrl\"/><input type=\"hidden\" name=\"data[User][referer_url]\" value=\"\" class=\"UserRefererUrl\"/><script type=\"text/javascript\">//<!--\n    if (document.referrer.length !=0 ){\n        if (document.getElementsByClassName(\"UserRefererUrl\"))\n        {\n        var user_referer_url = document.getElementsByClassName(\"UserRefererUrl\");\n        for (var i = 0; i < user_referer_url.length; i++)\n        {\n            user_referer_url[i].value = document.referrer;\n        }\n        }\n        else if (document.getElementById(\"UserRefererUrl\"))\n        {\n            document.getElementById(\"UserRefererUrl\").value = document.referrer;\n        }\n    }\n\n\n    if (document.getElementsByClassName(\"UserRefererFormUrl\"))\n    {\n        var user_referer_form_url = document.getElementsByClassName(\"UserRefererFormUrl\");\n        for (var i = 0; i < user_referer_form_url.length; i++)\n        {\n            user_referer_form_url[i].value = location.href;\n        }\n    }\n    else if (document.getElementById(\"UserRefererFormUrl\"))\n    {\n        document.getElementById(\"UserRefererFormUrl\").value = location.href;\n    }\n//-->\n    </script><!-- ▲リファラ --></form></div></div>","sid":"","children":[]},{"id":754635272,"is_popup":0,"type":"text","text":"<p>Gmailなどのフリーメールアドレスでのご登録をお願いいたします。メールが確認できない場合は、迷惑フォルダもご確認ください。@icloud.com、outlook.jp、hotmail.com、mac.com、msn.comは届かない場合があります。</p>","class":"optin","sid":"","children":[]}]}]}]},{"id":754635273,"is_popup":0,"type":"section","padding_side_sp":0,"sid":"","children":[{"id":754635274,"is_popup":0,"type":"row","sid":"","children":[{"id":754635275,"is_popup":0,"type":"col","sid":"","children":[{"id":754635276,"is_popup":0,"type":"html","text":"<section class=\"bonus\">\n\n\t\t<h2><img src=\"https://utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/SWfPdfc9Z1zQisx9Q2U8Rd9CfUaVrKC7iygs2E8x.png\" alt=\"プログラム参加特典\"></h2>\n\n\t\t<div class=\"wrap_bonus\">\n\t\t\n\n\t\t\t<div class=\"con_bonus\">\n\n\t\t\t\t<img src=\"https://utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/WdLb0jPpd4E1440Bk1xNBwJ5tEzAdCxXSrGkriQb.png\" alt=\"今すぐ使える ”予想外”で子どものシナプスを刺激する 「1秒育脳ぷち」\">\n\n\t\t\t</div><!--/con_bonus-->\n\n\n\t\t</div><!--/wrap_bonus-->\n\t\t\n\t</section><!--/bonus-->\n\n\n<section class=\"who\">\n\n\t\t<h2><img src=\"https://utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/xs4PxQd9BBP8vclRk234tbWC9zDh6lDK16GwSy47.png\" alt=\"「育脳子育てカウンセラー」はこんな方におすすめです\"></h2>\n\n\t\t<div class=\"wrap_who\">\n\n\t\t\t<div class=\"con_who\">\n\t\t\t\t<img class=\"img_who_checklist\" src=\"assets/who-checklist-replacement.png?v=20260718j\" alt=\"このまま、今の働き方を続けますか？\">\n\t\t\t</div><!--/con_who-->\n\n\t\t</div><!--/wrap_who-->\n\n\t</section><!--/who-->\n\t<section class=\"who-feelings\">\n\t\t<div class=\"wrap_who_feelings\">\n\t\t\t<img class=\"img_who_feelings\" src=\"assets/who-feelings-replacement.png?v=20260718f\" alt=\"こんな想いはありませんか？\">\n\t\t</div>\n\t</section><!--/who-feelings-->\n\t<section class=\"insight-story\">\n\t\t<div class=\"wrap_insight_story\">\n\t\t\t<img class=\"img_insight_story\" src=\"assets/insight-story-replacement.png?v=20260714i\" alt=\"実はわたしは、5000組以上の親子をサポートする中である共通点に気づきました。\">\n\t\t</div>\n\t</section><!--/insight-story-->\n\t\n\t<section class=\"contrast-question\">\n\t\t<div class=\"wrap_contrast_question\">\n\t\t\t<img class=\"img_contrast_question\" src=\"assets/contrast-question-replacement.png?v=20260714j\" alt=\"うまくいく家庭にあって、うまくいってない家庭にないもの\">\n\t\t\t<p class=\"cycle-title cycle-title-happy\">うまくいく家庭の<br class=\"sponly\">「ハッピーサイクル」</p>\n\t\t\t<img class=\"img_irritation_cycle\" src=\"assets/happy-cycle-replacement.png?v=20260714\" alt=\"ハッピーサイクル\">\n\t\t\t<p class=\"cycle-title cycle-title-irritation\">うまくいかない家庭の<br class=\"sponly\">「イライラサイクル」</p>\n\t\t\t<img class=\"img_irritation_cycle\" src=\"assets/irritation-cycle-02.png?v=20260714\" alt=\"イライラサイクル\">\n\t\t\t<p class=\"cycle-bridge\">このように、ママが不安や焦りを抱えていると、<br>負のループに入りやすくなります。<br>親子の関係がすれ違ったり、<br>子どもが挑戦しにくくなったりしてしまいます。</p>\n\n\t\t</div>\n\t</section><!--/contrast-question-->\n<section class=\"conclusion-story\">\n\t\t<div class=\"wrap_conclusion_story\">\n\t\t\t<img class=\"img_conclusion_story\" src=\"assets/conclusion-text-replacement.png?v=20260714k\" alt=\"そこで私たちは、ある結論にたどり着きます。子どもを支える前に、ママを支える人が必要だ。\">\n\t\t</div>\n\t</section><!--/conclusion-story-->\n\n\n\n\n\n\t\t\n\t<section class=\"tokucho\">\n\n\t\t<div class=\"wrap_tokucho\">\n\t\t\n\t\t\t<picture>\n\t\t\t\t<source srcset=\"assets/tokucho-workstyle-replacement.png?v=20260714\" media=\"(max-width: 599px)\">\n\t\t\t\t<img class=\"img_tokucho\" src=\"assets/tokucho-workstyle-replacement.png?v=20260714\">\n\t\t\t</picture>\n\n\t\t</div><!--/wrap_tokucho-->\n\t\t\n\t</section><!--/tokucho-->\n\n\n\t\n\n\t<section class=\"workstyle-examples\">\n\t\t<div class=\"wrap_workstyle_examples\">\n\t\t\t<img class=\"img_workstyle_examples\" src=\"assets/workstyle-examples-replacement.png?v=20260714\" alt=\"例えばこんな働き方があります\">\n\t\t</div>\n\t</section><!--/workstyle-examples-->\n\n<section class=\"merit\">\n\n\t\t<h2><img src=\"assets/merit-heading-replacement.png?v=20260607\" alt=\"５日間で何が学べるの？ \"></h2>\n\n\t\t<div class=\"wrap_merit\">\n\t\t\n\t\t\t<ul class=\"con_merit\">\n\t\t\t\t<li>子どもが好きという想いを仕事にする考え方</li>\n\t\t\t\t<li>ママを支える育脳メソッドの全体像</li>\n\t\t\t\t<li>育脳子育てカウンセラー®の具体的な活動内容</li>\n\t\t\t\t<li>未経験から始めるためのステップ</li>\n\t\t\t\t<li>あなたに合った働き方の見つけ方</li>\n\t\t\t\t<li>親子の未来を育てながら選ばれる仕事の作り方</li>\n\n\t\t\t</ul><!--/con_merit--></div><!--/wrap_merit-->\n\t\t\n\t</section><!--/merit-->\n","sid":"","children":[]}]}]}]},{"id":900000001,"is_popup":0,"type":"section","class":"tokucho02-below-form","sid":"","children":[{"id":900000002,"is_popup":0,"type":"row","sid":"","children":[{"id":900000003,"is_popup":0,"type":"col","sid":"","children":[{"id":900000004,"is_popup":0,"type":"html","text":"<section id=\"tokucho02\" class=\"tokucho02\">\n\n\t\t<div class=\"wrap_tokucho02\">\n\n\t\t\t<picture>\n\t\t\t\t<source srcset=\"assets/header-mobile-replacement.png?v=20260718b\" media=\"(max-width: 599px)\">\n\t\t\t\t<img class=\"img_tokucho02\" src=\"assets/header-replacement.png?v=20260718a\" alt=\"育脳子育てカウンセラー®の始め方\">\n\t\t\t</picture>\n\n\t\t</div><!--/wrap_tokucho02-->\n\n\t</section><!--/tokucho02-->","sid":"","children":[]}]}]}]},{"id":754635277,"is_popup":0,"type":"section","class":"form","sid":"","children":[{"id":754635278,"is_popup":0,"type":"row","class":"submit","sid":"","children":[{"id":754635279,"is_popup":0,"type":"col","sid":"","children":[{"id":754635280,"is_popup":0,"type":"html","text":"<p class=\"form-nudge\"><span>子育て経験を収入に変える秘密</span></p><p class=\"form-nudge-date\">↓7月27日(月)21:30スタート↓</p><div id=\"form-bottom\" class=\"myasp-form-wrap\"><div class=\"content_form\"><form action=\"https://my183p.com/p/r/iak8HPwC\" enctype=\"multipart/form-data\" id=\"UserItemForm2\" class=\"myForm\" method=\"post\" accept-charset=\"utf-8\" data-myasp-item-id=\"iak8HPwC\" data-myasp-form-id=\"iak8HPwC\" data-myasp-page-key=\"form_page_html\" data-myasp-form-asset-version=\"7376e12c588b\"><input type=\"hidden\" name=\"_method\" value=\"POST\"><div class=\"input text input_unit required myasp-mail-row\" data-form-key=\"Usermail\"><input name=\"data[User][mail]\" id=\"Usermail2\" value=\"\" class=\"form_input_input deco\" type=\"text\" placeholder=\"メールアドレスを入力してください\"></div><div class=\"submit form_input_submit\"><span class=\"btn_utg myasp-btn-shell\"><input type=\"image\" src=\"assets/button-replacement.png?v=20260607\" alt=\"無料で今すぐ5日間チャレンジプログラムに参加する\" class=\"myasp-btn-image\"></span></div><input type=\"hidden\" id=\"server_url_UserItemForm2\" value=\"https://my183p.com/\"><!-- ▼リファラ --><input type=\"hidden\" name=\"data[User][referer_form_url]\" value=\"\" class=\"UserRefererFormUrl\"/><input type=\"hidden\" name=\"data[User][referer_url]\" value=\"\" class=\"UserRefererUrl\"/><script type=\"text/javascript\">//<!--\n    if (document.referrer.length !=0 ){\n        if (document.getElementsByClassName(\"UserRefererUrl\"))\n        {\n        var user_referer_url = document.getElementsByClassName(\"UserRefererUrl\");\n        for (var i = 0; i < user_referer_url.length; i++)\n        {\n            user_referer_url[i].value = document.referrer;\n        }\n        }\n        else if (document.getElementById(\"UserRefererUrl\"))\n        {\n            document.getElementById(\"UserRefererUrl\").value = document.referrer;\n        }\n    }\n\n\n    if (document.getElementsByClassName(\"UserRefererFormUrl\"))\n    {\n        var user_referer_form_url = document.getElementsByClassName(\"UserRefererFormUrl\");\n        for (var i = 0; i < user_referer_form_url.length; i++)\n        {\n            user_referer_form_url[i].value = location.href;\n        }\n    }\n    else if (document.getElementById(\"UserRefererFormUrl\"))\n    {\n        document.getElementById(\"UserRefererFormUrl\").value = location.href;\n    }\n//-->\n    </script><!-- ▲リファラ --></form></div></div>","sid":"","children":[]},{"id":754635281,"is_popup":0,"type":"text","text":"<p>Gmailなどのフリーメールアドレスでのご登録をお願いいたします。メールが確認できない場合は、迷惑フォルダもご確認ください。@icloud.com、outlook.jp、hotmail.com、mac.com、msn.comは届かない場合があります。</p>","class":"optin","sid":"","children":[]}]}]}]},{"id":754635325,"is_popup":0,"type":"section","sid":"","children":[{"id":754635326,"is_popup":0,"type":"row","sid":"","children":[{"id":754635327,"is_popup":0,"type":"col","sid":"","children":[{"id":754635328,"is_popup":0,"type":"html","text":"<div class=\"profile\">\n\t\t\t<h2><img src=\"https://utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/f8qoOenCimcPo5xTOmAGJpNZt6yGKnnaaPh8ux0I.png\" alt=\"講師紹介\"></h2>\n\t\t\t\n\t\t\t<div class=\"con_profile\">\n\t\t\t\t<div class=\"shd_profile\">\n\t\t\t\t\t<picture>\n\t\t\t\t\t\t<source srcset=\"https://utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/IRZdUzYIFDPmhhSWgDZT4NMjxL5KNq7nam1GNsdj.png\" media=\"(max-width: 768px)\">\n\t\t\t\t\t\t<img class=\"tt_shdprofile\" src=\"https://utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/gdZe5hp0Q0dcBDhO5JMk6Y29eAghQGKnOTh5LJz4.png\">\n\t\t\t\t\t</picture>\n\t\t\t\t\t<img class=\"pic_profile\" src=\"assets/profile-photo-replacement.png?v=20260607\">\n\t\t\t\t</div><!-- /shd_profile -->\n\t\t\t\t\n\t\t\t\t<p>私も、2男1女の母です。<br>\n<br>\n幼いころから特別な英才教育をしてきたわけではありません。<br>\nごく普通の家庭で、ただただ愛情をたっぷり注いで子育てをしてきました。<br>\n<br>\nその結果、<br>\n<br>\n医者になった長男<br>\n特待生を経て幼稚園教諭になった長女<br>\n国立大学を卒業し、独立行政法人の団体職員として歩んでいる次男<br>\n<br>\n3人とも、自分のやりたいことを見つけて、<br>\n自分で選んだ道を、しっかりと歩んでいます。<br>\n<br>\nそんな子どもたちの成長を見守りながら、<br>\n私はずっと思っていました。<br>\n<br>\n<strong>「おかえり」と言える毎日を大切にしながら、<br>\n誰かの力になれる仕事がしたい。</strong><br>\n<br>\nその想いから、17年前に起業しました。<br>\n<br>\n子育て中は、本当に毎日があっという間です。<br>\n母として、妻として、家族のために動いているうちに、<br>\n気づけば自分のことはいつも後回し。<br>\n<br>\nでも私は思うのです。<br>\n<br>\n<strong>ママだって、自分のことを考えていい。<br>\nママだって、自分の人生を生きていい。</strong><br>\n<br>\n限られた時間の中でも、<br>\nやりたいことをやっていい。<br>\n楽しんでいい。<br>\n自分の「好き」や「得意」を活かして、<br>\n子育てをしながら働くことだって、できる。<br>\n<br>\nそんな生き方が当たり前になったら、<br>\nきっと今よりもっと、子育てしやすくて、<br>\n助け合いがあって、あたたかい社会になっていく。<br>\n<br>\n<strong>私は、そんな想いで<br>\n育脳子育てカウンセラー®️として活動しています。</strong></p>\n\t\t\t</div><!-- /con_profile -->\n\t\t</div><!-- /profile -->","sid":"","children":[]}]}]}]},{"id":754635329,"is_popup":0,"type":"section","class":"footer","sid":"","children":[{"id":754635330,"is_popup":0,"type":"row","sid":"","children":[{"id":754635331,"is_popup":0,"type":"col","sid":"","children":[{"id":754635332,"is_popup":0,"type":"footer","color":"#ffffff","privacy":"https://eqno.mamaaka.com/p/privacy","asct":"https://eqno.mamaaka.com/p/law","copyright":"育脳子育てカウンセラー 運営事務局","background_color":"#ffffff","sid":"","children":[]}]}]}]},{"id":754635333,"is_popup":0,"type":"section","sid":"","children":[{"id":754635334,"is_popup":0,"type":"row","sid":"","children":[{"id":754635335,"is_popup":0,"type":"col","sid":"","children":[{"id":754635336,"is_popup":0,"type":"html","text":"<div class=\"flbtn\"><a href=\"#tokucho02\">無料で今すぐ5日間チャレンジプログラムに参加する</a></div><!--/flbtn-->","sid":"","children":[]}]}]}]}],"popupelements":[],"products":[],"actions":[],"forms":[],"funnel":{"id":125951,"id_str":"tIuqBmSeuvw6","funnel_group_id":0,"memo":null,"share_id":"SIjKFcmlg632","is_test_mode":0,"is_archived":0,"is_deleted":0,"status":"published","share_type":"email","from_funnel_id":null,"period_to":null,"url_closed":null,"webinar_format":"web","webinar_type":"day","webinar_registration_type":"default","webinar_period_minute":null,"webinar_day_after":null,"webinar_days":null,"webinar_count_per_day":null,"webinar_from_hour1":null,"webinar_from_min1":null,"webinar_to_hour1":null,"webinar_to_min1":null,"webinar_from_hour2":null,"webinar_from_min2":null,"webinar_to_hour2":null,"webinar_to_min2":null,"webinar_length_hour":null,"webinar_length_minute":null,"webinar_replay_days":null,"webinar_chat_type":"none","webinar_chat_approval_type":"auto","webinar_default_schedule_type":"none","zoom_webinar_project_id":null,"js_head":null,"js_body_top":null,"js_body":null,"order":0,"user_id_str":"g5kxXfM1ukUE","share_status":null,"today":"2026-06-03T12:09:54.798179Z"},"ispreview":false,"pageid":"dSMe05KIyIEV","pcwidth":100,"bordertype":"shadow","swipetype":"none","userdata":[],"webinarschedules":[],"uselazyload":true}'></elements-component>
     </div>
     <div>
         <div id="exit-popup-hover" class="fixed-top"
@@ -1848,6 +1912,38 @@ h3 {margin-bottom: 0;}
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+	function fitFormNudge() {
+		if (window.innerWidth > 599) {
+			document.querySelectorAll('.form-nudge span').forEach(function (span) {
+				span.style.fontSize = '';
+			});
+			document.querySelectorAll('.form-nudge-date').forEach(function (el) {
+				el.style.fontSize = '';
+			});
+			return;
+		}
+		document.querySelectorAll('.form-nudge').forEach(function (el) {
+			var span = el.querySelector('span');
+			if (!span) {
+				return;
+			}
+			var maxWidth = el.clientWidth;
+			if (!maxWidth) {
+				return;
+			}
+			var size = Math.min(28, Math.floor(maxWidth / 15));
+			span.style.fontSize = size + 'px';
+			while (size > 11 && span.scrollWidth > maxWidth) {
+				size -= 0.5;
+				span.style.fontSize = size + 'px';
+			}
+			var dateEl = el.nextElementSibling;
+			if (dateEl && dateEl.classList.contains('form-nudge-date')) {
+				dateEl.style.fontSize = size + 'px';
+			}
+		});
+	}
+
 	function insertWhoCopy() {
 		var target = document.querySelector('.con_who');
 		if (!target || target.querySelector('.who-copy')) {
@@ -1901,14 +1997,18 @@ document.addEventListener('DOMContentLoaded', function () {
 	insertWhoCopySecondary();
 	insertWhoBridgeImage();
 	insertProfileLogo();
+	fitFormNudge();
 	window.setTimeout(insertWhoCopy, 300);
 	window.setTimeout(insertWhoCopySecondary, 300);
 	window.setTimeout(insertWhoBridgeImage, 300);
 	window.setTimeout(insertProfileLogo, 300);
+	window.setTimeout(fitFormNudge, 300);
 	window.setTimeout(insertWhoCopy, 1200);
 	window.setTimeout(insertWhoCopySecondary, 1200);
 	window.setTimeout(insertWhoBridgeImage, 1200);
 	window.setTimeout(insertProfileLogo, 1200);
+	window.setTimeout(fitFormNudge, 1200);
+	window.addEventListener('resize', fitFormNudge);
 });
 </script>
 
