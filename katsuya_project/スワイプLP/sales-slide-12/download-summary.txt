@@ -1,0 +1,48 @@
+source_url=https://coach-cy.com/s12b/opta/?20260727_coach_3cc_3
+base_url=https://coach-cy.com/s12b/opta/
+downloaded_assets=34
+failed_assets=1
+
+https://coach-cy.com/s12b/opta/images/bg_wrapper.png :: HTTP Error 404: Not Found
+
+downloaded:
+https://coach-cy.com/s12b/opta/css/sanitize.min.css
+https://coach-cy.com/s12b/opta/css/style.css?202107051033
+https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css
+https://coach-cy.com/s12b/opta/images/favicon.ico
+https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js
+https://coach-cy.com/s12b/opta/js/common.js
+https://coach-cy.com/s12b/opta/js/timer.js
+https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js
+https://www.facebook.com/tr?id=912899106104299&ev=PageView&noscript=1
+https://coach-cy.com/s12b/opta/images/hd_schedule.png
+https://m.coach-cy.com/p/r/D4vXedKk
+https://coach-cy.com/s12b/opta/images/button.png
+https://coach-cy.com/s12b/opta/images/hd_bonus.png
+https://coach-cy.com/s12b/opta/images/shd_bonus01.png
+https://coach-cy.com/s12b/opta/images/shd_bonus02.png
+https://coach-cy.com/s12b/opta/images/shd_bonus03.png
+https://coach-cy.com/s12b/opta/images/ps_bonus.png
+https://coach-cy.com/s12b/opta/images/hd_tokucho.png
+https://coach-cy.com/s12b/opta/images/shd_tokucho01.png
+https://coach-cy.com/s12b/opta/images/shd_tokucho02.png
+https://coach-cy.com/s12b/opta/images/shd_tokucho03.png
+https://coach-cy.com/s12b/opta/images/hd_profile.png
+https://coach-cy.com/s12b/opta/images/shd_profile.png
+https://coach-cy.com/s12b/opta/images/pic_profile.png
+https://coach-cy.com/s12b/opta/images/img_book.png
+https://coach-cy.com/s12/opta/
+https://coach-cy.com/s12/opta/images/img_ogp.png
+https://coach-cy.com/s12b/opta/images/header.png
+https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.eot?v=4.7.0
+https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.eot
+https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2?v=4.7.0
+https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff?v=4.7.0
+https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.ttf?v=4.7.0
+https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.svg?v=4.7.0
+
+notes:
+- images/bg_wrapper.png は本番URLでも 404（元LP側欠損）。CSS参照のみ残置
+- フォーム送信先・特商法・プライバシーは外部リンクのまま（HTMLスナップショットは assets/coach-cy.com/LP/ に保存）
+- Meta Pixel の fbevents.js もローカル化済み
+- 表示確認は index.html を開く

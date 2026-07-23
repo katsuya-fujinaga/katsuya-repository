@@ -1,0 +1,2171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- LP_ASSET_VERSION: 20260720a -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+
+    <title></title>
+
+            <link rel="shortcut icon" href="assets/utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/6kjrfjeOKJ79PwHOXxpOBWrKRZBG9KTYeMbCtLEK.png?v=20260719j">
+    
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl+ '&gtm_auth=TlyKPBV1RjVP7cgaT4mk7g&gtm_preview=env-1&gtm_cookies_win=x';f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-PS46CR8');</script>
+        <!-- End Google Tag Manager -->
+        
+                
+    <link href="assets/fonts.googleapis.com/css__de567aa87b?v=20260607" rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="assets/fonts.googleapis.com/css__1735eae614?v=20260607" rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="assets/use.fontawesome.com/releases/v5.1.0/css/all.css?v=20260607" rel="stylesheet" media="print" onload="this.media='all'">
+        <link href="assets/eqno.mamaaka.com/css/page__c970d622df.css?v=20260607" rel="stylesheet">
+        <link href="assets/eqno.mamaaka.com/css/pageafter__571d95d3f1.css?v=20260607" rel="stylesheet" media="print" onload="this.media='all'">
+
+        
+    <script type="text/javascript" src="assets/ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js?v=20260607"></script>
+
+<script>
+$(function(){
+  $('a[href^="#"]').click(function(){
+    var speed = 300;
+    var href= $(this).attr("href");
+    var target = $(href == "#" || href == "" ? 'html' : href);
+    var position = target.offset().top;
+    $("html, body").animate({scrollTop:position}, speed, "swing");
+    return false;
+  });
+	
+	
+  let $pagetop = $('.flbtn');
+
+  $(window).on( 'scroll', function () {
+    //スクロール位置を取得
+    if ( $(this).scrollTop() < 1500 ) {
+      $pagetop.css('opacity','0');
+      $pagetop.css('display','none');
+		
+    } else {
+      $pagetop.css('opacity','1');
+      $pagetop.css('display','block');
+    }
+  });	
+	
+});
+</script>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '878309611249029');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=878309611249029&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+        <style>
+        @charset "utf-8";
+
+:root {
+	--brand-teal: #1faea8;
+	--brand-teal-dark: #168d88;
+	--brand-teal-soft: #eaf8f6;
+	--brand-pink: #e978ae;
+	--brand-pink-dark: #cc5f97;
+	--brand-pink-soft: #fff1f7;
+	--brand-yellow: #ffe47a;
+	--brand-surface: #f4f7f8;
+	--brand-text: #4a4a4a;
+	--brand-white: #ffffff;
+}
+
+
+body {
+	font-family: "游ゴシック", "Yu Gothic", "游ゴシック体", YuGothic, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Meiryo UI", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	font-family: "メイリオ", Meiryo, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "A-OTF 新ゴ Pro",A-OTF Shin Go Pro,Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	font-size:125%;/* 20px */
+	line-height:1.7;
+	background: var(--brand-white);
+	color: var(--brand-text);
+  font-feature-settings: "palt";
+  text-align: justify;
+}
+h1,
+.firstview {
+	width: 100%;
+	max-width: none;
+	aspect-ratio: 1024 / 683;
+	height: auto;
+	margin: 0 auto;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	background: url(assets/header-replacement.png?v=20260719j) center center / 100% auto no-repeat;
+	text-indent: -9999px;
+	}
+
+img[src*="header-replacement.png"] {
+	width: 100%;
+	max-width: none;
+	height: auto;
+}
+
+img[src*="header-mobile-replacement.png"] {
+	width: 100%;
+	max-width: none;
+	height: auto;
+}
+
+h1.pconly {display: block;}
+h2 {
+	margin: 0 auto;
+	max-width: 96vw;
+	}
+h2 img {
+	max-width: 90vw;
+}
+h3 {
+	margin: 0 auto;
+	max-width: 90vw;
+}
+img {
+	display:block;
+	margin:0 auto;
+	max-width: 100%;
+}
+
+.large {
+	font-size:120%;
+	}
+
+.xlarge {
+	font-size:144%;
+	}
+
+.xxlarge {
+	font-size:172.8%;
+	}
+.small {
+	font-size:82.5%;
+	}
+.xsmall {
+	font-size:62.5%;
+	}
+.xxsmall {
+	font-size:56.25%;
+	}	
+.u {
+	text-decoration:underline;
+}
+.red {
+	color:red;
+	color: var(--brand-pink-dark);
+}
+.highlight {
+	background-color: var(--brand-yellow);
+}
+.redhigh {
+	color:red;
+	color: var(--brand-pink-dark);
+	background-color: var(--brand-yellow);
+	}
+.pic_right{
+	float: right;
+	margin: 10px -15px 10px 10px;
+	box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+.pconly{display: block;}
+.tbonly{display: none;}
+.sponly{display: none;}
+strong {
+	font-weight:bold;
+	}
+#wrapper {
+	margin:0 auto;
+	/* background: url("images/bg_wrapper.png") center center repeat-y; */
+}
+main {
+}
+.container{
+
+}
+.footer,
+footer {
+	margin:0 auto;
+	padding:20px 0;
+	background: var(--brand-teal);
+	color: var(--brand-white);
+	text-align:center;
+	font-size: smaller;
+}
+.footer a,
+footer a {
+	color: var(--brand-white);
+	text-decoration:underline;
+}
+
+.footer a:hover,
+footer a:hover {
+}
+address {
+	font-style:normal;
+}
+
+.copys {
+	display: flex;
+	justify-content: space-between;
+	margin: 20px auto 0;
+	width: 900px;
+}
+
+
+/*
+ *		form
+ */
+
+.form {
+	margin: 0 auto;
+	padding: 50px 0;
+	background: url(assets/utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/be7m4GokMgTWV5MsmYbGK2UuWnYqFzDKJrP1a4ys.jpg?v=20260719j) center center / cover fixed;
+}
+
+.form-nudge {
+	margin: 0 auto 10px;
+	padding: 0;
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+	color: var(--brand-text);
+	font-size: 1.75em;
+	font-weight: bold;
+	line-height: 1.4;
+	text-align: center;
+	letter-spacing: 0.01em;
+	overflow: hidden;
+}
+
+.form-nudge span {
+	display: inline-block;
+	max-width: 100%;
+	box-sizing: border-box;
+	white-space: nowrap;
+	padding-bottom: 0.12em;
+	border-bottom: 2px solid rgba(196, 112, 126, 0.55);
+	color: #9b4d5c;
+}
+
+.form-nudge-date {
+	margin: 0 auto 22px;
+	padding: 0;
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+	color: #9b4d5c;
+	font-size: 1.75em;
+	font-weight: bold;
+	line-height: 1.4;
+	text-align: center;
+	letter-spacing: 0.01em;
+}
+
+@media screen and (max-width: 599px) {
+	.form-nudge,
+	.form-nudge-date {
+		font-size: 16px;
+		letter-spacing: 0;
+	}
+}
+
+
+
+.fn-row.submit {
+	margin: 0 auto;
+	padding: 40px 20px;
+	width:1000px;
+	max-width: 96vw;
+	border: 2px solid rgba(31, 174, 168, 0.18);
+	box-shadow: 0 8px 24px rgba(31, 174, 168, 0.12);
+	background: var(--brand-white);
+	box-sizing: border-box;
+	}
+button[type=submit] img,	
+.fn-row.submit .btn_utg,
+.submit .btn_utg {
+	display:block;
+	margin:25px auto 0;
+	max-width: 100%;
+	width: 100%;
+
+	filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
+
+	animation-name:btn-animation;
+	animation-iteration-count: infinite;
+	animation-duration:2s;
+}
+
+.fn-el-form input[type=email],
+.deco {/* フォームの入力欄装飾用 */
+	display:block;
+	margin: 0 auto;
+	padding:10px 6px 4px!important;
+	width: 900px!important;
+	max-width: 94vw;
+	height:108px;
+	border: 4px solid var(--brand-teal)!important;
+	background: var(--brand-white);
+	color: var(--brand-teal-dark);
+	font-size: 1.5em!important;
+	font-weight: bold;
+	text-align:center;
+}
+
+.fn-el-form input[type=email]::placeholder,
+.deco::placeholder {
+	color: #AAA;
+}
+
+button[type=submit] img:hover,
+.btn_utg:hover {
+	animation-duration:0.8s;	
+}
+
+@keyframes btn-animation-f {
+	0% { transform:scale(1,1)}
+	20% {transform:scale(1.02,1.02)}
+	40% { transform:scale(1,1)}
+	60% {transform:scale(1.02,1.02)}
+	80% { transform:scale(1,1)}
+	85% { transform:skewX(10deg)}
+	90% {transform:skewX(-10deg)}
+	95% { transform:skewX(10deg)}
+	100% {transform:skewX(-10deg)}
+}
+
+
+
+
+/*
+ *		schedule
+ */	
+
+.schedule {
+	padding: 1.2em 0 1.4em;
+}
+
+
+.shd_schedule {
+	margin: 0 auto;
+	width: 1000px;
+	max-width: 96vw;
+}
+
+.hd_schedule {
+	display: none !important;
+}
+
+/*
+ *		schedule
+ */	
+
+.schedule {
+	padding: 1.2em 0 1.4em;
+}
+
+
+
+/*
+ *		bonus
+ */	
+
+ .bonus {
+	padding: 2.5em 0;
+}
+
+.bonus h2 {
+	margin-bottom: 1.5em;
+	text-align:center;
+}
+
+.bonus {
+	display: none !important;
+}
+
+.wrap_bonus {
+	margin: 0 auto;
+	padding: 30px;
+	width: 760px;
+	max-width: 96vw;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	background: var(--brand-teal-soft);
+}
+
+.con_bonus {
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	background: var(--brand-white);
+}
+
+
+/*
+ *		who
+ */	
+
+ .who {
+	padding: 2.5em 0;
+	background: url(assets/who-section-bg.jpg?v=20260719j) center center / cover no-repeat;
+	background-color: #1a1a1a;
+}
+
+.who h2 {
+	margin-bottom: 2em;
+}
+
+.who h2 {
+	display: none !important;
+}
+
+.who-copy,
+.who-copy-secondary,
+.who-bridge-image {
+	display: none !important;
+}
+
+
+.wrap_who {
+	margin: 0 auto;
+	max-width: 1000px;
+
+}
+
+.con_who {
+	display: block;
+	gap: 0;
+}
+
+.con_who::before,
+.con_who::after {
+	content: none !important;
+	display: none !important;
+}
+
+.con_who img {
+	display: none;
+}
+
+.con_who img.img_who_checklist {
+	display: block;
+	width: 900px;
+	max-width: 96vw;
+	height: auto;
+	margin: 0 auto;
+}
+
+.who-feelings {
+	padding: 2.5em 0;
+	width: 100%;
+	background: #ffffff;
+}
+.wrap_who_feelings {
+	margin: 0 auto;
+	max-width: 1000px;
+}
+.img_who_feelings {
+	display: block;
+	margin: 0 auto;
+	width: 900px;
+	max-width: 96vw;
+	height: auto;
+}
+
+.insight-lead {
+	padding: 2.2em 0;
+	width: 100%;
+	background: var(--brand-pink);
+}
+.wrap_insight_lead {
+	margin: 0 auto;
+	max-width: 1000px;
+	padding: 0 16px;
+	box-sizing: border-box;
+}
+.img_insight_lead {
+	display: block;
+	margin: 0 auto;
+	width: 900px;
+	max-width: 96vw;
+	height: auto;
+}
+
+
+.who-panel {
+	margin: 0 auto;
+	padding: 48px 40px 44px;
+	width: 900px;
+	max-width: 94vw;
+	border: none;
+	border-radius: 0;
+	background: transparent;
+	box-shadow: none;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.who-headline {
+	margin: 0 0 0.35em;
+	color: #5c4033;
+	font-size: 2em;
+	font-weight: bold;
+	line-height: 1.6;
+	letter-spacing: 0.04em;
+}
+
+.who-sub {
+	margin: 0 0 1.4em;
+	color: #9b4d5c;
+	font-size: 1.55em;
+	font-weight: bold;
+	line-height: 1.6;
+}
+
+.who-checks {
+	margin: 0 auto 1.6em;
+	padding: 0;
+	list-style: none;
+	width: 100%;
+	max-width: 36em;
+	text-align: left;
+}
+
+.who-checks li {
+	position: relative;
+	margin: 0 0 0.85em;
+	padding: 0.55em 0.7em 0.55em 2.4em;
+	border-radius: 0;
+	background: transparent;
+	color: #4a372c;
+	font-size: 1.35em;
+	font-weight: bold;
+	line-height: 1.55;
+}
+
+.who-checks li::before {
+	content: "☑";
+	position: absolute;
+	left: 0.7em;
+	top: 0.55em;
+	color: #c45c6a;
+	font-size: 1.05em;
+}
+
+.who-close {
+	margin: 0;
+	color: #5c4033;
+	font-size: 1.55em;
+	font-weight: bold;
+	line-height: 1.8;
+}
+
+.who-close strong {
+	display: inline;
+	padding-bottom: 0.1em;
+	border-bottom: 2px solid rgba(196, 92, 106, 0.45);
+	color: #9b4d5c;
+}
+
+.who-copy,
+.who-copy-secondary {
+	margin: 26px auto 0;
+	padding: 28px 32px;
+	width: 950px;
+	max-width: 96vw;
+	border: 2px solid rgba(31, 174, 168, 0.2);
+	border-radius: 24px;
+	background: rgba(255, 255, 255, 0.96);
+	box-shadow: 0 8px 24px rgba(31, 174, 168, 0.08);
+	color: var(--brand-text);
+	font-size: 1.85em;
+	font-weight: bold;
+	line-height: 1.8;
+	text-align: center;
+}
+
+.who-copy-secondary {
+	margin-top: 34px;
+}
+
+.who-bridge-image {
+	display: block;
+	width: 950px;
+	max-width: 96vw;
+	aspect-ratio: 1024 / 683;
+	margin: 34px auto 0;
+	background: url(assets/who-bridge-image.png?v=20260719j) center center / 100% auto no-repeat;
+}
+
+.who-list {
+	display: inline-block;
+	margin: 0.4em auto;
+	text-align: left;
+}
+
+.who-list-item {
+	display: block;
+}
+
+.who-soft {
+	color: var(--brand-teal-dark);
+}
+
+.who-emoji {
+	display: inline-block;
+	width: 1.4em;
+	margin-right: 0.1em;
+	text-align: center;
+}
+
+.who-lead {
+	display: inline-block;
+	color: var(--brand-pink-dark);
+	letter-spacing: 0.06em;
+}
+
+.who-point {
+	color: var(--brand-pink);
+	font-weight: 800;
+}
+
+.who-job-title {
+	font-size: 1.08em;
+}
+
+.who-job-tail {
+	color: var(--brand-teal-dark);
+	font-weight: 700;
+}
+
+
+
+/*
+ *		tokucho
+ */	
+
+.tokucho {
+	display: none !important;
+	padding: 2em 0;
+	background: url(assets/utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/0jNEU1fgglOj9NTACvNN8Onwjh4GLXLxS03WwVgO.png?v=20260719j) center center repeat fixed;
+}
+
+.tokucho .wrap_tokucho,
+.tokucho .img_tokucho {
+	display: none !important;
+}
+
+/*
+ *		insight-story
+ */
+.insight-story {
+	padding: 2.5em 0;
+	width: 100%;
+	background: url(assets/utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/be7m4GokMgTWV5MsmYbGK2UuWnYqFzDKJrP1a4ys.jpg?v=20260719j) center center / cover fixed;
+}
+.wrap_insight_story {
+	margin: 0 auto;
+	max-width: 1000px;
+}
+.img_insight_story {
+	display: block;
+	margin: 0 auto;
+	width: 900px;
+	max-width: 96vw;
+	height: auto;
+}
+
+
+/*
+ *		contrast-question
+ */
+.contrast-question {
+	padding: 2.5em 0;
+	width: 100%;
+	background: #ffffff;
+}
+.wrap_contrast_question {
+	margin: 0 auto;
+	max-width: 1000px;
+}
+.img_contrast_question {
+	display: block;
+	margin: 0 auto;
+	width: 900px;
+	max-width: 96vw;
+	height: auto;
+}
+
+.img_irritation_cycle {
+	display: block;
+	margin: 2em auto 0;
+	width: 900px;
+	max-width: 96vw;
+	height: auto;
+}
+
+.cycle-title {
+	margin: 2.2em auto 0.7em;
+	padding: 0 16px;
+	max-width: 96vw;
+	text-align: center;
+	font-size: 1.55em;
+	font-weight: bold;
+	line-height: 1.6;
+	letter-spacing: 0.04em;
+}
+.cycle-title-happy {
+	color: #c45c6a;
+}
+.cycle-title-irritation {
+	color: #5c6a8a;
+}
+
+.cycle-bridge {
+	margin: 2em auto 0.5em;
+	padding: 0 20px;
+	max-width: 38em;
+	color: #4a372c;
+	font-size: 1.55em;
+	font-weight: bold;
+	line-height: 1.9;
+	text-align: center;
+	letter-spacing: 0.03em;
+}
+
+@media screen and (max-width: 599px) {
+	.cycle-bridge {
+		font-size: 1.05em;
+		line-height: 1.75;
+		letter-spacing: 0.02em;
+		padding: 0 4vw;
+		max-width: 36em;
+	}
+}
+
+
+.mama-support-lead {
+	padding: 2.5em 0 0;
+	width: 100%;
+	background: url(assets/utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/be7m4GokMgTWV5MsmYbGK2UuWnYqFzDKJrP1a4ys.jpg?v=20260719j) center center / cover fixed;
+}
+.wrap_mama_support_lead {
+	margin: 0 auto;
+	max-width: 1000px;
+	padding: 0 16px;
+	box-sizing: border-box;
+}
+.img_mama_support_lead {
+	display: block;
+	margin: 0 auto;
+	width: 900px;
+	max-width: 96vw;
+	height: auto;
+}
+
+.img_irritation_cycle {
+	margin-top: 0.4em;
+}
+
+
+
+/*
+ *		conclusion-story
+ *		全幅バナー（テキスト＋写真一体）／上下余白なし
+ */
+.conclusion-story {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	background: #ffffff;
+}
+.wrap_conclusion_story {
+	margin: 0;
+	max-width: none;
+	width: 100%;
+	padding: 0;
+}
+.img_conclusion_story {
+	display: block;
+	margin: 0;
+	width: 100%;
+	max-width: none;
+	height: auto;
+}
+
+/*
+ *		workstyle-examples
+ */
+.workstyle-examples {
+	padding: 0 0 2.5em;
+	width: 100%;
+	background: #ffffff;
+}
+.wrap_workstyle_examples {
+	margin: 0 auto;
+	max-width: 1000px;
+}
+.img_workstyle_examples {
+	display: block;
+	margin: 0 auto;
+	width: 900px;
+	max-width: min(900px, 96vw);
+	height: auto;
+}
+.workstyle-invite {
+	margin: 1.8em auto 0;
+	padding: 0 20px;
+	max-width: 38em;
+	color: #4a372c;
+	font-size: 1.45em;
+	font-weight: bold;
+	line-height: 1.9;
+	text-align: center;
+	letter-spacing: 0.03em;
+}
+.workstyle-invite .workstyle-invite-voice {
+	margin: 0 0 1.2em;
+	color: #c45c6a;
+	font-size: 1.12em;
+	line-height: 1.8;
+}
+.workstyle-invite p {
+	margin: 0 0 1.1em;
+}
+.workstyle-invite p:last-child {
+	margin-bottom: 0;
+}
+
+.lp-disclaimer {
+	padding: 1.2em 20px 1.8em;
+	width: 100%;
+	background: #ffffff;
+	box-sizing: border-box;
+}
+.lp-disclaimer p {
+	margin: 0 auto;
+	max-width: 720px;
+	color: #888888;
+	font-size: 0.72em;
+	font-weight: normal;
+	line-height: 1.7;
+	text-align: left;
+	letter-spacing: 0.02em;
+}
+@media screen and (max-width: 599px) {
+	.lp-disclaimer {
+		padding: 1em 4vw 1.4em;
+	}
+	.lp-disclaimer p {
+		font-size: 0.68em;
+		line-height: 1.65;
+	}
+}
+
+@media screen and (max-width: 599px) {
+	.workstyle-invite {
+		font-size: 1em;
+		line-height: 1.75;
+		letter-spacing: 0.02em;
+		padding: 0 4vw;
+		margin-top: 1.4em;
+		max-width: 36em;
+	}
+	.workstyle-invite .workstyle-invite-voice {
+		font-size: 1.02em;
+	}
+}
+
+
+
+
+.tokucho h2 {
+	margin-bottom: 2em;
+}
+
+.tokucho h3 img{
+	max-width: 75vw;
+}
+
+.img_tokucho {
+	margin: 0 auto 1.5em;
+	width: 950px;
+	max-width: 96vw;
+}
+
+.tokucho .wrap_tokucho {
+	margin-top: 0;
+}
+
+
+/*
+ *		workstyle-fun
+ */
+.workstyle-fun {
+	padding: 1.5em 0 2em;
+	margin: 0;
+	width: 100%;
+	background: transparent;
+}
+.img_workstyle_fun {
+	display: block;
+	margin: 0 auto;
+	width: 950px;
+	max-width: 96vw;
+	height: auto;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.tokucho02-below-form {
+	padding: 0;
+	margin: 0;
+}
+.tokucho02 {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	background: transparent;
+}
+
+.tokucho02 .wrap_tokucho02 {
+	margin: 0;
+	padding: 0;
+	max-width: none;
+	width: 100%;
+}
+
+.img_tokucho02 {
+	display: block;
+	margin: 0 auto;
+	width: 100%;
+	max-width: none;
+	height: auto;
+	filter: none;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+/*
+ *		miryoku
+ */	
+
+.miryoku {
+	padding: 2.5em 0;
+	background: url(assets/utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/mpd8G6oupKrJnqDHpHiLl3LosSlspmLcVimzIlH2.jpg?v=20260719j) center center / cover repeat fixed;
+}
+
+.miryoku h2 {
+	margin-bottom: 1.5em;
+}
+
+.wrap_miryoku {
+	margin: 1.5em auto 0;
+	padding: 30px;
+	width: 820px;
+	max-width: 96vw;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	background: var(--brand-surface);
+}
+
+.con_miryoku {
+	position: relative;
+	margin: 0 auto;
+	padding: 0 30px;
+	max-width: 100%;
+	box-shadow: 0 0 5px rgba(0,0,0,0.1);
+	background: var(--brand-white);
+	list-style: none;
+	font-size: 1.4em;
+	font-weight: bold;
+	z-index: 9999;
+}
+
+.con_miryoku li {
+	margin-top: 0.75em;
+	padding-bottom: 0.55em;
+	border-bottom: 1px solid #CCC;
+}
+
+.con_miryoku li img {
+	margin: 0;
+}
+
+.con_miryoku li:first-of-type {
+	margin-top: 0;
+	padding-top: 0.65em;
+	background-position: left 0.83em;
+}	
+.con_miryoku li:last-of-type {
+	border-bottom: none;
+}
+
+
+
+/*
+ *		merit
+ */	
+
+ .merit {
+	padding: 2.5em 0;
+	background: url(../images/bg_schedule.png) center center repeat fixed;
+}
+
+.merit h2 {
+	display: none;
+	margin-bottom: 2em;
+}
+
+.wrap_merit {
+	margin: 0 auto;
+	padding: 30px;
+	width: 950px;
+	max-width: 96vw;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	background: var(--brand-surface);
+}
+
+.con_merit {
+	position: relative;
+	margin: 0 auto;
+	padding: 0 30px;
+	max-width: 100%;
+	box-shadow: 0 0 5px rgba(0,0,0,0.1);
+	background: var(--brand-white);
+	list-style: none;
+	font-size: 1.4em;
+	font-weight: bold;
+	z-index: 9999;
+}
+
+.con_merit li {
+	margin-top: 0.75em;
+	padding-bottom: 0.55em;
+	padding-left: 1.6em;
+	border-bottom: 1px solid #CCC;
+	background: url("assets/utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/MQab8B6UIhu84tmVn79vHn5zfzgjcOs4bJmmje9x.png?v=20260719j") left 0.18em / 1em 1em no-repeat;
+	line-height: 1.5;
+}
+
+.con_merit li:first-of-type {
+	margin-top: 0;
+	padding-top: 0.65em;
+	background-position: left 0.83em;
+}	
+.con_merit li:last-of-type {
+	border-bottom: none;
+}
+
+
+
+
+/*
+ *		future
+ */	
+
+ .future {
+	padding: 2.5em 0;
+	background: url(assets/utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/0jNEU1fgglOj9NTACvNN8Onwjh4GLXLxS03WwVgO.png?v=20260719j) center center repeat fixed;
+}
+
+.future h2 {
+	margin-bottom: 2em;
+}
+
+.wrap_future {
+	margin: 1.5em auto 0;
+	padding: 30px;
+	width: 820px;
+	max-width: 96vw;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	background: var(--brand-surface);
+}
+
+.con_future {
+	position: relative;
+	margin: 0 auto;
+	padding: 0 30px;
+	max-width: 100%;
+	box-shadow: 0 0 5px rgba(0,0,0,0.1);
+	background: var(--brand-white);
+	list-style: none;
+	font-size: 1.4em;
+	font-weight: bold;
+	z-index: 9999;
+}
+
+.con_future li {
+	margin-top: 0.75em;
+	padding-bottom: 0.55em;
+	padding-left: 1.6em;
+	border-bottom: 1px solid #CCC;
+	background: url("assets/utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/MQab8B6UIhu84tmVn79vHn5zfzgjcOs4bJmmje9x.png?v=20260719j") left 0.18em / 1em 1em no-repeat;
+	line-height: 1.5;
+}
+
+.con_future li:first-of-type {
+	margin-top: 0;
+	padding-top: 0.65em;
+	background-position: left 0.83em;
+}	
+.con_future li:last-of-type {
+	border-bottom: none;
+}
+
+
+
+
+
+/*
+ *		voice
+ */	
+
+.voice {
+	padding: 2.5em 0;
+	background: url(assets/utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/mpd8G6oupKrJnqDHpHiLl3LosSlspmLcVimzIlH2.jpg?v=20260719j) center center / cover repeat fixed;
+}
+
+.voice h2 {
+	margin-bottom: 1.5em;
+}
+
+.wrap_voice {
+	margin: 0 auto;
+	padding: 30px;
+	width: 950px;
+	max-width: 96vw;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	background: var(--brand-pink-soft);
+}
+
+.con_voice {
+	display: flex;
+	gap: 1em;
+	margin-bottom: 30px;
+	padding: 1em;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	background: #fff;
+}
+
+.con_voice div:first-of-type {
+	width: 240px;
+}
+
+.con_voice div:last-of-type {
+	width: calc( 100% - 240px);
+}
+
+.con_voice:last-of-type {
+	margin-bottom: 0;
+}
+
+.tt_voice {
+	margin-top: 1em;
+	max-width: 90%;
+}
+
+.con_voice p {
+	/* padding: 1em; */
+	font-size: 1em;
+}
+
+
+
+
+/*
+ *		profile
+ */	
+
+.profile {
+	padding: 2.5em 0;
+	background: url(assets/utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/yizR9wCLcZk65iRqX8ZteUkJ36WKmXPQcduzodnS.png?v=20260719j) center center repeat fixed;
+}
+
+.profile h2 {
+	margin-bottom: 1.5em;
+}
+
+.con_profile {
+	margin: 0 auto;
+	padding: 1.5em;
+	width: 950px;
+	max-width: 96vw;
+	border: 1.5em solid var(--brand-teal-soft);
+	box-shadow: 0 0 5px rgba(0,0,0,0.3);
+	background: var(--brand-white);
+}
+
+.shd_profile {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	
+}
+
+.shd_profile img {
+	margin: 0;
+}
+
+.pic_profile {
+	width: 220px;
+}
+.pic_profile.p_left {
+	float: right;
+	margin: 0 0 1.5em 1.5em;
+}
+
+.con_profile p {
+	margin-top:1.5em;
+	padding-top: 1em;
+	border-top: 1px solid #DDD;
+}
+
+.profile-logo {
+	display: block;
+	width: 360px;
+	max-width: 70vw;
+	aspect-ratio: 1 / 1;
+	margin: 28px auto 0;
+	background: url(assets/profile-logo.png?v=20260719j) center center / contain no-repeat;
+}
+
+
+.optin {
+	margin: 4em auto 0;
+	padding: 1em;
+	width: 800px;
+	max-width: 94vw;
+	height: fit-content;
+	background: var(--brand-surface);
+	color: var(--brand-text);
+	font-size: 75%;
+}
+
+
+.timer {
+	margin-bottom: 0.75em;
+	color: #fff;
+	font-size: 2.4em;
+	text-align: center;
+	line-height: 1.3;
+}
+
+/***	常時表示ボタン設定	***/
+
+.flbtn {
+	position: fixed;
+	bottom: 0.5em;
+	right: 0.5em;
+	z-index: 9999;
+	display: none;
+	opacity: 0;
+}
+
+.flbtn a {
+	display: block;
+	width: 336px;
+	height: 81px;
+	background: url(assets/button-replacement.png?v=20260719j) no-repeat;
+	background-size: 100%;
+	text-indent: -9999px;
+
+	animation-name: btn-animation;
+	animation-iteration-count: infinite;
+	animation-duration: 2s;
+	animation-delay: 0.6s;
+
+	filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+}
+
+
+
+@keyframes btn-animation {
+	0% {
+		transform: translateY(0.5em);
+	}
+
+	50% {
+		transform: translateY(-0.5em);
+	}
+
+	100% {
+		transform: translateY(0.5em);
+	}
+}
+
+
+
+
+
+	
+	
+@media screen and (max-width: 1023px) {
+
+	.pconly{display: none;}
+	.tbonly{display: block;}
+	.sponly{display: none;}
+		
+
+	h1,.firstview {
+		max-width: none;
+		aspect-ratio: 1024 / 683;
+		height: auto;
+	}
+	h1.tbonly {display: block;}
+
+
+	main {
+		font-size: 125%;
+	}
+
+	.xlarge {font-size: 125%;}
+	.xxlarge{font-size: 150%;}
+	
+	.schedule {
+		padding: 2vw 0 3vw;
+	}
+
+	.bonus,
+	.who,
+	.tokucho,
+	.miryoku,
+	.merit,
+	.future,
+	.voice,
+	.profile {
+		padding: 8vw 0;
+	}
+
+	.tokucho02 {
+		padding: 0;
+	}
+	
+	.bonus h2,
+	.who h2,
+	.miryoku h2,
+	.merit h2,
+	.future h2,
+	.tokucho h2,
+	.voice h2 {
+		margin-bottom: 4vw;
+	}
+
+	.wrap_bonus,
+	.wrap_voice,
+	.con_profile {
+		padding: 4vw;
+	}
+
+	.wrap_miryoku,
+	.wrap_merit,
+	.wrap_future {
+		margin-top: 4vw;
+	}
+
+	.hd_schedule {
+		width: 75vw;
+	}
+
+	.bonus {
+		padding: 6vw 0;
+	}
+	
+	.bonus h2 {
+		margin-bottom: 4vw;
+	}
+
+	.wrap_bonus {
+		padding: 4vw;
+	}
+
+
+	.wrap_who {
+		padding: 0 4vw;
+	}
+
+
+	.con_merit,
+	.con_future {
+		font-size: 1em;
+	}
+
+	.img_tokucho {
+		margin-top: 8vw;
+	}
+
+	.img_tokucho02 {
+		margin: 0 auto;
+		width: 100%;
+		max-width: none;
+	}
+
+	.con_profile {
+		/* padding: 30px; */
+		width: 96%;
+	}
+
+	.shd_profile {
+		flex-direction: column;
+	}
+
+	img.pic_profile {
+		margin-top: 1em;
+		width: 75%;
+	}
+
+	.con_profile p {margin-top: 1em;}
+
+	.timer {
+		margin-bottom: 0.2em;
+		color: #fff;
+		font-size: 2em;
+		text-align: center;
+		line-height: 1.2;
+	}
+
+	.wrap_tokucho,
+	.wrap_miryoku,
+	.wrap_future {
+		margin-top: 4vw;
+	}
+
+	.hd_schedule {
+		margin: 0 auto;
+		width: 75vw;
+	}
+
+
+	.wrap_who {
+		padding: 0 4vw;
+	}
+
+
+	.con_tokucho,
+	.con_future {
+		font-size: 1em;
+	}
+
+
+	.con_profile {
+		/* padding: 30px; */
+		width: 96%;
+	}
+
+	.shd_profile {
+		flex-direction: column;
+	}
+
+	img.pic_profile {
+		margin-top: 1em;
+		width: 75%;
+	}
+
+	.con_profile p {margin-top: 1em;}
+
+	.timer {
+		margin-bottom: 0.2em;
+		color: #fff;
+		font-size: 2em;
+		text-align: center;
+		line-height: 1.2;
+	}
+
+	/*
+	*		form
+	*/
+
+	.form {
+		padding: 4vw 2vw;
+	}
+
+	.fn-row.submit {
+		padding: 2vw 4vw 3vw;
+	}
+
+	.myasp-form-wrap .form_input_input.deco {
+		height: calc(108 / 840 * 100%);
+		min-height: calc(108 / 840 * 94vw);
+		font-size: 1em !important;
+		padding-left: 4px !important;
+		padding-right: 4px !important;
+	}
+
+	.myasp-form-wrap .form_input_submit {
+		margin-top: 4vw;
+	}
+
+	.myasp-form-wrap .myasp-btn-image {
+		max-width: 100%;
+	}
+
+	button[type=submit] img,
+	.submit .btn_utg {
+		margin-top: 0;
+		max-width: 100%;
+	}
+
+		.optin {
+			margin-top: 2em;
+			font-size: 50%;
+		}
+
+		.flbtn {
+			left: 2vw;
+			bottom: 0.5em;
+		}
+
+		.flbtn a {
+			width: 96vw;
+			height: calc( ( 180 / 840) * 96vw );
+		}
+
+		.footer,
+		footer {
+			padding-bottom: calc( ( 180 / 840) * 96vw + 1.5em );
+		}
+  
+}
+
+@media screen and (max-width: 599px) {
+
+	.pconly{display: none;}
+	.tbonly{display: none;}
+	.sponly{display: block;}
+
+	body {
+		font-size: 4vw;
+	}
+
+	h1.pconly.tbonly {display: none;}
+	h1.sponly {display: block;height: auto;}
+
+
+	.wrap_voice, .wrap_video, .con_profile {
+		padding: 4vw;
+		width: 96%;
+	}
+
+	.hd_schedule {
+		width: 75vw;
+	}
+
+	.wrap_miryoku,
+	.wrap_merit,
+	.wrap_future {
+		padding: 4vw;
+	}
+
+	.con_voice {
+		margin-bottom: 4vw;
+	}
+
+	.con_merit,
+	.con_future {
+		padding: 0 4vw;
+		/* font-size: 6vw; */
+	}
+
+	.who h2 {
+		margin-bottom: 1.5em;
+	}
+
+	.con_who {
+		flex-direction: column;
+		gap: 1.5em;
+	}
+
+	.con_who img {
+		width: 75vw
+	}
+
+
+	.who-panel {
+		padding: 32px 18px 28px;
+	}
+	.who-headline {
+		font-size: 1.45em;
+	}
+	.who-sub {
+		font-size: 1.2em;
+	}
+	.who-checks li {
+		font-size: 1.05em;
+		padding-left: 2.1em;
+	}
+	.who-close {
+		font-size: 1.15em;
+	}
+
+	.who-copy,
+	.who-copy-secondary {
+		padding: 5vw;
+		font-size: 5.3vw;
+		border-radius: 5vw;
+		line-height: 1.7;
+	}
+
+	.who-bridge-image {
+		margin-top: 5vw;
+	}
+
+	.profile-logo {
+		width: 52vw;
+		max-width: 52vw;
+		margin-top: 5vw;
+	}
+
+	.tokucho h2 {
+		margin-bottom: 4vw;
+	}
+
+
+	.con_miryoku {
+		padding: 0 4vw;
+		font-size: 4vw;
+	}
+
+	.num_miryoku {
+		height: 3.6em;
+	}
+
+
+	.con_voice {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1em;
+		margin-bottom: 4vw;
+	}
+	
+	.con_voice div:first-of-type,
+	.con_voice div:last-of-type {
+		width: 100%;
+	}
+
+	.con_voice div:first-of-type img:first-of-type {
+		width: 75%;
+	}
+	.con_voice div:first-of-type img:last-of-type {
+		width: 66%;
+	}
+	
+	.con_voice p {
+		font-size: 1em;
+	}
+
+
+	.timer {
+		font-size: 1.25em;
+	}
+
+	.profile {
+		padding-top: 4vw;
+	}
+
+	.profile h2 {
+		margin: 0 auto 4vw;
+	}
+
+	.profile h2 img {
+		width: 75vw;
+	}
+
+	.con_profile {
+		border-width: 4vw;
+	}
+
+	.shd_profile {
+		flex-direction: column-reverse;
+	}
+
+	.shd_profile .tt_shdprofile {
+		margin: 0 auto;
+		max-width: 75%;
+	}
+
+	img.pic_profile {
+		margin: 0 auto 1em;
+	}
+
+	.fn-el-form input[type=email],
+	.deco {
+		font-size: 5vw!important;
+	}
+
+
+}
+
+
+/*
+ *		特商法
+ */	
+
+/* Tokutei Table
+------------------------------------------------------*/
+
+
+.law #wrapper {
+	margin: 0 auto 2em;
+	width: 800px;
+	max-width: 96vw;
+	background: #fff;
+	font-size: 75%;
+}
+
+.law #wrapper h2 {
+	font-size: 2em;
+}
+
+.law #wrapper h3 {
+	margin-top: 2em;
+	font-size: 1.25em;
+}
+
+.law #wrapper h4 {
+	margin-top: 2em;
+}
+
+.law ol,
+.law ul {list-style-position: inside;}
+
+.law table {
+	border-collapse: separate;
+	border-spacing: 1px;
+	background: #EEE;
+}
+
+.law th,
+.law td {
+	padding: 0.5em 1em;
+	background: #f5f5f5;
+}
+
+.law td {
+	background: #fff;
+}
+
+@media screen and (max-width: 599px) {
+
+	.law th,
+	.law td {
+		display: block;
+		padding: 2vw;
+		width: 100%;
+	}
+
+}
+
+
+
+
+
+/*
+ *		RESET
+ */
+
+
+ .h2, h2, .h3, h3 {
+	font-size: 1em;
+}
+
+button[name="send"] {padding: 0!important;}
+
+ .fn-pb-20 {
+    padding-bottom: 0;
+}
+.fn-mb-20 {
+    margin-bottom: 0;
+}
+
+@media screen and (min-width: 940px) {
+    .fn-px-50 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+
+@media screen and (max-width: 940px) {
+    .form .fn-px-sp-15, .nopd .fn-px-sp-15 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.modal {z-index:99999;}
+.fixed-bottom, .fixed-top{z-index:999999;}
+
+
+/*
+ *		CUSTOM
+ */
+
+
+h3 {margin-bottom: 0;}
+.fn-section.background-image.background-image-w100.firstview {
+    background-image: var(--section-background-image);
+    background-size: auto 100%;
+    background-position: center;
+}
+.fn-section.background-image[data-v-f6fdf98e]:before {content:none!important;}
+
+/*.voice {display:none!important;}*/
+/*.dontdisplay {display:none!important;}*/
+
+/* myasp form — original LP design */
+.myasp-form-wrap .content_title { display: none; }
+.myasp-form-wrap .content_form {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+.myasp-form-wrap .myForm {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+.myasp-form-wrap .my_column.my_left,
+.myasp-form-wrap .label_frame,
+.myasp-form-wrap .form_input_label { display: none !important; }
+.myasp-form-wrap .myasp-mail-row,
+.myasp-form-wrap .input_unit {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+.myasp-form-wrap .form_input_input.deco {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 6px 4px !important;
+    width: 100% !important;
+    max-width: 900px;
+    height: 108px;
+    border: 4px solid var(--brand-teal) !important;
+    background: var(--brand-white);
+    color: var(--brand-teal-dark);
+    font-size: 1.5em !important;
+    font-weight: bold;
+    text-align: center;
+    box-sizing: border-box;
+}
+.myasp-form-wrap .form_input_input.deco::placeholder { color: #AAA; }
+.myasp-form-wrap .form_input_submit {
+    border: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 0.75em 0.5em !important;
+    margin: 25px auto 0;
+    width: 100%;
+    max-width: 900px;
+    overflow: visible !important;
+}
+.myasp-form-wrap .form_input_submit input[type="submit"] { display: none !important; }
+.myasp-form-wrap .myasp-btn-shell {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 900px;
+    padding: 0;
+    box-sizing: border-box;
+    border: 0 !important;
+    background: transparent !important;
+    filter: none;
+    animation-name: btn-animation-f;
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+    transform-origin: center center;
+    overflow: visible;
+}
+.myasp-form-wrap .myasp-btn-shell:hover { animation-duration: 0.8s; }
+.myasp-form-wrap .myasp-btn-image {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    padding: 0;
+    border: 0 !important;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    vertical-align: bottom;
+    filter: none;
+}
+
+    </style>
+    <link rel="stylesheet" type="text/css" href="https://my183p.com/p/format_css?item_id=iak8HPwC&format=div&form_align=&label_align=&radio_float=&checkbox_float=&label_width=0&input_width=0&theme_name=3_7&ver=3&fv=7376e12c588b" />
+    <link rel="stylesheet" type="text/css" href="https://my183p.com/p/mobile_css?item_id=iak8HPwC&format=div&form_align=&label_align=&radio_float=&checkbox_float=&label_width=0&input_width=0&theme_name=3_7&ver=3&fv=7376e12c588b" />
+    <link rel="stylesheet" type="text/css" href="https://my183p.com/css/form/myasp-ui-form.css?d=20260519153703">
+    <style>
+/* MyASP overrides — load after MyASP CSS */
+.myasp-form-wrap .submit.form_input_submit {
+    margin: 25px auto 0 !important;
+    padding: 0.75em 0.5em !important;
+    width: 100% !important;
+    max-width: 900px !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    overflow: visible !important;
+}
+.myasp-form-wrap .submit .btn_utg {
+    margin: 0 auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    filter: none !important;
+    animation-name: btn-animation-f !important;
+    overflow: visible !important;
+}
+.myasp-form-wrap,
+.form .fn-row.submit {
+    overflow: visible !important;
+}
+.myasp-form-wrap .form_input_input.deco {
+    max-width: 100% !important;
+}
+@media screen and (max-width: 1023px) {
+.myasp-form-wrap .form_input_input.deco::placeholder {
+    font-size: 0.85em;
+}
+}
+@media screen and (max-width: 599px) {
+	.fn-el-form input[type=email],
+	.deco,
+	.myasp-form-wrap .form_input_input.deco {
+		height: 52px !important;
+		min-height: 52px !important;
+		padding: 8px 10px !important;
+		border-width: 3px !important;
+		font-size: 1em !important;
+	}
+	.myasp-form-wrap .form_input_input.deco::placeholder {
+		font-size: 0.95em;
+	}
+	.myasp-form-wrap .form_input_submit {
+		margin-top: 14px;
+		padding: 0.4em 0.25em !important;
+	}
+}
+    </style>
+
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="assets/www.googletagmanager.com/ns__9c7bb068cc.html?v=20260607"
+                          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+    
+
+<div id="body">
+    <div id="main" v-bind:class="[pagePcWidth, borderType, pageBackgroundImageClasses]" v-bind:style="pageBackgroundStyles">
+        <elements-component v-bind:data='{"page":{"background_color":null,"background_image_src":null,"background_image_style":null},"elements":[{"id":754635255,"is_popup":0,"type":"section","padding_bottom_sp":0,"padding_side_sp":0,"device":"only-sp","sid":"","children":[{"id":754635256,"is_popup":0,"type":"row","padding_bottom_sp":0,"sid":"","children":[{"id":754635257,"is_popup":0,"type":"col","sid":"","children":[{"id":754635258,"is_popup":0,"type":"image","img_src":"assets/header-mobile-replacement.png?v=20260719j","align":"center","target":"same","sid":"","children":[]}]}]}]},{"id":754635259,"is_popup":0,"type":"section","device":"only-pc","class":"firstview","sid":"","children":[{"id":754635260,"is_popup":0,"type":"row","sid":"","children":[{"id":754635261,"is_popup":0,"type":"col","sid":"","children":[]}]}]},{"id":754635267,"is_popup":0,"type":"section","class":"form","sid":"","children":[{"id":754635268,"is_popup":0,"type":"row","class":"submit","sid":"","children":[{"id":754635269,"is_popup":0,"type":"col","sid":"","children":[{"id":754635270,"is_popup":0,"type":"html","text":"<p class=\"form-nudge\"><span>子育て経験を収入に変える秘密</span></p><p class=\"form-nudge-date\">↓8月3日(月)21:30スタート↓</p><div id=\"form\" class=\"myasp-form-wrap\"><div class=\"content_form\"><form action=\"https://my183p.com/p/r/iak8HPwC\" enctype=\"multipart/form-data\" id=\"UserItemForm\" class=\"myForm\" method=\"post\" accept-charset=\"utf-8\" data-myasp-item-id=\"iak8HPwC\" data-myasp-form-id=\"iak8HPwC\" data-myasp-page-key=\"form_page_html\" data-myasp-form-asset-version=\"7376e12c588b\"><input type=\"hidden\" name=\"_method\" value=\"POST\"><div class=\"input text input_unit required myasp-mail-row\" data-form-key=\"Usermail\"><input name=\"data[User][mail]\" id=\"Usermail\" value=\"\" class=\"form_input_input deco\" type=\"text\" placeholder=\"メールアドレスを入力してください\"></div><div class=\"submit form_input_submit\"><span class=\"btn_utg myasp-btn-shell\"><input type=\"image\" src=\"assets/button-replacement.png?v=20260719j\" alt=\"無料で今すぐ5日間チャレンジプログラムに参加する\" class=\"myasp-btn-image\"></span></div><input type=\"hidden\" id=\"server_url_UserItemForm\" value=\"https://my183p.com/\"><!-- ▼リファラ --><input type=\"hidden\" name=\"data[User][referer_form_url]\" value=\"\" class=\"UserRefererFormUrl\"/><input type=\"hidden\" name=\"data[User][referer_url]\" value=\"\" class=\"UserRefererUrl\"/><script type=\"text/javascript\">//<!--\n    if (document.referrer.length !=0 ){\n        if (document.getElementsByClassName(\"UserRefererUrl\"))\n        {\n        var user_referer_url = document.getElementsByClassName(\"UserRefererUrl\");\n        for (var i = 0; i < user_referer_url.length; i++)\n        {\n            user_referer_url[i].value = document.referrer;\n        }\n        }\n        else if (document.getElementById(\"UserRefererUrl\"))\n        {\n            document.getElementById(\"UserRefererUrl\").value = document.referrer;\n        }\n    }\n\n\n    if (document.getElementsByClassName(\"UserRefererFormUrl\"))\n    {\n        var user_referer_form_url = document.getElementsByClassName(\"UserRefererFormUrl\");\n        for (var i = 0; i < user_referer_form_url.length; i++)\n        {\n            user_referer_form_url[i].value = location.href;\n        }\n    }\n    else if (document.getElementById(\"UserRefererFormUrl\"))\n    {\n        document.getElementById(\"UserRefererFormUrl\").value = location.href;\n    }\n//-->\n    </script><!-- ▲リファラ --></form></div></div>","sid":"","children":[]},{"id":754635272,"is_popup":0,"type":"text","text":"<p>Gmailなどのフリーメールアドレスでのご登録をお願いいたします。メールが確認できない場合は、迷惑フォルダもご確認ください。@icloud.com、outlook.jp、hotmail.com、mac.com、msn.comは届かない場合があります。</p>","class":"optin","sid":"","children":[]}]}]}]},{"id":754635273,"is_popup":0,"type":"section","padding_side_sp":0,"sid":"","children":[{"id":754635274,"is_popup":0,"type":"row","sid":"","children":[{"id":754635275,"is_popup":0,"type":"col","sid":"","children":[{"id":754635276,"is_popup":0,"type":"html","text":"<section class=\"bonus\">\n\n\t\t<h2><img src=\"https://utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/SWfPdfc9Z1zQisx9Q2U8Rd9CfUaVrKC7iygs2E8x.png\" alt=\"プログラム参加特典\"></h2>\n\n\t\t<div class=\"wrap_bonus\">\n\t\t\n\n\t\t\t<div class=\"con_bonus\">\n\n\t\t\t\t<img src=\"https://utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/WdLb0jPpd4E1440Bk1xNBwJ5tEzAdCxXSrGkriQb.png\" alt=\"今すぐ使える ”予想外”で子どものシナプスを刺激する 「1秒育脳ぷち」\">\n\n\t\t\t</div><!--/con_bonus-->\n\n\n\t\t</div><!--/wrap_bonus-->\n\t\t\n\t</section><!--/bonus-->\n\n\n<section class=\"who\">\n\n\t\t<h2><img src=\"https://utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/xs4PxQd9BBP8vclRk234tbWC9zDh6lDK16GwSy47.png\" alt=\"「育脳子育てカウンセラー」はこんな方におすすめです\"></h2>\n\n\t\t<div class=\"wrap_who\">\n\n\t\t\t<div class=\"con_who\">\n\t\t\t\t<img class=\"img_who_checklist\" src=\"assets/who-checklist-replacement.png?v=20260719j\" alt=\"子どもが好きだからこそ、今の働き方に悩んでしまう。\">\n\t\t\t</div><!--/con_who-->\n\n\t\t</div><!--/wrap_who-->\n\n\t</section><!--/who-->\n\t<section class=\"who-feelings\">\n\t\t<div class=\"wrap_who_feelings\">\n\t\t\t<img class=\"img_who_feelings\" src=\"assets/who-feelings-replacement.png?v=20260719j\" alt=\"実際に、多くの方がこんな悩みを抱えています。\">\n\t\t</div>\n\t</section><!--/who-feelings-->\n\t<section class=\"insight-lead\">\n\t\t<div class=\"wrap_insight_lead\">\n\t\t\t<img class=\"img_insight_lead\" src=\"assets/insight-lead-replacement.png?v=20260719j\" alt=\"はじめまして！育脳カウンセラーの「永瀬まみ」です。わたしはこれまで5,000組以上の親子をサポートする中で、ある共通点に気づきました。\">\n\t\t</div>\n\t</section><!--/insight-lead-->\n\t<section class=\"insight-story\">\n\t\t<div class=\"wrap_insight_story\">\n\t\t\t<img class=\"img_insight_story\" src=\"assets/insight-story-replacement.png?v=20260719j\" alt=\"子どもが笑顔で育つ家庭には、必ずと言っていいほど笑顔のママがいます。\">\n\t\t</div>\n\t</section><!--/insight-story-->\n\t\n\t<section class=\"contrast-question\">\n\t\t<div class=\"wrap_contrast_question\">\n\t\t\t<img class=\"img_contrast_question\" src=\"assets/contrast-question-replacement.png?v=20260719j\" alt=\"うまくいく家庭にあって、うまくいってない家庭にないもの\">\n\t\t\t<p class=\"cycle-title cycle-title-happy\">うまくいく家庭の<br class=\"sponly\">「ハッピーサイクル」</p>\n\t\t\t<img class=\"img_irritation_cycle\" src=\"assets/happy-cycle-replacement.png?v=20260719j\" alt=\"ハッピーサイクル\">\n\t\t\t<p class=\"cycle-title cycle-title-irritation\">うまくいかない家庭の<br class=\"sponly\">「イライラサイクル」</p>\n\t\t\t<img class=\"img_irritation_cycle\" src=\"assets/irritation-cycle-02.png?v=20260719j\" alt=\"イライラサイクル\">\n\t\t\t<p class=\"cycle-bridge\">このように、ママが不安や焦りを抱えていると、<br>負のループに入りやすくなります。<br>親子の関係がすれ違ったり、<br>子どもが挑戦しにくくなったりしてしまいます。</p>\n\n\t\t</div>\n\t</section><!--/contrast-question-->\n<section class=\"mama-support-lead\">\n\t\t<div class=\"wrap_mama_support_lead\">\n\t\t\t<img class=\"img_mama_support_lead\" src=\"assets/mama-support-lead-replacement.png?v=20260719j\" alt=\"本当に必要なのは、子どもだけを支えることではなく、ママを支えること。\">\n\t\t</div>\n\t</section><!--/mama-support-lead-->\n<section class=\"conclusion-story\">\n\t\t<div class=\"wrap_conclusion_story\">\n\t\t\t<picture>\n\t\t\t\t<source srcset=\"assets/conclusion-text-mobile-replacement.png?v=20260719j\" media=\"(max-width: 599px)\">\n\t\t\t\t<img class=\"img_conclusion_story\" src=\"assets/conclusion-text-replacement.png?v=20260719j\" alt=\"だから今、本当に必要とされているのが、おうち育脳カウンセラーです。\">\n\t\t\t</picture>\n\t\t</div>\n\t</section><!--/conclusion-story-->\n\n\n\n\n\n\t\t\n\t<section class=\"tokucho\">\n\n\t\t<div class=\"wrap_tokucho\">\n\t\t\n\t\t\t<picture>\n\t\t\t\t<source srcset=\"assets/tokucho-workstyle-replacement.png?v=20260719j\" media=\"(max-width: 599px)\">\n\t\t\t\t<img class=\"img_tokucho\" src=\"assets/tokucho-workstyle-replacement.png?v=20260719j\">\n\t\t\t</picture>\n\n\t\t</div><!--/wrap_tokucho-->\n\t\t\n\t</section><!--/tokucho-->\n\n\n\t\n\n\t<section class=\"workstyle-examples\">\n\t\t<div class=\"wrap_workstyle_examples\">\n\t\t\t<img class=\"img_workstyle_examples\" src=\"assets/workstyle-examples-replacement.png?v=20260720a\" alt=\"おうち育脳カウンセラーはいろんな場面で活躍できます。\">\n\t\t\t<div class=\"workstyle-invite\">\n\t\t\t\t<p class=\"workstyle-invite-voice\">「私には難しそう…」<br>「資格も経験もないし、本当にできるのかな？」</p>\n\t\t\t\t<p>そんなふうに感じている方こそ、<br>ぜひ4日間の無料LIVEレッスンにご参加ください。</p>\n\t\t\t\t<p>実際にどんな仕事なのか、<br>どんなふうにママをサポートするのか、<br>未経験から始められる理由まで、<br>わかりやすくお伝えします。</p>\n\t\t\t\t<p>まずは、「私にもできそう」を<br>あなた自身の目で確かめてみてください。</p>\n\t\t\t</div>\n\t\t</div>\n\t</section><!--/workstyle-examples-->\n\n","sid":"","children":[]}]}]}]},{"id":900000001,"is_popup":0,"type":"section","class":"tokucho02-below-form","sid":"","children":[{"id":900000002,"is_popup":0,"type":"row","sid":"","children":[{"id":900000003,"is_popup":0,"type":"col","sid":"","children":[{"id":900000004,"is_popup":0,"type":"html","text":"<section id=\"tokucho02\" class=\"tokucho02\">\n\n\t\t<div class=\"wrap_tokucho02\">\n\n\t\t\t<picture>\n\t\t\t\t<source srcset=\"assets/header-mobile-replacement.png?v=20260719j\" media=\"(max-width: 599px)\">\n\t\t\t\t<img class=\"img_tokucho02\" src=\"assets/header-replacement.png?v=20260719j\" alt=\"育脳子育てカウンセラー®の始め方\">\n\t\t\t</picture>\n\n\t\t</div><!--/wrap_tokucho02-->\n\n\t</section><!--/tokucho02-->","sid":"","children":[]}]}]}]},{"id":754635277,"is_popup":0,"type":"section","class":"form","sid":"","children":[{"id":754635278,"is_popup":0,"type":"row","class":"submit","sid":"","children":[{"id":754635279,"is_popup":0,"type":"col","sid":"","children":[{"id":754635280,"is_popup":0,"type":"html","text":"<p class=\"form-nudge\"><span>子育て経験を収入に変える秘密</span></p><p class=\"form-nudge-date\">↓8月3日(月)21:30スタート↓</p><div id=\"form-bottom\" class=\"myasp-form-wrap\"><div class=\"content_form\"><form action=\"https://my183p.com/p/r/iak8HPwC\" enctype=\"multipart/form-data\" id=\"UserItemForm2\" class=\"myForm\" method=\"post\" accept-charset=\"utf-8\" data-myasp-item-id=\"iak8HPwC\" data-myasp-form-id=\"iak8HPwC\" data-myasp-page-key=\"form_page_html\" data-myasp-form-asset-version=\"7376e12c588b\"><input type=\"hidden\" name=\"_method\" value=\"POST\"><div class=\"input text input_unit required myasp-mail-row\" data-form-key=\"Usermail\"><input name=\"data[User][mail]\" id=\"Usermail2\" value=\"\" class=\"form_input_input deco\" type=\"text\" placeholder=\"メールアドレスを入力してください\"></div><div class=\"submit form_input_submit\"><span class=\"btn_utg myasp-btn-shell\"><input type=\"image\" src=\"assets/button-replacement.png?v=20260719j\" alt=\"無料で今すぐ5日間チャレンジプログラムに参加する\" class=\"myasp-btn-image\"></span></div><input type=\"hidden\" id=\"server_url_UserItemForm2\" value=\"https://my183p.com/\"><!-- ▼リファラ --><input type=\"hidden\" name=\"data[User][referer_form_url]\" value=\"\" class=\"UserRefererFormUrl\"/><input type=\"hidden\" name=\"data[User][referer_url]\" value=\"\" class=\"UserRefererUrl\"/><script type=\"text/javascript\">//<!--\n    if (document.referrer.length !=0 ){\n        if (document.getElementsByClassName(\"UserRefererUrl\"))\n        {\n        var user_referer_url = document.getElementsByClassName(\"UserRefererUrl\");\n        for (var i = 0; i < user_referer_url.length; i++)\n        {\n            user_referer_url[i].value = document.referrer;\n        }\n        }\n        else if (document.getElementById(\"UserRefererUrl\"))\n        {\n            document.getElementById(\"UserRefererUrl\").value = document.referrer;\n        }\n    }\n\n\n    if (document.getElementsByClassName(\"UserRefererFormUrl\"))\n    {\n        var user_referer_form_url = document.getElementsByClassName(\"UserRefererFormUrl\");\n        for (var i = 0; i < user_referer_form_url.length; i++)\n        {\n            user_referer_form_url[i].value = location.href;\n        }\n    }\n    else if (document.getElementById(\"UserRefererFormUrl\"))\n    {\n        document.getElementById(\"UserRefererFormUrl\").value = location.href;\n    }\n//-->\n    </script><!-- ▲リファラ --></form></div></div>","sid":"","children":[]},{"id":754635281,"is_popup":0,"type":"text","text":"<p>Gmailなどのフリーメールアドレスでのご登録をお願いいたします。メールが確認できない場合は、迷惑フォルダもご確認ください。@icloud.com、outlook.jp、hotmail.com、mac.com、msn.comは届かない場合があります。</p>","class":"optin","sid":"","children":[]}]}]}]},{"id":754635325,"is_popup":0,"type":"section","sid":"","children":[{"id":754635326,"is_popup":0,"type":"row","sid":"","children":[{"id":754635327,"is_popup":0,"type":"col","sid":"","children":[{"id":754635328,"is_popup":0,"type":"html","text":"<div class=\"profile\">\n\t\t\t<h2><img src=\"https://utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/f8qoOenCimcPo5xTOmAGJpNZt6yGKnnaaPh8ux0I.png\" alt=\"講師紹介\"></h2>\n\t\t\t\n\t\t\t<div class=\"con_profile\">\n\t\t\t\t<div class=\"shd_profile\">\n\t\t\t\t\t<picture>\n\t\t\t\t\t\t<source srcset=\"https://utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/IRZdUzYIFDPmhhSWgDZT4NMjxL5KNq7nam1GNsdj.png\" media=\"(max-width: 768px)\">\n\t\t\t\t\t\t<img class=\"tt_shdprofile\" src=\"https://utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/gdZe5hp0Q0dcBDhO5JMk6Y29eAghQGKnOTh5LJz4.png\">\n\t\t\t\t\t</picture>\n\t\t\t\t\t<img class=\"pic_profile\" src=\"assets/profile-photo-replacement.png?v=20260719j\">\n\t\t\t\t</div><!-- /shd_profile -->\n\t\t\t\t\n\t\t\t\t<p>はじめまして。<br>\n永瀬まみです。<br>\n<br>\n私も、2男1女を育てた母です。<br>\n<br>\n幼いころから特別な英才教育をしてきたわけではありません。<br>\n<br>\nごく普通の家庭で、<br>\n子どもたちを信じ、<br>\nたくさん話を聞き、<br>\n愛情をたっぷり注ぎながら子育てをしてきました。<br>\n<br>\nその結果、<br>\n<br>\n長男は医師に。<br>\n長女は特待生を経て幼稚園教諭に。<br>\n次男は国立大学を卒業し、独立行政法人で働いています。<br>\n<br>\nもちろん、<br>\n順風満帆だったわけではありません。<br>\n<br>\n悩んだ日も、<br>\n迷った日も、<br>\n子育てが思うようにいかない日もありました。<br>\n<br>\nそれでも私が大切にしてきたのは、<br>\n子どもを変えようとするのではなく、<br>\n親子で一緒に成長していくこと。<br>\n<br>\nその積み重ねが、<br>\n子どもたちの「自分で考え、自分で選ぶ力」を<br>\n育ててくれたのだと思っています。<br>\n<br>\n子どもが成長し、<br>\n少しずつ手が離れてきた頃、<br>\n私には、もう一つの想いが生まれました。<br>\n<br>\n<strong>「子育て経験を、誰かの役に立てられないだろうか。」</strong><br>\n<strong>「家族を大切にしながら、人の力になれる仕事がしたい。」</strong><br>\n<br>\nその想いから、<br>\n17年前に活動をスタートしました。<br>\n<br>\n子育て中は、<br>\n毎日が本当にあっという間です。<br>\n<br>\n母として。<br>\n妻として。<br>\n家族のために走り続ける毎日。<br>\n<br>\n気づけば、<br>\n自分のことはいつも後回し。<br>\n<br>\nそんなママを、<br>\n私はたくさん見てきました。<br>\n<br>\nだからこそ、伝えたいことがあります。<br>\n<br>\n<strong>ママだって、<br>\n自分の人生を大切にしていい。<br>\nやりたいことをやっていい。<br>\n好きなことを仕事にしていい。</strong><br>\n<br>\n子育てと仕事を、<br>\nどちらか一つ選ぶ必要はありません。<br>\n<br>\nどちらも大切にしながら、<br>\n自分らしく働くことはできます。<br>\n<br>\nそして、<br>\nそんなママが増えることが、<br>\n子どもたちの笑顔を増やし、<br>\n地域をもっとあたたかくしていく。<br>\n<br>\n私は、そう信じています。<br>\n<br>\nだから今も、<br>\n<strong>おうち育脳カウンセラーとして、<br>\nたくさんの親子と向き合い続けています。</strong></p>\n\t\t\t</div><!-- /con_profile -->\n\t\t</div><!-- /profile -->","sid":"","children":[]}]}]}]},{"id":900000101,"is_popup":0,"type":"section","class":"lp-disclaimer","sid":"","children":[{"id":900000102,"is_popup":0,"type":"row","sid":"","children":[{"id":900000103,"is_popup":0,"type":"col","sid":"","children":[{"id":900000104,"is_popup":0,"type":"html","text":"<p>※本ページに掲載している働き方や活動事例は一例です。受講後の活動内容、仕事の機会、収入や実績には個人差があり、すべての方に同様の結果を保証するものではありません。</p>","sid":"","children":[]}]}]}]},{"id":754635329,"is_popup":0,"type":"section","class":"footer","sid":"","children":[{"id":754635330,"is_popup":0,"type":"row","sid":"","children":[{"id":754635331,"is_popup":0,"type":"col","sid":"","children":[{"id":754635332,"is_popup":0,"type":"footer","color":"#ffffff","privacy":"https://eqno.mamaaka.com/p/privacy","asct":"https://eqno.mamaaka.com/p/law","copyright":"育脳子育てカウンセラー 運営事務局","background_color":"#ffffff","sid":"","children":[]}]}]}]},{"id":754635333,"is_popup":0,"type":"section","sid":"","children":[{"id":754635334,"is_popup":0,"type":"row","sid":"","children":[{"id":754635335,"is_popup":0,"type":"col","sid":"","children":[{"id":754635336,"is_popup":0,"type":"html","text":"<div class=\"flbtn\"><a href=\"#tokucho02\">無料で今すぐ5日間チャレンジプログラムに参加する</a></div><!--/flbtn-->","sid":"","children":[]}]}]}]}],"popupelements":[],"products":[],"actions":[],"forms":[],"funnel":{"id":125951,"id_str":"tIuqBmSeuvw6","funnel_group_id":0,"memo":null,"share_id":"SIjKFcmlg632","is_test_mode":0,"is_archived":0,"is_deleted":0,"status":"published","share_type":"email","from_funnel_id":null,"period_to":null,"url_closed":null,"webinar_format":"web","webinar_type":"day","webinar_registration_type":"default","webinar_period_minute":null,"webinar_day_after":null,"webinar_days":null,"webinar_count_per_day":null,"webinar_from_hour1":null,"webinar_from_min1":null,"webinar_to_hour1":null,"webinar_to_min1":null,"webinar_from_hour2":null,"webinar_from_min2":null,"webinar_to_hour2":null,"webinar_to_min2":null,"webinar_length_hour":null,"webinar_length_minute":null,"webinar_replay_days":null,"webinar_chat_type":"none","webinar_chat_approval_type":"auto","webinar_default_schedule_type":"none","zoom_webinar_project_id":null,"js_head":null,"js_body_top":null,"js_body":null,"order":0,"user_id_str":"g5kxXfM1ukUE","share_status":null,"today":"2026-06-03T12:09:54.798179Z"},"ispreview":false,"pageid":"dSMe05KIyIEV","pcwidth":100,"bordertype":"shadow","swipetype":"none","userdata":[],"webinarschedules":[],"uselazyload":true}'></elements-component>
+    </div>
+    <div>
+        <div id="exit-popup-hover" class="fixed-top"
+             v-if="canExitPopup"
+             v-on:mouseover="showPopup">
+        </div>
+        <div class="modal fade" id="modal-popup" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document"
+         v-bind:class="[popupVerticalAlign]"
+         v-bind:style="[popupWidth]">
+        <div class="modal-content" v-bind:style="[popupColor]">
+            <div>
+                <button type="button" class="close bg-white rounded-circle border-black" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times-circle"></i></span>
+                </button>
+            </div>
+            <div id="pupup-container" class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+<div id="modal"></div>
+
+<script src="assets/eqno.mamaaka.com/js/page__12212311f1.js?v=20260607"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+	function fitFormNudge() {
+		if (window.innerWidth > 599) {
+			document.querySelectorAll('.form-nudge span').forEach(function (span) {
+				span.style.fontSize = '';
+			});
+			document.querySelectorAll('.form-nudge-date').forEach(function (el) {
+				el.style.fontSize = '';
+			});
+			return;
+		}
+		document.querySelectorAll('.form-nudge').forEach(function (el) {
+			var span = el.querySelector('span');
+			if (!span) {
+				return;
+			}
+			var maxWidth = el.clientWidth;
+			if (!maxWidth) {
+				return;
+			}
+			var size = Math.min(28, Math.floor(maxWidth / 15));
+			span.style.fontSize = size + 'px';
+			while (size > 11 && span.scrollWidth > maxWidth) {
+				size -= 0.5;
+				span.style.fontSize = size + 'px';
+			}
+			var dateEl = el.nextElementSibling;
+			if (dateEl && dateEl.classList.contains('form-nudge-date')) {
+				dateEl.style.fontSize = size + 'px';
+			}
+		});
+	}
+
+	function insertWhoCopy() {
+		var target = document.querySelector('.con_who');
+		if (!target || target.querySelector('.who-copy')) {
+			return;
+		}
+
+		var copy = document.createElement('div');
+		copy.className = 'who-copy';
+		copy.innerHTML = '1秒育脳®️で育つのは、知識だけではありません。<span class="who-point">IQの向上</span>はもちろん、<span class="who-point">ひらめき</span>、<span class="who-point">空間認識力</span>、<span class="who-point">豊かな感受性</span>、そして<span class="who-point">自ら学ぶ力</span>まで、子どもの未来につながる土台が育っていきます。';
+		target.appendChild(copy);
+	}
+
+	function insertWhoCopySecondary() {
+		var section = document.querySelector('.who');
+		var anchor = document.querySelector('.wrap_who');
+		if (!section || !anchor || section.querySelector('.who-copy-secondary')) {
+			return;
+		}
+
+		var copy = document.createElement('div');
+		copy.className = 'who-copy-secondary';
+		copy.innerHTML = '子どもの未来を育てる関わり方は、<br><span class="who-point">あなたの未来</span>も変えていくかもしれません。<br><br>1秒育脳®を学ぶことで、<br>子どもの可能性を引き出す関わり方だけでなく、<br><br>ママたちの悩みに寄り添い、<br><span class="who-soft">親子をサポートできる知識とスキル</span>が身につきます。<br><br>そしてそのスキルは、<br><span class="who-lead">「自分の子育てに活かすだけ」</span><br><br>で終わるものではありません。<br><br>地域の親子の役に立ったり、<br>今のお仕事に取り入れたり、<br><span class="who-point">新しい働き方につながる可能性</span>もあるのです。';
+		anchor.insertAdjacentElement('afterend', copy);
+	}
+
+	function insertWhoBridgeImage() {
+		var section = document.querySelector('.who');
+		var anchor = document.querySelector('.who-copy-secondary');
+		if (!section || !anchor || section.querySelector('.who-bridge-image')) {
+			return;
+		}
+
+		var image = document.createElement('div');
+		image.className = 'who-bridge-image';
+		anchor.insertAdjacentElement('afterend', image);
+	}
+
+	function insertProfileLogo() {
+		var profile = document.querySelector('.profile');
+		var anchor = document.querySelector('.con_profile p');
+		if (!profile || !anchor || profile.querySelector('.profile-logo')) {
+			return;
+		}
+
+		var logo = document.createElement('div');
+		logo.className = 'profile-logo';
+		anchor.insertAdjacentElement('afterend', logo);
+	}
+
+	insertWhoCopy();
+	insertWhoCopySecondary();
+	insertWhoBridgeImage();
+	insertProfileLogo();
+	fitFormNudge();
+	window.setTimeout(insertWhoCopy, 300);
+	window.setTimeout(insertWhoCopySecondary, 300);
+	window.setTimeout(insertWhoBridgeImage, 300);
+	window.setTimeout(insertProfileLogo, 300);
+	window.setTimeout(fitFormNudge, 300);
+	window.setTimeout(insertWhoCopy, 1200);
+	window.setTimeout(insertWhoCopySecondary, 1200);
+	window.setTimeout(insertWhoBridgeImage, 1200);
+	window.setTimeout(insertProfileLogo, 1200);
+	window.setTimeout(fitFormNudge, 1200);
+	window.addEventListener('resize', fitFormNudge);
+});
+</script>
+
+
+
+
+<script>
+(function () {
+  var v = '20260607';
+  function bustLocalAssets(root) {
+    (root || document).querySelectorAll('img[src^="assets/"], source[srcset^="assets/"]').forEach(function (el) {
+      var attr = el.hasAttribute('srcset') ? 'srcset' : 'src';
+      var url = el.getAttribute(attr);
+      if (url && url.indexOf('?v=') === -1) {
+        el.setAttribute(attr, url + '?v=' + v);
+      }
+    });
+  }
+  bustLocalAssets();
+  window.setTimeout(function () { bustLocalAssets(); }, 300);
+  window.setTimeout(function () { bustLocalAssets(); }, 1200);
+})();
+</script>
+
+<script>
+function setMyaspReferrer() {
+    if (document.referrer.length != 0) {
+        if (document.getElementsByClassName("UserRefererUrl")) {
+            var user_referer_url = document.getElementsByClassName("UserRefererUrl");
+            for (var i = 0; i < user_referer_url.length; i++) {
+                user_referer_url[i].value = document.referrer;
+            }
+        } else if (document.getElementById("UserRefererUrl")) {
+            document.getElementById("UserRefererUrl").value = document.referrer;
+        }
+    }
+
+    if (document.getElementsByClassName("UserRefererFormUrl")) {
+        var user_referer_form_url = document.getElementsByClassName("UserRefererFormUrl");
+        for (var i = 0; i < user_referer_form_url.length; i++) {
+            user_referer_form_url[i].value = location.href;
+        }
+    } else if (document.getElementById("UserRefererFormUrl")) {
+        document.getElementById("UserRefererFormUrl").value = location.href;
+    }
+}
+
+setMyaspReferrer();
+window.setTimeout(setMyaspReferrer, 300);
+window.setTimeout(setMyaspReferrer, 1200);
+</script>
+
+
+<script src="https://my183p.com/js/validation.js?av=20260407144514"></script>
+
+</body>
+</html>

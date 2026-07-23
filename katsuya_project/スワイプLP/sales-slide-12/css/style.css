@@ -1,0 +1,615 @@
+@charset "utf-8";
+
+
+body {
+	font-family: "游ゴシック", "Yu Gothic", "游ゴシック体", YuGothic, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Meiryo UI", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	font-family: "メイリオ", Meiryo, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "A-OTF 新ゴ Pro",A-OTF Shin Go Pro,Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	font-size:125%;/* 20px */
+	line-height:1.7;
+	background:#fff;
+	color: #333;
+  font-feature-settings: "palt";
+  text-align: justify;
+}
+h1 {
+	height: 1024px;
+	background: url(../images/header.png) center center / auto 100% no-repeat;
+	text-indent: -9999px;
+	}
+h2 {
+	margin: 50px auto 30px;
+	}
+h2 img {
+	max-width: 90vw;
+}
+img {
+	display:block;
+	margin:0 auto;
+	max-width: 100%;
+}
+
+.large {
+	font-size:120%;
+	}
+
+.xlarge {
+	font-size:144%;
+	}
+
+.xxlarge {
+	font-size:172.8%;
+	}
+.small {
+	font-size:82.5%;
+	}
+.xsmall {
+	font-size:62.5%;
+	}
+.xxsmall {
+	font-size:56.25%;
+	}	
+.u {
+	text-decoration:underline;
+}
+.red {
+	color:red;
+	color: #e62e8a;
+}
+.highlight {
+	background-color:#fff266;
+}
+.redhigh {
+	color:red;
+	color: #e62e8a;
+	background-color:#fff266;
+	}
+.pic_right{
+	float: right;
+	margin: 10px -15px 10px 10px;
+	box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+.pconly{display: block;}
+.tbunder,.sponly{display: none;}
+strong {
+	font-weight:bold;
+	}
+#wrapper {
+	margin:0 auto;
+	background: url("../images/bg_wrapper.png") center center repeat-y;
+}
+main {
+}
+.container{
+}
+footer {
+	margin:0 auto;
+	padding:20px 0;
+	background: #fff;
+	color: #333;
+	text-align:center;
+	font-size: smaller;
+}
+footer a {
+	color:#333;
+	text-decoration:underline;
+}
+
+footer a:hover {t
+}
+address {
+	font-style:normal;
+}
+
+.copys {
+	display: flex;
+	justify-content: space-between;
+	margin: 20px auto 0;
+	width: 900px;
+}
+
+
+/*
+ *		form
+ */
+
+.form {
+	margin: 0 auto;
+	padding: 50px 0;
+	background: #52c6e0;
+}
+
+.submit {
+	margin: 0 auto;
+	padding:10px 0 40px;
+	width:920px;
+	max-width: 98vw;
+	box-shadow: 0 0 5px rgba(0,0,0,1);
+	background: #fff;
+	}
+.submit .btn {
+	display:block;
+	margin:25px auto 0;
+	max-width: 94vw;
+}
+.deco {/* フォームの入力欄装飾用 */
+	display:block;
+	margin: 30px auto 0;
+	padding:10px 6px 4px;
+	width: 840px;
+	max-width: 94vw;
+	height:108px;
+	border: 4px solid #1897c6;
+	background:#fff;
+	color:#1698c7;
+	font-size: 1.5em;
+	font-weight: bold;
+	text-align:center;
+}
+
+.deco::placeholder {
+	color: #AAA;
+}
+
+.btn {
+
+	filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
+
+	/* animation-name:btn-animation-f;
+	animation-iteration-count: infinite;
+	animation-duration:2s; */
+}
+
+.btn:hover {
+	animation-duration:0.8s;	
+}
+
+@keyframes btn-animation-f {
+	0% { transform:scale(1,1)}
+	20% {transform:scale(1.02,1.02)}
+	40% { transform:scale(1,1)}
+	60% {transform:scale(1.02,1.02)}
+	80% { transform:scale(1,1)}
+	85% { transform:skewX(10deg)}
+	90% {transform:skewX(-10deg)}
+	95% { transform:skewX(10deg)}
+	100% {transform:skewX(-10deg)}
+}
+
+
+
+/*
+ *		特典
+ */	
+
+.bonus {
+	padding-bottom: 2.5em;
+}
+
+.wrap_bonus {
+	margin: 0 auto 2.5em;
+	padding:30px 0;
+	width:900px;
+	max-width: 96vw;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	background: #52c6e0;
+}
+
+.img_bonus {
+	margin-bottom: 30px;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.img_bonus:last-of-type {
+	margin-bottom: 0;
+}
+
+
+/*
+ *		tokucho
+ */	
+
+.tokucho {
+	padding-bottom: 2.5em;
+}
+
+.wrap_tokucho {
+	margin: 0 auto;
+	padding: 30px;
+	width: 820px;
+	max-width: 96vw;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	background: #52c6e0;
+}
+
+.con_tokucho {
+	margin-bottom: 30px;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.con_tokucho:last-of-type {
+	margin-bottom: 0;
+}
+
+.con_tokucho p {
+	padding: 1.5em;
+	background: #fff;
+	font-size: 1.25em;
+}
+
+
+
+
+
+/*
+ *		profile
+ */	
+
+.con_profile {
+	margin: 0 auto 2.5em;
+	padding: 1.5em;
+	width: 820px;
+	max-width: 100%;
+	border: 1.5em solid #f5f5f5;
+	box-shadow: 0 0 5px rgba(0,0,0,0.3);
+	background: #fff;
+}
+
+.shd_profile {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	
+}
+
+.shd_profile img {
+	margin: 0;
+}
+
+.pic_profile {
+	width: 240px;
+}
+.pic_profile.p_left {
+	float: right;
+	margin: 0 0 1.5em 1.5em;
+}
+
+.con_profile p {
+	margin-top:1.5em;
+	padding-top: 1em;
+	border-top: 1px solid #DDD;
+}
+
+
+
+
+.optin {
+	margin: 4em auto 0;
+	padding: 1em;
+	width: 800px;
+	max-width: 94vw;
+	height: 8em;
+	background: #f5f5f5;
+	color: #333;
+	font-size: 75%;
+	overflow: scroll;
+}
+
+
+.timer {
+	margin-bottom: 0.75em;
+	color: #fff;
+	font-size: 2.4em;
+	text-align: center;
+	line-height: 1.3;
+}
+
+/***	常時表示ボタン設定	***/
+
+.flbtn {
+	position: fixed;
+	bottom: 0.5em;
+	right: 0.5em;
+	z-index: 9999;
+	opacity: 0;
+}
+
+.flbtn a {
+	display: block;
+	width: 336px;
+	height: 81px;
+	background: url(../images/button.png) no-repeat;
+	background-size: 100%;
+	text-indent: -9999px;
+
+	animation-name: btn-animation;
+	animation-iteration-count: infinite;
+	animation-duration: 2s;
+	animation-delay: 0.6s;
+
+	filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+}
+
+
+
+@keyframes btn-animation {
+	0% {
+		transform: translateY(0.5em);
+	}
+
+	50% {
+		transform: translateY(-0.5em);
+	}
+
+	100% {
+		transform: translateY(0.5em);
+	}
+}
+
+
+
+
+/*
+ *		特商法
+ */	
+
+/* Tokutei Table
+------------------------------------------------------*/
+.tb01{
+	width:720px;
+	margin:30px auto 30px;
+	background:#ccc;
+}
+.tb01 .title{
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #FFFFFF;
+	background-color:#EBEBEB;
+	padding:6px;
+	width:25%;
+}
+.tb01 td{
+	font-size: 12px;
+	vertical-align: top;
+	background-color:#FFFFFF;
+	padding:6px;
+}
+
+.law #wrapper {
+	margin: 0 auto 2em;
+	padding: 3em;
+	width: 800px;
+	background: #fff;
+	max-width: 100%;
+	font-size: 75%;
+}
+
+.law #wrapper h2 {
+	font-size: 2em;
+}
+
+.law #wrapper h3 {
+	margin-top: 2em;
+	font-size: 1.25em;
+}
+
+.law #wrapper h4 {
+	margin-top: 2em;
+}
+
+	
+@media screen and (max-width: 1023px) {
+
+	.tbunder {display: block;}
+	
+	h1 {
+		height: calc( 1024 / 980 * 100vw);
+	}
+
+	main {
+		font-size: 125%;
+	}
+
+	.xlarge {font-size: 125%;}
+	.xxlarge{font-size: 150%;}
+
+	.form {padding: 30px 0;}
+	.deco{font-size: 1em;}
+	
+	#wrapper {background: #fff;}
+
+	.wrap_bonus,.con_profile {
+		padding: 30px;
+		width: 96%;
+	}
+
+	.con_bonus,.con_voice,.con_video {
+		width: 100%;
+	}
+	.con_bonus h3 img {width: 100%;}
+
+	.wrap_bonus {
+		margin-bottom: 1.5em;
+	}
+
+	.con_tokucho p {
+		font-size: 1em;
+	}
+
+	.shd_profile {
+		flex-direction: column;
+	}
+
+	img.pic_profile {
+		margin-top: 1em;
+		width: 50%;
+	}
+
+
+	.con_profile {margin-bottom: 1em;}
+	.con_profile p {margin-top: 1em;}
+
+	.timer {
+		margin-bottom: 0.2em;
+		color: #fff;
+		font-size: 2em;
+		text-align: center;
+		line-height: 1.2;
+	}
+
+	/*
+ *		form
+ */
+
+.form {
+	padding: 1em 0;
+}
+
+.submit {
+	padding-bottom: 2vw;
+}
+
+.deco {
+	display:block;
+	margin: 2vw auto 0;
+	padding:10px 6px 4px;
+	width: 840px;
+	max-width: 94vw;
+	height: calc( 108 / 840 * 94vw );
+	border: 2px solid #1897c6;
+	background:#fff;
+	color:#1698c7;
+	font-size: 1.25em;
+	font-weight: bold;
+	text-align:center;
+}
+
+.submit .btn {
+	margin-top: 3vw;
+}
+
+	.optin {
+		margin-top: 2em;
+		font-size: 50%;
+	}
+
+	.flbtn {
+		left: 2vw;
+		bottom: 0.5em;
+	}
+
+	.flbtn a {
+		width: 96vw;
+		height: calc( ( 180 / 840) * 96vw );
+	}
+
+	footer {
+		padding-bottom: calc( ( 180 / 840) * 96vw + 1.5em );
+	}
+  
+}
+
+@media screen and (max-width: 599px) {
+
+	.pconly{display: none;}
+	.sponly{display: block;}
+
+	body {
+		font-size: 4vw;
+	}
+
+	.wrap_bonus, .wrap_voice, .wrap_video, .con_profile {
+		padding: 4vw;
+		width: 96%;
+	}
+
+	h2 {
+		margin: 6vw auto 4vw;
+	}
+	.hd_schedule {
+		width: 82.5vw;
+	}
+	.bonus {
+		padding-bottom: 0;
+	}
+
+	.wrap_bonus {
+		margin-bottom: 4vw;
+		padding: 3vw;
+	}
+
+	.img_bonus {
+		margin-bottom: 3vw;
+	}
+
+	.ps_bonus {
+		margin-bottom: 6vw;
+		width: 90vw;
+	}
+
+	.tokucho {
+		padding-bottom: 4vw;
+	}
+
+	.wrap_tokucho {
+		padding: 4vw;
+	}
+
+	.con_tokucho {
+		margin-bottom: 4vw;
+	}
+
+	.con_tokucho p {
+		padding: 4vw;
+		font-size: 4vw;
+	}
+
+
+	.timer {
+		font-size: 1.25em;
+	}
+
+	.profile {
+		padding-top: 2vw;
+	}
+
+	.profile h2 {
+		margin-top: 0;
+	}
+
+	.profile h2 img {
+		width: 50vw;
+	}
+
+	.con_profile {
+		border-width: 4vw;
+		font-size: 4vw;
+	}
+
+	.shd_profile {
+		flex-direction: column-reverse;
+	}
+
+	.shd_profile img:first-of-type {
+		max-width: 75%;
+	}
+
+	img.pic_profile {
+		margin: 0 auto 1em;
+	}
+
+
+
+	.form {
+		margin-bottom: 4vw;
+		padding: 4vw 0 2vw;
+	} 
+
+	.deco {
+		font-size: 5vw;
+	}
+
+
+}
+
+
+

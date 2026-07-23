@@ -39,14 +39,17 @@
             "id": "5da29671f4114ee5",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "katsuya_project/Brain/買う理由のみつけ方_Brain/販売用LP_完成版.md",
-                "mode": "source",
-                "source": false
+                "file": "無題のファイル.canvas",
+                "viewState": {
+                  "x": 0,
+                  "y": 0,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "販売用LP_完成版"
+              "icon": "lucide-layout-dashboard",
+              "title": "無題のファイル"
             }
           }
         ],
@@ -270,7 +273,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 481.5
+    "width": 683.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -283,8 +286,11 @@
       "juggl:Juggl global graph": false
     }
   },
-  "active": "1f97cd7fe4372b38",
+  "active": "5da29671f4114ee5",
   "lastOpenFiles": [
+    "本田有紀華.md",
+    "九星覚醒カウンセラー.md",
+    "README.md",
     "katsuya_project/Brain/買う理由のみつけ方_Brain/販売用LP_完成版.md",
     "無題のファイル.md",
     "katsuya_project/ひとびじ/X/X_共感投稿ストック_画像付き.md",
@@ -292,7 +298,6 @@
     "product/案件/九星覚醒カウンセラー/施策/202606_4日間LIVE_3クール/全体スケジュールとLIVE内容.md",
     "product/案件/九星覚醒カウンセラー/README.md",
     "product/案件/九星覚醒カウンセラー/施策/202606_4日間LIVE_3クール/メール案_20260620-0629_毎日20時.md",
-    "九星覚醒カウンセラー.md",
     "product/案件/九星覚醒カウンセラー/施策/202606_4日間LIVE_3クール/メール/全10通_合体版.txt",
     "product/案件/九星覚醒カウンセラー/施策/202606_4日間LIVE_3クール/メール/No.10_4日間お疲れさまでした_20260629.txt",
     "product/案件/九星覚醒カウンセラー/施策/202606_4日間LIVE_3クール/メール/No.9_本日20時DAY4_20260628.txt",
@@ -320,8 +325,6 @@
     "product/案件/育脳子育てカウンセラー/ハウスメール/紹介・案内/No.1_6月1日スタート体験プログラムご案内_20260530.md",
     "product/案件/未来覚醒カウンセラー/オープンチャット対応/占い師クイズ_3本.md",
     "product/案件/育脳子育てカウンセラー/ハウスメール/紹介・案内/No.1_メインコピー案_20260530.md",
-    "product/案件/未来覚醒カウンセラー/オープンチャット対応/タロットクイズ_5本.md",
-    "product/案件/やさしく売れる占い師/ナレッジ/講座ナレッジ.md",
     "無題のファイル.canvas",
     "ひとびじ/ハウスメール/illustrations/20260401_sakura-fubuki-april-illustration.png",
     "ハウスメール/illustrations/20260401_sakura-fubuki-april-illustration.png",
