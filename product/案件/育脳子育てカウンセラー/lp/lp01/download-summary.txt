@@ -1,0 +1,4 @@
+downloaded_assets=35
+failed_assets=2
+https://eqno.mamaaka.com/p/images/bg_wrapper.png :: HTTP Error 404: Not Found
+https://eqno.mamaaka.com/images/bg_schedule.png :: HTTP Error 404: Not Found
