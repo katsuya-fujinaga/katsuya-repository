@@ -16,8 +16,11 @@ tags:
 
 ## 📌 いまの正本
 
-- **WordPressテーマ**: [[hitobizi-lab/README]]
+- **WordPressテーマ（水色LP）**: [[hitobizi-lab/README]]（Version 1.3.0）
 - パス: `katsuya_project/ひとびじ/サイト/hitobizi-lab/`
+- **WordPressテーマ（HITORI-BIZ・モノクロ）**: [[hitori-biz/README]]（Version 1.0.0）
+- パス: `katsuya_project/ひとびじ/サイト/hitori-biz/`
+- ZIP: `katsuya_project/ひとびじ/サイト/hitori-biz.zip`
 
 ## 表記ルール（統一）
 
@@ -25,10 +28,12 @@ tags:
 |------|------|
 | サイトのタイトル | 50代からのひとりビジネスのはじめ方 |
 | キャッチフレーズ | 藤永勝也｜ひとびじLAB |
+| 画面上のブランド | ひとびじLAB |
 
 ## 📂 構成方針
 
-- ホーム／プロフィール／実績＝固定ページ
+- ホーム＝公式サイト型（STORY／METHOD／入り口／FREE）＋ブログ入口
+- プロフィール／実績＝固定ページ
 - 記事＝WordPress投稿
 - 記事カテゴリ＝再起と働き方／プロデュース論／マーケティング／コンテンツ販売／仕事術・思考法／お知らせ
 - プロジェクト実績は記事カテゴリではなく固定ページ「実績」

@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'HITOBIZI_THEME_VERSION', '1.2.2' );
+define( 'HITOBIZI_THEME_VERSION', '1.3.0' );
 
 /** Canonical site naming */
 define( 'HITOBIZI_SITE_TITLE', '50代からのひとりビジネスのはじめ方' );

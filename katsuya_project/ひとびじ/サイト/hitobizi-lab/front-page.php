@@ -1,6 +1,6 @@
 <?php
 /**
- * Front page template — soft long-form LP
+ * Front page template — official site layout + blog entry
  *
  * @package Hitobizi_Lab
  */
@@ -13,69 +13,98 @@ $profile      = get_page_by_path( 'profile' );
 $results      = get_page_by_path( 'results' );
 $profile_url  = $profile ? get_permalink( $profile ) : '';
 $results_url  = $results ? get_permalink( $results ) : '';
+
+/*
+ * 無料オファー（FREE PROGRAM 相当）のURL。
+ * メルマガ登録URLが決まったら、下の $free_url を差し替える。
+ */
+$free_url   = $articles_url;
+$free_label = 'まずは無料で読む';
+
+$news_query = new WP_Query(
+	array(
+		'posts_per_page' => 3,
+		'post_status'    => 'publish',
+		'category_name'  => 'news',
+	)
+);
 ?>
 
 <a class="side-cta" href="<?php echo esc_url( $articles_url ); ?>">記事を読む</a>
 
-<section class="hero hero--banner" id="top">
-	<div class="hero-banner">
-		<img
-			class="hero-banner__img"
-			src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/header-hero.png' ); ?>"
-			alt="50代、人生と仕事を立て直し中。遠回りしながら、人生も仕事も、再設計しています。占い・子育て・スピ・健康系・心理学ビジネスの導線設計／LP／広告／セールス改善"
-			width="1024"
-			height="409"
-			decoding="async"
-			fetchpriority="high"
-		>
-	</div>
-	<div class="hero-banner__cta">
-		<div class="btn-group">
-			<a class="btn btn-primary" href="<?php echo esc_url( $articles_url ); ?>">まずは記事を読む</a>
-			<a class="btn btn-outline" href="#recommend">こんな人向け？</a>
+<section class="hero hero--official" id="top">
+	<div class="hero-official">
+		<div class="hero-official__copy reveal">
+			<p class="hero-eyebrow">裏方から見た、人生が動く仕組みの話</p>
+			<h1 class="hero-official__title">
+				好きなことは、もう持っている。<br>
+				足りないのは、届け方の仕組みだけ。
+			</h1>
+			<p class="hero-official__lead">
+				50代、人生と仕事を立て直し中。<br>
+				占い・子育て・スピ・健康系の講座ビジネスを、<br class="hide-sp">
+				届く順番で設計するプロデューサーの公式サイトです。
+			</p>
+			<div class="btn-group">
+				<a class="btn btn-primary" href="<?php echo esc_url( $articles_url ); ?>">まずは記事を読む</a>
+				<a class="btn btn-outline" href="#recommend">こんな人向け？</a>
+			</div>
 		</div>
+		<div class="hero-official__visual">
+			<img
+				class="hero-official__img"
+				src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/header-hero.png' ); ?>"
+				alt="藤永勝也｜ひとびじLAB"
+				width="1024"
+				height="409"
+				decoding="async"
+				fetchpriority="high"
+			>
+		</div>
+	</div>
+</section>
+
+<section class="proof-strip" aria-label="実績の要点">
+	<div class="container">
+		<ul class="proof-strip__list reveal">
+			<li>
+				<span class="proof-strip__value">13年</span>
+				<span class="proof-strip__label">飲食店経営の現場感</span>
+			</li>
+			<li>
+				<span class="proof-strip__value">講座伴走</span>
+				<span class="proof-strip__label">コンセプト〜セールスまで設計</span>
+			</li>
+			<li>
+				<span class="proof-strip__value">50代</span>
+				<span class="proof-strip__label">人生と仕事の再起動中</span>
+			</li>
+		</ul>
+		<?php if ( $results_url ) : ?>
+			<p class="proof-strip__more">
+				<a href="<?php echo esc_url( $results_url ); ?>">プロジェクト実績を見る →</a>
+			</p>
+		<?php endif; ?>
 	</div>
 </section>
 
 <nav class="lp-toc reveal" aria-label="ページ内メニュー">
 	<div class="container">
 		<ul class="lp-toc__list">
-			<li><a href="#about">このサイトは</a></li>
-			<li><a href="#recommend">こんな人に</a></li>
-			<li><a href="#reason">売れない理由</a></li>
-			<li><a href="#method">届け方の話</a></li>
-			<li><a href="#learn">学べること</a></li>
+			<li><a href="#story">STORY</a></li>
+			<li><a href="#method">METHOD</a></li>
+			<li><a href="#entries">入り口</a></li>
 			<li><a href="#articles">記事</a></li>
+			<li><a href="#free">無料で読む</a></li>
 			<li><a href="#profile-short">プロフィール</a></li>
 		</ul>
 	</div>
 </nav>
 
-<section class="section" id="about">
-	<div class="container-narrow">
-		<div class="soft-panel reveal">
-			<div class="section-head">
-				<span class="section-kicker">このサイトは</span>
-				<h2 class="section-title"><span class="section-title--mark">裏方から見た、人生が動く仕組みの話</span></h2>
-			</div>
-			<p>このサイトは、いまよりもっと<br><strong>「やさしく売れる人になりたい」</strong><br>と思っている人のための場所です。</p>
-			<p>商品や想いは、もう持っている。<br>でも、なぜか届かない。選ばれない。続かない。</p>
-			<p>そんなときに必要なのは、もっと頑張ることではなく、<br><strong>届け方の仕組み</strong>を整えることです。</p>
-			<div class="callout">
-				好きなことは、もう持っている。足りないのは、届け方の仕組みだけ。
-			</div>
-			<p style="margin-bottom:0;">飲食店を長く経営したあと、50代で講座ビジネスのプロデュースへ。<br>いまは「好き」を仕事にしたい人の設計係として、現場の話を書いています。</p>
-		</div>
-		<div class="mid-cta reveal">
-			<a class="btn btn-primary" href="<?php echo esc_url( $articles_url ); ?>">記事を読んでみる</a>
-		</div>
-	</div>
-</section>
-
 <section class="section section-alt" id="recommend">
 	<div class="container reveal">
 		<div class="section-head">
-			<span class="section-kicker">こんな人に読んでほしい</span>
+			<span class="section-kicker">For You</span>
 			<h2 class="section-title">当てはまるもの、ありますか？</h2>
 			<p class="section-desc">ひとつでもあれば、この先の話はきっと役に立ちます。</p>
 		</div>
@@ -87,31 +116,29 @@ $results_url  = $results ? get_permalink( $results ) : '';
 			<li>講座・コンテンツ販売の裏側を知りたい</li>
 			<li>「私にもできるかも」と思える実話がほしい</li>
 		</ul>
-		<div class="mid-cta">
-			<a class="btn btn-primary" href="<?php echo esc_url( $articles_url ); ?>">うけとってみる（無料で読む）</a>
-		</div>
 	</div>
 </section>
 
-<section class="section" id="reason">
+<section class="section" id="story">
 	<div class="container-narrow">
 		<div class="soft-panel reveal">
 			<div class="section-head">
-				<span class="section-kicker">なぜ売れないのか</span>
-				<h2 class="section-title"><span class="section-title--mark">努力不足じゃないことが多い</span></h2>
+				<span class="section-kicker">STORY</span>
+				<h2 class="section-title"><span class="section-title--mark">藤永勝也って、どんな人？</span></h2>
 			</div>
-			<p>「もっと勉強しなきゃ」<br>「もっと発信しなきゃ」<br>「私には才能がないのかも」</p>
-			<p>ひとりでビジネスを始めると、こんな声が頭の中を回りやすいです。</p>
-			<p>でも、現場を見ていると、売れない理由はだいたい違います。</p>
+			<p>飲食店を長く経営したあと、50代で講座ビジネスのプロデュースへ。<br>いまは「好き」を仕事にしたい人の設計係として、現場の話を書いています。</p>
+			<p>いいものを持っている人ほど、「売り方」で止まりやすい。<br>現場で何度も見てきたのは、<strong>才能不足ではなく、設計不足</strong>でした。</p>
 			<div class="callout">
-				価値が低いのではなく、<strong>届く順番</strong>がまだ整っていない。
+				「変わりたい」を、仕組みで現実にする。<br>
+				裏方から見た、人生が動く仕組みの話。
 			</div>
-			<p>たとえば料理でいうと、食材はいいのに、味付けの順番がバラバラな状態。<br>塩も砂糖も醤油もある。でも「真ん中の考え方」がないと、毎回ブレます。</p>
-			<p>ビジネスも同じです。<br>商品、想い、実績、発信。材料はある。<br>足りないのは、それらをつなぐ<strong>枠組み</strong>です。</p>
-			<p style="margin-bottom:0;">このサイトでは、その枠組みを「届け方」と呼んでいます。</p>
+			<p style="margin-bottom:0;">このサイトは、いまよりもっと<strong>「やさしく売れる人になりたい」</strong>と思っている人のための場所です。<br>読むだけで完結していい。もっと知りたいときは、プロフィールや実績、記事の奥までどうぞ。</p>
 		</div>
-		<div class="mid-cta reveal">
-			<a class="btn btn-primary" href="#method">届け方の話を読む</a>
+		<div class="btn-group mid-cta reveal">
+			<?php if ( $profile_url ) : ?>
+				<a class="btn btn-outline" href="<?php echo esc_url( $profile_url ); ?>">プロフィールを詳しく</a>
+			<?php endif; ?>
+			<a class="btn btn-primary" href="#method">届け方の話へ</a>
 		</div>
 	</div>
 </section>
@@ -120,18 +147,11 @@ $results_url  = $results ? get_permalink( $results ) : '';
 	<div class="container-narrow">
 		<div class="soft-panel reveal">
 			<div class="section-head">
-				<span class="section-kicker">届け方とは</span>
+				<span class="section-kicker">METHOD</span>
 				<h2 class="section-title"><span class="section-title--mark">売り込む技術ではなく、安心が積み上がる順番</span></h2>
 			</div>
-			<p>届け方というと、「セールストーク」や「煽る文章」を想像する人もいます。<br>でも、ここで言う届け方は違います。</p>
-			<p>お客さまが自然に</p>
-			<ul class="plain-list">
-				<li>「私のことだ」と感じ</li>
-				<li>「だからうまくいかなかったのか」と腑に落ち</li>
-				<li>「この人なら任せられそう」と安心し</li>
-				<li>「お願いしたい」と自分で決める</li>
-			</ul>
-			<p>その順番をつくることです。</p>
+			<p>売れない理由は、努力不足ではないことが多い。<br>価値が低いのではなく、<strong>届く順番</strong>がまだ整っていないだけです。</p>
+			<p>お客さまが自然に「私のことだ」と感じ、「お願いしたい」と自分で決める。<br>その順番をつくることが、ここで言う届け方です。</p>
 			<div class="story-steps">
 				<div class="story-step">
 					<span class="story-step__num">1</span>
@@ -177,91 +197,68 @@ $results_url  = $results ? get_permalink( $results ) : '';
 	</div>
 </section>
 
-<section class="section" id="learn">
+<section class="section" id="entries">
 	<div class="container reveal">
 		<div class="section-head">
-			<span class="section-kicker">ここで学べること</span>
-			<h2 class="section-title">読み進めると、見えてくること</h2>
-			<p class="section-desc">ノウハウの羅列ではなく、「なるほど、そういう構造だったのか」と思える話を大切にしています。</p>
+			<span class="section-kicker">SERVICE</span>
+			<h2 class="section-title">まずは、どこから入りますか？</h2>
+			<p class="section-desc">ステージに合わせて、3つの入り口があります。</p>
 		</div>
-
-		<div class="learn-grid">
-			<div class="learn-card">
-				<strong>コンセプトの言葉</strong>
-				<p>好きを一言で伝える。比較されない立ち位置の作り方。</p>
-			</div>
-			<div class="learn-card">
-				<strong>導線の設計</strong>
-				<p>出会ってから「お願いしたい」までの道筋の整え方。</p>
-			</div>
-			<div class="learn-card">
-				<strong>やさしいセールス</strong>
-				<p>煽らず、安心と期待を育てて選ばれる流れ。</p>
-			</div>
-			<div class="learn-card">
-				<strong>再起と働き方</strong>
-				<p>50代からの再起動。二足の草鞋のリアル。</p>
-			</div>
-			<div class="learn-card">
-				<strong>現場の実話</strong>
-				<p>講座ビジネスの裏側で、何が効いて何が効かないか。</p>
-			</div>
-			<div class="learn-card">
-				<strong>仕事の進め方</strong>
-				<p>続きが書けない日、不安が強い日の整え方。</p>
-			</div>
-		</div>
-
-		<div class="pillar-list" style="margin-top:1.6rem;">
-			<div class="pillar">
-				<span class="pillar__num">1</span>
-				<h3>仕組みの話</h3>
-				<p>コンセプト、導線、セールス設計。感覚ではなく、再現できる構造で伝えます。</p>
-			</div>
-			<div class="pillar">
-				<span class="pillar__num">2</span>
-				<h3>実話の話</h3>
-				<p>現場で見てきた講師さんや、自分自身の再起動の話。きれいごとだけで終わらせません。</p>
-			</div>
-			<div class="pillar">
-				<span class="pillar__num">3</span>
-				<h3>背中を押す話</h3>
-				<p>好きなことは、もう持っている。足りないのは届け方の仕組みだけ、という視点で書きます。</p>
-			</div>
-		</div>
-
-		<div class="mid-cta">
-			<a class="btn btn-primary" href="<?php echo esc_url( $articles_url ); ?>">記事一覧を見る</a>
-		</div>
-	</div>
-</section>
-
-<section class="section section-alt" id="why">
-	<div class="container-narrow">
-		<div class="soft-panel reveal">
-			<div class="section-head">
-				<span class="section-kicker">なぜ書いているのか</span>
-				<h2 class="section-title"><span class="section-title--mark">届け方で止まる人を、減らしたい</span></h2>
-			</div>
-			<p>いいものを持っている人ほど、「売り方」で止まりやすいです。</p>
-			<p>わたし自身、飲食店を長くやり、文章の仕事も続け、いまは講座ビジネスの裏方をしています。<br>そこで何度も見てきたのは、<strong>才能不足ではなく、設計不足</strong>で止まっている人の姿でした。</p>
-			<div class="callout">
-				「変わりたい」を、仕組みで現実にする。
-			</div>
-			<p>だからこのサイトでは、きれいな理論だけで終わらせません。<br>現場で使っている考え方を、やさしい言葉で残していきます。</p>
-			<p style="margin-bottom:0;">読むだけで完結していい。<br>でも、もし「もっと知りたい」と思ったら、プロフィールや実績、記事の奥まで進んでみてください。</p>
-		</div>
-		<div class="btn-group mid-cta reveal">
+		<div class="entry-grid">
+			<a class="entry-card" href="<?php echo esc_url( $articles_url ); ?>">
+				<span class="entry-card__label">はじめての方へ</span>
+				<strong class="entry-card__title">記事で学ぶ</strong>
+				<p class="entry-card__desc">仕組み・実話・背中を押す話。無料で読めます。</p>
+				<span class="entry-card__link">詳細はこちら →</span>
+			</a>
 			<?php if ( $profile_url ) : ?>
-				<a class="btn btn-outline" href="<?php echo esc_url( $profile_url ); ?>">プロフィール</a>
+				<a class="entry-card" href="<?php echo esc_url( $profile_url ); ?>">
+					<span class="entry-card__label">人を知る</span>
+					<strong class="entry-card__title">プロフィール</strong>
+					<p class="entry-card__desc">飲食店13年から、講座プロデュースまでの物語。</p>
+					<span class="entry-card__link">詳細はこちら →</span>
+				</a>
 			<?php endif; ?>
 			<?php if ( $results_url ) : ?>
-				<a class="btn btn-outline" href="<?php echo esc_url( $results_url ); ?>">実績</a>
+				<a class="entry-card" href="<?php echo esc_url( $results_url ); ?>">
+					<span class="entry-card__label">信頼の材料</span>
+					<strong class="entry-card__title">実績</strong>
+					<p class="entry-card__desc">伴走してきたプロジェクトと、やっていること。</p>
+					<span class="entry-card__link">詳細はこちら →</span>
+				</a>
 			<?php endif; ?>
-			<a class="btn btn-primary" href="<?php echo esc_url( $articles_url ); ?>">記事へ</a>
 		</div>
 	</div>
 </section>
+
+<?php if ( $news_query->have_posts() ) : ?>
+<section class="section section-alt" id="activity">
+	<div class="container reveal">
+		<div class="section-head">
+			<span class="section-kicker">ACTIVITY</span>
+			<h2 class="section-title">お知らせ・活動</h2>
+			<p class="section-desc">更新情報や、いま動いていることのメモです。</p>
+		</div>
+		<div class="post-list">
+			<?php
+			while ( $news_query->have_posts() ) :
+				$news_query->the_post();
+				?>
+				<a class="post-row" href="<?php the_permalink(); ?>">
+					<span class="post-row__date"><?php echo esc_html( get_the_date( 'Y.m.d' ) ); ?></span>
+					<span>
+						<h3 class="post-row__title"><?php the_title(); ?></h3>
+						<span class="post-row__meta">お知らせ</span>
+					</span>
+				</a>
+				<?php
+			endwhile;
+			wp_reset_postdata();
+			?>
+		</div>
+	</div>
+</section>
+<?php endif; ?>
 
 <section class="section" id="articles">
 	<div class="container reveal">
@@ -282,7 +279,7 @@ $results_url  = $results ? get_permalink( $results ) : '';
 	</div>
 </section>
 
-<section class="section section-alt">
+<section class="section section-alt" id="latest">
 	<div class="container reveal">
 		<div class="section-head">
 			<span class="section-kicker">Latest</span>
@@ -331,7 +328,21 @@ $results_url  = $results ? get_permalink( $results ) : '';
 	</div>
 </section>
 
-<section class="section" id="profile-short">
+<section class="section" id="free">
+	<div class="container-narrow">
+		<div class="cta-band free-band reveal">
+			<span class="section-kicker" style="color:inherit;opacity:0.85;">FREE</span>
+			<h2><?php echo esc_html( $free_label ); ?></h2>
+			<p>お金をかけずに、届け方の考え方に触れられます。<br>まずは記事から、その枠組みに触れてみてください。</p>
+			<div class="btn-group">
+				<a class="btn btn-primary" href="<?php echo esc_url( $free_url ); ?>">記事を読む</a>
+				<a class="btn btn-ghost" href="mailto:mail@katsuyafujinaga.com">お問い合わせ</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section" id="profile-short" style="padding-top:0;">
 	<div class="container-narrow">
 		<div class="soft-panel reveal text-center">
 			<div class="section-head">
@@ -347,19 +358,6 @@ $results_url  = $results ? get_permalink( $results ) : '';
 				<?php if ( $results_url ) : ?>
 					<a class="btn btn-outline" href="<?php echo esc_url( $results_url ); ?>">実績を見る</a>
 				<?php endif; ?>
-			</div>
-		</div>
-	</div>
-</section>
-
-<section class="section" style="padding-top:0;" id="start">
-	<div class="container-narrow">
-		<div class="cta-band reveal">
-			<h2>好きなことは、もう持っている。</h2>
-			<p>足りないのは、届け方の仕組みだけ。<br>まずは記事から、その考え方に触れてみてください。</p>
-			<div class="btn-group">
-				<a class="btn btn-primary" href="<?php echo esc_url( $articles_url ); ?>">記事を読む</a>
-				<a class="btn btn-ghost" href="mailto:mail@katsuyafujinaga.com">お問い合わせ</a>
 			</div>
 		</div>
 	</div>

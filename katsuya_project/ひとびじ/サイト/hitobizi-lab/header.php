@@ -17,8 +17,8 @@
 	<header class="site-header">
 		<div class="header-inner">
 			<a class="site-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-				<span class="site-brand__name"><?php echo esc_html( get_bloginfo( 'name' ) ?: '50代からのひとりビジネスのはじめ方' ); ?></span>
-				<span class="site-brand__sub"><?php echo esc_html( get_bloginfo( 'description' ) ?: '藤永勝也｜ひとびじLAB' ); ?></span>
+				<span class="site-brand__name">ひとびじLAB</span>
+				<span class="site-brand__sub">藤永勝也｜50代からのひとりビジネスのはじめ方</span>
 			</a>
 
 			<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-nav-toggle>

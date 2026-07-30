@@ -11,8 +11,8 @@
 		<div class="container">
 			<div class="footer-grid">
 				<div>
-					<div class="footer-brand"><?php echo esc_html( get_bloginfo( 'name' ) ?: '50代からのひとりビジネスのはじめ方' ); ?></div>
-					<p class="footer-tagline"><?php echo esc_html( get_bloginfo( 'description' ) ?: '藤永勝也｜ひとびじLAB' ); ?></p>
+					<div class="footer-brand">ひとびじLAB</div>
+					<p class="footer-tagline">藤永勝也｜50代からのひとりビジネスのはじめ方</p>
 					<p>「変わりたい」を、仕組みで現実にする。<br>裏方から見た、人生が動く仕組みの話。</p>
 					<p>
 						<a href="https://www.instagram.com/katsuyafujinaga/" target="_blank" rel="noopener noreferrer">Instagram</a>
