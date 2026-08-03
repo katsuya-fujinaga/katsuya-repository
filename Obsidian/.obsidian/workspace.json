@@ -39,17 +39,14 @@
             "id": "5da29671f4114ee5",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "無題のファイル.canvas",
-                "viewState": {
-                  "x": 0,
-                  "y": 0,
-                  "zoom": 0
-                }
+                "file": "product/案件/1秒育脳/lp/README.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "無題のファイル"
+              "icon": "lucide-file",
+              "title": "README"
             }
           }
         ],
@@ -254,8 +251,8 @@
             "state": {
               "type": "juggl_nodes",
               "state": {},
-              "icon": "ag-node-list",
-              "title": "Juggl nodes"
+              "icon": "lucide-ghost",
+              "title": "juggl_nodes"
             }
           },
           {
@@ -264,8 +261,8 @@
             "state": {
               "type": "juggl_style",
               "state": {},
-              "icon": "ag-style",
-              "title": "Juggl style"
+              "icon": "lucide-ghost",
+              "title": "juggl_style"
             }
           }
         ],
@@ -273,7 +270,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 683.5
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -282,12 +279,12 @@
       "canvas:新規キャンバスを作成": false,
       "command-palette:コマンドパレットを開く": false,
       "bases:新規ベースを作成": false,
-      "templater-obsidian:Templater": false,
-      "juggl:Juggl global graph": false
+      "templater-obsidian:Templater": false
     }
   },
   "active": "5da29671f4114ee5",
   "lastOpenFiles": [
+    "無題のファイル.canvas",
     "product/案件/おうち育脳カウンセラー/lp/lp03/assets/ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js",
     "product/案件/おうち育脳カウンセラー/lp/lp03/assets/use.fontawesome.com/releases/v5.1.0/webfonts/fa-solid-900.woff2",
     "product/案件/おうち育脳カウンセラー/lp/lp03/assets/use.fontawesome.com/releases/v5.1.0/webfonts/fa-solid-900.woff",
@@ -300,7 +297,6 @@
     "product/案件/おうち育脳カウンセラー/lp/lp03/assets/use.fontawesome.com/releases/v5.1.0/webfonts/fa-regular-400.svg",
     "product/案件/おうち育脳カウンセラー/lp/lp03/assets/use.fontawesome.com/releases/v5.1.0/webfonts/fa-regular-400.eot",
     "product/案件/おうち育脳カウンセラー/lp/lp03/assets/use.fontawesome.com/releases/v5.1.0/webfonts/fa-brands-400.woff2",
-    "product/案件/おうち育脳カウンセラー/lp/lp03/assets/use.fontawesome.com/releases/v5.1.0/webfonts/fa-brands-400.woff",
     "product/案件/おうち育脳カウンセラー/lp/lp03/assets/use.fontawesome.com/releases/v5.1.0/webfonts/fa-brands-400.svg",
     "product/案件/おうち育脳カウンセラー/lp/lp03/assets/utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/yizR9wCLcZk65iRqX8ZteUkJ36WKmXPQcduzodnS.png",
     "product/案件/おうち育脳カウンセラー/lp/lp03/assets/utagesystem.s3.ap-northeast-1.amazonaws.com/g5kxXfM1ukUE/qdRPTqoAYzzp57RVQQ7zovjjcczCiuMvT4O9Unmo.png",
@@ -334,7 +330,6 @@
     "product/案件/九星覚醒カウンセラー/オープンチャット対応/オープンチャット文面_4日間LIVE_202605.md",
     "product/案件/育脳子育てカウンセラー/ハウスメール/紹介・案内/No.1_6月1日スタート体験プログラムご案内_20260530.md",
     "product/案件/未来覚醒カウンセラー/オープンチャット対応/占い師クイズ_3本.md",
-    "無題のファイル.canvas",
     "katsuyafujinaga.canvas"
   ]
 }

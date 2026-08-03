@@ -1,9 +1,9 @@
 {
-  "accentColor": "",
+  "accentColor": "#5c7bf5",
   "cssTheme": "Minimal",
   "interfaceFontFamily": "",
   "textFontFamily": "",
   "monospaceFontFamily": "",
   "showRibbon": true,
-  "theme": "system"
+  "theme": "obsidian"
 }

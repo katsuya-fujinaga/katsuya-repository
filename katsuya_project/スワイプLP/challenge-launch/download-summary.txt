@@ -1,0 +1,39 @@
+source_url=https://brain-market.com/u/tanakayuichi/a/bzQzN0UjMgoTZsNWa0JXY
+title=【チャレンジローンチ】入門ガイドブック
+author=田中祐一
+price=980
+list_price_after=1980
+special_until=2026-08-04
+is_purchased=false
+downloaded_images=20
+failed_images=0
+
+downloaded:
+https://image.brain-market.com/store/142e7b00911402094dabf44f55da6163.png
+https://image.brain-market.com/store/4390f7d557b9c1542648894bb44a4620.png
+https://image.brain-market.com/store/45058b53b86e50e1dbc2da882c172aa2.png
+https://image.brain-market.com/store/559b47a856d440516e50c3f9a6139f54.png
+https://image.brain-market.com/store/5729507a4ba0686ac435d6b264b73f2c.png
+https://image.brain-market.com/store/78076ffe1a53925ac8dd789011ccd597.png
+https://image.brain-market.com/store/85a89813e2959d2e82a79d79281d1716.png
+https://image.brain-market.com/store/899631ff1ff4e9890da8a8e4764b90c8.png
+https://image.brain-market.com/store/913efa619541d0bc61c174316687bb35.png
+https://image.brain-market.com/store/a789b767f1017bc905854983bb22b466.png
+https://image.brain-market.com/store/a9709a0fd9a6ec9b9da6bd389807f4a8.png
+https://image.brain-market.com/store/a9eb7218ccc7ba74b6195b4a3d43540a.png
+https://image.brain-market.com/store/ab07f0b0b898d522fa483cf05337430f.png
+https://image.brain-market.com/store/adf3aeb6a9da510fd4c26e2c5b26c370.png
+https://image.brain-market.com/store/b7c6c400e878e04a888ac86454573cb6.png
+https://image.brain-market.com/store/bf54f449dd25100ba90970212294d04f.png
+https://image.brain-market.com/store/cf17bce8cb3bba1bf9841f6649226a27.png
+https://image.brain-market.com/store/d533bd4fbe94e72e3796810bf90732df.png
+https://image.brain-market.com/store/e58ef00e518aafe091d0f01606a93248.png
+https://image.brain-market.com/store/edef7d13f3eb5ad8d902bde0f263463d.png
+
+failed:
+
+
+notes:
+- Brainは購入前プレビュー（preloadBody）のみ公開HTMLに含まれる
+- 購入後の全文・特典ZIPはログイン／購入後でないと取得不可
+- オフライン確認は index.html を開く

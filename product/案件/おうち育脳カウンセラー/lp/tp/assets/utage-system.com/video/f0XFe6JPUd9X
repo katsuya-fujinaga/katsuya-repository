@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="robots" content="noindex">
+    <link rel="shortcut icon" href="https://utage-system.com/favicon/favicon.ico">
+    <link rel="apple-touch-icon" href="https://utage-system.com/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="https://utage-system.com/favicon/android-chrome-256x256.png">
+
+    <link href="https://cdn.utage-system.com/app/css/fontawesome.css" rel="stylesheet">
+    <link href="https://cdn.utage-system.com/app/css/videoplayer.css?id=52078bee251d9721bdc8" rel="stylesheet">
+    </head>
+<body>
+<div id="player" class="
+ playbackRates "></div>
+<div class="embed-responsive embed-responsive-16by9">
+    <video id=video
+           title="育脳ウエルカム動画.mp4"
+           class="video-js vjs-default-skin embed-responsive-item vjs-big-play-centered" controls playsinline>
+    </video>
+    </div>
+<textarea id="chapter" style="display: none;"></textarea>
+<script type="text/javascript">
+    const config = {video_id: "f0XFe6JPUd9X",src: "https://s3.ap-northeast-1.wasabisys.com/utagesystem-video/g5kxXfM1ukUE/f0XFe6JPUd9X/video.m3u8", thumbnail_url: "https://s3.ap-northeast-1.wasabisys.com/utagesystem-video/g5kxXfM1ukUE/f0XFe6JPUd9X/thumbnail.jpg", quality: "0"  ,data_id: 'QEDBhGqEF8kbtphxq3DFY4JG6fqkm0S9RTNPclds'};
+</script>
+<script src="https://cdn.utage-system.com/app/js/videoplayer.js?id=57628df42ea21c5ba14b "></script>
+
+</body>
+</html>
+
+
