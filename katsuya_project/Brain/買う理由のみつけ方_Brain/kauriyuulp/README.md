@@ -28,6 +28,12 @@ https://katsuya-fujinaga.github.io/katsuya-repository/product/案件/kau-riyu/lp
 - `style.css`：LP用スタイル
 - `images/header-hero.png`：ヘッダー画像
 
+## 関連ファイル
+
+- Brain販売レター（テキスト版）：`../買う理由のみつけ方_テキスト版.md`
+- 教材本文（購入後）：`../買う理由のみつけ方_教材本文.md`
+- 目次設計：`../買う理由のみつけ方_Brain.md`
+
 ## 公開前の確認ポイント
 
 - 末尾CTAの `mailto:` を、決済リンクまたは申込みフォームURLに差し替える
