@@ -12,7 +12,7 @@
   <meta property="og:title" content="育脳子育てカウンセラー®︎4日間体験プログラム（6/1〜）">
   <meta property="og:type" content="website">
   <meta property="og:description" content="">
-  <meta property="og:url" content="http://line.me/ti/g2/mU3L0PKDYO6yYQL1Bq0FtUu0BDGHeZBLk36qdA?utm_source=invitation&amp;utm_medium=link_copy&amp;utm_campaign=default">
+  <meta property="og:url" content="http://line.me/ti/g2/y2uv03X8ffM9Nl2KJYAuPC-hevCb7x1ft_8tRA?utm_source=invitation&amp;utm_medium=link_copy&amp;utm_campaign=default">
   <meta property="og:image" content="https://profile.line-scdn.net/r/g2/group/og_tag_default_image.png/c.496x273">
   <meta property="og:site_name" content="LINE OPENCHAT">
   <meta property="fb:app_id" content="136895609724349">
@@ -59,7 +59,7 @@
             <p class="MdMN04Txt">育脳子育てカウンセラー®︎4日間体験プログラム（6/1〜）</p>
             <p class="MdMN05Txt">Members 44</p>
             <p class="MdMN06Desc"></p>
-            <p><a href="line://ti/g2/mU3L0PKDYO6yYQL1Bq0FtUu0BDGHeZBLk36qdA?utm_source=invitation&amp;utm_medium=link_copy&amp;utm_campaign=default" class="MdMN07Btn" data-uts-click="open_line">Open in LINE</a></p>
+            <p><a href="line://ti/g2/y2uv03X8ffM9Nl2KJYAuPC-hevCb7x1ft_8tRA?utm_source=invitation&amp;utm_medium=link_copy&amp;utm_campaign=default" class="MdMN07Btn" data-uts-click="open_line">Open in LINE</a></p>
             <div class="mdMN03Qrcode" id="qr_code" style="box-sizing: border-box; border: white solid 4px">
               <!-- /mdMN03Qrcode --></div>
             <!-- /mdMN03Content --></div>
@@ -82,13 +82,13 @@
 <script src="https://obs.line-scdn.net/0hJuL68GXBFVpxTwP7t-RqDXIZSHQdOwFRFXtEfBcdFT8IYA5UEjYBfg"></script>
 <script>
   (function() {
-    new QRCode(document.getElementById("qr_code"), "https://line.me/R/ti/g2/mU3L0PKDYO6yYQL1Bq0FtUu0BDGHeZBLk36qdA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default");
+    new QRCode(document.getElementById("qr_code"), "https://line.me/R/ti/g2/y2uv03X8ffM9Nl2KJYAuPC-hevCb7x1ft_8tRA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default");
   })();
 </script>
 <script>
   $(document).ready(function () {
     setTimeout(function () {
-      window.location.href = "line://ti/g2/mU3L0PKDYO6yYQL1Bq0FtUu0BDGHeZBLk36qdA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default";
+      window.location.href = "line://ti/g2/y2uv03X8ffM9Nl2KJYAuPC-hevCb7x1ft_8tRA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default";
     }, 1500)
   })
 </script>
