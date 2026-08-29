@@ -5,493 +5,243 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>HITORI-BIZ｜藤永勝也</title>
 <link rel="icon" href="./assets/images/favicon-32.png" sizes="32x32" type="image/png">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./style.css?v=120">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600;700&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css?v=131">
 </head>
 <body>
 <header class="site-header" data-header>
-  <a class="logo" href="#top">HITORI-BIZ</a>
-  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
-    <span class="nav-toggle__bar"></span><span class="nav-toggle__bar"></span><span class="nav-toggle__bar"></span>
-    <span class="visually-hidden">メニュー</span>
-  </button>
-  <nav id="site-nav" class="site-nav" data-nav>
-    <ul>
-      <li><a href="#service">SERVICE</a></li>
-      <li><a href="#works">WORKS</a></li>
-      <li><a href="#profile">PROFILE</a></li>
-      <li><a href="#contact">CONTACT</a></li>
-    </ul>
-  </nav>
+	<div class="header-bar">
+		<a class="logo" href="./preview.html">HITORI-BIZ</a>
+		<a class="header-cta" href="./preview.html#contact">相談する</a>
+		<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+			<span class="nav-toggle__bar"></span>
+			<span class="nav-toggle__bar"></span>
+			<span class="nav-toggle__bar"></span>
+			<span class="visually-hidden">メニュー</span>
+		</button>
+	</div>
+	<nav id="site-nav" class="site-nav" data-nav aria-label="メインメニュー">
+		<ul>
+			<li><a href="./preview.html#stories">STORIES</a></li>
+			<li><a href="./preview.html#concept">CONCEPT</a></li>
+			<li><a href="./preview.html#funnel">FUNNEL</a></li>
+			<li><a href="./preview.html#sales">SALES</a></li>
+			<li><a href="./preview.html#works">WORKS</a></li>
+			<li><a href="./preview.html#profile">PROFILE</a></li>
+			<li><a href="./preview.html#contact">CONTACT</a></li>
+		</ul>
+	</nav>
 </header>
-<main id="top">
-	<section class="hero">
-		<div
-			class="hero__bg"
-			style="background-image:url('./assets/images/hero.png')"
-			role="img"
-			aria-label="オフィスで働く人々"
-		></div>
-		<div class="hero__copy">
-			<p class="hero__brand">HITORI-BIZ</p>
-			<h1 class="hero__title">
-				ひとりで始める。<br>
-				チームで走る。
-			</h1>
-			<p class="hero__lead">
-				個人起業家の経験と想いを、<br>
-				選ばれ、売れ続ける仕組みに。
-			</p>
-			<p class="hero__support">
-				コンセプト、導線、LP、広告、セールスまで、<br>
-				一人では届かない部分をチームで伴走します。
-			</p>
-			<div class="hero__actions">
-				<a class="btn btn--ghost" href="#service">サービスを見る</a>
-				<a class="btn btn--primary" href="#contact">まずは相談する</a>
-			</div>
-		</div>
-	</section>
 
-	<section class="section worries" id="worries">
+<main id="top" class="mag-main">
+	<section class="mag-top" id="stories">
 		<div class="container">
-			<h2 class="section-title">こんな悩みはありませんか</h2>
-			<ul class="worry-list">
-				<li>好きなことはあるのに、「何を売ればいいか」が言葉にならない</li>
-				<li>LPや広告を出しても、相談や申込みまでつながらない</li>
-				<li>売ろうとすると気後れする。煽りたくないし、押し売りもしたくない</li>
-				<li>ひとりで全部やろうとして、届け方で止まってしまう</li>
-			</ul>
-			<p class="section-note">
-				その多くは、才能不足ではなく「届け方」と「仕組み」のズレです。
-			</p>
-		</div>
-	</section>
-
-	<section class="section concept" id="concept">
-		<div class="container">
-			<h2 class="section-title">HITORI-BIZができること</h2>
-			<p class="section-lead">
-				経験・想い・商品を、<br>
-				ちゃんと届いて、ちゃんと売れる形に。
-			</p>
-			<p class="concept__body">
-				個人起業家のための<br>
-				コンテンツプロデュースチーム。
-			</p>
-			<p class="concept__body concept__body--follow">
-				ひとりでは届きにくいところを、仕組みと伴走で整えます。<br>
-				コンセプト、導線、LP、広告、セールス設計まで。<br>
-				「好き」を、ちゃんと届くビジネスに変えていくのが、わたしたちの仕事です。
-			</p>
-			<p class="concept__credit">HITORI-BIZ プロデューサー　藤永勝也</p>
-		</div>
-	</section>
-
-	<section class="section service" id="service">
-		<div class="container">
-			<h2 class="section-title">SERVICE</h2>
-			<p class="section-intro">届くまでに必要な4つの領域を、分断せずにつなぎます。</p>
-			<div class="service-list">
-				<article class="service-item">
-					<a class="service-item__link" href="./preview-service-concept.html">
-						<div
-							class="service-item__image"
-							style="background-image:url('https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080')"
-						></div>
-						<h3>コンセプト設計</h3>
-						<p>好きを一言で伝える言葉をつくり、比較されない立ち位置を設計します。</p>
-						<span class="service-item__more">詳しく見る</span>
-					</a>
-				</article>
-				<article class="service-item">
-					<a class="service-item__link" href="./preview-service-dousen.html">
-						<div
-							class="service-item__image"
-							style="background-image:url('https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080')"
-						></div>
-						<h3>導線・LP・広告</h3>
-						<p>出会ってから「お願いしたい」までの道筋を、文章と画面と広告でつなぎます。</p>
-						<span class="service-item__more">詳しく見る</span>
-					</a>
-				</article>
-				<article class="service-item">
-					<a class="service-item__link" href="./preview-service-sales.html">
-						<div
-							class="service-item__image"
-							style="background-image:url('https://images.unsplash.com/photo-1497366858526-0766cadbe8fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080')"
-						></div>
-						<h3>やさしいセールス設計</h3>
-						<p>煽らず、安心と期待を育てて選ばれる流れを仕組み化します。</p>
-						<span class="service-item__more">詳しく見る</span>
-					</a>
-				</article>
-				<article class="service-item">
-					<a class="service-item__link" href="./preview-service-bansou.html">
-						<div
-							class="service-item__image"
-							style="background-image:url('https://images.unsplash.com/photo-1542744173-05336fcc7ad4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080')"
-						></div>
-						<h3>伴走・改善</h3>
-						<p>現場の数字と反応をもとに、継続的な改善と伴走を行います。</p>
-						<span class="service-item__more">詳しく見る</span>
-					</a>
-				</article>
-			</div>
-		</div>
-	</section>
-
-	<section class="section works" id="works">
-		<div class="container">
-			<h2 class="section-title">WORKS</h2>
-			<p class="section-intro">2026年8月現在、進行中の伴走案件です。</p>
-			<div class="works-list">
-				<article class="work-card">
-					<div class="work-card__head">
-						<img
-							class="work-card__photo"
-							src="./assets/images/works-honda.png"
-							alt="本田有紀華先生"
-							width="160"
-							height="160"
-							loading="lazy"
-							decoding="async"
-						>
-						<div>
-							<p class="work-card__label">CASE 01｜進行中</p>
-							<h3>やさしく売れる占い師</h3>
-							<p class="work-card__teacher">本田有紀華先生</p>
-						</div>
-					</div>
-					<dl class="work-card__meta">
-						<div>
-							<dt>サポート内容</dt>
-							<dd>コンセプトメイク／導線設計・LP作成／広告運用／セミナー／クロージング／運営</dd>
-						</div>
-					</dl>
-					<p class="work-card__link">
-						<a href="https://sub.uranai-ambitious.com/p/yasashiku1" target="_blank" rel="noopener noreferrer">公開中のLPを見る</a>
-					</p>
-				</article>
-
-				<article class="work-card">
-					<div class="work-card__head">
-						<img
-							class="work-card__photo"
-							src="./assets/images/works-nagase.png"
-							alt="永瀬まみ先生"
-							width="160"
-							height="160"
-							loading="lazy"
-							decoding="async"
-						>
-						<div>
-							<p class="work-card__label">CASE 02｜進行中</p>
-							<h3>おうち育脳のはじめ方</h3>
-							<p class="work-card__teacher">永瀬まみ先生</p>
-						</div>
-					</div>
-					<dl class="work-card__meta">
-						<div>
-							<dt>サポート内容</dt>
-							<dd>コンセプトメイク／導線設計・LP作成／広告運用／セミナー／クロージング／運営</dd>
-						</div>
-					</dl>
-					<p class="work-card__link">
-						<a href="https://ikunou.net/lp02/" target="_blank" rel="noopener noreferrer">公開中のLPを見る</a>
-					</p>
-				</article>
-			</div>
-			<p class="section-note">
-				年間プロデュース実績の目安：2023年 約6,000万円／2024年 約8,000万円
-			</p>
-		</div>
-	</section>
-
-	<section class="section profile" id="profile">
-		<div class="container">
-			<h2 class="section-title">PROFILE</h2>
-			<div class="profile__grid">
-				<figure class="profile__photo">
-					<img
-						src="./assets/images/profile.png"
-						alt="藤永勝也"
-						width="320"
-						height="360"
-						loading="lazy"
-						decoding="async"
-					>
-				</figure>
-				<div class="profile__body">
-					<p class="profile__name">藤永勝也</p>
-					<p class="profile__role">HITORI-BIZ プロデューサー</p>
-					<p>
-						飲食店を約14年経営。現場で「選ばれる理由」を肌で学び、コロナ禍などを経て廃業後、マーケティング・コンテンツプロデュースへ転身しました。
-					</p>
-					<p>
-						いまは、個人起業家・講師の「経験と想い」を、届いて売れる仕組みに変える伴走をしています。
-					</p>
-					<h3>得意な市場</h3>
-					<ul>
-						<li>講座ビジネス（占い・スピリチュアル・カウンセリング・教育）</li>
-						<li>女性向けを中心に、人生が動くコンテンツの設計</li>
-						<li>LP・広告・セールスまでを分断しない一気通貫の設計</li>
-					</ul>
-					<h3>仕事で大切にしていること</h3>
-					<ul>
-						<li>煽らず、安心と期待を育てて選ばれること</li>
-						<li>感覚だけで終わらせず、仕組みと数字で再現すること</li>
-						<li>講師の人生も、お客さまの人生も動く設計をすること</li>
-					</ul>
+			<div class="mag-top-grid">
+				<article class="mag-feature"><a class="mag-card" href="./preview-post-01.html">
+	<div class="mag-card__photo"><img src="./assets/images/dummy-01.jpg" alt="「好き」があるのに売れないのは、才能がないからじゃない" width="800" height="500"></div>
+	<div class="mag-card__body">
+		<p class="mag-kicker mag-kicker--concept">CONCEPT / STORY</p>
+		<h1 class="mag-card__title">「好き」があるのに売れないのは、才能がないからじゃない</h1>
+		<p class="mag-card__excerpt">好きや経験はある。足りないのは努力ではなく、「届ける順番」だった——という再定義。</p>
+	</div>
+</a></article>
+				<div class="mag-side">
+					<article><a class="mag-card" href="./preview-post-05.html">
+	<div class="mag-card__photo"><img src="./assets/images/dummy-05.jpg" alt="出会ってから「お願いしたい」までの道筋を、切らない" width="800" height="500"></div>
+	<div class="mag-card__body">
+		<p class="mag-kicker mag-kicker--funnel">FUNNEL</p>
+		<h2 class="mag-card__title">出会ってから「お願いしたい」までの道筋を、切らない</h2>
+		<p class="mag-card__excerpt">LPや広告が動いても、相談まで届かないときに見るべき導線のズレ。</p>
+	</div>
+</a></article>
+					<article><a class="mag-card" href="./preview-post-09.html">
+	<div class="mag-card__photo"><img src="./assets/images/dummy-09.jpg" alt="煽らずに、選ばれる。やさしいセールスの設計図" width="800" height="500"></div>
+	<div class="mag-card__body">
+		<p class="mag-kicker mag-kicker--sales">SALES</p>
+		<h2 class="mag-card__title">煽らずに、選ばれる。やさしいセールスの設計図</h2>
+		<p class="mag-card__excerpt">売ろうとすると気後れする人のための、安心と期待の育て方。</p>
+	</div>
+</a></article>
 				</div>
 			</div>
 		</div>
 	</section>
-
-	<section class="section reasons" id="reasons">
+	<section class="mag-section mag-section--paper" id="trending">
 		<div class="container">
-			<h2 class="section-title">プロデュースで大事にしていること</h2>
-			<div class="reason-list">
-				<article>
-					<h3>01｜現場出身の視点</h3>
-					<p>飲食店約14年の現場感があるから、きれいな理論だけで終わらせません。</p>
-				</article>
-				<article>
-					<h3>02｜仕組みで再現する</h3>
-					<p>「すごい人だから売れる」ではなく、言葉・導線・セールスを型にします。</p>
-				</article>
-				<article>
-					<h3>03｜やさしく、でも成果まで</h3>
-					<p>押し売りを避けつつ、相談・成約につながる設計を両立します。</p>
-				</article>
-				<article>
-					<h3>04｜一人で抱えさせない</h3>
-					<p>作って終わりではなく、数字を見ながらの改善と伴走まで入ります。</p>
-				</article>
+			<div class="mag-section-head"><h2>TRENDING</h2><a href="./preview-posts.html">SEE ALL</a></div>
+			<div class="mag-trend-grid"><a class="mag-card" href="./preview-post-02.html">
+	<div class="mag-card__photo"><img src="./assets/images/dummy-02.jpg" alt="好きを一言にする。比較されない立ち位置のつくり方" width="800" height="500"></div>
+	<div class="mag-card__body">
+		<p class="mag-kicker mag-kicker--concept">CONCEPT</p>
+		<h3 class="mag-card__title">好きを一言にする。比較されない立ち位置のつくり方</h3>
+		
+	</div>
+</a><a class="mag-card" href="./preview-post-08.html">
+	<div class="mag-card__photo"><img src="./assets/images/dummy-08.jpg" alt="無料コンテンツを、リストの入口にする" width="800" height="500"></div>
+	<div class="mag-card__body">
+		<p class="mag-kicker mag-kicker--funnel">FUNNEL</p>
+		<h3 class="mag-card__title">無料コンテンツを、リストの入口にする</h3>
+		
+	</div>
+</a><a class="mag-card" href="./preview-post-12.html">
+	<div class="mag-card__photo"><img src="./assets/images/dummy-12.jpg" alt="思わず欲しくなる「買う理由」のみつけ方" width="800" height="500"></div>
+	<div class="mag-card__body">
+		<p class="mag-kicker mag-kicker--contents">CONTENTS</p>
+		<h3 class="mag-card__title">思わず欲しくなる「買う理由」のみつけ方</h3>
+		
+	</div>
+</a></div>
+		</div>
+	</section>
+	<section class="mag-banner" id="feature">
+		<div class="mag-banner__photo"><img src="./assets/images/dummy-12.jpg" alt="" width="1600" height="900"></div>
+		<div class="mag-banner__copy">
+			<p class="mag-kicker mag-kicker--concept">FEATURE</p>
+			<h2>届け方を、資産にする。</h2>
+			<p>コンセプト、導線、セールス。分断された施策をつなぎ、残る仕組みに変える。</p>
+			<a class="btn btn--primary" href="#contact">まずは相談する</a>
+		</div>
+	</section>
+	<section class="mag-section" id="concept">
+		<div class="container">
+			<div class="mag-section-head"><h2>CONCEPT</h2></div>
+			<div class="mag-story-grid"><a class="mag-card" href="./preview-post-01.html">
+	<div class="mag-card__photo"><img src="./assets/images/dummy-01.jpg" alt="「好き」があるのに売れないのは、才能がないからじゃない" width="800" height="500"></div>
+	<div class="mag-card__body">
+		<p class="mag-kicker mag-kicker--concept">CONCEPT / STORY</p>
+		<h3 class="mag-card__title">「好き」があるのに売れないのは、才能がないからじゃない</h3>
+		
+	</div>
+</a><a class="mag-card" href="./preview-post-02.html">
+	<div class="mag-card__photo"><img src="./assets/images/dummy-02.jpg" alt="好きを一言にする。比較されない立ち位置のつくり方" width="800" height="500"></div>
+	<div class="mag-card__body">
+		<p class="mag-kicker mag-kicker--concept">CONCEPT</p>
+		<h3 class="mag-card__title">好きを一言にする。比較されない立ち位置のつくり方</h3>
+		
+	</div>
+</a><a class="mag-card" href="./preview-post-03.html">
+	<div class="mag-card__photo"><img src="./assets/images/dummy-03.jpg" alt="比較されない立ち位置は、削ることで立つ" width="800" height="500"></div>
+	<div class="mag-card__body">
+		<p class="mag-kicker mag-kicker--concept">CONCEPT</p>
+		<h3 class="mag-card__title">比較されない立ち位置は、削ることで立つ</h3>
+		
+	</div>
+</a><a class="mag-card" href="./preview-post-04.html">
+	<div class="mag-card__photo"><img src="./assets/images/dummy-04.jpg" alt="何を売るかが曖昧な段階から、整える" width="800" height="500"></div>
+	<div class="mag-card__body">
+		<p class="mag-kicker mag-kicker--concept">CONCEPT</p>
+		<h3 class="mag-card__title">何を売るかが曖昧な段階から、整える</h3>
+		
+	</div>
+</a></div>
+		</div>
+	</section>
+	<section class="mag-section mag-section--paper" id="funnel">
+		<div class="container">
+			<div class="mag-section-head"><h2>FUNNEL</h2></div>
+			<div class="mag-story-grid"><a class="mag-card" href="./preview-post-05.html">
+	<div class="mag-card__photo"><img src="./assets/images/dummy-05.jpg" alt="出会ってから「お願いしたい」までの道筋を、切らない" width="800" height="500"></div>
+	<div class="mag-card__body">
+		<p class="mag-kicker mag-kicker--funnel">FUNNEL</p>
+		<h3 class="mag-card__title">出会ってから「お願いしたい」までの道筋を、切らない</h3>
+		
+	</div>
+</a><a class="mag-card" href="./preview-post-06.html">
+	<div class="mag-card__photo"><img src="./assets/images/dummy-06.jpg" alt="画面はきれいなのに、申込みまで届かない理由" width="800" height="500"></div>
+	<div class="mag-card__body">
+		<p class="mag-kicker mag-kicker--funnel">FUNNEL</p>
+		<h3 class="mag-card__title">画面はきれいなのに、申込みまで届かない理由</h3>
+		
+	</div>
+</a><a class="mag-card" href="./preview-post-07.html">
+	<div class="mag-card__photo"><img src="./assets/images/dummy-07.jpg" alt="広告は入口。その先の道筋が本体" width="800" height="500"></div>
+	<div class="mag-card__body">
+		<p class="mag-kicker mag-kicker--funnel">FUNNEL</p>
+		<h3 class="mag-card__title">広告は入口。その先の道筋が本体</h3>
+		
+	</div>
+</a><a class="mag-card" href="./preview-post-08.html">
+	<div class="mag-card__photo"><img src="./assets/images/dummy-08.jpg" alt="無料コンテンツを、リストの入口にする" width="800" height="500"></div>
+	<div class="mag-card__body">
+		<p class="mag-kicker mag-kicker--funnel">FUNNEL</p>
+		<h3 class="mag-card__title">無料コンテンツを、リストの入口にする</h3>
+		
+	</div>
+</a></div>
+		</div>
+	</section>
+	<section class="mag-section" id="sales">
+		<div class="container">
+			<div class="mag-section-head"><h2>SALES</h2></div>
+			<div class="mag-story-grid"><a class="mag-card" href="./preview-post-09.html">
+	<div class="mag-card__photo"><img src="./assets/images/dummy-09.jpg" alt="煽らずに、選ばれる。やさしいセールスの設計図" width="800" height="500"></div>
+	<div class="mag-card__body">
+		<p class="mag-kicker mag-kicker--sales">SALES</p>
+		<h3 class="mag-card__title">煽らずに、選ばれる。やさしいセールスの設計図</h3>
+		
+	</div>
+</a><a class="mag-card" href="./preview-post-10.html">
+	<div class="mag-card__photo"><img src="./assets/images/dummy-10.jpg" alt="安心と期待を育ててから、お願いする" width="800" height="500"></div>
+	<div class="mag-card__body">
+		<p class="mag-kicker mag-kicker--sales">SALES</p>
+		<h3 class="mag-card__title">安心と期待を育ててから、お願いする</h3>
+		
+	</div>
+</a><a class="mag-card" href="./preview-post-11.html">
+	<div class="mag-card__photo"><img src="./assets/images/dummy-11.jpg" alt="気後れは性格ではなく、設計の問題" width="800" height="500"></div>
+	<div class="mag-card__body">
+		<p class="mag-kicker mag-kicker--sales">SALES</p>
+		<h3 class="mag-card__title">気後れは性格ではなく、設計の問題</h3>
+		
+	</div>
+</a></div>
+		</div>
+	</section>
+	<section class="mag-section mag-section--blush" id="works">
+		<div class="container">
+			<div class="mag-section-head"><h2>WORKS</h2></div>
+			<div class="mag-works-grid">
+				<a class="mag-work" href="https://sub.uranai-ambitious.com/p/yasashiku1" target="_blank" rel="noopener noreferrer">
+					<div class="mag-work__photo"><img src="./assets/images/works-honda.png" alt="本田有紀華先生" width="800" height="550"></div>
+					<div class="mag-work__body"><p class="mag-kicker mag-kicker--works">CASE 01｜進行中</p><h3>やさしく売れる占い師</h3><p>本田有紀華先生</p></div>
+				</a>
+				<a class="mag-work" href="https://ikunou.net/lp02/" target="_blank" rel="noopener noreferrer">
+					<div class="mag-work__photo"><img src="./assets/images/works-nagase.png" alt="永瀬まみ先生" width="800" height="550"></div>
+					<div class="mag-work__body"><p class="mag-kicker mag-kicker--works">CASE 02｜進行中</p><h3>おうち育脳のはじめ方</h3><p>永瀬まみ先生</p></div>
+				</a>
 			</div>
 		</div>
 	</section>
-
-	<section class="section flow" id="flow">
-		<div class="container container--narrow">
-			<h2 class="section-title">ご相談から伴走まで</h2>
-			<ol class="flow-list">
-				<li>
-					<strong>01｜相談する</strong>
-					<span>いまの状態と、目指したい未来を伺います。</span>
-				</li>
-				<li>
-					<strong>02｜ヒアリング</strong>
-					<span>商品・お客さま・導線のズレを一緒に整理します。</span>
-				</li>
-				<li>
-					<strong>03｜設計提案</strong>
-					<span>コンセプト〜導線〜セールスまでの打ち手を具体化します。</span>
-				</li>
-				<li>
-					<strong>04｜伴走・改善</strong>
-					<span>反応と数字を見ながら、続く形へ整えていきます。</span>
-				</li>
-			</ol>
-			<div class="section-cta">
-				<a class="btn btn--primary" href="#contact">まずは相談する</a>
-			</div>
-		</div>
-	</section>
-
-	<section class="section faq" id="faq">
-		<div class="container container--narrow">
-			<h2 class="section-title">FAQ</h2>
-			<details class="faq-item">
-				<summary>まだ商品が固まっていなくても相談できますか？</summary>
-				<p>はい。むしろ「何を売るか」が曖昧な段階から、言葉と立ち位置を整えるところを得意としています。</p>
-			</details>
-			<details class="faq-item">
-				<summary>広告運用だけお願いすることはできますか？</summary>
-				<p>可能ですが、成果を出すにはコンセプトや導線との接続が重要です。必要に応じて範囲をご提案します。</p>
-			</details>
-			<details class="faq-item">
-				<summary>地方在住・副業中でも大丈夫ですか？</summary>
-				<p>問題ありません。オンラインでの伴走を基本としています。</p>
-			</details>
-			<details class="faq-item">
-				<summary>押し売りや煽りはしませんか？</summary>
-				<p>しません。安心と期待を育てて選ばれる設計を大切にしています。</p>
-			</details>
-		</div>
-	</section>
-
-	<section class="section contents" id="contents">
+	<section class="mag-section" id="profile">
 		<div class="container">
-			<h2 class="section-title">CONTENTS</h2>
-			<p class="section-intro">講座を届けたい人のための、無料コンテンツを準備中です。</p>
-			<article class="contents-card">
-				<span class="contents-card__badge">近日リリース</span>
-				<img
-					class="contents-card__image"
-					src="./assets/images/contents-kauriyuu.png"
-					alt="思わず欲しくなる「買う理由」のみつけ方"
-					width="1200"
-					height="675"
-					loading="lazy"
-					decoding="async"
-				>
-				<div class="contents-card__body">
-					<h3>思わず欲しくなる「買う理由」のみつけ方</h3>
-					<p>すでに講座をやっているのに売れないと悩む方向けに、お客さまの心の動きから自然と選ばれる「買う理由」を見つける方法をお伝えします。</p>
-					<p class="contents-card__note">公開まで少々お待ちください。</p>
+			<div class="mag-section-head"><h2>PROFILE</h2></div>
+			<div class="mag-profile">
+				<figure class="mag-profile__photo"><img src="./assets/images/profile.png" alt="藤永勝也" width="560" height="700"></figure>
+				<div>
+					<p class="mag-profile__name">藤永勝也</p>
+					<p class="mag-profile__role">HITORI-BIZ プロデューサー</p>
+					<p>飲食店を約14年経営。いまは、個人起業家・講師の経験と想いを、届いて売れる仕組みに変える伴走をしています。</p>
 				</div>
-			</article>
+			</div>
 		</div>
 	</section>
-
-	<section class="section journal" id="journal">
-		<div class="container container--narrow">
-			<h2 class="section-title">JOURNAL</h2>
-			<ul class="journal-list">
-				
-					<li>
-						<a href="#contact">
-							<time datetime="2026-07-15">2026.07.15</time>
-							<span>公式サイトをリニューアルしました</span>
-						</a>
-					</li>
-					<li>
-						<a href="#contact">
-							<time datetime="2026-07-01">2026.07.01</time>
-							<span>HITORI-BIZ｜届け方の記事を公開開始</span>
-						</a>
-					</li>
-					<li>
-						<a href="#contact">
-							<time datetime="2026-06-20">2026.06.20</time>
-							<span>講座ビジネスの伴走相談を再開しています</span>
-						</a>
-					</li>
-				
-			</ul>
-		</div>
-	</section>
-
 	<section class="section contact" id="contact">
 		<div class="container container--narrow">
 			<h2 class="section-title">CONTACT</h2>
-			<p class="contact__lead">
-				お問い合わせはこちらのフォームよりご連絡ください。<br>
-				通常2日以内に返信させていただいておりますが、稼働状況によりお時間をいただくこともございます。
-			</p>
-
-			<div class="myasp-form-wrap">
-				<div class="content_title">
-					<h2>お問い合わせフォーム</h2>
-				</div>
-
-				<div class="content_form">
-					<form action="https://my183p.com/p/r/u3psK50n" enctype="multipart/form-data" id="UserItemForm" class="myForm" method="post" accept-charset="utf-8">
-						<input type="hidden" name="_method" value="POST">
-
-						<div class="input text input_unit required" data-form-key="Username1">
-							<div class="my_column my_left">
-								<div class="label_frame">
-									<label for="Username1" class="form_input_label required">お名前</label>
-								</div>
-							</div>
-							<div class="my_column my_right">
-								<input name="data[User][name1]" id="Username1" value="" class="form_input_input required" type="text">
-							</div>
-						</div>
-
-						<div class="input text input_unit required" data-form-key="Usermail">
-							<div class="my_column my_left">
-								<div class="label_frame">
-									<label for="Usermail" class="form_input_label required">メールアドレス</label>
-								</div>
-							</div>
-							<div class="my_column my_right">
-								<input name="data[User][mail]" id="Usermail" value="" class="required" type="text">
-							</div>
-						</div>
-
-						<div class="input text input_unit required" data-form-key="Userfree1">
-							<div class="my_column my_left">
-								<div class="label_frame">
-									<label for="Userfree1" class="form_input_label required">お問い合わせ内容</label>
-								</div>
-							</div>
-							<div class="my_column my_right">
-								<div class="textarea_frame">
-									<textarea name="data[User][free1]" id="Userfree1" class="form_input_input required" cols="30" rows="5"></textarea>
-								</div>
-							</div>
-						</div>
-
-						<p class="privacy-link">
-							<a href="https://katsuyafujinaga.com/privacy/" target="_blank" rel="noopener noreferrer">プライバシーポリシーを確認する</a>
-						</p>
-
-						<div class="input checkbox input_unit required" data-form-key="Userfree2">
-							<div class="my_column my_left">
-								<div class="label_frame">
-									<label for="Userfree2" class="form_input_label required"></label>
-								</div>
-							</div>
-							<div class="my_column my_right">
-								<div class="checkbox_frame">
-									<div class="checkbox_input">
-										<input name="data[User][free2][]" type="checkbox" id="Userfree2_0" class="required" value="プライバシーポリシーに同意する">
-									</div>
-									<div class="checkbox_label">
-										<label for="Userfree2_0" class="required">プライバシーポリシーに同意する</label>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="submit form_input_submit">
-							<input type="submit" value="確認する">
-						</div>
-
-						<input type="hidden" id="server_url" value="https://my183p.com/">
-						<input type="hidden" name="data[User][referer_form_url]" value="" class="UserRefererFormUrl">
-						<input type="hidden" name="data[User][referer_url]" value="" class="UserRefererUrl">
-
-						<script type="text/javascript">
-						//<!--
-							if (document.referrer.length != 0) {
-								if (document.getElementsByClassName("UserRefererUrl")) {
-									var user_referer_url = document.getElementsByClassName("UserRefererUrl");
-									for (var i = 0; i < user_referer_url.length; i++) {
-										user_referer_url[i].value = document.referrer;
-									}
-								} else if (document.getElementById("UserRefererUrl")) {
-									document.getElementById("UserRefererUrl").value = document.referrer;
-								}
-							}
-
-							if (document.getElementsByClassName("UserRefererFormUrl")) {
-								var user_referer_form_url = document.getElementsByClassName("UserRefererFormUrl");
-								for (var i = 0; i < user_referer_form_url.length; i++) {
-									user_referer_form_url[i].value = location.href;
-								}
-							} else if (document.getElementById("UserRefererFormUrl")) {
-								document.getElementById("UserRefererFormUrl").value = location.href;
-							}
-						//-->
-						</script>
-					</form>
-				</div>
-			</div>
+			<p class="contact__lead">ローカルのダミー表示です。</p>
 		</div>
 	</section>
 </main>
+
 <footer class="site-footer">
-  <div class="container footer-inner">
-    <nav class="footer-links">
-      <a class="footer-link" href="https://katsuyafujinaga.com/privacy/">PRIVACY POLICY</a>
-      <a class="footer-link" href="https://katsuyafujinaga.com/law/">特定商取引法に基づく表記</a>
-    </nav>
-    <p class="footer-copy">© HITORI-BIZ｜藤永勝也</p>
-  </div>
+	<div class="container footer-inner">
+		<nav class="footer-links" aria-label="フッターリンク">
+			<a class="footer-link" href="./preview.html#contact">PRIVACY POLICY</a>
+			<a class="footer-link" href="./preview.html#contact">特定商取引法に基づく表記</a>
+		</nav>
+		<p class="footer-copy">© HITORI-BIZ｜藤永勝也</p>
+	</div>
 </footer>
 <script src="./assets/main.js"></script>
-</body></html>
+</body>
+</html>

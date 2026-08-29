@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'HITORI_BIZ_VERSION', '1.2.0' );
+define( 'HITORI_BIZ_VERSION', '1.3.0' );
 define( 'HITORI_BIZ_DEFAULT_DESCRIPTION', '個人起業家の経験と想いを、選ばれ売れ続ける仕組みに。コンセプト・導線・LP・広告・セールスまで、HITORI-BIZプロデューサー藤永勝也が伴走します。' );
 
 /**
@@ -31,7 +31,7 @@ function hitori_biz_document_title( $title ) {
 	}
 
 	if ( is_home() ) {
-		return 'JOURNAL｜HITORI-BIZ｜藤永勝也';
+		return 'COLUMN｜HITORI-BIZ｜藤永勝也';
 	}
 
 	return $title ? $title . '｜HITORI-BIZ' : 'HITORI-BIZ｜藤永勝也';
@@ -75,7 +75,7 @@ function hitori_biz_seo_head() {
 		}
 	} elseif ( is_home() ) {
 		$url = get_permalink( get_option( 'page_for_posts' ) ) ?: home_url( '/' );
-		$title = 'JOURNAL｜HITORI-BIZ｜藤永勝也';
+		$title = 'COLUMN｜HITORI-BIZ｜藤永勝也';
 		$description = '届け方・仕組み・伴走についての読みもの。HITORI-BIZ｜藤永勝也。';
 	}
 
@@ -125,6 +125,81 @@ function hitori_biz_setup() {
 	);
 }
 add_action( 'after_setup_theme', 'hitori_biz_setup' );
+
+/**
+ * Theme image URL.
+ *
+ * @param string $filename Filename in assets/images.
+ * @return string
+ */
+function hitori_biz_image( $filename ) {
+	return get_template_directory_uri() . '/assets/images/' . ltrim( $filename, '/' );
+}
+
+/**
+ * Card image: featured image or fallback.
+ *
+ * @param int    $post_id  Post ID.
+ * @param string $fallback Fallback filename.
+ * @return string
+ */
+function hitori_biz_card_image( $post_id, $fallback ) {
+	if ( $post_id && has_post_thumbnail( $post_id ) ) {
+		$url = get_the_post_thumbnail_url( $post_id, 'large' );
+		if ( $url ) {
+			return $url;
+		}
+	}
+	return hitori_biz_image( $fallback );
+}
+
+/**
+ * Dummy magazine posts (local preview / fallback until WP posts exist).
+ *
+ * @return array<int, array<string, mixed>>
+ */
+function hitori_biz_dummy_posts() {
+	$path = get_template_directory() . '/dummy-posts.json';
+	if ( ! file_exists( $path ) ) {
+		return array();
+	}
+	$data = json_decode( (string) file_get_contents( $path ), true );
+	if ( ! is_array( $data ) ) {
+		return array();
+	}
+
+	$posts = array();
+	foreach ( $data as $item ) {
+		$posts[] = array(
+			'id'      => isset( $item['id'] ) ? (string) $item['id'] : '',
+			'date'    => isset( $item['date'] ) ? (string) $item['date'] : '',
+			'kicker'  => isset( $item['kicker'] ) ? (string) $item['kicker'] : '',
+			'class'   => isset( $item['class'] ) ? (string) $item['class'] : 'concept',
+			'title'   => isset( $item['title'] ) ? (string) $item['title'] : '',
+			'excerpt' => isset( $item['excerpt'] ) ? (string) $item['excerpt'] : '',
+			'image'   => hitori_biz_image( isset( $item['image'] ) ? $item['image'] : 'dummy-01.jpg' ),
+			'url'     => get_theme_file_uri( 'preview-post-' . ( isset( $item['id'] ) ? $item['id'] : '01' ) . '.html' ),
+			'body'    => isset( $item['body'] ) && is_array( $item['body'] ) ? $item['body'] : array(),
+		);
+	}
+	return $posts;
+}
+
+/**
+ * Dummy posts filtered by class (concept / funnel / sales / contents).
+ *
+ * @param string $class Class slug.
+ * @return array<int, array<string, mixed>>
+ */
+function hitori_biz_dummy_posts_by_class( $class ) {
+	$filtered = array();
+	foreach ( hitori_biz_dummy_posts() as $post ) {
+		if ( $post['class'] === $class ) {
+			$filtered[] = $post;
+		}
+	}
+	return $filtered;
+}
 
 /**
  * Create the 4 SERVICE detail pages if missing.
@@ -186,7 +261,7 @@ add_action( 'init', 'hitori_biz_ensure_service_pages' );
 function hitori_biz_assets() {
 	wp_enqueue_style(
 		'hitori-biz-fonts',
-		'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Oswald:wght@500;600&display=swap',
+		'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600;700&family=Oswald:wght@500;600&display=swap',
 		array(),
 		null
 	);

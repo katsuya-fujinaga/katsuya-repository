@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>養成講座のイメージ</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #d9c4a8;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
+    }
+    .slide {
+      width: 1920px;
+      height: 1080px;
+      background: #f3e2c9;
+      position: relative;
+      overflow: hidden;
+      transform-origin: top left;
+    }
+    .title {
+      position: absolute;
+      top: 48px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: #6b2a6e;
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+    .axis-y {
+      position: absolute;
+      left: 70px;
+      top: 150px;
+      width: 4px;
+      height: 760px;
+      background: #3a2a1a;
+    }
+    .axis-y::before {
+      content: "";
+      position: absolute;
+      top: -18px;
+      left: -10px;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-bottom: 22px solid #3a2a1a;
+    }
+    .axis-x {
+      position: absolute;
+      left: 70px;
+      top: 910px;
+      width: 1680px;
+      height: 4px;
+      background: #3a2a1a;
+    }
+    .axis-x::after {
+      content: "";
+      position: absolute;
+      right: -18px;
+      top: -10px;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      border-left: 22px solid #3a2a1a;
+    }
+    .label-skill {
+      position: absolute;
+      left: 92px;
+      top: 148px;
+      font-size: 36px;
+      color: #2b1d12;
+      font-weight: 700;
+    }
+    .label-term {
+      position: absolute;
+      right: 90px;
+      top: 928px;
+      font-size: 36px;
+      color: #2b1d12;
+      font-weight: 700;
+    }
+    .step {
+      position: absolute;
+      background: #fff;
+      border-radius: 6px;
+      padding: 22px 28px 26px;
+      width: 430px;
+    }
+    .step h3 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+    .step ul {
+      list-style: none;
+      font-size: 26px;
+      line-height: 1.7;
+      color: #2b1d12;
+    }
+    .label {
+      position: absolute;
+      font-size: 30px;
+      font-weight: 700;
+      color: #2b1d12;
+    }
+    .s1 { left: 160px; top: 560px; border: 8px solid #c4a06a; }
+    .s1 h3 { color: #8a5a18; }
+    .l1 { left: 280px; top: 512px; }
+    .s2 { left: 740px; top: 390px; border: 8px solid #c45c4a; width: 460px; }
+    .s2 h3 { color: #a33a2a; }
+    .l2 { left: 880px; top: 342px; }
+    .s3 { left: 1320px; top: 200px; border: 8px solid #3d5f8a; width: 500px; }
+    .s3 h3 { color: #2a4a72; font-size: 30px; }
+    .l3 { left: 1480px; top: 152px; }
+    .arrow {
+      position: absolute;
+      height: 18px;
+      background: #4a7eb8;
+      z-index: 2;
+    }
+    .arrow::after {
+      content: "";
+      position: absolute;
+      right: -22px;
+      top: -14px;
+      border-top: 23px solid transparent;
+      border-bottom: 23px solid transparent;
+      border-left: 28px solid #4a7eb8;
+    }
+    .a1 {
+      left: 600px;
+      top: 620px;
+      width: 120px;
+      transform: rotate(-18deg);
+    }
+    .a2 {
+      left: 1210px;
+      top: 430px;
+      width: 90px;
+      transform: rotate(-22deg);
+    }
+    .note {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 36px;
+      text-align: center;
+      color: #6b2a6e;
+      font-size: 28px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide" id="slide">
+    <div class="title">養成講座のイメージ</div>
+    <div class="axis-y"></div>
+    <div class="axis-x"></div>
+    <div class="label-skill">スキル</div>
+    <div class="label-term">実施期間</div>
+
+    <div class="label l1">ステップ1</div>
+    <div class="step s1">
+      <h3>育脳を学ぶ</h3>
+      <ul>
+        <li>①育脳マインドを習得</li>
+        <li>②育脳ルーティンを習得</li>
+        <li>③1秒育脳®を習得</li>
+      </ul>
+    </div>
+
+    <div class="label l2">ステップ2</div>
+    <div class="step s2">
+      <h3>育脳の伝え方を学ぶ</h3>
+      <ul>
+        <li>●否定を受容に変える言葉</li>
+        <li>●ママへの寄り添い方</li>
+        <li>●カウンセリング講座</li>
+      </ul>
+    </div>
+
+    <div class="label l3">ステップ3</div>
+    <div class="step s3">
+      <h3>お教室を開く方法を習得</h3>
+      <ul>
+        <li>●0歳からの育脳（ベビーマッサージ）</li>
+        <li>●1歳から3歳までの育脳（1秒育脳®）</li>
+      </ul>
+    </div>
+
+    <div class="arrow a1"></div>
+    <div class="arrow a2"></div>
+    <div class="note">オンラインだけではなく、リアルのお教室も視野に入れて学んでいきます。</div>
+  </div>
+  <script>
+    function fit() {
+      const slide = document.getElementById("slide");
+      const s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+      slide.style.transform = "scale(" + s + ")";
+      document.body.style.height = 1080 * s + "px";
+    }
+    fit();
+    window.addEventListener("resize", fit);
+  </script>
+</body>
+</html>
