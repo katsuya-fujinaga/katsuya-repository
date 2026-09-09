@@ -19,6 +19,7 @@ Desktop.ini
 .env
 .env.*
 !.env.example
+katsuya_project/ひとびじ/サイト/ワードプレス接続.txt
 
 # Python
 __pycache__/

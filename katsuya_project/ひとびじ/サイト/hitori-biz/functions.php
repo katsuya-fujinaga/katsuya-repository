@@ -115,7 +115,7 @@ function hitori_biz_setup() {
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support(
 		'html5',
-		array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script' )
+		array( 'search-form', 'gallery', 'caption', 'style', 'script' )
 	);
 
 	register_nav_menus(
@@ -125,6 +125,22 @@ function hitori_biz_setup() {
 	);
 }
 add_action( 'after_setup_theme', 'hitori_biz_setup' );
+
+/**
+ * コメント・ピンバックは使わない。
+ */
+function hitori_biz_disable_comments() {
+	return false;
+}
+add_filter( 'comments_open', 'hitori_biz_disable_comments', 20 );
+add_filter( 'pings_open', 'hitori_biz_disable_comments', 20 );
+add_filter( 'comments_array', '__return_empty_array', 10 );
+
+function hitori_biz_remove_comment_support() {
+	remove_post_type_support( 'post', 'comments' );
+	remove_post_type_support( 'page', 'comments' );
+}
+add_action( 'init', 'hitori_biz_remove_comment_support' );
 
 /**
  * Theme image URL.

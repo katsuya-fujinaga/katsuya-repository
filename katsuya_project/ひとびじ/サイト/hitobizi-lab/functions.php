@@ -23,7 +23,7 @@ function hitobizi_setup() {
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support(
 		'html5',
-		array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script' )
+		array( 'search-form', 'gallery', 'caption', 'style', 'script' )
 	);
 	add_theme_support( 'automatic-feed-links' );
 
@@ -35,6 +35,22 @@ function hitobizi_setup() {
 	);
 }
 add_action( 'after_setup_theme', 'hitobizi_setup' );
+
+/**
+ * コメント・ピンバックは使わない。
+ */
+function hitobizi_disable_comments() {
+	return false;
+}
+add_filter( 'comments_open', 'hitobizi_disable_comments', 20 );
+add_filter( 'pings_open', 'hitobizi_disable_comments', 20 );
+add_filter( 'comments_array', '__return_empty_array', 10 );
+
+function hitobizi_remove_comment_support() {
+	remove_post_type_support( 'post', 'comments' );
+	remove_post_type_support( 'page', 'comments' );
+}
+add_action( 'init', 'hitobizi_remove_comment_support' );
 
 /**
  * Suggest canonical site title / tagline once after theme switch.
