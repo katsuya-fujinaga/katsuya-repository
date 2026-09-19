@@ -20,6 +20,7 @@ Desktop.ini
 .env.*
 !.env.example
 katsuya_project/ひとびじ/サイト/ワードプレス接続.txt
+katsuya_project/写真/個人/
 
 # Python
 __pycache__/
@@ -66,6 +67,7 @@ node_modules/
 *.tsbuildinfo
 
 # エディタ・IDE（プロジェクト設定は必要なら # を外して調整）
+.vscode/sftp.json
 .idea/
 *.sublime-project
 *.sublime-workspace
