@@ -20,6 +20,7 @@ Desktop.ini
 .env.*
 !.env.example
 katsuya_project/ひとびじ/サイト/ワードプレス接続.txt
+katsuya_project/ことのは/サイト/ワードプレス接続.txt
 katsuya_project/写真/個人/
 
 # Python
