@@ -29,6 +29,7 @@ tags:
 
 - 本番LP：https://sub.uranai-ambitious.com/p/yasashiku1
 - [[LP原稿_yasashiku1]] … yasashiku1改のコピー原稿（draft）
+- [[LP原稿_LIVE書き起こしPDF]] … LIVE不参加／読める資料向け。公開 https://sub.uranai-ambitious.com/p/FE8i9sXtFu4o ／管理 `funnel/ATRNS2affpmO`
 
 ### メール
 
@@ -68,4 +69,5 @@ tags:
 
 - 本田有紀華さん案件の共通ルール・フッターは `product/講師横断/本田有紀華さん案件/` を正とする。
 - この案件は **メール / 個別相談 / ナレッジ / プロモーション / スライド / MTG** で整理する。
+- テキスト教材プレゼント導線は別案件 [[やさしくテキストキャンペーン]]。
 - LIVE・説明会スライドの正本が Google のときは、`スライド/` にリンク索引を置く。

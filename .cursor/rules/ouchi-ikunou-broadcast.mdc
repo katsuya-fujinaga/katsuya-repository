@@ -1,0 +1,35 @@
+---
+description: おうち育脳カウンセラーのMyASP配信設定。短縮URL・バックナンバー公開・返信先。No.1以降は20時
+globs: product/案件/おうち育脳カウンセラー/**
+alwaysApply: false
+---
+
+# おうち育脳｜MyASP配信設定
+
+対象：MyASP `BKUFw1gG`（【おうち育脳】統合7期４クール）
+
+## 全通共通（返信・No.0・No.1以降）
+
+| 項目 | 値 |
+|---|---|
+| 短縮URL | **ON**（`use_short_urls=true`） |
+| バックナンバー公開 | **ON** |
+| 返信先アドレス | **infomail@mamaaka.com** |
+| 差出人 | 【おうち育脳】永瀬まみ / `infomail@mamaaka.com` |
+| 形式 | テキスト（写真・HTML画像は入れない） |
+
+## 配信タイミング
+
+| 通 | タイミング |
+|---|---|
+| 返信（本登録完了時） | 登録直後 |
+| No.0 | 本登録完了の1時間後 |
+| No.1以降 | 毎日 **20:00**（一括配信の予約） |
+
+## 運用
+
+- 件名は各原稿の `タイトル：` と同一
+- MCPの一括配信は `mail_format=text`、`use_short_urls=true`、`scheduled_at` はその日の `20:00:00`
+- MCPのステップは `use_short_urls=true`
+- バックナンバー公開はMCP非対応。管理画面でONにする
+- 返信先もMCP非対応のことがある。管理画面で `infomail@mamaaka.com` を確認する

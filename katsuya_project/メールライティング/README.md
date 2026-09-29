@@ -13,6 +13,7 @@
 | 種別 | パス |
 |------|------|
 | **形式・フォーマット（全案件共通）** | `.cursor/rules/email-writing-format.mdc` |
+| **欲求から言葉を選ぶ（原稿の中身）** | `.cursor/rules/desire-list-writing.mdc`（正本は `katsuya_project/マインドセット/ライティング/欲求リスト_ライティングナレッジ.md`） |
 | **ひとびじ（藤永・ハウスメール含む）** | `.cursor/rules/hitobizi-lab.mdc` |
 | **本田有紀華さん（ハウス・フッター）** | `.cursor/rules/honda-yukika-housemail.mdc`、`.cursor/rules/honda-yukika-mail-footer.mdc` |
 | **藤永としての応答方針** | `.cursor/rules/fujinaga-katsuya-persona.mdc`（メール形式は上の共通ファイルを参照） |
@@ -42,6 +43,7 @@
 | 置き場 | 役割 |
 |------|------|
 | **`katsuya_project/メールライティング/README.md`** | 案件横断の索引。どのルールを見るかを案内する |
+| **`katsuya_project/マインドセット/ライティング/欲求リスト_ライティングナレッジ.md`** | 原稿の中身。読み手の欲求から言葉を選ぶ正本 |
 | **`katsuya_project/ひとびじ/メール/ハウスメール/README.md`** | ひとびじハウスメール固有の運用メモ |
 | **`.cursor/rules/email-writing-format.mdc`** | 全案件共通の形式ルール |
 | **`.cursor/rules/hitobizi-lab.mdc`** など | ブランド・講師固有のトーン / 思想 / 署名 |
