@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LPフォーム（ぷよぷよ）プレビュー · tools</title>
+  <link rel="stylesheet" href="./lp-form-puyo.css" />
+  <style>
+    body {
+      font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", Meiryo, sans-serif;
+      margin: 0;
+      padding: 1.5rem;
+      background: #fafafa;
+      color: #333;
+    }
+    .note {
+      max-width: 920px;
+      margin: 0 auto 1.5rem;
+      padding: 1rem;
+      background: #e8f4fc;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    .note code { font-size: 0.85em; }
+    .note a { color: #1698c7; }
+  </style>
+</head>
+<body>
+  <div class="note">
+    <strong>プレビュー用</strong>（送信先はダミー）。本番では <code>snippet.html</code> をコピーして <code>action</code> ・画像パスを差し替えてください。
+    ナレッジ: <a href="./README.md">README.md</a>（GitHub 上で表示）
+  </div>
+
+  <div class="lp-form-puyo-kit">
+    <section class="lpfp-section">
+      <h3 class="lpfp-heading" style="text-align:center;margin:0;">
+        <img src="../lp3/images/hd_sk.png" alt="今すぐ登録する" style="max-width:100%;height:auto;" />
+      </h3>
+      <form class="lpfp-inner" method="get" action="#" onsubmit="return false;">
+        <input
+          class="lpfp-input"
+          type="email"
+          name="demo-mail"
+          placeholder="メールアドレスを入力してください"
+          autocomplete="email"
+        />
+        <span class="lpfp-btn-shell">
+          <input
+            class="lpfp-btn"
+            type="image"
+            src="../lp3/images/button.png"
+            alt="送信（デモ）"
+          />
+        </span>
+        <div class="lpfp-optin">
+          <p>デモ用の注意書きエリアです。長文のときはスクロールします。</p>
+        </div>
+      </form>
+    </section>
+  </div>
+</body>
+</html>

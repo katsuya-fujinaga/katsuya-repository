@@ -1,0 +1,134 @@
+@charset "utf-8";
+
+/**
+ * LP オプトインフォーム + ぷよぷよボタン（CSS アニメーション）
+ * ルートに .lp-form-puyo-kit を付けた範囲だけに効く（他LPとのクラス衝突を避ける）
+ */
+
+.lp-form-puyo-kit .lpfp-section {
+  margin: 0 auto;
+  padding: 0;
+  background: #ffffff;
+}
+
+.lp-form-puyo-kit .lpfp-inner {
+  margin: 0 auto;
+  padding: 10px 0 40px;
+  width: 920px;
+  max-width: 100%;
+  background: #fff;
+}
+
+/* 画像送信 input は「置換要素」のため transform アニメが効かないブラウザがある → 親 .lpfp-btn-shell でぷよぷよ */
+.lp-form-puyo-kit .lpfp-inner .lpfp-btn-shell {
+  display: block;
+  margin: 25px auto 0;
+  max-width: 100%;
+  width: fit-content;
+  margin-inline: auto;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+  animation-name: lpfp-btn-puyo;
+  animation-iteration-count: infinite;
+  animation-duration: 2s;
+}
+
+.lp-form-puyo-kit .lpfp-btn-shell:hover {
+  animation-duration: 0.8s;
+}
+
+.lp-form-puyo-kit .lpfp-btn-shell .lpfp-btn {
+  display: block;
+  margin: 0;
+  max-width: 100%;
+  vertical-align: bottom;
+}
+
+/* メール入力：太枠・大きめ（lp3 の .deco 相当） */
+.lp-form-puyo-kit .lpfp-input {
+  display: block;
+  margin: 30px auto 20px;
+  padding: 10px 6px 4px;
+  width: 840px;
+  max-width: 100%;
+  height: 108px;
+  border: 4px solid #7ad2e5;
+  background: #fff;
+  color: #1698c7;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.lp-form-puyo-kit .lpfp-input::placeholder {
+  color: #aaa;
+}
+
+@keyframes lpfp-btn-puyo {
+  0% {
+    transform: scale(1, 1);
+  }
+  20% {
+    transform: scale(1.02, 1.02);
+  }
+  40% {
+    transform: scale(1, 1);
+  }
+  60% {
+    transform: scale(1.02, 1.02);
+  }
+  80% {
+    transform: scale(1, 1);
+  }
+  85% {
+    transform: skewX(10deg);
+  }
+  90% {
+    transform: skewX(-10deg);
+  }
+  95% {
+    transform: skewX(10deg);
+  }
+  100% {
+    transform: skewX(-10deg);
+  }
+}
+
+.lp-form-puyo-kit .lpfp-optin {
+  margin: 4em auto 0;
+  padding: 1em;
+  width: 800px;
+  max-width: 100%;
+  min-height: 4em;
+  height: 6em;
+  background: #f5f5f5;
+  color: #333;
+  font-size: 75%;
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+.lp-form-puyo-kit .lpfp-optin p {
+  margin: 0;
+  text-align: center;
+}
+
+@media screen and (max-width: 1023px) {
+  .lp-form-puyo-kit .lpfp-section {
+    padding: 30px 0;
+  }
+
+  .lp-form-puyo-kit .lpfp-input {
+    font-size: 1em;
+  }
+
+  .lp-form-puyo-kit .lpfp-optin {
+    margin-top: 2em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-form-puyo-kit .lpfp-btn-shell {
+    animation: none;
+  }
+}
