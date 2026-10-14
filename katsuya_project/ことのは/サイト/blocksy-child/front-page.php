@@ -9,12 +9,12 @@ get_header();
 
 $img      = get_stylesheet_directory_uri() . '/assets/images';
 $posts    = kotonoha_posts();
-$feature  = $posts[0];
-$side     = array( $posts[1], $posts[4], $posts[8] );
+$feature  = $posts[0] ?? null;
+$side     = array_slice( $posts, 1, 3 );
 $method   = kotonoha_by_class( $posts, 'method' );
 $story    = kotonoha_by_class( $posts, 'story' );
 $sales    = kotonoha_by_class( $posts, 'sales' );
-$trending = array( $posts[2], $posts[5], $posts[9] );
+$trending = array_slice( $posts, 4, 3 );
 ?>
 
 <main id="top" class="mag-main">
@@ -24,6 +24,7 @@ $trending = array( $posts[2], $posts[5], $posts[9] );
 				<h2>TOP STORIES</h2>
 			</div>
 			<div class="mag-top-grid">
+				<?php if ( $feature ) : ?>
 				<article class="mag-feature">
 					<?php
 					get_template_part(
@@ -33,6 +34,8 @@ $trending = array( $posts[2], $posts[5], $posts[9] );
 					);
 					?>
 				</article>
+				<?php endif; ?>
+				<?php if ( $side ) : ?>
 				<div class="mag-side">
 					<?php foreach ( $side as $item ) : ?>
 						<article>
@@ -40,10 +43,12 @@ $trending = array( $posts[2], $posts[5], $posts[9] );
 						</article>
 					<?php endforeach; ?>
 				</div>
+				<?php endif; ?>
 			</div>
 		</div>
 	</section>
 
+	<?php if ( $trending ) : ?>
 	<section class="mag-section mag-section--paper" id="trending">
 		<div class="container">
 			<div class="mag-section-head">
@@ -57,19 +62,22 @@ $trending = array( $posts[2], $posts[5], $posts[9] );
 			</div>
 		</div>
 	</section>
+	<?php endif; ?>
 
 	<section class="mag-banner" id="feature">
 		<div class="mag-banner__photo">
-			<img src="<?php echo esc_url( $posts[11]['image'] ); ?>" alt="" width="1600" height="900">
+			<img src="<?php echo esc_url( $img . '/dummy-12.jpg' ); ?>" alt="" width="1600" height="900">
 		</div>
 		<div class="mag-banner__copy">
-			<p class="mag-kicker">FEATURE</p>
-			<h2>伝えたい想いを、「伝わる形」にする。</h2>
-			<p>好きや経験はある。足りないのは、届ける順番だけだった。ことのはは、個人起業家の言葉を仕組みに変える編集部です。</p>
+			<?php $brand = kotonoha_brand(); ?>
+			<p class="mag-kicker"><?php echo esc_html( $brand['sub'] ); ?></p>
+			<h2><?php echo esc_html( $brand['desc'] ); ?></h2>
+			<p>好きや経験はある。足りないのは、届ける順番だけだった。</p>
 			<a class="btn" href="<?php echo esc_url( home_url( '/contact-us/' ) ); ?>">CONTACT</a>
 		</div>
 	</section>
 
+	<?php if ( $method ) : ?>
 	<section class="mag-section" id="method">
 		<div class="container">
 			<div class="mag-section-head">
@@ -82,7 +90,9 @@ $trending = array( $posts[2], $posts[5], $posts[9] );
 			</div>
 		</div>
 	</section>
+	<?php endif; ?>
 
+	<?php if ( $story ) : ?>
 	<section class="mag-section mag-section--paper" id="story">
 		<div class="container">
 			<div class="mag-section-head">
@@ -95,7 +105,9 @@ $trending = array( $posts[2], $posts[5], $posts[9] );
 			</div>
 		</div>
 	</section>
+	<?php endif; ?>
 
+	<?php if ( $sales ) : ?>
 	<section class="mag-section" id="sales">
 		<div class="container">
 			<div class="mag-section-head">
@@ -108,6 +120,7 @@ $trending = array( $posts[2], $posts[5], $posts[9] );
 			</div>
 		</div>
 	</section>
+	<?php endif; ?>
 
 	<section class="mag-section mag-section--paper" id="works">
 		<div class="container">
@@ -135,18 +148,6 @@ $trending = array( $posts[2], $posts[5], $posts[9] );
 						<p>永瀬まみ先生　コンセプト／導線・LP／広告／セミナー／クロージング</p>
 					</div>
 				</a>
-				<?php if ( ! empty( $posts[11] ) ) : ?>
-				<a class="mag-work" href="<?php echo esc_url( $posts[11]['url'] ); ?>">
-					<div class="mag-work__photo">
-						<img src="<?php echo esc_url( $posts[11]['image'] ); ?>" alt="" width="800" height="550" loading="lazy">
-					</div>
-					<div class="mag-work__body">
-						<p class="mag-kicker">FEATURE</p>
-						<h3><?php echo esc_html( $posts[11]['title'] ); ?></h3>
-						<p><?php echo esc_html( $posts[11]['excerpt'] ); ?></p>
-					</div>
-				</a>
-				<?php endif; ?>
 			</div>
 		</div>
 	</section>
@@ -162,9 +163,9 @@ $trending = array( $posts[2], $posts[5], $posts[9] );
 				</figure>
 				<div>
 					<p class="mag-profile__name">藤永勝也</p>
-					<p class="mag-profile__role">個人起業家プロデューサー</p>
-					<p>飲食店を約14年経営。現場で「選ばれる理由」を学び、マーケティング・コンテンツプロデュースへ転身しました。</p>
-					<p>いまは、個人起業家・講師の「経験と想い」を、届いて売れる仕組みに変える伴走をしています。</p>
+					<p class="mag-profile__role"><?php echo esc_html( kotonoha_brand()['sub'] ); ?>編集部</p>
+					<p>飲食店を約14年経営。現場で「選ばれる理由」を学びました。</p>
+					<p>この編集部で、個人起業家の経験と想いを、届く仕組みに変えています。</p>
 				</div>
 			</div>
 		</div>

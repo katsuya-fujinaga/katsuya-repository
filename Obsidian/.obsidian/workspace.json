@@ -70,9 +70,7 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false,
-                "showSearch": false,
-                "searchQuery": ""
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "ファイルエクスプローラ"
@@ -276,6 +274,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "juggl:Juggl global graph": false,
       "switcher:クイックスイッチャーを開く": false,
       "graph:グラフビューを開く": false,
       "canvas:新規キャンバスを作成": false,

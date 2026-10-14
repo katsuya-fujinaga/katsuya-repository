@@ -1,10 +1,10 @@
 /*
 Theme Name: Blocksy Child
 Theme URI: https://kotonoha.co/
-Description: kotonoha.co 用の編集部型（Journal）子テーマ。
+Description: KOTONOHA（ことのは）。個人起業家の言葉を仕組みに変える編集部。
 Author: 藤永勝也
 Template: blocksy
-Version: 1.1.0
+Version: 1.1.3
 Text Domain: blocksy-child
 */
 
@@ -447,9 +447,22 @@ footer.ct-footer,
   letter-spacing: 0.24em;
 }
 
-.footer-tag {
-  margin: 0.5rem 0 1.2rem;
+.footer-sub {
+  margin: 0.35rem 0 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.42em;
   color: var(--muted);
+}
+
+.footer-tag {
+  margin: 0.45rem 0 1.2rem;
+  color: var(--muted);
+}
+
+.mag-dek {
+  margin: -0.4rem 0 1.4rem;
+  color: var(--muted);
+  font-size: 0.92rem;
 }
 
 .footer-links {
@@ -511,6 +524,101 @@ footer.ct-footer,
 
 .article__body p {
   margin: 0 0 1.3rem;
+}
+
+.article__body h2 {
+  margin: 2.2rem 0 1rem;
+  font-family: var(--font-serif);
+  font-size: 1.28rem;
+  line-height: 1.5;
+}
+
+.article__body a {
+  color: inherit;
+  text-underline-offset: 0.18em;
+}
+
+.contact-page {
+  padding: 2.4rem 0 4rem;
+}
+
+.contact-page .contact-lead {
+  text-align: center;
+  margin: 0 0 0.4rem;
+}
+
+.contact-page .contact-lead + .contact-lead {
+  margin-bottom: 2rem;
+}
+
+.myasp-form-wrap .content_title {
+  text-align: center;
+  margin-bottom: 1.4rem;
+}
+
+.myasp-form-wrap .content_title h2 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.myasp-form-wrap .input_unit {
+  margin: 0 0 1.1rem;
+}
+
+.myasp-form-wrap .my_column,
+.myasp-form-wrap .label_frame {
+  display: block;
+  width: 100%;
+}
+
+.myasp-form-wrap .form_input_label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+}
+
+.myasp-form-wrap input[type="text"],
+.myasp-form-wrap textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.75rem 0.8rem;
+  border: 1px solid var(--line);
+  background: #fff;
+  font: inherit;
+}
+
+.myasp-form-wrap textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.myasp-form-wrap .privacy-link {
+  margin: 0.2rem 0 0.8rem;
+  font-size: 0.88rem;
+}
+
+.myasp-form-wrap .checkbox_frame {
+  display: flex;
+  gap: 0.55rem;
+  align-items: flex-start;
+}
+
+.myasp-form-wrap .form_input_submit {
+  margin-top: 1.4rem;
+}
+
+.myasp-form-wrap .form_input_submit input[type="submit"] {
+  appearance: none;
+  border: 1px solid #111;
+  background: #111;
+  color: #fff;
+  padding: 0.75rem 1.4rem;
+  letter-spacing: 0.14em;
+  font-size: 0.78rem;
+  cursor: pointer;
 }
 
 .mag-archive {

@@ -14,6 +14,7 @@ $posts = kotonoha_posts();
 			<div class="mag-section-head">
 				<h2>JOURNAL</h2>
 			</div>
+			<p class="mag-dek"><?php echo esc_html( kotonoha_brand()['desc'] ); ?></p>
 			<div class="mag-archive">
 				<?php foreach ( $posts as $item ) : ?>
 					<?php get_template_part( 'template-parts/mag-card', null, $item ); ?>

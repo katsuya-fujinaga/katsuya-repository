@@ -86,3 +86,7 @@ nul
 
 # ローカルビルド用（python-pptx vendoring）
 product/案件/**/_pptx_vendor/
+
+# 説明会・個別相談の録画（ローカル保管のみ）
+product/講師横断/説明会録画ダウンロード/*
+!product/講師横断/説明会録画ダウンロード/.gitkeep

@@ -14,6 +14,8 @@ tags:
 
 [kotonoha.co](https://kotonoha.co/) 向けのサイト資産置き場です。
 
+呼び方は3つだけ。ロゴ **KOTONOHA**、サブ **ことのは**、説明 **個人起業家の言葉を仕組みに変える編集部**。文言の正は `blocksy-child/functions.php` の `kotonoha_brand()`。
+
 本番はエックスサーバー（`sv2012.xserver.jp`）の WordPress。親テーマは **Blocksy**。見た目は子テーマ `blocksy-child` の編集部型（VOGUE 型の Journal）で上書きします。
 
 ローカル確認: `katsuya_project/ことのは/サイト/preview.html`
